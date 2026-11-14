@@ -248,5 +248,28 @@ class BrowserTests(unittest.TestCase):
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 
 
+    def test_opt_in_deferred_sections_render_and_print_without_becoming_hidden(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text()
+        self.page.set_content(f'''<style>{core}{recipes}</style>
+          <main class="syn-root syn-page" data-syn-theme="studio">
+            <section style="height: 1400px">Top section</section>
+            <section class="syn-defer-section" id="deferred"
+                     style="--syn-defer-size: 24rem">
+              <h2>Detailed report</h2><button class="syn-button">Open</button>
+            </section>
+            <section id="normal">Always rendered</section>
+          </main>''')
+        deferred = self.page.locator('#deferred')
+        self.assertEqual(deferred.evaluate('e => getComputedStyle(e).contentVisibility'), 'auto')
+        self.assertEqual(self.page.locator('#normal').evaluate(
+            'e => getComputedStyle(e).contentVisibility'), 'visible')
+        deferred.scroll_into_view_if_needed()
+        self.assertTrue(deferred.get_by_role('button', name='Open').is_visible())
+        self.page.emulate_media(media='print')
+        self.assertEqual(deferred.evaluate('e => getComputedStyle(e).contentVisibility'), 'visible')
+        self.assertEqual(deferred.evaluate('e => getComputedStyle(e).containIntrinsicSize'), 'none')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

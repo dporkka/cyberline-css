@@ -369,6 +369,20 @@
   .syn-activity-list { list-style: none; margin: 0; padding: 0; }
   .syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
   .syn-activity-list li:last-child { border-block-end: 0; }
+  /* Opt-in for independent, long below-the-fold sections only. Avoid tables,
+     interactive overlays, and content whose initial height must be exact. */
+  @supports (content-visibility: auto) {
+    .syn-defer-section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
+    }
+  }
+  @media print {
+    .syn-defer-section {
+      content-visibility: visible;
+      contain-intrinsic-size: none;
+    }
+  }
   /* Business/marketing: typography and hierarchy without forcing a dark look. */
   .syn-site-hero {
     position: relative; isolation: isolate; overflow: hidden;
