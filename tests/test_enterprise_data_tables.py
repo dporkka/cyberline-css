@@ -93,6 +93,12 @@ class EnterpriseDataTables(unittest.TestCase):
         self.assertIn("border-bottom: 2px solid currentColor", css)
         self.assertNotIn("border-inline-end: 2px solid currentColor", css)
 
+    def test_sticky_header_only_pins_first_header_row(self):
+        css = (ROOT / "src/components/data.css").read_text()
+        self.assertIn("thead > tr:first-of-type > th", css)
+        self.assertNotIn("thead > tr:first-child > th", css)
+        self.assertNotIn(".syn-table--sticky thead th", css)
+
     def test_generated_core_contains_opt_in_styles(self):
         css = (ROOT / "dist/syntyr.core.css").read_text()
         self.assertIn(".syn-table-wrap--scroll", css)

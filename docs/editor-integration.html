@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="b159689cc46b8337def764a170740eda24fc663dad80aa8fc30b70b3eaee63ca">
+  <meta name="syntyr-source-sha256" content="f68d5c54e63132d8814fb60dd393bdb3300c161aba16c0ff4d7f72615fe23d65">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -105,7 +105,9 @@ cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets 
 selection, pagination, validation, focus or authorization).</li>
 </ul>
 <p>Available recipes cover a CRM filter form, semantic resource table, app shell,
-and validated form. Use a <code>.syn-root</code> ancestor for every composition, and load
+validated form, opt-in enterprise table, and full collection workspace. The
+enterprise recipes use candidate-only CSS and examples, not the published
+alpha.4 release. Use a <code>.syn-root</code> ancestor for every composition, and load
 all listed stylesheets in the documented order (core before optional recipes).
 The contract's <code>slots</code> describe roles, <strong>not a strict DOM nesting validator</strong>;
 authors must still use accessible native HTML in context. The host application

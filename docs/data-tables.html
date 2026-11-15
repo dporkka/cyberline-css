@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr applies general design principles visible in permissively licensed design systems such as GitHub Primer (MIT), IBM Carbon (Apache-2.0), and…">
-  <meta name="syntyr-source-sha256" content="f84f116990adced2a48eb06fa8563d056af386042329c48357af811d9554856c">
+  <meta name="syntyr-source-sha256" content="83ef84009984197564be9322e534bb41774ffee3dbffec88fedc823d2146ffaf">
   <meta name="theme-color" content="#f5f7fb">
   <title>Enterprise data tables with native HTML — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/data-tables">
@@ -96,8 +96,10 @@ control.</p>
 <h2 id="accessibility-performance-and-themes">Accessibility, performance, and themes</h2>
 <p>The styles are scoped to syn-root and inherit the nearest theme and
 density tokens. An application may override --syn-table-sticky-offset
-for a local scrolling layout. Multi-row headers need individual offset
-testing.</p>
+for a local scrolling layout. The first direct header row is sticky; additional
+header rows scroll normally to avoid overlapping heading bands. Applications
+that need multiple sticky header rows must assign their own measured row
+offsets and validate scrolling, zoom and screen-reader behavior.</p>
 <p>The sticky heading retains a visible border in forced-colors mode.
 Verify 200% and 400% reflow, keyboard scroll and focus, and real screen
 reader behavior in consuming applications. Do not confuse CSS-only

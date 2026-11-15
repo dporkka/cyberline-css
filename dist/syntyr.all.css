@@ -591,7 +591,9 @@
     /* Opt-in striping; selected rows take precedence. */
     &.syn-table--striped tbody tr:nth-child(even):not([aria-selected="true"]):not([data-syn-state="selected"]) { background: var(--syn-surface-recessed); }
     &.syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
-    &.syn-table--sticky thead th {
+    /* Only the first header row sticks. Additional header rows scroll normally;
+       multi-row sticky hierarchies require explicit host-owned row offsets. */
+    &.syn-table--sticky thead > tr:first-of-type > th {
       position: sticky;
       inset-block-start: var(--syn-table-sticky-offset, 0px);
       z-index: 1;
@@ -626,7 +628,7 @@
       &.syn-table tr[aria-selected="true"] > :first-child,
       &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
       &.syn-status::before { border: 1px solid currentColor; }
-      &.syn-table--sticky thead th { background: Canvas; box-shadow: inset 0 -1px CanvasText; }
+      &.syn-table--sticky thead > tr:first-of-type > th { background: Canvas; box-shadow: inset 0 -1px CanvasText; }
     }
   }
 }

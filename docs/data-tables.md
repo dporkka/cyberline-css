@@ -72,8 +72,10 @@ control.
 
 The styles are scoped to syn-root and inherit the nearest theme and
 density tokens. An application may override --syn-table-sticky-offset
-for a local scrolling layout. Multi-row headers need individual offset
-testing.
+for a local scrolling layout. The first direct header row is sticky; additional
+header rows scroll normally to avoid overlapping heading bands. Applications
+that need multiple sticky header rows must assign their own measured row
+offsets and validate scrolling, zoom and screen-reader behavior.
 
 The sticky heading retains a visible border in forced-colors mode.
 Verify 200% and 400% reflow, keyboard scroll and focus, and real screen

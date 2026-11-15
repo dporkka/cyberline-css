@@ -444,6 +444,149 @@
       },
       "host_behavior": "Host supplies server/client validation, error text, stable error IDs, aria-describedby, aria-invalid and focus to an error summary when submission fails. CSS never performs validation or focus changes.",
       "example": "examples/form-composition.html"
+    },
+    {
+      "id": "enterprise-table",
+      "description": "Opt-in scroll-bounded native data table with sticky headings, striping and truthfully annotated sort state.",
+      "stylesheets": [
+        "syntyr.core.css"
+      ],
+      "root": {
+        "tag": "div",
+        "classes": [
+          "syn-table-wrap",
+          "syn-table-wrap--scroll"
+        ]
+      },
+      "slots": [
+        {
+          "name": "table",
+          "tag": "table",
+          "classes": [
+            "syn-table",
+            "syn-table--sticky",
+            "syn-table--striped"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "sort-indicator",
+          "tag": "span",
+          "classes": [
+            "syn-table-sort"
+          ],
+          "optional": true,
+          "repeatable": true
+        },
+        {
+          "name": "numeric-cell",
+          "tag": "td",
+          "classes": [
+            "syn-cell--numeric"
+          ],
+          "optional": true,
+          "repeatable": true
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "compact",
+          "comfortable",
+          "spacious"
+        ]
+      },
+      "host_behavior": "Set role=region with a visible focus ring, meaningful aria-label and tabindex=0 when a table actually overflows. Provide caption and scoped header cells. Apply aria-sort only to the column truly sorted by application data. The server must perform sorting, filtering and paging; CSS only renders indicators. Verify real RTL navigation and print long tables without clipping.",
+      "example": "examples/data-tables.html"
+    },
+    {
+      "id": "collection-workspace",
+      "description": "Responsive resource workspace with filtering, native data table, bulk-selection presentation, empty states and linked error recovery.",
+      "stylesheets": [
+        "syntyr.core.css",
+        "syntyr.recipes.css"
+      ],
+      "root": {
+        "tag": "section",
+        "classes": [
+          "syn-app-card"
+        ]
+      },
+      "slots": [
+        {
+          "name": "toolbar",
+          "tag": "div",
+          "classes": [
+            "syn-collection-toolbar"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "filter",
+          "tag": "form",
+          "classes": [
+            "syn-filter-bar"
+          ],
+          "optional": false,
+          "repeatable": false
+        },
+        {
+          "name": "actions",
+          "tag": "div",
+          "classes": [
+            "syn-collection-actions"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "table",
+          "tag": "table",
+          "classes": [
+            "syn-table",
+            "syn-table--compact"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "bulk-actions",
+          "tag": "div",
+          "classes": [
+            "syn-bulk-actions"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "empty-state",
+          "tag": "div",
+          "classes": [
+            "syn-result-state"
+          ],
+          "optional": true,
+          "repeatable": false
+        },
+        {
+          "name": "error-summary",
+          "tag": "div",
+          "classes": [
+            "syn-error-summary"
+          ],
+          "optional": true,
+          "repeatable": false
+        }
+      ],
+      "variants": {
+        "data-syn-density": [
+          "compact",
+          "comfortable",
+          "spacious"
+        ]
+      },
+      "host_behavior": "Host owns GET query parsing, server-rendered results and true selected-item counts; never imply disabled demo controls work. Render empty state only when a real query returns no results. Connect error-summary links to unique invalid-field IDs, and move focus to the summary after a failed real submission; CSS does not validate, focus, authorize, delete or mutate resources.",
+      "example": "examples/resource-workspace.html"
     }
   ]
 }

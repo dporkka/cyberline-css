@@ -90,7 +90,9 @@ The same generated `metadata/syntyr-contract.json` includes an optional
   selection, pagination, validation, focus or authorization).
 
 Available recipes cover a CRM filter form, semantic resource table, app shell,
-and validated form. Use a `.syn-root` ancestor for every composition, and load
+validated form, opt-in enterprise table, and full collection workspace. The
+enterprise recipes use candidate-only CSS and examples, not the published
+alpha.4 release. Use a `.syn-root` ancestor for every composition, and load
 all listed stylesheets in the documented order (core before optional recipes).
 The contract's `slots` describe roles, **not a strict DOM nesting validator**;
 authors must still use accessible native HTML in context. The host application

@@ -19,7 +19,8 @@ class RecipeContractTests(unittest.TestCase):
     def test_exported_recipes_have_valid_class_and_stylesheet_coverage(self):
         recipes = self.contract["recipes"]
         self.assertEqual({recipe["id"] for recipe in recipes}, {
-            "crm-filter", "resource-table", "app-shell", "validated-form"
+            "crm-filter", "resource-table", "app-shell", "validated-form",
+            "enterprise-table", "collection-workspace"
         })
         classes = {c["name"]: set(c["stylesheets"]) for c in self.contract["classes"]}
         for recipe in recipes:
@@ -34,6 +35,20 @@ class RecipeContractTests(unittest.TestCase):
                 self.assertTrue(classes[name].intersection(recipe["stylesheets"]), name)
             self.assertEqual(len({s["name"] for s in recipe["slots"]}), len(recipe["slots"]))
         self.assertEqual(self.curated["recipes"], recipes)
+
+    def test_enterprise_recipes_bind_verified_css_and_demos(self):
+        lookup = {recipe["id"]: recipe for recipe in self.contract["recipes"]}
+        table = lookup["enterprise-table"]
+        self.assertIn("syn-table-wrap--scroll", table["root"]["classes"])
+        self.assertEqual(table["example"], "examples/data-tables.html")
+        self.assertIn("aria-sort", table["host_behavior"])
+        workspace = lookup["collection-workspace"]
+        self.assertEqual(workspace["example"], "examples/resource-workspace.html")
+        self.assertIn("syntyr.recipes.css", workspace["stylesheets"])
+        for label in ("toolbar", "filter", "table", "bulk-actions", "empty-state", "error-summary"):
+            self.assertIn(label, {slot["name"] for slot in workspace["slots"]})
+        for recipe in (table, workspace):
+            self.assertNotIn("<script", (ROOT / recipe["example"]).read_text().lower())
 
     def test_rejects_unknown_classes_and_missing_css_module(self):
         original = self.curated["recipes"]
