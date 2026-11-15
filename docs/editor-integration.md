@@ -60,7 +60,7 @@ load the corresponding Syntyr CSS distribution.
 The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable
 development contract. It combines the **full source-discovered** class and token
 inventory with the existing **curated** semantic component recipes, supported
-theme/state values, and CSS distribution filenames. The contract is generated
+theme/state values, CSS distribution filenames, and their source-module membership. The contract is generated
 by `python3 scripts/export_api_metadata.py` and checked by `--check`. Do
 not edit it directly. The existing `metadata/components.json` remains a
 curated subset and is not a complete list of classes.
@@ -76,6 +76,14 @@ printf '<button class="syn-buttn">Save</button>' | python3 scripts/syntyr_check.
 # For fragments, supply the CSS modules actually installed in the consumer app:
 cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
 ```
+
+The checker also flags duplicate Syntyr stylesheet links and overlapping bundle
+imports (for example, loading both `syntyr.all.css` and `syntyr.core.css`).
+Overlap detection uses the generated `stylesheet_sources` mapping, taken from
+the canonical build registry rather than a second handwritten dependency list.
+A link with a different version/query string still counts as the same Syntyr
+entrypoint. The check considers literal HTML links, not runtime-injected styles
+or `--stylesheets` overrides for fragments; it does not inspect custom CSS.
 
 The checker reports source positions, unknown literal `syn-*` classes, invalid
 literal `data-syn-*` values, and missing optional CSS modules **when a Syntyr

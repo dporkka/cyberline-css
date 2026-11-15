@@ -182,6 +182,7 @@ def component_contract(api, html_data):
         "completeness": "all-source-discovered-classes-and-tokens; curated-components",
         "note": "Curated component elements are guidance, not per-class tag restrictions.",
         "stylesheets": sorted(distributions_by_name),
+        "stylesheet_sources": {name: list(sources) for name, sources in sorted(distributions_by_name.items())},
         "classes": with_stylesheets(api["classes"]),
         "tokens": with_stylesheets(api["tokens"]),
         "themes": api["themes"],

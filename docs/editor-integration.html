@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="e5a27be83ebb691227fb2d099fd8dac1b93853830c6fb59d2ab398ee92a79cbc">
+  <meta name="syntyr-source-sha256" content="053dc0d037a1efaacc27b75f8599a278d109a4d8aa3dd6559f86017766ac0ec9">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -80,7 +80,7 @@ load the corresponding Syntyr CSS distribution.</p>
 <p>The generated <code>metadata/syntyr-contract.json</code> is Syntyr's machine-readable
 development contract. It combines the <strong>full source-discovered</strong> class and token
 inventory with the existing <strong>curated</strong> semantic component recipes, supported
-theme/state values, and CSS distribution filenames. The contract is generated
+theme/state values, CSS distribution filenames, and their source-module membership. The contract is generated
 by <code>python3 scripts/export_api_metadata.py</code> and checked by <code>--check</code>. Do
 not edit it directly. The existing <code>metadata/components.json</code> remains a
 curated subset and is not a complete list of classes.</p>
@@ -93,6 +93,13 @@ printf '&lt;button class=&quot;syn-buttn&quot;&gt;Save&lt;/button&gt;' | python3
 # For fragments, supply the CSS modules actually installed in the consumer app:
 cat fragment.html | python3 scripts/syntyr_check.py --format json --stylesheets syntyr.core.css -
 </code></pre>
+<p>The checker also flags duplicate Syntyr stylesheet links and overlapping bundle
+imports (for example, loading both <code>syntyr.all.css</code> and <code>syntyr.core.css</code>).
+Overlap detection uses the generated <code>stylesheet_sources</code> mapping, taken from
+the canonical build registry rather than a second handwritten dependency list.
+A link with a different version/query string still counts as the same Syntyr
+entrypoint. The check considers literal HTML links, not runtime-injected styles
+or <code>--stylesheets</code> overrides for fragments; it does not inspect custom CSS.</p>
 <p>The checker reports source positions, unknown literal <code>syn-*</code> classes, invalid
 literal <code>data-syn-*</code> values, and missing optional CSS modules <strong>when a Syntyr
 stylesheet is linked or explicitly specified</strong>. For full HTML documents with

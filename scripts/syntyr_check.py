@@ -43,6 +43,7 @@ class _SyntyrParser(HTMLParser):
         self.attribute_values = contract["attributes"]
         self.stylesheet_names = set(contract["stylesheets"])
         self.linked_stylesheets: set[str] = set()
+        self.stylesheet_links: list[tuple[int, int, str]] = []
         self.used_classes: list[tuple[int, int, str]] = []
         self.unscoped_classes: list[tuple[int, int, str]] = []
         self.complete_document = False
@@ -79,6 +80,7 @@ class _SyntyrParser(HTMLParser):
             name = _stylesheet_name(data.get("href") or "", self.stylesheet_names)
             if name:
                 self.linked_stylesheets.add(name)
+                self.stylesheet_links.append((line, col, name))
         for class_attr in ("class", "classname"):
             class_value = data.get(class_attr) or ""
             if _is_dynamic(class_value):
@@ -127,6 +129,33 @@ def validate_html(html: str, contract: dict, *, stylesheets: set[str] | None = N
     parser = _SyntyrParser(contract)
     parser.feed(html)
     parser.close()
+    # All known bundles are assembled from the canonical source module registry.
+    # Report repeated/overlapping Syntyr CSS imports before they silently
+    # increase transfer size or override component styles. Distinct opt-in
+    # modules can still be combined normally.
+    sources_by_sheet = {
+        name: set(sources) for name, sources in contract.get("stylesheet_sources", {}).items()
+    }
+    seen: set[str] = set()
+    for line, col, name in parser.stylesheet_links:
+        if name in seen:
+            parser._error("duplicate-stylesheet",
+                          f"Duplicate Syntyr stylesheet '{name}' loaded more than once.",
+                          line, col, stylesheet=name)
+        else:
+            sources = sources_by_sheet.get(name, set())
+            overlapping = sorted(sources.intersection(
+                source for prior in seen for source in sources_by_sheet.get(prior, ())
+            ))
+            if overlapping:
+                with_sheets = sorted(
+                    prior for prior in seen if sources.intersection(sources_by_sheet.get(prior, ()))
+                )
+                parser._error("overlapping-stylesheet",
+                              f"'{name}' repeats CSS already loaded by {', '.join(with_sheets)}.",
+                              line, col, stylesheet=name, overlaps_with=with_sheets,
+                              overlapping_sources=overlapping)
+            seen.add(name)
     # A fragment may inherit .syn-root from its host, so only diagnose root
     # scope when the input explicitly contains a full HTML document.
     if parser.complete_document:

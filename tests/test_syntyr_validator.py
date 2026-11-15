@@ -127,6 +127,46 @@ class ValidatorTests(unittest.TestCase):
         </body></html>"""
         self.assertEqual(validate_html(html, self.contract), [])
 
+    def test_contract_exposes_source_derived_stylesheet_contents(self):
+        from build import all_distributions
+        self.assertEqual(self.contract["stylesheet_sources"],
+                         {name: list(sources) for name, sources in sorted(all_distributions().items())})
+
+    def test_repeated_stylesheet_link_is_reported_with_position(self):
+        html = ('<link rel="stylesheet" href="/v/0.3/syntyr.core.css">\n'
+                '<link rel="stylesheet" href="/v/0.3/syntyr.core.css?v=2">\n'
+                '<main class="syn-root syn-panel"></main>')
+        found = validate_html(html, self.contract)
+        self.assertEqual([d["code"] for d in found], ["duplicate-stylesheet"])
+        self.assertEqual((found[0]["line"], found[0]["column"]), (2, 1))
+        self.assertEqual(found[0]["stylesheet"], "syntyr.core.css")
+
+    def test_overlapping_bundles_report_real_source_modules(self):
+        html = ('<link rel="stylesheet" href="syntyr.core.css">\n'
+                '<link rel="stylesheet" href="syntyr.all.css">\n'
+                '<main class="syn-root syn-panel"></main>')
+        found = validate_html(html, self.contract)
+        self.assertEqual([d["code"] for d in found], ["overlapping-stylesheet"])
+        self.assertEqual(found[0]["stylesheet"], "syntyr.all.css")
+        self.assertEqual(found[0]["overlaps_with"], ["syntyr.core.css"])
+        self.assertIn("tokens.css", found[0]["overlapping_sources"])
+        self.assertIn("components/buttons.css", found[0]["overlapping_sources"])
+
+    def test_overlaps_cover_semantic_bundle_and_component_files(self):
+        html = ('<link rel="stylesheet" href="components/buttons.css">\n'
+                '<link rel="stylesheet" href="syntyr.semantic-bundle.css">\n'
+                '<main class="syn-root syn-button"></main>')
+        found = validate_html(html, self.contract)
+        self.assertEqual([d["code"] for d in found], ["overlapping-stylesheet"])
+        self.assertEqual(found[0]["overlapping_sources"], ["components/buttons.css"])
+
+    def test_distinct_optional_stylesheets_have_no_false_overlap(self):
+        html = ('<link rel="stylesheet" href="syntyr.core.css">\n'
+                '<link rel="stylesheet" href="syntyr.recipes.css">\n'
+                '<link rel="stylesheet" href="syntyr.effects.css">\n'
+                '<main class="syn-root syn-panel syn-pipeline"></main>')
+        self.assertEqual(validate_html(html, self.contract), [])
+
     def test_cli_reports_json_and_nonzero_status_for_errors(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "bad.html"

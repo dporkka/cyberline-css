@@ -30,6 +30,132 @@
     "syntyr.utilities.css",
     "syntyr.viz.css"
   ],
+  "stylesheet_sources": {
+    "components/base.css": [
+      "base.css"
+    ],
+    "components/buttons.css": [
+      "components/buttons.css"
+    ],
+    "components/data.css": [
+      "components/data.css"
+    ],
+    "components/form-composition.css": [
+      "components/form-composition.css"
+    ],
+    "components/forms.css": [
+      "components/forms.css"
+    ],
+    "components/layout.css": [
+      "components/layout.css"
+    ],
+    "components/overlays.css": [
+      "components/overlays.css"
+    ],
+    "components/patterns.css": [
+      "components/patterns.css"
+    ],
+    "components/tokens.css": [
+      "tokens.css"
+    ],
+    "components/typography.css": [
+      "components/typography.css"
+    ],
+    "syntyr.all.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css",
+      "recipes.css",
+      "native-recipes.css",
+      "geometry.css",
+      "symbols.css",
+      "effects.css",
+      "motion.css",
+      "viz.css",
+      "utilities.css",
+      "print.css",
+      "server.css"
+    ],
+    "syntyr.core.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css"
+    ],
+    "syntyr.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "effects.css"
+    ],
+    "syntyr.effects.css": [
+      "effects.css"
+    ],
+    "syntyr.geometry.css": [
+      "geometry.css"
+    ],
+    "syntyr.motion.css": [
+      "motion.css"
+    ],
+    "syntyr.native-recipes.css": [
+      "native-recipes.css"
+    ],
+    "syntyr.print.css": [
+      "print.css"
+    ],
+    "syntyr.recipes.css": [
+      "recipes.css"
+    ],
+    "syntyr.semantic-bundle.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css"
+    ],
+    "syntyr.semantic.css": [
+      "semantic.css"
+    ],
+    "syntyr.server.css": [
+      "server.css"
+    ],
+    "syntyr.symbols.css": [
+      "symbols.css"
+    ],
+    "syntyr.utilities.css": [
+      "utilities.css"
+    ],
+    "syntyr.viz.css": [
+      "viz.css"
+    ]
+  },
   "classes": [
     {
       "name": "syn-actions",
