@@ -216,7 +216,7 @@ def source_files() -> dict[str, bytes]:
     # Index HTML for people. Keep public Markdown fetchable by agents but
     # exclude it from human-facing search results and the HTML sitemap.
     from xml.sax.saxutils import escape as escape_xml
-    pages = sorted(name for name in files if name.endswith(".html"))
+    pages = sorted(name for name in files if name.endswith(".html") and name != "404.html")
     addresses = ["/"] + ["/" + name for name in pages if name != "index.html"]
     files["sitemap.xml"] = ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
                             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

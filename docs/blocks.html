@@ -17,7 +17,7 @@
     <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
     <nav class="syn-nav" aria-label="Documentation">
       <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.md">Integration guide</a>
+      <a href="blocks-guide.html">Integration guide</a>
     </nav>
   </header>
   <main class="syn-shell" id="blocks-main">
@@ -27,9 +27,13 @@
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
+      <p class="syn-caption"><strong>Unreleased alpha.5 source preview.</strong>
+      These 20 blocks are not in the published alpha.4 CSS release. Links and form
+      submissions in the gallery are non-interactive; copied HTML retains placeholder
+      routes and requires your own working destinations.</p>
       <p class="syn-caption">These are static illustrative presentations: real authentication,
       billing, filtering, form validation, persistence and permissions belong to your application.
-      <a href="blocks-guide.md">Read integration and accessibility guidance.</a></p>
+      <a href="blocks-guide.html">Read integration and accessibility guidance.</a></p>
       <div class="blocks-controls" id="blocks-controls" hidden>
         <div><label class="syn-label" for="blocks-search">Search blocks</label>
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
@@ -65,8 +69,8 @@
     <h2 id="syn-hero-product" class="syn-site-heading">Understand your product. <strong>Act with confidence.</strong></h2>
     <p class="syn-lede">One clear workspace for teams tracking what matters.</p>
     <div class="syn-actions">
-      <a class="syn-button syn-button--primary" href="/start">Start free</a>
-      <a class="syn-button syn-button--outline" href="/demo">Explore demo</a>
+      <span class="syn-button syn-button--primary" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Start free</span>
+      <span class="syn-button syn-button--outline" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Explore demo</span>
     </div>
   </div>
 </section>
@@ -104,7 +108,7 @@
     <span class="syn-badge">SECURITY BY DESIGN</span>
     <h2 id="syn-hero-security" class="syn-site-heading">Ship fast. <strong>Stay in control.</strong></h2>
     <p class="syn-lede">Deploy reliable software without trading away visibility or ownership.</p>
-    <div class="syn-actions"><a class="syn-button syn-button--primary" href="/docs">Read the docs</a></div>
+    <div class="syn-actions"><span class="syn-button syn-button--primary" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Read the docs</span></div>
     <p class="syn-caption">Self-hosting and access controls are supplied by your application, not by CSS.</p>
   </div>
 </section>
@@ -212,9 +216,9 @@
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-pricing-heading">
   <h2 id="syn-pricing-heading" class="syn-heading">Plans that scale</h2>
   <div class="syn-pricing">
-    <article class="syn-price-card"><h3>Solo</h3><p class="syn-price-value">$19 <small>/ mo</small></p><ul class="syn-feature-list"><li>One workspace</li><li>Essential reports</li></ul><a class="syn-button" href="/checkout/solo">Choose Solo</a></article>
-    <article class="syn-price-card" data-syn-featured><h3>Team</h3><p class="syn-price-value">$49 <small>/ mo</small></p><ul class="syn-feature-list"><li>Unlimited workspaces</li><li>Team permissions</li></ul><a class="syn-button syn-button--primary" href="/checkout/team">Choose Team</a></article>
-    <article class="syn-price-card"><h3>Scale</h3><p class="syn-price-value">Custom</p><ul class="syn-feature-list"><li>Advanced controls</li><li>Assisted onboarding</li></ul><a class="syn-button" href="/contact">Contact sales</a></article>
+    <article class="syn-price-card"><h3>Solo</h3><p class="syn-price-value">$19 <small>/ mo</small></p><ul class="syn-feature-list"><li>One workspace</li><li>Essential reports</li></ul><span class="syn-button" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Choose Solo</span></article>
+    <article class="syn-price-card" data-syn-featured><h3>Team</h3><p class="syn-price-value">$49 <small>/ mo</small></p><ul class="syn-feature-list"><li>Unlimited workspaces</li><li>Team permissions</li></ul><span class="syn-button syn-button--primary" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Choose Team</span></article>
+    <article class="syn-price-card"><h3>Scale</h3><p class="syn-price-value">Custom</p><ul class="syn-feature-list"><li>Advanced controls</li><li>Assisted onboarding</li></ul><span class="syn-button" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Contact sales</span></article>
   </div>
   <p class="syn-caption">Example prices only; replace plan data and checkout routes.</p>
 </section>
@@ -308,7 +312,7 @@
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-cta-heading">
   <div class="syn-cta-band">
     <div><h2 id="syn-cta-heading" class="syn-heading">Ready to explore?</h2><p>Start with a workflow that works for your team.</p></div>
-    <a class="syn-button syn-button--primary" href="/contact">Talk to us</a>
+    <span class="syn-button syn-button--primary" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Talk to us</span>
   </div>
 </section>
         </div>
@@ -453,7 +457,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
   <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
-  <form class="syn-panel syn-form" method="get" action="/requests">
+  <div class="syn-panel syn-form" data-syn-preview-only="true">
     <label class="syn-label" for="syn-block-query">Search by name</label>
     <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
     <label class="syn-label" for="syn-block-status">Status</label>
@@ -461,7 +465,7 @@
       <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
     </select>
     <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
-  </form>
+  </div>
 </section>
         </div>
         <details class="blocks-details">
@@ -495,14 +499,14 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
   <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
-  <form class="syn-panel syn-form" method="post" action="/settings">
+  <div class="syn-panel syn-form" data-syn-preview-only="true">
     <label class="syn-label" for="syn-block-name">Workspace name</label>
     <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
     <label class="syn-label" for="syn-block-timezone">Timezone</label>
     <select class="syn-select" id="syn-block-timezone" name="timezone"><option value="UTC">UTC</option><option value="America/Sao_Paulo">Brasília</option></select>
     <p class="syn-help">Connect your actual validation, CSRF protection and persistence.</p>
     <button class="syn-button syn-button--primary" type="submit">Save settings</button>
-  </form>
+  </div>
 </section>
         </div>
         <details class="blocks-details">
@@ -577,7 +581,7 @@
     <p class="syn-eyebrow">TEAM PLAN</p>
     <p class="syn-metric">$49 <span class="syn-caption">/ month</span></p>
     <p class="syn-muted">Next illustrative invoice: December 1, 2026.</p>
-    <a href="/billing" class="syn-button">Manage billing</a>
+    <span class="syn-button" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Manage billing</span>
   </article>
 </section>
         </div>
@@ -615,7 +619,7 @@
       <li><span>2. Invite teammates</span><span class="syn-status syn-status--warning">Next</span></li>
       <li><span>3. Connect a data source</span><span class="syn-muted">Not started</span></li>
     </ol>
-    <a href="/onboarding" class="syn-button syn-button--primary">Continue setup</a>
+    <span class="syn-button syn-button--primary" data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">Continue setup</span>
   </div>
 </section>
         </div>
@@ -689,7 +693,7 @@
   <div class="syn-alert syn-alert--danger">
     <h2 id="syn-incident-heading" class="syn-heading">Degraded API performance</h2>
     <p>Some requests may be delayed. Engineers are investigating and will post updates.</p>
-    <a href="/status">View status history</a>
+    <span data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">View status history</span>
   </div>
 </section>
         </div>
@@ -761,7 +765,7 @@
     <ul class="syn-feature-list">
       <li>Improved record filtering.</li><li>Clearer empty and loading states.</li><li>Keyboard navigation refinements.</li>
     </ul>
-    <a href="/changelog">View all releases</a>
+    <span data-syn-preview-only="true" title="Preview only; copy HTML to wire your own routes">View all releases</span>
   </article>
 </section>
         </div>
@@ -955,6 +959,6 @@
     </section>
   </main>
   <footer class="syn-shell blocks-footer"><p class="syn-caption">MIT-licensed Syntyr source; original block markup and textures.</p>
-    <a href="blocks-guide.md">License, framework setup and accessibility notes</a></footer>
+    <a href="blocks-guide.html">License, framework setup and accessibility notes</a></footer>
 </body>
 </html>

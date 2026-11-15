@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 from html import escape
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -38,6 +39,29 @@ TYPOGRAPHY = (
 )
 
 
+
+def preview_only_markup(snippet: str) -> str:
+    """Render decorative block previews without live links or form submissions.
+
+    The underlying snippet is untouched and remains fully copyable. The
+    preview deliberately renders link-shaped spans and form-shaped divs:
+    users must supply real routes, handlers, and application state themselves.
+    """
+    def inert_anchor(match: re.Match[str]) -> str:
+        attributes = re.sub(r'\s+href="[^"]*"', "", match.group(0)[2:-1])
+        return ('<span' + attributes
+                + ' data-syn-preview-only="true"'
+                + ' title="Preview only; copy HTML to wire your own routes">')
+
+    preview = re.sub(r'<a\b[^>]*>', inert_anchor, snippet)
+    preview = preview.replace("</a>", "</span>")
+    preview = re.sub(r'<form\b[^>]*>', lambda match:
+                     '<div' + re.sub(r'\s+(?:method|action)="[^"]*"', '',
+                                     match.group(0)[5:-1])
+                     + ' data-syn-preview-only="true">', preview)
+    return preview.replace("</form>", "</div>")
+
+
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
     cards = []
@@ -46,6 +70,7 @@ def build() -> str:
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
+        preview = preview_only_markup(snippet)
         cards.append(f"""
       <article class="blocks-card syn-panel" data-block-id="{escape(ident)}"
                data-block-category="{escape(block['category'])}"
@@ -58,7 +83,7 @@ def build() -> str:
         </div>
         <p class="syn-muted">{escape(block['description'])}</p>
         <div class="blocks-preview">
-{snippet}
+{preview}
         </div>
         <details class="blocks-details">
           <summary data-block-source>View HTML source for {escape(block['title'])}</summary>
@@ -111,7 +136,7 @@ def build() -> str:
     <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
     <nav class="syn-nav" aria-label="Documentation">
       <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.md">Integration guide</a>
+      <a href="blocks-guide.html">Integration guide</a>
     </nav>
   </header>
   <main class="syn-shell" id="blocks-main">
@@ -121,9 +146,13 @@ def build() -> str:
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
+      <p class="syn-caption"><strong>Unreleased alpha.5 source preview.</strong>
+      These 20 blocks are not in the published alpha.4 CSS release. Links and form
+      submissions in the gallery are non-interactive; copied HTML retains placeholder
+      routes and requires your own working destinations.</p>
       <p class="syn-caption">These are static illustrative presentations: real authentication,
       billing, filtering, form validation, persistence and permissions belong to your application.
-      <a href="blocks-guide.md">Read integration and accessibility guidance.</a></p>
+      <a href="blocks-guide.html">Read integration and accessibility guidance.</a></p>
       <div class="blocks-controls" id="blocks-controls" hidden>
         <div><label class="syn-label" for="blocks-search">Search blocks</label>
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
@@ -171,7 +200,7 @@ def build() -> str:
     </section>
   </main>
   <footer class="syn-shell blocks-footer"><p class="syn-caption">MIT-licensed Syntyr source; original block markup and textures.</p>
-    <a href="blocks-guide.md">License, framework setup and accessibility notes</a></footer>
+    <a href="blocks-guide.html">License, framework setup and accessibility notes</a></footer>
 </body>
 </html>
 """
