@@ -57,29 +57,54 @@
     .site-preview-code { padding: 1rem; background: var(--syn-surface-recessed); color: var(--syn-text); overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--syn-border-subtle); font-family: var(--syn-mono); }
     .site-preview-source .syn-caption { margin: 0; }
     .site-hero-gallery { min-width: 0; display: grid; gap: .75rem; }
-    .site-hero-palette-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
-    .site-palette-link { min-width: 0; display: flex; align-items: center; gap: .55rem; padding: .65rem .75rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); color: var(--syn-text); text-decoration: none; font: 650 .8rem/1.3 var(--syn-font-ui); }
-    .site-palette-link::before { content: ""; flex: none; inline-size: .65rem; block-size: .65rem; border-radius: .15rem; background: var(--syn-accent); box-shadow: 0 0 0 2px var(--syn-bg); }
-    .site-palette-link:hover { border-color: var(--syn-accent); }
-    .site-palette-link:focus-visible { outline-color: var(--syn-accent); }
+    .site-theme-picker { min-width: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; border: 0; margin: 0; padding: 0; }
+    .site-theme-picker legend { font: 650 .78rem/1.4 var(--syn-font-ui); color: var(--syn-muted); margin-block-end: .55rem; }
+    .site-theme-choice { min-width: 0; position: relative; cursor: pointer; }
+    .site-theme-choice input { position: absolute; inline-size: 1px; block-size: 1px; opacity: 0; }
+    .site-theme-choice span { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: .6rem .55rem; border: 1px solid var(--syn-frame-strong); border-radius: .45rem; font: 650 .82rem/1.3 var(--syn-font-ui); background: var(--syn-surface); color: var(--syn-text); }
+    .site-theme-choice input:checked + span { background: var(--syn-accent-soft); border: 2px solid var(--syn-accent); color: var(--syn-accent); padding: calc(.6rem - 1px) calc(.55rem - 1px); }
+    .site-theme-choice input:focus-visible + span { outline: 3px solid var(--syn-focus-ring); outline-offset: 3px; }
+    .site-theme-choice span:hover { background: var(--syn-surface-raised); }
+    .site-preview-board:not([data-syn-theme="grid"]) { display: none; }
+    @supports selector(:has(.site-theme-picker input:checked)) {
+      .site-hero-gallery:has(.site-theme-picker input[value="studio"]:checked) [data-site-preview] { display: none; }
+      .site-hero-gallery:has(.site-theme-picker input[value="studio"]:checked) [data-site-preview="studio"] { display: block; }
+      .site-hero-gallery:has(.site-theme-picker input[value="grid"]:checked) [data-site-preview] { display: none; }
+      .site-hero-gallery:has(.site-theme-picker input[value="grid"]:checked) [data-site-preview="grid"] { display: block; }
+      .site-hero-gallery:has(.site-theme-picker input[value="noir"]:checked) [data-site-preview] { display: none; }
+      .site-hero-gallery:has(.site-theme-picker input[value="noir"]:checked) [data-site-preview="noir"] { display: block; }
+    }
+    .site-showcase-links { margin: 0; color: var(--syn-muted); font-size: .8rem; }
+    .site-showcase-links a { margin-inline-start: .6rem; }
     .site-preview-board { min-width: 0; border: 1px solid var(--syn-frame); border-radius: .9rem; background: var(--syn-surface); box-shadow: 0 18px 60px rgb(15 35 60 / 9%); overflow: hidden; }
-    .site-window-top { padding: .85rem 1rem; border-block-end: 1px solid var(--syn-border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--syn-muted); }
-    .site-window-dots { display: flex; gap: .4rem; }
-    .site-window-dots span { inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--syn-frame); }
-    .site-window-dots span:first-child { background: var(--syn-accent); }
-    .site-preview-body { display: grid; grid-template-columns: 6rem minmax(0, 1fr); min-height: 20rem; }
-    .site-preview-rail { padding: 1rem .6rem; border-inline-end: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); }
-    .site-preview-rail span { display: block; block-size: .45rem; margin: .85rem .2rem 1.35rem; background: var(--syn-frame); opacity: .6; border-radius: 1rem; }
-    .site-preview-rail span:nth-child(2) { background: var(--syn-accent); opacity: 1; }
-    .site-preview-main { min-width: 0; padding: clamp(.85rem, 3vw, 1.5rem); }
-    .site-preview-main > p { margin-block-end: .75rem; }
-    .site-preview-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
-    .site-mini-metric { border: 1px solid var(--syn-border-subtle); border-radius: .45rem; padding: .9rem; min-width: 0; }
-    .site-mini-metric strong { display: block; font: 680 clamp(1.1rem, 2.7vw, 1.75rem)/1.2 var(--syn-font-ui); letter-spacing: -.03em; }
-    .site-mini-metric small { color: var(--syn-muted); }
-    .site-chart { margin-block-start: 1rem; display: flex; gap: .45rem; align-items: end; block-size: 6.3rem; border-block-end: 1px solid var(--syn-border-subtle); padding: .5rem .25rem 0; }
-    .site-chart span { flex: 1; block-size: var(--bar); background: color-mix(in srgb, var(--syn-accent) 45%, var(--syn-surface-hi)); border-radius: .2rem .2rem 0 0; }
-    .site-chart span:last-child { background: var(--syn-accent); }
+    .site-window-top { padding: .65rem 1rem; border-block-end: 1px solid var(--syn-border-subtle); display: flex; align-items: center; justify-content: space-between; gap: .75rem; font: 650 .7rem/1.3 var(--syn-font-ui); color: var(--syn-muted); }
+    .site-window-brand { color: var(--syn-text); letter-spacing: .04em; }
+    .site-preview-live { color: var(--syn-accent); font-size: .66rem; }
+    .site-preview-body { display: grid; grid-template-columns: 6.3rem minmax(0, 1fr); min-height: 20rem; }
+    .site-preview-rail { min-width: 0; padding: 1rem .55rem; border-inline-end: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); display: grid; align-content: start; gap: .45rem; }
+    .site-preview-rail strong { font-size: .72rem; color: var(--syn-text); padding: .4rem .4rem .8rem; overflow-wrap: anywhere; }
+    .site-preview-rail span { display: block; border-radius: .25rem; padding: .4rem .35rem; font: 550 .68rem/1.2 var(--syn-font-ui); color: var(--syn-muted); overflow-wrap: anywhere; }
+    .site-preview-rail .site-rail-active { background: var(--syn-accent-soft); color: var(--syn-accent); font-weight: 700; }
+    .site-preview-main { min-width: 0; padding: clamp(.85rem, 3vw, 1.2rem); }
+    .site-preview-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: .35rem .75rem; margin-block-end: .85rem; }
+    .site-preview-heading h3 { font: 650 clamp(.95rem, 2vw, 1.2rem)/1.2 var(--syn-font-ui); margin: .2rem 0 0; }
+    .site-preview-period { border: 1px solid var(--syn-border-subtle); border-radius: .25rem; padding: .2rem .4rem; font-size: .65rem; color: var(--syn-muted); }
+    .site-preview-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+    .site-mini-metric { min-width: 0; border: 1px solid var(--syn-border-subtle); border-radius: .35rem; padding: .7rem; background: var(--syn-surface-raised); }
+    .site-mini-metric strong { display: block; font: 680 clamp(1rem, 2.2vw, 1.55rem)/1.2 var(--syn-font-ui); letter-spacing: -.03em; }
+    .site-mini-metric small { display: block; color: var(--syn-muted); font-size: .67rem; }
+    .site-mini-metric span { display: block; color: var(--syn-success); font-size: .62rem; line-height: 1.4; margin-block-start: .2rem; }
+    .site-preview-activity { margin-block-start: 1rem; border-block-start: 1px solid var(--syn-border-subtle); }
+    .site-preview-subheading, .site-preview-activity > div:not(.site-preview-subheading) { display: flex; align-items: center; justify-content: space-between; gap: .4rem; padding-block: .5rem; }
+    .site-preview-subheading strong { font-size: .76rem; }
+    .site-preview-subheading > span { font: 550 .6rem var(--syn-font-ui); color: var(--syn-muted); }
+    .site-preview-activity > div:not(.site-preview-subheading) { border-block-start: 1px solid var(--syn-border-subtle); font-size: .72rem; }
+    .site-workflow-status { border-radius: .2rem; padding: .15rem .4rem; color: var(--syn-success); background: color-mix(in srgb, var(--syn-success) 12%, transparent); font-size: .64rem; white-space: nowrap; }
+    .site-workflow-status--warning { color: var(--syn-warning); background: color-mix(in srgb, var(--syn-warning) 12%, transparent); }
+    .site-preview-progress { display: flex; justify-content: space-between; gap: 1rem; margin-block: .7rem .3rem; color: var(--syn-muted); font-size: .65rem; }
+    .site-preview-progress strong { color: var(--syn-text); }
+    .site-preview-main .syn-meter { display: block; }
+    .site-preview-disclaimer { margin: .6rem 0 0; }
     .site-section { padding-block: clamp(2.5rem, 6vw, 5rem); border-block-start: 1px solid var(--syn-border-subtle); scroll-margin-block-start: 1.5rem; }
     .site-section-head { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: .75rem 2rem; margin-block-end: 2rem; }
     .site-section-title { margin: .5rem 0 0; font: 660 clamp(1.9rem, 1.35rem + 2.5vw, 3rem)/1.14 var(--syn-font-display); letter-spacing: -.055em; }
@@ -146,19 +171,20 @@
     @media (max-width: 32rem) {
       .site-header { align-items: flex-start; }
       .site-hero h1 { font-size: clamp(2.65rem, 12vw, 4rem); }
-      .site-preview-body { grid-template-columns: 3.3rem minmax(0, 1fr); }
-      .site-preview-rail { padding-inline: .35rem; }
-      .site-mini-metric { padding: .6rem; }
+      .site-preview-body { grid-template-columns: minmax(0, 1fr); }
+      .site-preview-rail { display: none; }
+      .site-mini-metric { padding: .45rem; }
       .site-trust { gap: .4rem .85rem; font-size: .8rem; }
-      .site-palette-link { justify-content: center; padding: .55rem .35rem; gap: .35rem; font-size: .75rem; }
+      .site-theme-choice span { padding-inline: .35rem; font-size: .75rem; }
+      .site-preview-heading .site-preview-period { display: none; }
     }
     @media (prefers-reduced-motion: reduce) { .site-skip { scroll-behavior: auto; } }
     @media (forced-colors: active) {
       .site-kicker::before, .site-trust li::before, .site-preview-rule { background: CanvasText; }
-      .site-palette-link { border-color: CanvasText; }
-      .site-palette-link::before { background: Highlight; box-shadow: none; }
+      .site-theme-choice span { border-color: CanvasText; }
+      .site-theme-choice input:checked + span { border-color: Highlight; color: Highlight; }
       .site-preview-board, .site-showcase-card, .site-preview, .site-mini-metric, .site-theme-swatch, .site-compare-card, .site-compare-main, .site-try, .site-code, .site-mobile-menu nav { border-color: CanvasText; }
-      .site-chart span, .site-preview-bars span, .site-compare-bars i, .site-theme-swatch::before { background: Highlight; }
+      .site-preview-bars span, .site-compare-bars i, .site-theme-swatch::before { background: Highlight; }
     }
   </style>
 </head>
@@ -168,23 +194,25 @@
     <header class="site-header">
       <a class="site-brand" href="#top" aria-label="Syntyr CSS home">SYNTYR <span>/ CSS</span></a>
       <nav class="site-nav" aria-label="Main navigation">
-        <a href="#quickstart">Get started</a>
-        <a href="docs/catalog.html">Components</a>
-        <a href="docs/blocks.html">Blocks</a>
-        <a href="#themes">Themes</a>
-        <a href="#showcase">Examples</a>
-        <a href="examples/semantic-starter.html">Semantic starter</a>
-        <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
+          <a href="#quickstart">Get started</a>
+          <a href="docs/catalog.html">Components</a>
+          <a href="docs/blocks.html">Blocks</a>
+          <a href="#themes">Themes</a>
+          <a href="docs/">Docs</a>
+          <a href="examples/semantic-starter.html">Semantic starter</a>
+          <a href="#showcase">Examples</a>
+          <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
       </nav>
       <details class="site-mobile-menu">
         <summary>Menu</summary>
         <nav aria-label="Mobile navigation">
           <a href="#quickstart">Get started</a>
           <a href="docs/catalog.html">Components</a>
-        <a href="docs/blocks.html">Blocks</a>
+          <a href="docs/blocks.html">Blocks</a>
           <a href="#themes">Themes</a>
-          <a href="#showcase">Examples</a>
+          <a href="docs/">Docs</a>
           <a href="examples/semantic-starter.html">Semantic starter</a>
+          <a href="#showcase">Examples</a>
           <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
         </nav>
       </details>
@@ -209,47 +237,105 @@
         </div>
 
         <div class="site-hero-gallery">
-          <nav class="site-hero-palette-nav" aria-label="Explore published themes">
-            <a class="site-palette-link" data-syn-theme="studio" href="#theme-comparison">Studio</a>
-            <a class="site-palette-link" data-syn-theme="grid" href="#theme-comparison">Grid</a>
-            <a class="site-palette-link" data-syn-theme="noir" href="#theme-comparison">Noir</a>
-          </nav>
-          <div class="site-preview-board" data-syn-theme="grid" role="img" aria-label="Illustrative Grid-themed SaaS dashboard with navigation, key metrics and a chart. No live data.">
-          <div class="site-window-top"><span class="site-window-dots" aria-hidden="true"><span></span><span></span><span></span></span><span>GRID / SAMPLE INTERFACE</span></div>
-          <div class="site-preview-body" aria-hidden="true">
-            <div class="site-preview-rail"><span></span><span></span><span></span><span></span></div>
-            <div class="site-preview-main">
-              <p class="syn-heading">Overview</p>
-              <div class="syn-kpi-grid site-preview-metrics">
-                <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong></article>
-                <article class="syn-app-card site-mini-metric"><small>Active projects</small><strong>18</strong></article>
+          <fieldset class="site-theme-picker" aria-label="Preview an interface theme">
+            <legend>Preview a theme</legend>
+            <label class="site-theme-choice"><input type="radio" name="site-preview-theme" value="studio"><span>Studio</span></label>
+            <label class="site-theme-choice"><input type="radio" name="site-preview-theme" value="grid" checked><span>Grid</span></label>
+            <label class="site-theme-choice"><input type="radio" name="site-preview-theme" value="noir"><span>Noir</span></label>
+          </fieldset>
+          <div class="site-preview-stack">
+          <section class="site-preview-board" data-syn-theme="studio" data-site-preview="studio" role="img" aria-label="Illustrative studio-themed SaaS workspace with account metrics, activity, and a status overview; sample data only.">
+            <div class="site-window-top"><span class="site-window-brand">SYN / WORKSPACE</span><span class="site-preview-live">● &nbsp; DEMO · STUDIO</span></div>
+            <div class="site-preview-body" aria-hidden="true">
+              <div class="site-preview-rail">
+                <strong>Workspace</strong>
+                <span class="site-rail-active">Overview</span>
+                <span>Accounts</span>
+                <span>Projects</span>
+                <span>Activity</span>
               </div>
-              <div class="site-chart">
-                <span style="--bar:40%"></span><span style="--bar:58%"></span><span style="--bar:48%"></span>
-                <span style="--bar:75%"></span><span style="--bar:62%"></span><span style="--bar:91%"></span>
+              <div class="site-preview-main">
+                <div class="site-preview-heading"><div><small class="syn-caption">OPERATIONS / OVERVIEW</small><h3>Workspace overview</h3></div><span class="site-preview-period">This month</span></div>
+                <div class="syn-kpi-grid site-preview-metrics">
+                  <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong><span>↑ 12.4% this month</span></article>
+                  <article class="syn-app-card site-mini-metric"><small>Active accounts</small><strong>18</strong><span>4 added this quarter</span></article>
+                </div>
+                <div class="site-preview-activity"><div class="site-preview-subheading"><strong>Recent activity</strong><span>LAST 7 DAYS</span></div>
+                  <div><span>Meridian Studio</span><span class="site-workflow-status">Active</span></div>
+                  <div><span>Northpoint Labs</span><span class="site-workflow-status site-workflow-status--warning">Needs review</span></div>
+                </div>
+                <div class="site-preview-progress"><span>Monthly target</span><strong>82%</strong></div>
+                <progress class="syn-meter" value="82" max="100">82%</progress>
+                <p class="syn-caption site-preview-disclaimer">ILLUSTRATIVE SAMPLE · NO LIVE DATA</p>
               </div>
-              <progress class="syn-meter" value="82" max="100">82%</progress>
-              <p class="syn-caption">ILLUSTRATIVE SAMPLE · NO LIVE DATA</p>
             </div>
+          </section>
+          <section class="site-preview-board" data-syn-theme="grid" data-site-preview="grid" role="img" aria-label="Illustrative grid-themed SaaS workspace with account metrics, activity, and a status overview; sample data only.">
+            <div class="site-window-top"><span class="site-window-brand">SYN / WORKSPACE</span><span class="site-preview-live">● &nbsp; DEMO · GRID</span></div>
+            <div class="site-preview-body" aria-hidden="true">
+              <div class="site-preview-rail">
+                <strong>Workspace</strong>
+                <span class="site-rail-active">Overview</span>
+                <span>Accounts</span>
+                <span>Projects</span>
+                <span>Activity</span>
+              </div>
+              <div class="site-preview-main">
+                <div class="site-preview-heading"><div><small class="syn-caption">OPERATIONS / OVERVIEW</small><h3>Workspace overview</h3></div><span class="site-preview-period">This month</span></div>
+                <div class="syn-kpi-grid site-preview-metrics">
+                  <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong><span>↑ 12.4% this month</span></article>
+                  <article class="syn-app-card site-mini-metric"><small>Active accounts</small><strong>18</strong><span>4 added this quarter</span></article>
+                </div>
+                <div class="site-preview-activity"><div class="site-preview-subheading"><strong>Recent activity</strong><span>LAST 7 DAYS</span></div>
+                  <div><span>Meridian Studio</span><span class="site-workflow-status">Active</span></div>
+                  <div><span>Northpoint Labs</span><span class="site-workflow-status site-workflow-status--warning">Needs review</span></div>
+                </div>
+                <div class="site-preview-progress"><span>Monthly target</span><strong>82%</strong></div>
+                <progress class="syn-meter" value="82" max="100">82%</progress>
+                <p class="syn-caption site-preview-disclaimer">ILLUSTRATIVE SAMPLE · NO LIVE DATA</p>
+              </div>
+            </div>
+          </section>
+          <section class="site-preview-board" data-syn-theme="noir" data-site-preview="noir" role="img" aria-label="Illustrative noir-themed SaaS workspace with account metrics, activity, and a status overview; sample data only.">
+            <div class="site-window-top"><span class="site-window-brand">SYN / WORKSPACE</span><span class="site-preview-live">● &nbsp; DEMO · NOIR</span></div>
+            <div class="site-preview-body" aria-hidden="true">
+              <div class="site-preview-rail">
+                <strong>Workspace</strong>
+                <span class="site-rail-active">Overview</span>
+                <span>Accounts</span>
+                <span>Projects</span>
+                <span>Activity</span>
+              </div>
+              <div class="site-preview-main">
+                <div class="site-preview-heading"><div><small class="syn-caption">OPERATIONS / OVERVIEW</small><h3>Workspace overview</h3></div><span class="site-preview-period">This month</span></div>
+                <div class="syn-kpi-grid site-preview-metrics">
+                  <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong><span>↑ 12.4% this month</span></article>
+                  <article class="syn-app-card site-mini-metric"><small>Active accounts</small><strong>18</strong><span>4 added this quarter</span></article>
+                </div>
+                <div class="site-preview-activity"><div class="site-preview-subheading"><strong>Recent activity</strong><span>LAST 7 DAYS</span></div>
+                  <div><span>Meridian Studio</span><span class="site-workflow-status">Active</span></div>
+                  <div><span>Northpoint Labs</span><span class="site-workflow-status site-workflow-status--warning">Needs review</span></div>
+                </div>
+                <div class="site-preview-progress"><span>Monthly target</span><strong>82%</strong></div>
+                <progress class="syn-meter" value="82" max="100">82%</progress>
+                <p class="syn-caption site-preview-disclaimer">ILLUSTRATIVE SAMPLE · NO LIVE DATA</p>
+              </div>
+            </div>
+          </section>
           </div>
-          </div>
+          <p class="site-showcase-links">Explore complete examples: <a href="examples/flagship-studio.html">Studio</a> <a href="examples/flagship-grid.html">Grid</a> <a href="examples/flagship-noir.html">Noir</a></p>
           <details class="site-preview-source" data-syn-theme="grid">
-            <summary>View the HTML for these cards</summary>
+            <summary>View the HTML for this preview</summary>
             <pre class="site-preview-code"><code>&lt;link rel="stylesheet" href="syntyr.core.css"&gt;
-&lt;link rel="stylesheet" href="syntyr.recipes.css"&gt;
 &lt;section class="syn-root" data-syn-theme="grid"&gt;
   &lt;div class="syn-kpi-grid"&gt;
     &lt;article class="syn-app-card"&gt;
       &lt;small&gt;Revenue&lt;/small&gt;
       &lt;strong&gt;$24,680&lt;/strong&gt;
     &lt;/article&gt;
-    &lt;article class="syn-app-card"&gt;
-      &lt;small&gt;Active projects&lt;/small&gt;
-      &lt;strong&gt;18&lt;/strong&gt;
-    &lt;/article&gt;
   &lt;/div&gt;
 &lt;/section&gt;</code></pre>
-            <p class="syn-caption">Uses the actual Syntyr card and grid recipes, with example-specific preview styling. Copy the HTML, then bind your own data.</p>
+            <p class="syn-caption">Static illustrative data. Use the same components with Studio, Grid or Noir; the theme selector above does not require JavaScript.</p>
           </details>
         </div>
       </section>

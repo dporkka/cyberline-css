@@ -3,7 +3,7 @@
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
-      border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+      border: 1px solid var(--syn-border-floating); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }

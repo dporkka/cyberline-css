@@ -107,12 +107,31 @@ def build() -> str:
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
   <a href="#blocks-main" class="syn-button blocks-skip">Skip to blocks</a>
-  <header class="syn-header syn-shell">
-    <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
-    <nav class="syn-nav" aria-label="Documentation">
-      <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.md">Integration guide</a>
+  <header class="syn-header syn-shell docs-header docs-subpage-header">
+    <a class="syn-logo" href="../index.html" aria-label="Syntyr CSS home">SYNTYR <span class="docs-brand-secondary">/ CSS</span></a>
+    <nav class="syn-nav" aria-label="Main navigation">
+      <a href="index.html#install">Get started</a>
+      <a href="catalog.html">Components</a>
+      <a href="blocks.html">Blocks</a>
+      <a href="index.html#themes">Themes</a>
+      <a href="reference.html">Docs</a>
+      <a href="../examples/semantic-starter.html">Semantic starter</a>
+      <a href="index.html#examples">Examples</a>
+      <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
     </nav>
+    <details class="site-mobile-menu">
+      <summary>Menu</summary>
+      <nav aria-label="Mobile navigation">
+        <a href="index.html#install">Get started</a>
+        <a href="catalog.html">Components</a>
+        <a href="blocks.html">Blocks</a>
+        <a href="index.html#themes">Themes</a>
+        <a href="reference.html">Docs</a>
+        <a href="../examples/semantic-starter.html">Semantic starter</a>
+        <a href="index.html#examples">Examples</a>
+        <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
+      </nav>
+    </details>
   </header>
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">

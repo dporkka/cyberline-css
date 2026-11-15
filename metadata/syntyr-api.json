@@ -1269,6 +1269,11 @@
       "description": "Syntyr CSS property (viz.css)."
     },
     {
+      "name": "--syn-control-border",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-control-height",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."

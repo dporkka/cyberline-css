@@ -42,7 +42,10 @@
   .docs-header .syn-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.2rem; }
   .docs-header .syn-nav a { min-height: 44px; display: inline-flex; align-items: center; }
   .docs-header .syn-nav a, .docs-header .site-mobile-menu nav a { text-transform: none; }
-  .docs-header .syn-logo { letter-spacing: -.045em; }
+  .docs-header { border-block-end: 1px solid var(--syn-border-subtle); }
+  .docs-header .syn-logo { font: 750 1.15rem/1 var(--syn-font-ui); letter-spacing: -.055em; }
+  .docs-brand-secondary { color: var(--syn-muted); font-size: .8em; font-weight: 500; letter-spacing: 0; }
+  .docs-subpage-header { padding-block: 1.4rem; }
   .site-mobile-menu { display: none; position: relative; margin-inline-start: auto; }
   .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-frame); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
   .site-mobile-menu summary::-webkit-details-marker { display: none; }

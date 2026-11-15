@@ -44,6 +44,8 @@
     /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
     --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
     --syn-border-floating: var(--syn-frame-strong);
+    /* Control boundaries must remain legible; subtle panel dividers are separate. */
+    --syn-control-border: var(--syn-frame-strong);
     --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     /* These aliases recompute in nested themed regions. */
     --syn-text-subtle: var(--syn-muted);
@@ -142,6 +144,8 @@
     --syn-success: #8ce6bb;
     --syn-warning: #ffd08b;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    /* Grid display typography is technical; longer UI text stays proportional. */
+    --syn-font-display: var(--syn-mono);
     --syn-radius: .25rem;
     --syn-cut: .9rem;
   }
@@ -199,6 +203,9 @@
     --syn-success: #74e7a7;
     --syn-warning: #eccd86;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    /* Terminal opts in to monospace for the entire interface. */
+    --syn-font-ui: var(--syn-mono);
+    --syn-font-display: var(--syn-mono);
     --syn-radius: 0;
     --syn-cut: 0;
   }
@@ -265,14 +272,6 @@
       --syn-cut: .9rem;
     }
   }
-  /* Technical typography is an explicit choice, not the neutral root default. */
-  :where(.syn-root[data-syn-theme="grid"],
-         .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
-         .syn-root [data-syn-theme="terminal"]) {
-    --syn-font-ui: var(--syn-mono);
-    --syn-font-display: var(--syn-mono);
-  }
-
   /* Higher contrast preserves nested theme and intensity overrides.
      Custom application CSS can still override these layered defaults. */
   @media (prefers-contrast: more) {
@@ -430,7 +429,7 @@
     &.syn-label { display: grid; gap: .35rem; font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui); }
     &.syn-input, &.syn-select, &.syn-textarea {
       width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
-      border: 1px solid var(--syn-border-default); background: var(--syn-bg);
+      border: 1px solid var(--syn-control-border); background: var(--syn-bg);
       border-radius: var(--syn-radius); color: var(--syn-text);
     }
     &.syn-input::placeholder, &.syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
@@ -530,7 +529,7 @@
   :where(.syn-root, .syn-root *) {
     &.syn-popover, &.syn-dialog {
       width: min(calc(100vw - 2rem), 26rem); padding: 1.5rem;
-      border: 1px solid var(--syn-accent); border-radius: var(--syn-radius);
+      border: 1px solid var(--syn-border-floating); border-radius: var(--syn-radius);
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
