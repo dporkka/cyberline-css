@@ -1856,27 +1856,29 @@
 @layer syn.components {
   /* Apply only inside a Syntyr-owned subtree, including a styled root itself. */
   :where(.syn-root, .syn-root *) {
-    &.syn-button:where(
+    &.syn-button:is(
       [data-loading],             /* Livewire 4 */
       .htmx-request,             /* HTMX */
       .phx-click-loading,        /* Phoenix LiveView */
       .phx-change-loading,
       .phx-submit-loading,
-      [data-syn-state="loading"] /* universal SSR state */
-    ):not(:disabled):not([aria-disabled="true"]) {
+      [data-syn-state="loading"], /* universal SSR state */
+      [aria-busy="true"]
+    ) {
       cursor: progress;
     }
   }
 
-  /* HTMX and LiveView often mark the enclosing form during submission. */
-  .syn-root :where(form.htmx-request, form.phx-submit-loading)
-    :where(.syn-button[type="submit"]:not(:disabled):not([aria-disabled="true"])) {
+  /* HTMX/LiveView use classes; Turbo sets aria-busy on the submitting form
+     even when its target frame is a sibling, outside the form. */
+  .syn-root :where(form.htmx-request, form.phx-submit-loading, form[aria-busy="true"])
+    .syn-button[type="submit"] {
     cursor: progress;
   }
 
   /* Turbo marks the frame while its replacement is in flight. */
   .syn-root :where(turbo-frame[busy])
-    :where(.syn-button:not(:disabled):not([aria-disabled="true"])) {
+    .syn-button {
     cursor: progress;
   }
 }

@@ -43,6 +43,8 @@ class ServerFrameworkIntegrationTests(unittest.TestCase):
         ):
             with self.subTest(token=token):
                 self.assertIn(token, css)
+        self.assertIn('form[aria-busy="true"]', css,
+                      "Turbo sends aria-busy on the form even when the target frame is a sibling")
         self.assertNotIn("!important", css)
         self.assertNotIn("pointer-events: none", css)
         self.assertNotIn("opacity:", css)

@@ -184,6 +184,8 @@ python3 scripts/build.py
 python3 scripts/build.py --check
 python3 scripts/export_api_metadata.py --check # editor metadata stays in sync
 python3 scripts/asset_report.py # informational raw/gzip sizes, no hard ceiling
+# Optional: after installing Playwright in a development test environment:
+python3 tests/server_framework_browser.py --browsers chromium,firefox,webkit
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py
 ```

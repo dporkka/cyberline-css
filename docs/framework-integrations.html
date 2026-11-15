@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr CSS integration guide: server-rendered HTML and frontend stacks. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="4cb867c3568cef25730694080e572a9e3e8120727328a33b8f87bbce8ed23fd0">
+  <meta name="syntyr-source-sha256" content="c70838530ee6a5e7c6579ea0df61a5c19c3ab8941a3a47f2901acdd01e5d0d7d">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations.html">
@@ -115,10 +115,13 @@ files or a pinned release until that version is actually published.</p>
 during <code>data-loading</code>, <code>.htmx-request</code>, <code>.phx-click-loading</code>,
 <code>.phx-submit-loading</code>, <code>.phx-change-loading</code>, or
 <code>[data-syn-state=&quot;loading&quot;]</code>. It also supports <code>turbo-frame[busy]</code> and
-request classes on enclosing HTMX/LiveView forms. It never manages
+request classes on enclosing HTMX/LiveView forms, plus <code>form[aria-busy=&quot;true&quot;]</code>
+when Turbo submits a form targeting a sibling frame. It never manages
 <code>aria-busy</code>, disabled state, network requests, focus, announcements,
-morphing, DOM lifecycle, or retries. Native disabled buttons retain
-their disabled cursor; visual feedback does not block double submissions.</p>
+morphing, DOM lifecycle, or retries. Busy submit buttons can temporarily be disabled by Livewire or LiveView;
+the bridge still uses a progress cursor while the native loading attribute is
+present. Ordinary disabled buttons keep their disabled cursor. CSS feedback
+and <code>aria-busy</code> do not prevent duplicate submissions.</p>
 <p>Keep <code>.syn-root</code> and <code>data-syn-theme</code> on a stable ancestor <strong>outside</strong>
 the element that Turbo/HTMX replaces or that LiveView/Livewire morphs.
 Prefer stable, unique input and form IDs. A server-rendered validation
@@ -176,7 +179,9 @@ uses a normal GET form to update only a matching frame:</p>
 &lt;/section&gt;
 </code></pre>
 <p>The server must return a matching <code>&lt;turbo-frame id=&quot;campaign-results&quot;&gt;</code>
-element. Turbo toggles <code>turbo-frame[busy]</code> while it fetches a replacement.
+element. Turbo toggles <code>turbo-frame[busy]</code> while it fetches a replacement and
+<code>aria-busy</code> on the submitting form; when the frame is a sibling of the form,
+the form state (not the frame state) styles the submit button.
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
 scoped. Forms with mutations still need application-owned authentication,
 CSRF protection and server validation. This recipe does not ship Turbo.</p>
@@ -191,11 +196,24 @@ and other HTML renderers need no special integration: render actual
 classes, apply <code>aria-invalid</code> and <code>aria-describedby</code> from server
 validation, and keep static assets versioned. Choose framework-native
 partials/components and anti-CSRF mechanisms.</p>
-<p><strong>Verification scope:</strong> the optional bridge and the copyable templates
-are statically tested with Python's standard library; the repository's
-existing HTMX demo has integration coverage. These examples are not a
-claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
-framework-owned end-to-end tests when you adopt a template in an app.</p>
+<p><strong>Verification scope (November 15, 2026):</strong> the bridge and copyable
+templates have standard-library contract tests. For computed CSS,
+run the optional cross-browser smoke test after installing Playwright
+and its chosen browsers in a <em>test environment</em>:</p>
+<pre><code class="language-sh">python3 tests/server_framework_browser.py --browsers chromium,firefox,webkit
+</code></pre>
+<p>The standalone CSS tests passed in Chromium, Firefox and WebKit. We also
+tested the Blade form in a disposable Laravel 12.72 / Livewire 4.4.8 app:
+server-side form validation (9 assertions), and a Chromium session exercising
+live invalid/valid submissions, request state and input focus. A disposable
+Phoenix 1.8.16 / LiveView 1.2.13 app passed an actual <code>Phoenix.LiveViewTest</code>
+for <code>phx-change</code>, <code>phx-submit</code>, validation and successful server rendering.
+Those <em>framework-app test harnesses</em> are not included in the Syntyr source
+distribution; this is evidence for the tested versions, not a universal
+compatibility certification.</p>
+<p>Full LiveView browser-client behavior, Rails Turbo navigation, and
+other framework versions still require application-owned end-to-end tests.
+Syntyr does not bundle or initialize these frameworks.</p>
 <h2 id="lit-web-components">Lit / Web Components</h2>
 <p>Syntyr works with Lit but does not depend on it. Lit components using light DOM
 can use ordinary <code>.syn-*</code> classes within a Syntyr root. Components with Shadow
