@@ -44,25 +44,66 @@
   };
   const example = document.getElementById("playground-example");
   const theme = document.getElementById("playground-theme");
+  const size = document.getElementById("playground-size");
+  const density = document.getElementById("playground-density");
+  const state = document.getElementById("playground-state");
   const markup = document.getElementById("playground-markup");
   const preview = document.getElementById("playground-preview");
   const status = document.getElementById("playground-status");
   const renderButton = document.getElementById("playground-render");
   const copyButton = document.getElementById("playground-copy");
+  const copySetupButton = document.getElementById("playground-copy-setup");
+  const supportedThemes = new Set(["studio", "grid", "noir", "industrial", "terminal", "corporate", "minimal", "auto"]);
+  const supportedDensities = new Set(["comfortable", "compact", "spacious"]);
+  const supportedWidths = new Set(["fit", "375", "768", "1280"]);
   let framePending = false;
+
+  function selectedTheme() {
+    return supportedThemes.has(theme.value) ? theme.value : "studio";
+  }
+
+  function selectedDensity() {
+    return supportedDensities.has(density.value) ? density.value : "comfortable";
+  }
+
+  function updateViewport() {
+    const requested = supportedWidths.has(size.value) ? size.value : "fit";
+    preview.style.width = requested === "fit" ? "100%" : `${requested}px`;
+  }
+
+  function previewControlState() {
+    // The sandbox has no scripts or form submission. This change is confined to
+    // the rendered frame, so the source editor and exported HTML stay untouched.
+    const doc = preview.contentDocument;
+    if (!doc) return;
+    const current = state.value;
+    if (current === "default") return;
+    const target = current === "invalid"
+      ? doc.querySelector("input:not([type=hidden]), select, textarea")
+      : doc.querySelector("button:not([disabled]), input:not([type=hidden]):not([disabled]), select:not([disabled]), textarea:not([disabled])");
+    if (!target) {
+      status.textContent = `Preview updated; no suitable ${current === "invalid" ? "form field" : "native control"} in this example.`;
+      return;
+    }
+    if (current === "invalid") target.setAttribute("aria-invalid", "true");
+    if (current === "disabled") target.disabled = true;
+    status.textContent = `Preview updated with a ${current} control. Source HTML unchanged.`;
+  }
+  preview.addEventListener("load", previewControlState);
 
   function render() {
     // No script or form permissions, even if an editor pastes arbitrary markup.
     // allow-same-origin permits Syntyr's *local* stylesheet to load; it does
     // not permit script execution without allow-scripts.
+    updateViewport();
     const shell = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../dist/syntyr.all.css">
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
-</head><body class="syn-root syn-page" data-syn-theme="${theme.value}">${markup.value}</body></html>`;
+</head><body class="syn-root syn-page" data-syn-theme="${selectedTheme()}" data-syn-density="${selectedDensity()}">${markup.value}</body></html>`;
     preview.srcdoc = shell;
-    status.textContent = `Preview updated: ${theme.options[theme.selectedIndex].text} theme.`;
+    status.textContent = `Preview updated: ${theme.options[theme.selectedIndex].text} theme, ${selectedDensity()} density.`;
   }
 
   function scheduleRender() {
@@ -78,18 +119,31 @@
 
   example.addEventListener("change", loadExample);
   theme.addEventListener("change", scheduleRender);
+  density.addEventListener("change", scheduleRender);
+  state.addEventListener("change", scheduleRender);
+  size.addEventListener("change", updateViewport);
   markup.addEventListener("input", scheduleRender);
   renderButton.addEventListener("click", render);
-  copyButton.addEventListener("click", async () => {
+  async function copySource(source, successMessage) {
     try {
-      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard unavailable");
-      await navigator.clipboard.writeText(markup.value);
-      status.textContent = "HTML copied.";
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(source);
+      status.textContent = successMessage;
     } catch (_error) {
       markup.focus();
       markup.select();
-      status.textContent = "HTML selected. Copy it with your keyboard.";
+      status.textContent = "Clipboard unavailable. Editable HTML selected; copy it with your keyboard.";
     }
+  }
+
+  copyButton.addEventListener("click", () => copySource(markup.value, "HTML copied."));
+  copySetupButton.addEventListener("click", () => {
+    const source = `<!-- Put syntyr.all.css at the path referenced below. -->
+<link rel="stylesheet" href="syntyr.all.css">
+<section class="syn-root" data-syn-theme="${selectedTheme()}" data-syn-density="${selectedDensity()}">
+${markup.value}
+</section>`;
+    copySource(source, "CSS setup and HTML copied.");
   });
   loadExample();
 })();

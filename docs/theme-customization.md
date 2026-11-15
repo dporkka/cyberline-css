@@ -88,6 +88,32 @@ Useful tokens:
 | `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
 | `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
+## Design-system editor: customize and export
+
+The [browser theme editor](theme-editor.html) now previews the actual seven
+Syntyr palettes while you customize semantic background, surface, foreground,
+secondary text, border and accent tokens. Set body text size, corner radius,
+component density and visual intensity independently.
+
+- **Copy CSS** to generate an unlayered override targeting both root and nested
+  `data-syn-theme` regions. Load it after `syntyr.core.css`, and copy the
+  selected `data-syn-density` and `data-syn-intensity` attributes onto the
+  appropriate HTML region.
+- **Copy JSON** creates a Syntyr-specific preset with theme, density, intensity
+  and CSS token values. It is **not** a DTCG or Figma interchange format.
+- The editor checks normal body text against page background and primary button
+  text against its fill at **4.5:1**. This does not verify secondary text,
+  every semantic status, hover/focus, non-text contrast or WCAG conformance.
+- All controls and copy interactions live exclusively in documentation JS.
+  Applications using Syntyr remain CSS-only.
+
+The [component playground](playground.html) also supports fixed 375/768/1280px
+preview widths (with horizontal scrolling when the editor panel is narrower),
+density presets, and *preview-only* disabled/invalid native control states.
+The **Copy setup + HTML** action emits HTML and a stylesheet link with your
+chosen theme and density, but never serializes simulated control states.
+Adjust the stylesheet path to match your deployment.
+
 ## 3. Independent visual intensity
 
 Use `data-syn-intensity="quiet"` on a dense dashboard, the default `standard` for a balanced presentation, or `cinematic` on a limited hero region. Intensity controls only opt-in decoration in `syntyr.effects.css`; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the [visual-intensity guide](visual-intensity.md) and [live comparison](../examples/intensity-geometry.html).

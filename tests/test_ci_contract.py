@@ -70,6 +70,7 @@ class ContinuousIntegrationContract(unittest.TestCase):
             "python3 tests/browser_matrix.py --browsers chromium firefox webkit",
             "python3 tests/reflow_test.py --browsers chromium firefox webkit",
             "python3 tests/theme_editor_browser.py",
+            "python3 tests/design_workflow_browser.py --browsers chromium firefox webkit",
         ):
             with self.subTest(contract=contract):
                 self.assertIn(contract, content)

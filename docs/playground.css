@@ -5,7 +5,9 @@
   .playground-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
   .playground-code { width: 100%; min-height: 23rem; resize: vertical; font: .84rem/1.55 var(--syn-mono); tab-size: 2; }
   .playground-view-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  #playground-preview { display: block; width: 100%; height: min(65vh, 35rem); min-height: 21rem; background: var(--syn-surface); border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+  .playground-viewport { width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; overscroll-behavior-inline: contain; }
+  .playground-viewport:focus-visible { outline: 2px solid var(--syn-accent); outline-offset: 3px; }
+  #playground-preview { display: block; width: 100%; max-width: none; height: min(65vh, 35rem); min-height: 21rem; background: var(--syn-surface); border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
   .playground-footer { margin-block: 1.5rem 3rem; }
   @media (max-width: 60rem) { .playground-layout { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 35rem) { .playground-controls { grid-template-columns: minmax(0, 1fr); } }

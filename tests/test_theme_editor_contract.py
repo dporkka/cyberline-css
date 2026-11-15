@@ -30,7 +30,7 @@ class ThemeEditorContract(unittest.TestCase):
         parsed.feed(page)
         for item in ('theme', 'accent', 'on-accent', 'preview', 'contrast-result', 'generated-css', 'reset-theme'):
             self.assertIn(item, parsed.ids)
-        self.assertEqual(len(parsed.color_controls), 2)
+        self.assertEqual(len(parsed.color_controls), 7)
         self.assertIn('theme-editor.js', parsed.assets)
         self.assertIn('../dist/syntyr.core.css', parsed.assets)
         self.assertTrue(all(not x.startswith(('https:', 'http:', '//')) for x in parsed.assets))

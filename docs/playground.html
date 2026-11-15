@@ -52,6 +52,28 @@
                 <option value="auto">System preference</option>
               </select>
             </label>
+            <label class="syn-label" for="playground-size">PREVIEW WIDTH
+              <select class="syn-select" id="playground-size">
+                <option value="fit">Available width</option>
+                <option value="375">Mobile / 375px</option>
+                <option value="768">Tablet / 768px</option>
+                <option value="1280">Desktop / 1280px</option>
+              </select>
+            </label>
+            <label class="syn-label" for="playground-density">LAYOUT DENSITY
+              <select class="syn-select" id="playground-density">
+                <option value="comfortable">Comfortable</option>
+                <option value="compact">Compact</option>
+                <option value="spacious">Spacious</option>
+              </select>
+            </label>
+            <label class="syn-label" for="playground-state">CONTROL STATE
+              <select class="syn-select" id="playground-state">
+                <option value="default">Default</option>
+                <option value="disabled">First native control disabled</option>
+                <option value="invalid">First form field invalid</option>
+              </select>
+            </label>
           </div>
           <label class="syn-label" for="playground-markup">EDITABLE HTML</label>
           <textarea class="syn-textarea playground-code" id="playground-markup" spellcheck="false" rows="17" aria-describedby="playground-help"></textarea>
@@ -59,6 +81,7 @@
           <div class="syn-inline">
             <button class="syn-button syn-button--primary" id="playground-render" type="button">RENDER PREVIEW</button>
             <button class="syn-button" id="playground-copy" type="button">COPY HTML</button>
+            <button class="syn-button" id="playground-copy-setup" type="button">COPY SETUP + HTML</button>
           </div>
           <p id="playground-status" role="status" aria-live="polite" class="syn-caption">Ready to preview.</p>
         </section>
@@ -68,7 +91,10 @@
             <h2 id="playground-view-title" class="syn-heading">Live preview</h2>
             <span class="syn-badge">ISOLATED</span>
           </div>
-          <iframe id="playground-preview" title="Sandboxed Syntyr component preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+          <div id="playground-viewport" class="playground-viewport" role="region" aria-label="Scrollable responsive preview" tabindex="0">
+            <iframe id="playground-preview" title="Sandboxed Syntyr component preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+          </div>
+          <p class="syn-caption">Fixed-width viewports may scroll horizontally in this panel. The state selector changes only the preview, never the copied HTML.</p>
           <p class="syn-caption">Syntyr styling runs with ordinary CSS. Only this documentation page uses JavaScript to update the preview.</p>
         </section>
       </div>

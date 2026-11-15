@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr theme customization — copy, override, ship. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="47bda0c3421d451704b8270c00c2fae625b0f73784395b214bf7e93318d9550b">
+  <meta name="syntyr-source-sha256" content="413843be9cf03775c9f6a5e7743139ddaa42bdcc16ef6bee358df40028c33243">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr theme customization — copy, override, ship — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/theme-customization.html">
@@ -172,6 +172,30 @@ Syntyr leaves platform font smoothing untouched.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="design-system-editor-customize-and-export">Design-system editor: customize and export</h2>
+<p>The <a href="theme-editor.html">browser theme editor</a> now previews the actual seven
+Syntyr palettes while you customize semantic background, surface, foreground,
+secondary text, border and accent tokens. Set body text size, corner radius,
+component density and visual intensity independently.</p>
+<ul>
+<li><strong>Copy CSS</strong> to generate an unlayered override targeting both root and nested
+<code>data-syn-theme</code> regions. Load it after <code>syntyr.core.css</code>, and copy the
+selected <code>data-syn-density</code> and <code>data-syn-intensity</code> attributes onto the
+appropriate HTML region.</li>
+<li><strong>Copy JSON</strong> creates a Syntyr-specific preset with theme, density, intensity
+and CSS token values. It is <strong>not</strong> a DTCG or Figma interchange format.</li>
+<li>The editor checks normal body text against page background and primary button
+text against its fill at <strong>4.5:1</strong>. This does not verify secondary text,
+every semantic status, hover/focus, non-text contrast or WCAG conformance.</li>
+<li>All controls and copy interactions live exclusively in documentation JS.
+Applications using Syntyr remain CSS-only.</li>
+</ul>
+<p>The <a href="playground.html">component playground</a> also supports fixed 375/768/1280px
+preview widths (with horizontal scrolling when the editor panel is narrower),
+density presets, and <em>preview-only</em> disabled/invalid native control states.
+The <strong>Copy setup + HTML</strong> action emits HTML and a stylesheet link with your
+chosen theme and density, but never serializes simulated control states.
+Adjust the stylesheet path to match your deployment.</p>
 <h2 id="3-independent-visual-intensity">3. Independent visual intensity</h2>
 <p>Use <code>data-syn-intensity=&quot;quiet&quot;</code> on a dense dashboard, the default <code>standard</code> for a balanced presentation, or <code>cinematic</code> on a limited hero region. Intensity controls only opt-in decoration in <code>syntyr.effects.css</code>; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the <a href="visual-intensity.html">visual-intensity guide</a> and <a href="../examples/intensity-geometry.html">live comparison</a>.</p>
 <h2 id="4-css-component-mode-versus-native-semantic-mode">4. CSS component mode versus native semantic mode</h2>
@@ -277,6 +301,7 @@ semantic typography, nested themes, compact layout and form states.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-choose-a-theme">1. Choose a theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#2-override-tokens-using-application-css">2. Override tokens using application CSS</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#design-system-editor-customize-and-export">Design-system editor: customize and export</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-independent-visual-intensity">3. Independent visual intensity</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#4-css-component-mode-versus-native-semantic-mode">4. CSS component mode versus native semantic mode</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#5-responsive-applications-and-accessibility">5. Responsive applications and accessibility</a>
