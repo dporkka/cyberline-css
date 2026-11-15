@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Syntyr / Server-rendered operations snapshot</title>
+  <link rel="stylesheet" href="/syntyr/css/syntyr.core.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#dashboard" class="syn-button">Skip to dashboard</a>
+  <main class="syn-shell" id="dashboard">
+    <header class="syn-header">
+      <h1 class="syn-title">Operations overview</h1>
+      <p class="syn-muted">Workspace: {{.Account}}</p>
+    </header>
+    <!-- Adapted from blocks/snippets/metric-overview.html. Metrics are demo-only. -->
+    <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-kpi-heading">
+      <h2 id="syn-kpi-heading" class="syn-heading">Operations snapshot</h2>
+      <div class="syn-stats">
+        <article class="syn-stat">
+          <p class="syn-stat-label">Active accounts</p>
+          <p class="syn-stat-value">{{.ActiveAccounts}}</p>
+        </article>
+        <article class="syn-stat">
+          <p class="syn-stat-label">Open requests</p>
+          <p class="syn-stat-value">{{.OpenRequests}}</p>
+        </article>
+        <article class="syn-stat">
+          <p class="syn-stat-label">Completion</p>
+          <p class="syn-stat-value">{{.Completion}}</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

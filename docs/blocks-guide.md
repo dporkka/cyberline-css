@@ -15,6 +15,40 @@ buttons. Disable JavaScript and all twenty static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
+## Optional block installer (Python standard library only)
+
+The copy button remains the simplest path for individual blocks. For developers
+and coding agents that prefer local, repeatable source handoff, the repository
+includes a development-time CLI. It reads the same 20-block public manifest
+used by this gallery; it is **not** a runtime or deployment dependency.
+
+~~~sh
+# From a pinned Syntyr source checkout (alpha.5 is not yet released)
+python3 scripts/blocks_cli.py list
+python3 scripts/blocks_cli.py list --category Applications --json
+
+# Review the exact files before any changes, then install to an app folder
+python3 scripts/blocks_cli.py install metric-overview team-directory --output ./my-app --dry-run
+python3 scripts/blocks_cli.py install metric-overview team-directory --output ./my-app
+~~~
+
+This creates `my-app/syntyr/blocks/*.html`, only the required prebuilt
+`syntyr/css/syntyr.<module>.css` files, an integration README, a
+`LICENSE-MIT` copy and `installed.json` with the pinned source version
+and SHA-256 checksums for every copied file. No data is sent to a server.
+
+A [runnable Go standard-library consumer](https://github.com/dporkka/syntyr-css/tree/main/examples/blocks-go)
+shows one copied block adapted into a server-rendered `html/template` page,
+with a real HTTP handler and HTML escaping tests. Go is optional; no Go
+toolchain is required to use the core CSS or the block installer.
+
+This is intentionally a **one-shot, non-destructive copy operation**: it
+refuses to overwrite an existing file, even on a repeat invocation.
+To select additional blocks, use a new output folder or copy them manually;
+there is no automated in-place upgrade yet. The CLI does not install premium
+assets or grant a commercial license. Adapt the CSS URLs to your hosting root,
+and integrate server behavior in your app as described below.
+
 ## Native HTML and framework integration
 
 Load the specific CSS modules shown on each block, from the same pinned version.

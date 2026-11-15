@@ -24,6 +24,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
+- [Free blocks and source installer](https://syntyr-css.pages.dev/docs/blocks-guide.md): Copy 20 public MIT HTML blocks with just their CSS, or use `python3 scripts/blocks_cli.py list --json` and `install ... --output ...` from a pinned alpha.5 **source checkout**. The optional CLI is not available in the published alpha.4 release or as a hosted install endpoint.
 - [Premium CSS-only compositions and browser validation](https://syntyr-css.pages.dev/docs/premium-compositions.md): SaaS surfaces, native command presentation, responsive layouts, and maintainer-only Chromium/Firefox/WebKit reflow, keyboard and axe verification (alpha.5 source candidate).
 - [Copyable form recipes](https://syntyr-css.pages.dev/docs/component-recipes.md): Candidate-only native form groups and accessible markup.
 - [Native patterns and component imports](https://syntyr-css.pages.dev/docs/native-patterns.md): Candidate-only native browser recipes and individual CSS entrypoints (not in alpha.4).

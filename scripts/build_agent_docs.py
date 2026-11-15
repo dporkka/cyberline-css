@@ -14,6 +14,7 @@ SOURCES = (
     "docs/ai-quickstart.md",
     "docs/components.md",
     "docs/recipes.md",
+    "docs/blocks-guide.md",
     "docs/component-recipes.md",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
