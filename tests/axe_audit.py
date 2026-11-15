@@ -9,6 +9,7 @@ a temporary test environment and supply a local axe-core script, e.g.:
 Automated checks do not replace screen reader, keyboard or zoom verification.
 """
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import os
@@ -43,10 +44,41 @@ def normalize_findings(page_path: str, result: dict) -> dict:
     return findings
 
 
+def summarize_findings(findings: list[dict]) -> dict:
+    """Count confirmed nodes and inconclusive targets without conflating them.
+
+    An incomplete page/rule group is not a proven accessibility failure or pass.
+    All counts are for the exact audited source revision, not a certification.
+    """
+    by_page = []
+    incomplete_by_rule = Counter()
+    for entry in findings:
+        page_rules = Counter(item["rule"] for item in entry["incomplete"])
+        incomplete_by_rule.update(page_rules)
+        by_page.append({
+            "page": entry["page"],
+            "confirmed_violation_nodes": len(entry["violations"]),
+            "incomplete_nodes": len(entry["incomplete"]),
+            "incomplete_by_rule": dict(sorted(page_rules.items())),
+        })
+    return {
+        "schema_version": 1,
+        "pages": by_page,
+        "totals": {
+            "pages": len(by_page),
+            "confirmed_violation_nodes": sum(row["confirmed_violation_nodes"] for row in by_page),
+            "incomplete_nodes": sum(row["incomplete_nodes"] for row in by_page),
+            "incomplete_page_rule_groups": sum(len(row["incomplete_by_rule"]) for row in by_page),
+            "incomplete_by_rule": dict(sorted(incomplete_by_rule.items())),
+        },
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--axe-file", type=Path, required=True)
     parser.add_argument("--report", type=Path, help="write actionable JSON findings for manual review")
+    parser.add_argument("--summary", type=Path, help="write compact JSON counts; no HTML/selector samples")
     args = parser.parse_args()
     if not args.axe_file.is_file():
         parser.error(f"Missing local axe-core script: {args.axe_file}")
@@ -82,6 +114,9 @@ def main() -> int:
     if args.report:
         args.report.write_text(json.dumps({"schema_version": 1, "pages": findings}, indent=2) + "\n", encoding="utf-8")
         print(f"WROTE manual review targets: {args.report}")
+    if args.summary:
+        args.summary.write_text(json.dumps(summarize_findings(findings), indent=2) + "\n", encoding="utf-8")
+        print(f"WROTE compact audit summary: {args.summary}")
     print(f"TOTAL: {violations} violations, {manual_review} incomplete checks requiring review")
     return int(bool(violations))
 

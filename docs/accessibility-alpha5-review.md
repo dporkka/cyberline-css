@@ -3,9 +3,29 @@
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
+## Current unmerged candidate snapshot: November 15, 2026
+
+**Tested source:** `main` at `cfab482` plus the unmerged [PR #55](https://github.com/dporkka/syntyr-css/pull/55) head `6fdf594` (temporary integration commit `8c20822`). These observations do not establish that PR #55 is merged or that the current `main` has the same exact test results. The published alpha.4 files remain unchanged.
+
+- Official Playwright Python `v1.64.1-noble` Linux container, Chromium **156.0.8078.4**, Firefox **157.0**, WebKit **27.2**: **20 public pages × 3 viewport widths × 3 engines = 180 passing page/viewport cases**, plus **20 pages × 4 enlarged-text configurations × 3 engines = 240 passing reflow cases**. Enlarged-text tests are **not** browser zoom tests.
+- Additional Playwright 1.64.1 container coverage on the combined candidate with this documentation/reporting change: **30 Chromium interaction tests**, **2 Chromium simulated forced-colors tests**, theme editor across **three viewports**, and a component-playground smoke check at **390 and 1280 px in each of Chromium, Firefox and WebKit**. All passed. Simulated forced colors are **not** native OS high-contrast verification.
+- Local axe-core **4.10.3** WCAG A/AA-tagged Chromium run over the same **20 pages**: **zero confirmed automated rule violations**, **10 incomplete page/rule groups containing 83 inconclusive `color-contrast` element targets**. These **83 targets remain unreviewed**, not passed or failed. The raw JSON stays in the local test environment; no personal or private data was included in the public example pages.
+- GitHub reports successful CodeRabbit and Cloudflare checks on PR #55 head, but **no Woodpecker check or commit status** was found. GitHub checks from other providers cannot substitute for an executed Woodpecker merge-candidate pipeline.
+- Remaining gates: keyboard/screen-reader manual review in real applications, genuine 200% and 400% browser zoom, native OS high-contrast modes, manual adjudication of the **83 current** inconclusive contrast nodes, and naming clearance before commercial marketing. Passing these automated suites is **not WCAG certification**.
+
+Generate a compact, non-HTML report of the current candidate's axe findings alongside the full local selector-level review file:
+
+```sh
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-targets.json \
+  --summary /tmp/syntyr-axe-summary.json
+```
+
+The per-page table and 345-target counts **below** are historical results from November 14, not counts from this current candidate. Do not subtract the two values as though they were measurements of unchanged content: the audited pages, styles and state have changed.
+
 ## Post-merge snapshot: `b19c331` (November 14, 2026, Brasília)
 
-This is the latest **executed** audit snapshot, after the merges of
+This was the latest **executed** audit snapshot as of November 14, after the merges of
 [PR #14](https://github.com/dporkka/syntyr-css/pull/14) and
 [PR #22](https://github.com/dporkka/syntyr-css/pull/22).
 The published alpha.4 CSS remains immutable; alpha.5 is not yet published.

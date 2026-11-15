@@ -1520,7 +1520,23 @@ Original: https://syntyr-css.pages.dev/docs/accessibility.md
 
 **Status:** experimental alpha; not a WCAG certification or professional audit.
 
-## Latest post-merge results (November 14, 2026)
+## Latest candidate validation (November 15, 2026)
+
+The unmerged candidate combining `main` at `cfab482` with PR #55 at
+`6fdf594` passed **180 real Chromium/Firefox/WebKit viewport checks** and
+**240 enlarged-text reflow cases** in the Playwright 1.64.1 Linux container.
+The optional suites also passed 30 interaction tests, 2 simulated forced-colors checks, the theme editor across three widths, and a component playground check at two widths in all three engines.
+A new 20-page axe-core scan found **zero confirmed automated rule violations**
+while leaving **83 inconclusive `color-contrast` element targets across 10
+page/rule groups** for manual review. None of those 83 are certified passes.
+The GitHub head has successful Cloudflare and CodeRabbit checks but **no
+confirmed Woodpecker status**. The published alpha.4 release is unchanged.
+
+See [the dated, exact-revision candidate evidence and remaining release
+gates](accessibility-alpha5-review.md). Native 200%/400% browser zoom, real
+screen-reader testing and OS-level high contrast are still open.
+
+## Historical post-merge results (November 14, 2026)
 
 On `main` commit `b19c331` (after PRs #14 and #22), the Python suite
 passed **155 tests**. The 16-page, three-viewport gallery matrix and 64
@@ -1536,7 +1552,7 @@ the reproducible 63-file allowlisted build matched byte-for-byte; private
 repository paths returned 404. Cloudflare's exact-head build passed, but
 an independent Woodpecker pipeline execution has not been verified.
 
-See [the current per-page evidence and manual gates](accessibility-alpha5-review.md).
+See [the historical per-page counts and updated candidate evidence](accessibility-alpha5-review.md).
 This is not WCAG certification or verification of real zoom, screen-reader
 behavior, or native OS high-contrast mode.
 
@@ -1547,7 +1563,7 @@ behavior, or native OS high-contrast mode.
 - Real browser matrix: Chromium, Firefox, and WebKit on desktop/mobile viewport widths,
   testing navigation, table semantics, native popover, disclosure, and overflow.
 - Automated accessibility: axe-core WCAG 2.0/2.1/2.2 A/AA tagged checks on the
-  16 public showcase and example pages. The tool may return
+  20 public showcase and example pages. The tool may return
   **incomplete/manual-review** findings even with zero confirmed violations.
 - Still needed: screen reader testing (NVDA + Firefox or Chrome, VoiceOver +
   Safari), actual browser zoom at 200% and 400%, touch target examination,
@@ -1573,7 +1589,9 @@ JavaScript file is shipped to application consumers:
 
 ```sh
 curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
-python3 tests/axe_audit.py --axe-file /tmp/axe.min.js
+python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-targets.json \
+  --summary /tmp/syntyr-axe-summary.json
 ```
 
 For reproducible WebKit on an isolated testing host with Podman or Docker, clone
