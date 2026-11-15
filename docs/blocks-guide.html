@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr CSS documentation: Syntyr Blocks &amp; Assets — integration guide. Read the complete illustrated HTML reference.">
-  <meta name="syntyr-source-sha256" content="8d11f4ab2684a374809d42a0a82188ad314d60a958dd67bcae811f549a51bd0d">
+  <meta name="syntyr-source-sha256" content="77842095434c097e448bc89304bc8993c6584b2a3e422c752132ef0ae0e388dd">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide.html">
@@ -87,8 +87,9 @@ Studio sans, Editorial serif, Terminal mono, Technical sans, Reading serif
 and Compact system. They do not bundle or download font files. Customize
 CSS tokens for UI, display and monospace type, preserving readable fallbacks.</p>
 <p>The gallery now provides 24 original, copyable inline SVG examples using
-Syntyr's existing generic icon sizing contract. These are not a dependency,
-icon font or stand-alone icon runtime. You may also use appropriately licensed
+Syntyr's existing generic icon sizing contract. They are not a dependency or icon font; optional standalone SVG exports
+are now available in <code>assets/icons/</code> using <code>scripts/export_icons.py</code>.
+See <a href="design-assets.html">the design assets guide</a> for distribution and attribution. You may also use appropriately licensed
 provider packs such as Lucide, Tabler and Heroicons; none are vendored here. Icon-only controls need accessible
 names. See <a href="symbols.html">symbols</a> for supported integration patterns.</p>
 <h2 id="source-build-and-maintenance">Source, build and maintenance</h2>

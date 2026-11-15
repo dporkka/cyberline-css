@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Syntyr CSS-only pattern and original SVG icon gallery. No JavaScript, remote assets, or mandatory icon dependencies.">
+<title>Syntyr Design Assets — Original CSS Patterns and SVGs</title>
+<link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../dist/syntyr.core.css">
+<link rel="stylesheet" href="../dist/syntyr.patterns.css">
+<link rel="stylesheet" href="../dist/syntyr.symbols.css">
+<style>
+  body { margin:0; background:#f5f7fb; color:#15233a; font-family:system-ui,sans-serif; }
+  .asset-skip {position:absolute;left:1rem;top:-10rem;z-index:10}
+  .asset-skip:focus-visible {top:1rem}
+  .asset-layout {width:min(100% - 2rem,80rem);margin:auto;padding-block:1.5rem 3rem;}
+  .asset-header {display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+  .asset-header a {color:inherit}
+  .asset-heading {max-width:65ch;margin:2rem 0}
+  .asset-theme {padding:clamp(1rem,3vw,2rem);margin-block:1.5rem;border:1px solid var(--syn-frame);background:var(--syn-bg);color:var(--syn-text)}
+  .asset-theme h2 {margin:0 0 .3rem}
+  .asset-theme p {margin:.1rem 0 1rem;color:var(--syn-muted)}
+  .asset-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:1rem}
+  .asset-swatch {min-block-size:10rem;padding:1rem;display:flex;align-items:end;border:1px solid var(--syn-frame);
+      background-color:var(--syn-surface);color:var(--syn-text)}
+  .asset-swatch strong {background:var(--syn-surface);padding:.3rem .55rem;border:1px solid var(--syn-frame);font-size:.9rem}
+  .asset-icons {display:flex;flex-wrap:wrap;gap:.8rem;list-style:none;padding:0}
+  .asset-icons li {display:flex;align-items:center;gap:.45rem;min-inline-size:8rem;padding:.65rem;border:1px solid #b8c6d8;background:#fff;color:#15233a}
+  .asset-icons img {display:block;width:1.5rem;height:1.5rem}
+  .asset-footer {color:#4b5d76;font-size:.875rem}
+</style></head>
+<body><a class="asset-skip syn-button" href="#content">Skip to assets</a>
+<div class="asset-layout"><header class="asset-header">
+  <a href="../index.html"><strong>SYNTYR / CSS</strong></a>
+  <nav aria-label="Asset navigation"><a href="../docs/design-assets.html">Usage and licensing</a> ·
+    <a href="../docs/blocks.html">Full blocks gallery</a></nav>
+</header><main id="content"><div class="asset-heading"><p class="syn-eyebrow">OPTIONAL / MIT / NO JAVASCRIPT</p>
+<h1>Original design assets</h1>
+<p>Five CSS-only patterns across three existing Syntyr themes, plus 24 original SVG icons.
+  Everything is self-hosted; patterns are decorative and do not represent app status.</p></div>
+<section class="syn-root asset-theme" data-syn-theme="studio" data-syn-intensity="quiet" aria-label="Enterprise / Studio">
+<h2>Enterprise / Studio</h2><p>Clean SaaS patterns and quiet surfaces</p><div class="asset-grid">
+<div class="asset-swatch syn-pattern syn-pattern--dots"><strong>Dotted field</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--blueprint"><strong>Blueprint grid</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--diagonal"><strong>Diagonal stripes</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--hatch"><strong>Cross hatch</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--scanlines"><strong>Scanlines</strong></div>
+</div></section>
+<section class="syn-root asset-theme" data-syn-theme="grid" data-syn-intensity="cinematic" aria-label="Neon / Grid">
+<h2>Neon / Grid</h2><p>Technical cyan accents and stronger pattern contrast</p><div class="asset-grid">
+<div class="asset-swatch syn-pattern syn-pattern--dots"><strong>Dotted field</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--blueprint"><strong>Blueprint grid</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--diagonal"><strong>Diagonal stripes</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--hatch"><strong>Cross hatch</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--scanlines"><strong>Scanlines</strong></div>
+</div></section>
+<section class="syn-root asset-theme" data-syn-theme="noir" data-syn-intensity="standard" aria-label="Noir">
+<h2>Noir</h2><p>Warm dark surfaces and subtle material detail</p><div class="asset-grid">
+<div class="asset-swatch syn-pattern syn-pattern--dots"><strong>Dotted field</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--blueprint"><strong>Blueprint grid</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--diagonal"><strong>Diagonal stripes</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--hatch"><strong>Cross hatch</strong></div>
+<div class="asset-swatch syn-pattern syn-pattern--scanlines"><strong>Scanlines</strong></div>
+</div></section>
+<section class="syn-root asset-theme" data-syn-theme="studio" aria-labelledby="asset-icons-heading"><h2 id="asset-icons-heading">24 original SVGs</h2><p>Decorative icons with visible text labels. View and copy inline SVG from the blocks gallery.</p><ul class="asset-icons">
+<li><img src="../assets/icons/search.svg" width="24" height="24" alt=""><span>Search</span></li>
+<li><img src="../assets/icons/close.svg" width="24" height="24" alt=""><span>Close</span></li>
+<li><img src="../assets/icons/chevron-right.svg" width="24" height="24" alt=""><span>Next</span></li>
+<li><img src="../assets/icons/chevron-left.svg" width="24" height="24" alt=""><span>Previous</span></li>
+<li><img src="../assets/icons/check.svg" width="24" height="24" alt=""><span>Confirm</span></li>
+<li><img src="../assets/icons/warning.svg" width="24" height="24" alt=""><span>Warning</span></li>
+<li><img src="../assets/icons/info.svg" width="24" height="24" alt=""><span>Information</span></li>
+<li><img src="../assets/icons/settings.svg" width="24" height="24" alt=""><span>Settings</span></li>
+<li><img src="../assets/icons/notification.svg" width="24" height="24" alt=""><span>Notifications</span></li>
+<li><img src="../assets/icons/person.svg" width="24" height="24" alt=""><span>Account</span></li>
+<li><img src="../assets/icons/team.svg" width="24" height="24" alt=""><span>Team</span></li>
+<li><img src="../assets/icons/calendar.svg" width="24" height="24" alt=""><span>Calendar</span></li>
+<li><img src="../assets/icons/clock.svg" width="24" height="24" alt=""><span>Time</span></li>
+<li><img src="../assets/icons/external-link.svg" width="24" height="24" alt=""><span>Open external</span></li>
+<li><img src="../assets/icons/download.svg" width="24" height="24" alt=""><span>Download</span></li>
+<li><img src="../assets/icons/upload.svg" width="24" height="24" alt=""><span>Upload</span></li>
+<li><img src="../assets/icons/terminal.svg" width="24" height="24" alt=""><span>Terminal</span></li>
+<li><img src="../assets/icons/shield.svg" width="24" height="24" alt=""><span>Protection</span></li>
+<li><img src="../assets/icons/lock.svg" width="24" height="24" alt=""><span>Private</span></li>
+<li><img src="../assets/icons/database.svg" width="24" height="24" alt=""><span>Database</span></li>
+<li><img src="../assets/icons/bar-chart.svg" width="24" height="24" alt=""><span>Bar chart</span></li>
+<li><img src="../assets/icons/line-chart.svg" width="24" height="24" alt=""><span>Trend</span></li>
+<li><img src="../assets/icons/filter.svg" width="24" height="24" alt=""><span>Filter</span></li>
+<li><img src="../assets/icons/spark.svg" width="24" height="24" alt=""><span>Highlight</span></li>
+</ul></section></main><footer class="asset-footer">Original Syntyr MIT artwork.
+<a href="../THIRD_PARTY_NOTICES.md">Source and license notices</a>.
+<a href="../metadata/design-assets.json">Machine-readable asset manifest</a>.</footer></div></body></html>

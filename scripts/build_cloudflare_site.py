@@ -128,7 +128,7 @@ PUBLIC_DOCS = (
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
     "editor-integration.md", "recipes.md", "saas-cli-business.md",
     "site-generator-decision.md", "tailwind-research.md",
-    "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
+    "theme-customization.md", "design-assets.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
 )
 
@@ -143,6 +143,8 @@ def source_files() -> dict[str, bytes]:
         ROOT / "LICENSE",
         ROOT / "README.md",
         ROOT / "ARCHITECTURE.md",
+        ROOT / "THIRD_PARTY_NOTICES.md",
+        ROOT / "metadata/design-assets.json",
         ROOT / "llms.txt",
         ROOT / "llms-full.txt",
         ROOT / "metadata/components.json",
@@ -166,7 +168,7 @@ def source_files() -> dict[str, bytes]:
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
+        "resources.html", "design-assets.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
         "viz.html",
     )
@@ -187,6 +189,12 @@ def source_files() -> dict[str, bytes]:
     paths.extend(ROOT / "docs/previews" / name for name in public_preview_images)
     paths.extend(ROOT / "examples" / name for name in public_examples)
     paths.extend(ROOT / "dist" / name for name in public_css)
+    # Curated originals only; each SVG is from the audited gallery source.
+    if __package__:
+        from .export_icons import icon_paths
+    else:
+        from export_icons import icon_paths
+    paths.extend(ROOT / name for name in icon_paths())
     for path in paths:
         if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(ROOT):
             raise ValueError(f"Not a regular repo file: {path}")

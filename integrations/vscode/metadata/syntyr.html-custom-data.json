@@ -486,6 +486,30 @@
           "description": "Syntyr CSS class (components/layout.css)."
         },
         {
+          "name": "syn-pattern",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
+          "name": "syn-pattern--blueprint",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
+          "name": "syn-pattern--diagonal",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
+          "name": "syn-pattern--dots",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
+          "name": "syn-pattern--hatch",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
+          "name": "syn-pattern--scanlines",
+          "description": "Syntyr CSS class (patterns.css)."
+        },
+        {
           "name": "syn-pipeline",
           "description": "Keyboard-focusable scrollable CRM stage layout; host manages state."
         },

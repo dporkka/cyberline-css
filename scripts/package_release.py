@@ -11,8 +11,10 @@ from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 if __package__:
     from .build import all_distributions
+    from .export_icons import icon_paths
 else:
     from build import all_distributions
+    from export_icons import icon_paths
 
 ROOT = Path(__file__).resolve().parents[1]
 # One source of truth: scripts/build.py defines public CSS entrypoints.
@@ -20,6 +22,9 @@ FILES = (
     "LICENSE",
     "README.md",
     "ARCHITECTURE.md",
+    "THIRD_PARTY_NOTICES.md",
+    "docs/design-assets.md",
+    "metadata/design-assets.json",
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/ai-quickstart.md",
@@ -45,7 +50,7 @@ FILES = (
     "metadata/syntyr.css-custom-data.json",
     "metadata/syntyr.code-snippets",
 
-) + tuple(f"dist/{name}" for name in all_distributions()) + (
+) + tuple(f"dist/{name}" for name in all_distributions()) + icon_paths() + (
     "terminal/palettes.json",
 )
 
@@ -54,6 +59,8 @@ def package(output: Path) -> None:
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
     if not version or "/" in version or "\\" in version:
         raise ValueError("Invalid VERSION")
+    subprocess.run([sys.executable, str(ROOT / "scripts/export_icons.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/build.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     subprocess.run([sys.executable, str(ROOT / "scripts/build_agent_docs.py"), "--check"],

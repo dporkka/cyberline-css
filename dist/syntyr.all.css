@@ -1499,6 +1499,65 @@
     }
   }
 }
+/* Optional original CSS-only background patterns.
+   Theme-aware, no web fonts, SVG downloads, scripts or animations.
+   Load after syntyr.core.css; do not load alongside syntyr.all.css. */
+@layer syn.effects {
+  /* Intensity tokens belong to each region, so nested overrides work. */
+  :where(.syn-root, .syn-root [data-syn-intensity]) {
+    --syn-pattern-strength: 12%;
+  }
+  :where(.syn-root[data-syn-intensity="quiet"], .syn-root [data-syn-intensity="quiet"]) {
+    --syn-pattern-strength: 3%;
+  }
+  :where(.syn-root[data-syn-intensity="standard"], .syn-root [data-syn-intensity="standard"]) {
+    --syn-pattern-strength: 12%;
+  }
+  :where(.syn-root[data-syn-intensity="cinematic"], .syn-root [data-syn-intensity="cinematic"]) {
+    --syn-pattern-strength: 20%;
+  }
+  :where(.syn-root .syn-pattern, .syn-root.syn-pattern) {
+    --syn-pattern-step: 1.5rem;
+    --syn-pattern-tint: color-mix(in srgb, var(--syn-accent) var(--syn-pattern-strength, 12%), transparent);
+    background-repeat: repeat;
+  }
+
+  :where(.syn-root .syn-pattern--dots, .syn-root.syn-pattern--dots) {
+    background-image: radial-gradient(circle, var(--syn-pattern-tint) 1px, transparent 1.5px);
+    background-size: var(--syn-pattern-step) var(--syn-pattern-step);
+  }
+  :where(.syn-root .syn-pattern--blueprint, .syn-root.syn-pattern--blueprint) {
+    background-image:
+      linear-gradient(to right, var(--syn-pattern-tint) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--syn-pattern-tint) 1px, transparent 1px);
+    background-size: var(--syn-pattern-step) var(--syn-pattern-step);
+  }
+  :where(.syn-root .syn-pattern--diagonal, .syn-root.syn-pattern--diagonal) {
+    background-image: repeating-linear-gradient(135deg,
+      transparent 0 calc(var(--syn-pattern-step) - 1px),
+      var(--syn-pattern-tint) calc(var(--syn-pattern-step) - 1px) var(--syn-pattern-step));
+  }
+  :where(.syn-root .syn-pattern--hatch, .syn-root.syn-pattern--hatch) {
+    background-image:
+      repeating-linear-gradient(45deg, transparent 0 calc(var(--syn-pattern-step) - 1px),
+        var(--syn-pattern-tint) calc(var(--syn-pattern-step) - 1px) var(--syn-pattern-step)),
+      repeating-linear-gradient(-45deg, transparent 0 calc(var(--syn-pattern-step) - 1px),
+        var(--syn-pattern-tint) calc(var(--syn-pattern-step) - 1px) var(--syn-pattern-step));
+  }
+  :where(.syn-root .syn-pattern--scanlines, .syn-root.syn-pattern--scanlines) {
+    background-image: repeating-linear-gradient(to bottom,
+      transparent 0 calc(var(--syn-pattern-step) - 1px),
+      var(--syn-pattern-tint) calc(var(--syn-pattern-step) - 1px) var(--syn-pattern-step));
+  }
+
+  /* Pure decoration must never obscure high-contrast or forced-colors content. */
+  @media (prefers-contrast: more) {
+    :where(.syn-root .syn-pattern, .syn-root.syn-pattern) { background-image: none; }
+  }
+  @media (forced-colors: active) {
+    :where(.syn-root .syn-pattern, .syn-root.syn-pattern) { background-image: none; }
+  }
+}
 /* Deliberately separate from static effects; no selectors activate without opt-in classes. */
 @layer syn.effects {
   @keyframes syn-reading-progress {

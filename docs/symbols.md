@@ -1,7 +1,9 @@
 # Icons, Unicode, and ASCII art (optional)
 
-Syntyr styles user-supplied icons and text; it **does not** ship icon glyphs, an
-icon font, emoji assets, a JavaScript icon runtime, or an ASCII-art generator.
+Syntyr styles user-supplied icons and text; the `symbols` CSS module has **no** glyphs,
+icon font, emoji assets, JavaScript icon runtime, or ASCII-art generator.
+A separate, optional set of 24 original MIT SVGs is available as standalone files
+under `assets/icons/` (see [the design assets guide](design-assets.md)).
 The free MIT module is `dist/syntyr.symbols.css`. It is optional and works
 with any of the seven source themes, server-rendered HTML and framework views.
 

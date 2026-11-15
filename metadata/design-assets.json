@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "license": "MIT",
+  "origin": "original Syntyr artwork",
+  "icons": [
+    "search",
+    "close",
+    "chevron-right",
+    "chevron-left",
+    "check",
+    "warning",
+    "info",
+    "settings",
+    "notification",
+    "person",
+    "team",
+    "calendar",
+    "clock",
+    "external-link",
+    "download",
+    "upload",
+    "terminal",
+    "shield",
+    "lock",
+    "database",
+    "bar-chart",
+    "line-chart",
+    "filter",
+    "spark"
+  ],
+  "patterns": [
+    "syn-pattern--dots",
+    "syn-pattern--blueprint",
+    "syn-pattern--diagonal",
+    "syn-pattern--hatch",
+    "syn-pattern--scanlines"
+  ],
+  "external_references": [
+    {
+      "name": "Lucide",
+      "license": "ISC",
+      "url": "https://github.com/lucide-icons/lucide",
+      "bundled": false
+    },
+    {
+      "name": "Tabler Icons",
+      "license": "MIT",
+      "url": "https://github.com/tabler/tabler-icons",
+      "bundled": false
+    },
+    {
+      "name": "Radix Colors",
+      "license": "MIT",
+      "url": "https://github.com/radix-ui/colors",
+      "bundled": false
+    },
+    {
+      "name": "Open Props",
+      "license": "MIT",
+      "url": "https://github.com/argyleink/open-props",
+      "bundled": false
+    },
+    {
+      "name": "pattern.css",
+      "license": "MIT",
+      "url": "https://github.com/bansal-io/pattern.css",
+      "bundled": false
+    }
+  ]
+}

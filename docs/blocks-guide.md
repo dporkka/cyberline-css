@@ -69,8 +69,9 @@ and Compact system. They do not bundle or download font files. Customize
 CSS tokens for UI, display and monospace type, preserving readable fallbacks.
 
 The gallery now provides 24 original, copyable inline SVG examples using
-Syntyr's existing generic icon sizing contract. These are not a dependency,
-icon font or stand-alone icon runtime. You may also use appropriately licensed
+Syntyr's existing generic icon sizing contract. They are not a dependency or icon font; optional standalone SVG exports
+are now available in `assets/icons/` using `scripts/export_icons.py`.
+See [the design assets guide](design-assets.md) for distribution and attribution. You may also use appropriately licensed
 provider packs such as Lucide, Tabler and Heroicons; none are vendored here. Icon-only controls need accessible
 names. See [symbols](symbols.md) for supported integration patterns.
 

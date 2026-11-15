@@ -230,6 +230,18 @@
       "description": "Per-panel border radius; defaults to square corners."
     },
     {
+      "name": "--syn-pattern-step",
+      "description": "Syntyr CSS property (patterns.css)."
+    },
+    {
+      "name": "--syn-pattern-strength",
+      "description": "Syntyr CSS property (patterns.css)."
+    },
+    {
+      "name": "--syn-pattern-tint",
+      "description": "Syntyr CSS property (patterns.css)."
+    },
+    {
       "name": "--syn-primary-hover-bg",
       "description": "Syntyr CSS property (tokens.css)."
     },

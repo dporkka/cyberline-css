@@ -602,6 +602,36 @@
       "description": "Syntyr CSS class (components/layout.css)."
     },
     {
+      "name": "syn-pattern",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
+      "name": "syn-pattern--blueprint",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
+      "name": "syn-pattern--diagonal",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
+      "name": "syn-pattern--dots",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
+      "name": "syn-pattern--hatch",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
+      "name": "syn-pattern--scanlines",
+      "module": "patterns.css",
+      "description": "Syntyr CSS class (patterns.css)."
+    },
+    {
       "name": "syn-pipeline",
       "module": "recipes.css",
       "description": "Keyboard-focusable scrollable CRM stage layout; host manages state."
@@ -1452,6 +1482,21 @@
       "name": "--syn-panel-radius",
       "module": "components/layout.css",
       "description": "Per-panel border radius; defaults to square corners."
+    },
+    {
+      "name": "--syn-pattern-step",
+      "module": "patterns.css",
+      "description": "Syntyr CSS property (patterns.css)."
+    },
+    {
+      "name": "--syn-pattern-strength",
+      "module": "patterns.css",
+      "description": "Syntyr CSS property (patterns.css)."
+    },
+    {
+      "name": "--syn-pattern-tint",
+      "module": "patterns.css",
+      "description": "Syntyr CSS property (patterns.css)."
     },
     {
       "name": "--syn-primary-hover-bg",
