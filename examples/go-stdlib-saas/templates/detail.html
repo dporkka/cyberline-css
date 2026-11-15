@@ -1,0 +1,20 @@
+{{define "body"}}
+<article class="syn-region" aria-labelledby="detail-title">
+  <nav class="syn-breadcrumbs" aria-label="Breadcrumb">
+    <ol><li><a href="{{.CustomersURL}}">Customers</a></li><li aria-current="page">{{.Customer.Name}}</li></ol>
+  </nav>
+  <section class="syn-app-card" aria-labelledby="detail-title">
+    <p class="syn-eyebrow">READ-ONLY / SYNTHETIC CUSTOMER</p>
+    <h1 id="detail-title" class="syn-heading">{{.Customer.Name}}</h1>
+    <p class="syn-muted">Customer ID: <code>{{.Customer.ID}}</code></p>
+    <dl class="syn-grid">
+      <div><dt class="syn-stat-label">Plan</dt><dd>{{.Customer.Plan}}</dd></div>
+      <div><dt class="syn-stat-label">Subscription status</dt><dd>{{.Customer.Status}}</dd></div>
+      <div><dt class="syn-stat-label">Monthly USD</dt><dd>{{.Customer.MonthlyDollars}}</dd></div>
+      <div><dt class="syn-stat-label">Example contact</dt><dd>{{.Customer.Email}}</dd></div>
+    </dl>
+    <p class="syn-caption">The contact domain example.invalid intentionally cannot receive email. The screen illustrates presentation only; it has no account editing or billing behavior.</p>
+    <a href="{{.BackURL}}" class="syn-button syn-button--outline">Back to customers</a>
+  </section>
+</article>
+{{end}}

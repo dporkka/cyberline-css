@@ -1,0 +1,55 @@
+{{define "body"}}
+<section class="syn-region" aria-labelledby="customers-title">
+  <div class="syn-app-card-header">
+    <div><h1 id="customers-title" class="syn-heading">Customers</h1><p class="syn-muted">Native GET filters run on the server. Each record is fictional.</p></div>
+    <a href="{{.ExportURL}}" class="syn-button syn-button--outline">Export matching CSV</a>
+  </div>
+  <section class="syn-app-card" aria-labelledby="filter-title">
+    <h2 id="filter-title" class="syn-heading">Filter customers</h2>
+    <form class="syn-form" action="/customers" method="get" role="search">
+      <input type="hidden" name="theme" value="{{.Theme}}">
+      <div class="syn-grid">
+        <div><label class="syn-label" for="customer-search">Search by name, ID or plan</label>
+          <input class="syn-input" type="search" id="customer-search" name="q" value="{{.Q}}" maxlength="100" placeholder="Example Alpha"></div>
+        <div><label class="syn-label" for="customer-status">Subscription status</label>
+          <select class="syn-select" id="customer-status" name="status">
+            <option value="all" {{if eq .Status "all"}}selected{{end}}>All statuses</option>
+            <option value="active" {{if eq .Status "active"}}selected{{end}}>Active</option>
+            <option value="trial" {{if eq .Status "trial"}}selected{{end}}>Trial</option>
+            <option value="past_due" {{if eq .Status "past_due"}}selected{{end}}>Past due</option>
+            <option value="canceled" {{if eq .Status "canceled"}}selected{{end}}>Canceled</option>
+          </select></div>
+      </div>
+      <div class="syn-actions"><button class="syn-button syn-button--primary" type="submit">Apply filters</button>
+        <a class="syn-button syn-button--ghost" href="{{.CustomersURL}}">Clear filters</a></div>
+    </form>
+  </section>
+  <section class="syn-app-card" aria-labelledby="results-title">
+    <div class="syn-app-card-header">
+      <h2 id="results-title" class="syn-heading">Results</h2>
+      <p class="syn-caption">{{.ResultCount}} matching customer{{if ne .ResultCount 1}}s{{end}}</p>
+    </div>
+    {{if .Customers}}
+    <div class="syn-table-wrap" role="region" aria-label="Customer results table" tabindex="0">
+      <table class="syn-table">
+        <caption class="syn-caption">Fictional customer directory; select a name to view its server-rendered detail page.</caption>
+        <thead><tr><th scope="col">Customer</th><th scope="col">Plan</th><th scope="col">Status</th><th scope="col" class="syn-cell--numeric">Monthly USD</th></tr></thead>
+        <tbody>
+          {{range .Customers}}
+          <tr>
+            <th scope="row"><a href="{{.Href}}">{{.Name}}</a></th>
+            <td>{{.Plan}}</td>
+            <td>{{if eq .Status "active"}}<span class="syn-status syn-status--success">Active</span>{{else if eq .Status "trial"}}<span class="syn-status">Trial</span>{{else if eq .Status "past_due"}}<span class="syn-status syn-status--warning">Past due</span>{{else}}<span class="syn-status">Canceled</span>{{end}}</td>
+            <td class="syn-cell--numeric">{{.MonthlyDollars}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+      <div class="syn-empty"><h3>No matching customers</h3><p>Try another search or clear the status filter.</p>
+        <a class="syn-button" href="{{.CustomersURL}}">Show all customers</a></div>
+    {{end}}
+  </section>
+</section>
+{{end}}

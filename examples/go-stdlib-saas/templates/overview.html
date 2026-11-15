@@ -1,0 +1,34 @@
+{{define "body"}}
+<section class="syn-region" aria-labelledby="overview-title">
+  <div class="syn-app-card-header">
+    <div><h1 id="overview-title" class="syn-heading">Subscription overview</h1><p class="syn-muted">These figures are calculated by Go from six fictional customer records.</p></div>
+    <a class="syn-button syn-button--primary" href="{{.CustomersURL}}">Browse customers</a>
+  </div>
+  <div class="syn-kpi-grid" aria-label="Synthetic subscription metrics">
+    <article class="syn-app-card">
+      <span class="syn-stat-label">ACTIVE SUBSCRIPTIONS</span>
+      <p class="syn-stat-value">{{.Active}}</p>
+      <p class="syn-caption">Active subscriptions</p>
+    </article>
+    <article class="syn-app-card">
+      <span class="syn-stat-label">MONTHLY RECURRING REVENUE</span>
+      <p class="syn-stat-value">{{.MRR}}</p>
+      <p class="syn-caption">Synthetic active accounts only; USD</p>
+    </article>
+    <article class="syn-app-card">
+      <span class="syn-stat-label">EVALUATING</span>
+      <p class="syn-stat-value">{{.Trials}}</p>
+      <p class="syn-caption">Trial accounts</p>
+    </article>
+  </div>
+  <section class="syn-app-card" aria-labelledby="next-title">
+    <h2 id="next-title" class="syn-heading">Start with real server-rendered workflows</h2>
+    <p>{{.Total}} customers in this fictional workspace. Filtering, navigation and CSV export execute on the Go server without browser JavaScript.</p>
+    <div class="syn-actions">
+      <a class="syn-button syn-button--primary" href="{{.CustomersURL}}">Search customers</a>
+      <a class="syn-button syn-button--outline" href="/customers.csv">Download example CSV</a>
+    </div>
+    <p class="syn-caption">No authentication, payments, mutation handlers or persistent storage are implemented. Do not deploy this example as a customer portal.</p>
+  </section>
+</section>
+{{end}}

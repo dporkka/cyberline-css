@@ -1,0 +1,37 @@
+{{define "base"}}<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An original, read-only server-rendered SaaS demonstration built with Syntyr CSS and Go standard library.">
+  <title>{{.Title}} — Syntyr Go SaaS example</title>
+  <link rel="stylesheet" href="/assets/syntyr.core.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="{{.Theme}}">
+  <a class="syn-button" href="#main">Skip to main content</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Example workspace sidebar">
+      <a class="syn-logo" href="{{.OverviewURL}}">SYNTYR / STUDIO</a>
+      <p class="syn-caption">SYNTHETIC DATA / GO SERVER</p>
+      <nav class="syn-app-nav" aria-label="Workspace">
+        <a href="{{.OverviewURL}}" {{if eq .Page "overview"}}aria-current="page"{{end}}>Overview</a>
+        <a href="{{.CustomersURL}}" {{if eq .Page "customers"}}aria-current="page"{{end}}>Customers</a>
+      </nav>
+      <p class="syn-caption">Native HTML and CSS, no application JavaScript. This demo is read-only.</p>
+    </aside>
+    <main id="main" class="syn-workspace">
+      <header class="syn-app-topbar">
+        <div>
+          <p class="syn-eyebrow">SAAS EXAMPLE / {{.Title}}</p>
+          <p class="syn-muted">Framework-free, functional GET requests and self-hosted Syntyr CSS.</p>
+        </div>
+        <nav class="syn-nav" aria-label="Choose interface theme">
+          {{range .Themes}}<a href="{{.Href}}" {{if .Active}}aria-current="page"{{end}}>{{.Label}}</a>{{end}}
+        </nav>
+      </header>
+      {{template "body" .}}
+      <footer class="syn-caption">READ-ONLY SAMPLE • Fictional organizations and synthetic revenue • Not a deployed billing system</footer>
+    </main>
+  </div>
+</body>
+</html>{{end}}
