@@ -31,6 +31,15 @@ class FormCompositionAndRadixContract(unittest.TestCase):
         self.assertIn("border-inline-start", css)
         self.assertIn("forced-colors: active", css)
 
+    def test_input_addon_can_shrink_and_group_can_wrap_under_text_enlargement(self):
+        css = (ROOT / "src/components/form-composition.css").read_text()
+        group = css.split("&.syn-input-group {", 1)[1].split("}", 1)[0]
+        addon = css.split("&.syn-input-addon {", 1)[1].split("}", 1)[0]
+        self.assertIn("flex-wrap: wrap", group)
+        self.assertIn("flex: 0 1 auto", addon)
+        self.assertIn("min-inline-size: 0", addon)
+        self.assertIn("overflow-wrap: anywhere", addon)
+
     def test_radix_styles_are_opt_in_and_never_bundled_into_core(self):
         adapter = (ROOT / "integrations/radix/states.css").read_text()
         self.assertIn(".syn-radix", adapter)

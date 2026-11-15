@@ -206,6 +206,14 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-cover",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-cover-main",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-cta-band",
           "description": "Syntyr CSS class (recipes.css)."
         },

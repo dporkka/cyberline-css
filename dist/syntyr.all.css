@@ -322,6 +322,8 @@
   :where(.syn-root, .syn-root *) {
     &.syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
     &.syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+    /* Flex children must shrink at enlarged text sizes instead of overflowing. */
+    &.syn-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
     &.syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
     &.syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
     &.syn-nav a:hover, &.syn-nav a[aria-current] { color: var(--syn-accent); }
@@ -486,6 +488,7 @@
     }
     &.syn-input-group {
       display: flex;
+      flex-wrap: wrap;
       align-items: stretch;
       inline-size: 100%;
       min-inline-size: 0;
@@ -504,7 +507,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
+      flex: 0 1 auto;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
       padding-inline: var(--syn-space-2);
       border: 1px solid var(--syn-border-default);
       background: var(--syn-surface-raised);
@@ -897,6 +902,17 @@
     /* All children switch together from stacked to inline as space permits. */
     &.syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
     &.syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
+
+    /* Center a task, onboarding or empty-state body between optional header/footer.
+       No absolute positioning, viewport breakpoint or script required. */
+    &.syn-cover {
+      display: flex;
+      flex-direction: column;
+      gap: var(--syn-space-2);
+      min-block-size: var(--syn-cover-min-size, 22rem);
+      min-inline-size: 0;
+    }
+    &.syn-cover > .syn-cover-main { margin-block: auto; min-inline-size: 0; }
 
     /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
     &.syn-app-shell {

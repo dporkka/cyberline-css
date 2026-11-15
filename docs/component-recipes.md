@@ -56,7 +56,7 @@ This is **progressive enhancement**: the GET form submits with **No JavaScript**
 </div>
 ```
 
-The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise; overly long addons can compress their associated input.
+The unit is included in the label, not only in the decorative addon; assistive technologies must not depend on a symbol alone. Keep addons concise. Input groups allow their controls to wrap when a narrow container or enlarged text makes an inline row impossible; addons may shrink and wrap long, unbroken values rather than forcing horizontal overflow. The field's accessible label must still describe the unit.
 
 ## 4. Container-responsive horizontal form
 

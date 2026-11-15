@@ -25,7 +25,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Cloudflare hosting and cache contract](https://syntyr-css.pages.dev/docs/cloudflare-hosting.md): Content-addressed website CSS, mutable preview URLs and immutable consumer releases.
 - [Release freeze and exact-commit approval procedure](https://syntyr-css.pages.dev/docs/release-freeze.md): Maintainer-only human approval and evidence gates before freezing the unreleased alpha.5 candidate; technical preflight is not release authorization.
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
-- [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
+- [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts, states, resource workflows, and native form error recovery.
 - [Collection workspace and form-recovery example](https://syntyr-css.pages.dev/examples/resource-workspace.html): Native GET filtering, tabular records and linked field errors; server actions and validation require integration (alpha.5 candidate).
 - [Vertigo-inspired resource workflow HTML example](https://syntyr-css.pages.dev/examples/vertigo-resource-workflow.html): Copyable index, detail, editor, and settings UI with fictional data and no runtime JavaScript.
 - [Premium CSS-only compositions and browser validation](https://syntyr-css.pages.dev/docs/premium-compositions.md): SaaS surfaces, native command presentation, responsive layouts, and maintainer-only Chromium/Firefox/WebKit reflow, keyboard and axe verification (alpha.5 source candidate).

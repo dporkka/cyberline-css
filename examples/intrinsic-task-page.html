@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Accessible native-first SaaS task page with an intrinsic sidebar and server-rendered form errors.">
+  <title>Syntyr / Intrinsic task page</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#main">Skip to main content</a>
+  <main id="main" class="syn-shell">
+    <header class="syn-header">
+      <div>
+        <p class="syn-eyebrow">NATIVE HTML / TASK WORKSPACE</p>
+        <h1>Account review</h1>
+        <p class="syn-lede">A composable, server-owned record page. No client-side runtime.</p>
+      </div>
+      <a class="syn-button" href="../docs/recipes.html">View layout recipes</a>
+    </header>
+    <div class="syn-sidebar" style="--syn-sidebar-width: 14rem">
+      <aside class="syn-panel" aria-labelledby="task-nav-title">
+        <h2 id="task-nav-title">Account sections</h2>
+        <nav aria-label="Account sections">
+          <ul>
+            <li><a href="#review">Contact review</a></li>
+            <li><a href="#approvals">Approvals</a></li>
+          </ul>
+        </nav>
+        <p class="syn-muted">The navigation remains usable without JavaScript.</p>
+      </aside>
+      <div class="syn-flow" style="--syn-flow-gap: 1.5rem">
+        <div class="syn-region">
+          <section class="syn-panel" id="review" aria-labelledby="review-title">
+            <div class="syn-toolbar">
+              <h2 id="review-title">Contact review</h2>
+              <span class="syn-status syn-status--warning">Needs correction</span>
+            </div>
+            <p>This is a static demonstration of a server-rendered validation failure. A real application must render errors only after validating submitted input and clear them after correction.</p>
+            <div class="syn-error-summary" id="contact-form-errors" tabindex="-1" role="region" aria-labelledby="error-title">
+              <h3 id="error-title">There is a problem</h3>
+              <ul><li><a href="#contact-email">Enter a valid email address</a></li></ul>
+            </div>
+            <form class="syn-form" method="get" action="intrinsic-task-page.html">
+              <div class="syn-field-row">
+                <label class="syn-label" for="contact-email">Contact email</label>
+                <div class="syn-field-body">
+                  <input id="contact-email" class="syn-input" name="email" type="email" value="invalid-address" autocomplete="email" required aria-invalid="true" aria-describedby="contact-email-error">
+                  <p id="contact-email-error" class="syn-error">Enter an email address in the format name@example.com.</p>
+                </div>
+              </div>
+              <button class="syn-button syn-button--primary" type="submit">Preview query</button>
+            </form>
+            <p class="syn-caption">The GET form demonstrates native submission. No data is saved or validated by a backend in this demo.</p>
+          </section>
+        </div>
+        <section id="approvals" class="syn-panel" aria-labelledby="approvals-title">
+          <div class="syn-cover" style="--syn-cover-min-size: 24rem">
+            <header><h2 id="approvals-title">Approvals</h2></header>
+            <div class="syn-cover-main syn-empty">
+              <h3>Nothing awaiting approval</h3>
+              <p>Assigned reviews appear here when the server has records to show.</p>
+              <a class="syn-button" href="#review">Return to contact review</a>
+            </div>
+            <footer class="syn-caption">Layout only; authorization, status and results belong to the host application.</footer>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

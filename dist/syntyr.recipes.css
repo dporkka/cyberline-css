@@ -23,6 +23,17 @@
     &.syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
     &.syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
 
+    /* Center a task, onboarding or empty-state body between optional header/footer.
+       No absolute positioning, viewport breakpoint or script required. */
+    &.syn-cover {
+      display: flex;
+      flex-direction: column;
+      gap: var(--syn-space-2);
+      min-block-size: var(--syn-cover-min-size, 22rem);
+      min-inline-size: 0;
+    }
+    &.syn-cover > .syn-cover-main { margin-block: auto; min-inline-size: 0; }
+
     /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
     &.syn-app-shell {
       display: grid; grid-template-columns: minmax(0, 1fr);

@@ -253,3 +253,39 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 - Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
+
+## Task-page layout with native error recovery
+
+For a complete CSS-first account/task composition, see [the intrinsic task-page example](../examples/intrinsic-task-page.html).
+It combines the existing opt-in `.syn-sidebar`, core `.syn-region`, `.syn-field-row`,
+`.syn-error-summary` and `.syn-empty` patterns instead of introducing another dashboard API.
+The error summary reuses the collection-workspace pattern above; no second summary component is added.
+
+The optional `.syn-cover` layout in `syntyr.recipes.css` reserves vertical
+space for an empty state, login step or onboarding task. Put the content in a
+direct child with `.syn-cover-main`; header and footer are optional:
+
+```html
+<section class="syn-root">
+  <div class="syn-cover" style="--syn-cover-min-size: 20rem">
+    <header><h2>Approval inbox</h2></header>
+    <div class="syn-cover-main">
+      <p>No requests need your approval.</p>
+      <a href="/requests">Review all requests</a>
+    </div>
+    <footer>Updated when the server renders a new response.</footer>
+  </div>
+</section>
+```
+
+The default minimum block size is 22rem; override `--syn-cover-min-size`
+when embedding in smaller contexts. Content can grow beyond that minimum.
+Only opt-in recipe CSS is needed. No script or viewport breakpoint is added.
+
+**Form error recovery:** the example deliberately shows a server-rendered
+form error state, with a summary link to the invalid input, a matching label
+and `aria-invalid="true"` plus `aria-describedby` for the field error.
+On a real failed submission, the server must preserve submitted values,
+report errors in text, and show the summary only when errors are present.
+After a valid submission, do not keep the stale invalid markup. No CSS
+class performs validation, authorizes actions or changes application data.

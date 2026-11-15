@@ -3,6 +3,8 @@
   :where(.syn-root, .syn-root *) {
     &.syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
     &.syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+    /* Flex children must shrink at enlarged text sizes instead of overflowing. */
+    &.syn-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
     &.syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
     &.syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
     &.syn-nav a:hover, &.syn-nav a[aria-current] { color: var(--syn-accent); }

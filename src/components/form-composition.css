@@ -24,6 +24,7 @@
     }
     &.syn-input-group {
       display: flex;
+      flex-wrap: wrap;
       align-items: stretch;
       inline-size: 100%;
       min-inline-size: 0;
@@ -42,7 +43,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
+      flex: 0 1 auto;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
       padding-inline: var(--syn-space-2);
       border: 1px solid var(--syn-border-default);
       background: var(--syn-surface-raised);

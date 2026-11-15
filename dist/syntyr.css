@@ -322,6 +322,8 @@
   :where(.syn-root, .syn-root *) {
     &.syn-shell { width: min(100% - 2rem, 72rem); margin-inline: auto; }
     &.syn-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 2rem; }
+    /* Flex children must shrink at enlarged text sizes instead of overflowing. */
+    &.syn-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
     &.syn-nav { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
     &.syn-nav a { color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm) var(--syn-font-ui); }
     &.syn-nav a:hover, &.syn-nav a[aria-current] { color: var(--syn-accent); }
@@ -486,6 +488,7 @@
     }
     &.syn-input-group {
       display: flex;
+      flex-wrap: wrap;
       align-items: stretch;
       inline-size: 100%;
       min-inline-size: 0;
@@ -504,7 +507,9 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      flex: 0 0 auto;
+      flex: 0 1 auto;
+      min-inline-size: 0;
+      overflow-wrap: anywhere;
       padding-inline: var(--syn-space-2);
       border: 1px solid var(--syn-border-default);
       background: var(--syn-surface-raised);

@@ -27,6 +27,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
          "examples/semantic-starter.html", "examples/native-apis.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
+         "examples/intrinsic-task-page.html",
 )
 
 def normalize_findings(page_path: str, result: dict) -> dict:
