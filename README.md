@@ -40,6 +40,7 @@
 - [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)
+- [Agent commerce prototype (x402 v2 + Stripe test mode, no live charges)](docs/agent-commerce.md)
 - [Performance validation protocol and measured CSS size baseline](docs/performance-validation.md)
 - [Optional five-framework browser benchmark: Syntyr, plain CSS, Pure, Tailwind v4 and UnoCSS](docs/framework-performance.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
@@ -255,4 +256,4 @@ See [LICENSE](LICENSE).
 - [Validation and go/no-go plan](business/validation-plan.md)
 - [Console Kit buyer validation, pre-sale release gates and measured metrics](business/commercial-launch-gates.md)
 
-No paid kit has been shipped or put up for sale in this repository. No billing or license-key code is included. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **SYNTYR is the selected but not trademark-cleared name**, pending documented brand clearance. The preliminary risk screen is not authorization for paid branding.
+No paid kit has been shipped or put up for sale in this repository. The optional, isolated [agent-commerce test-mode pilot](commerce/README.md) contains billing infrastructure experiments, but no live checkout or license-key product is enabled; it is excluded from the CSS package and static site build. The Grid and Noir visual themes are original, not officially affiliated with any entertainment franchise. **SYNTYR is the selected but not trademark-cleared name**, pending documented brand clearance. The preliminary risk screen is not authorization for paid branding.

@@ -41,6 +41,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Progressive CSS loading](https://syntyr-css.pages.dev/docs/progressive-loading.md): Selective CSS, critical CSS tradeoffs, and measured loading approaches.
 - [Deployed mobile performance audit](https://syntyr-css.pages.dev/docs/live-performance-audit.md): Reproducible LCP, caching, CSP and accessibility evidence for the hosted business and SaaS examples.
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
+- [Agent commerce x402/Stripe test-mode pilot](https://syntyr-css.pages.dev/docs/agent-commerce.md): Unpublished optional service, not a paywall on MIT CSS.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 
 ## Assets

@@ -1,0 +1,13 @@
+# Optional commerce worker is separate from CSS, and must be verified separately.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+
+steps:
+  - name: agent-commerce-node-tests
+    image: node:22-slim
+    commands:
+      - cd commerce
+      - npm ci --ignore-scripts --no-audit --no-fund
+      - npm test

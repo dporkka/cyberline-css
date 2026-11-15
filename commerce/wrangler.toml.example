@@ -1,0 +1,41 @@
+# This is a deployment TEMPLATE, not an active deploy config.
+# Copy to wrangler.toml, insert your D1 database UUID, and configure secrets.
+name = "syntyr-agent-commerce-staging"
+main = "src/index.js"
+compatibility_date = "2026-11-15"
+workers_dev = false
+
+[vars]
+X402_TESTNET_ENABLED = "false"
+STRIPE_PILOT_ENABLED = "false"
+X402_FACILITATOR_URL = "https://x402.org/facilitator"
+LOG_REQUESTS = "true"
+
+[[d1_databases]]
+binding = "ENTITLEMENTS_DB"
+database_name = "syntyr-agent-commerce-staging"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_UUID"
+
+
+# Cloudflare API rate-limit counters are approximate and per-location.
+# Safeguards are mandatory when a paid endpoint is configured: missing
+# bindings cause 503 rather than allowing unbounded paid requests.
+[[ratelimits]]
+name = "IP_RATE_LIMITER"
+namespace_id = "8710201"
+  [ratelimits.simple]
+  limit = 60
+  period = 60
+
+[[ratelimits]]
+name = "CHECKOUT_RATE_LIMITER"
+namespace_id = "8710202"
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+[observability]
+enabled = true
+
+[observability.traces]
+enabled = true

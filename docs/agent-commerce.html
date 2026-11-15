@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Agent commerce: x402 and Stripe pilot. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="a275b9c53698004e0f7a6b0f6e3c252d321efd12a8b41e703239bfbad5d78d37">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Agent commerce: x402 and Stripe pilot — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-commerce.html">
+  <link rel="alternate" type="text/markdown" href="agent-commerce.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Agent commerce: x402 and Stripe pilot</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="agent-commerce.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Agent commerce: x402 and Stripe pilot">
+<h1 id="agent-commerce-x402-and-stripe-pilot">Agent commerce: x402 and Stripe pilot</h1>
+<p>Syntyr's CSS framework, downloadable modules, themes, examples, and
+documentation are <strong>free and MIT-licensed</strong>. There is no paid Syntyr kit for
+sale. This page describes an <strong>optional, unpublished payment integration
+pilot</strong> for a separate theme-token generation service; it does not add
+payment requirements or JavaScript to Syntyr CSS.</p>
+<h2 id="why-two-rails">Why two rails?</h2>
+<p>Stripe Checkout is suitable for humans purchasing prepaid API credits.
+x402 v2 enables HTTP-native pay-per-use requests from AI coding agents,
+without requiring a Syntyr account. A common resource handler accepts
+either a valid prepaid Stripe credit or a verified x402 testnet payment.</p>
+<p>The pilot uses Base Sepolia (<code>eip155:84532</code>) and Stripe <strong>test mode</strong>.
+The optional Worker now enforces Cloudflare rate limiting on paid endpoints,
+and logs only fixed endpoint labels and random request IDs (never customer
+tokens or wallet payloads). Those limits are approximate and per-location,
+not a substitute for WAF protection or transaction reconciliation.
+It has <strong>not</strong> been deployed or connected to a live receiving wallet.
+The sample price is <strong>$0.25 per generated token response</strong> for the x402
+testnet demo, or a separately configured Stripe test price for 20 calls.
+Neither option is a current commercial offering.</p>
+<h2 id="discovery-and-integration">Discovery and integration</h2>
+<p>When the standalone Worker is configured and deployed to a staging hostname,
+agents can inspect these self-describing HTTP endpoints:</p>
+<table>
+<thead>
+<tr>
+<th>HTTP path</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET /v1/catalog</code></td>
+<td>Versioned machine-readable product and input schema</td>
+</tr>
+<tr>
+<td><code>GET /.well-known/agent-commerce.json</code></td>
+<td>Agent discovery document</td>
+</tr>
+<tr>
+<td><code>GET /v1/agent/theme</code></td>
+<td>Paid token-generation example (HTTP 402 without payment)</td>
+</tr>
+<tr>
+<td><code>POST /v1/checkout</code></td>
+<td>Stripe test Checkout URL and secret prepaid-token issuance</td>
+</tr>
+<tr>
+<td><code>GET /v1/credits</code></td>
+<td>Credit balance for a bearer token</td>
+</tr>
+</tbody>
+</table>
+<p>For the theme endpoint, agents can supply optional hex color query parameters:
+<code>accent=%2379e3ed&amp;surface=%23111827</code>. The JSON response contains CSS
+custom-property suggestions plus measured contrast values. The generator is
+a service; it does <strong>not</strong> sell access to existing MIT CSS files.</p>
+<p>The official x402 v2 SDK constructs the <code>PAYMENT-REQUIRED</code> header and
+validates/settles requests. Do not attempt to pay by placing an arbitrary
+transaction hash or forged receipt in headers. Stripe buyer tokens are
+secrets; they are not license IDs or public payment proofs.</p>
+<h2 id="licensing-and-release-boundary">Licensing and release boundary</h2>
+<p>The MIT core never moves behind a paywall. A future separately authored
+premium template could have its own reviewed commercial license, but such
+a product has not been released. No premium asset is published by the
+commerce prototype. The standalone Worker is excluded from the Cloudflare
+Pages static asset allowlist.</p>
+<p><strong>Implementation and security notes:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/commerce/README.md">commerce/README.md</a>.</p>
+<p>Before enabling real funds, Syntyr needs identity and account recovery,
+supplier and tax verification, operator reconciliation, transaction
+monitoring, refund and chargeback policies, a licensed commercial product,
+and tests with real settlement providers. A production payment rail is not
+enabled simply by configuring a wallet address.</p>
+<h2 id="staging-verification">Staging verification</h2>
+<p>The isolated D1 staging database and its credit/revocation tables have
+been verified. The complete commerce Worker is <strong>deployed privately</strong> with
+both payment rails disabled. Its public <code>workers.dev</code> and preview URLs are
+disabled; this is not a public checkout service. A temporary hosted smoke
+check confirmed health and catalog access, invalid-input rejection,
+and fail-closed disabled payment endpoints. Local Cloudflare workerd testing
+confirmed the x402 v2 challenge and rate-limit enforcement. The hosted
+version does not yet include the mandatory paid-route rate-limit bindings,
+so payment modes must remain disabled. Use <code>npm run smoke -- &lt;staging-origin&gt; disabled</code>
+from the optional <code>commerce/</code> package to verify a disabled staging
+deployment and <code>npm run smoke -- &lt;staging-origin&gt; testnet</code> to verify a
+Base Sepolia unpaid challenge. Neither command transfers funds. See the
+<a href="https://github.com/dporkka/syntyr-css/blob/main/commerce/README.md">commerce runbook</a>
+for remaining payment-provider E2E and operational release gates.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#why-two-rails">Why two rails?</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#discovery-and-integration">Discovery and integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#licensing-and-release-boundary">Licensing and release boundary</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#staging-verification">Staging verification</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="agent-commerce.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

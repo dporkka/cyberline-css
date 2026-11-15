@@ -22,6 +22,7 @@ experiments/hugo/.hugo_build.lock
 # These generated artifacts must not be committed or treated as runtime needs.
 node_modules/
 package-lock.json
+!commerce/package-lock.json
 pnpm-lock.yaml
 yarn.lock
 
@@ -29,3 +30,12 @@ yarn.lock
 benchmarks/frameworks/generated/
 # Nested benchmark lockfile is intentional; root package-lock stays ignored.
 !benchmarks/frameworks/package-lock.json
+
+# Staging commerce worker configuration must not contain production values.
+commerce/wrangler.toml
+
+
+# Never commit local Cloudflare Worker development state or secrets.
+commerce/.wrangler/
+commerce/.dev.vars*
+commerce/.env*
