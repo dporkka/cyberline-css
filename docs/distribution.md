@@ -1,5 +1,7 @@
 # Syntyr CSS distribution
 
+**First time here?** Follow the [getting-started guide](getting-started.md) for one version-pinned stylesheet and a complete working page.
+
 Syntyr CSS is MIT-licensed. No NPM install, JavaScript runtime, fonts,
 icons, Sass compiler or CSS framework is required to use the distributed CSS.
 

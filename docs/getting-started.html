@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build a useful page with one stylesheet and semantic HTML . Syntyr ships plain CSS: no Node.js, JavaScript runtime, provider, build plugin, or package…">
+  <meta name="syntyr-source-sha256" content="e70875eb89ae531f6549450c99ae96cd2c0a9f35b1c45be4bb7bd23f9a5bd112">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Getting started with Syntyr CSS — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/getting-started">
+  <link rel="alternate" type="text/markdown" href="getting-started.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Getting started with Syntyr CSS</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="getting-started.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Getting started with Syntyr CSS">
+<h1 id="getting-started-with-syntyr-css">Getting started with Syntyr CSS</h1>
+<p>Build a useful page with <strong>one stylesheet and semantic HTML</strong>. Syntyr ships
+plain CSS: no Node.js, JavaScript runtime, provider, build plugin, or package
+manager is required in your application.</p>
+<blockquote>
+<p><strong>Release boundary (November 2026):</strong> The latest published release is
+<a href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">v0.3.0-alpha.4</a>.
+The repository's 0.3.0-alpha.5 source is an <strong>unreleased candidate</strong>.
+The CSS examples below work with published alpha.4; the optional static
+HTML checker described later is packaged only in the proposed alpha.5 ZIP.</p>
+</blockquote>
+<h2 id="1-copy-the-released-css">1. Copy the released CSS</h2>
+<p>Download the <strong>published alpha.4 ZIP</strong>, extract it, and copy
+<code>dist/syntyr.core.css</code> into your site's public CSS directory, for example
+<code>public/css/syntyr.core.css</code>. The file is ready to use as-is.</p>
+<p>For a quick preview, you can use the
+<a href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css">immutable version-pinned CDN asset</a>.
+For production, self-hosting the pinned asset avoids an extra network origin.</p>
+<h2 id="2-paste-a-complete-working-page">2. Paste a complete working page</h2>
+<p>Save this as <code>index.html</code> in a site that serves the copied stylesheet at
+<code>/css/syntyr.core.css</code>:</p>
+<pre><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;My first Syntyr page&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;/head&gt;
+&lt;body class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main class=&quot;syn-shell&quot; id=&quot;main&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;
+      &lt;h1 class=&quot;syn-heading&quot;&gt;Project overview&lt;/h1&gt;
+      &lt;p class=&quot;syn-text&quot;&gt;A page built with HTML and one CSS file.&lt;/p&gt;
+      &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/projects&quot;&gt;
+        View projects
+      &lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>Serve the directory with your existing application server. If you open this
+HTML directly as <code>file://</code>, replace the <code>/css/</code> URL with the actual
+relative path to the stylesheet. Replace the example <code>/projects</code> link with
+a real route in your application.</p>
+<p>Use <code>syn-root</code> around the part of the page you want Syntyr to style.
+Without that scope, component classes will not receive their Syntyr styles.
+Change <code>data-syn-theme</code> to <code>grid</code> or <code>noir</code> to use either of the
+other published alpha.4 themes.</p>
+<h2 id="3-choose-the-minimum-css-you-need">3. Choose the <em>minimum</em> CSS you need</h2>
+<ul>
+<li><strong>Default:</strong> <code>syntyr.core.css</code> — tokens and explicit component classes.</li>
+<li><strong>Optional semantic HTML:</strong> load <code>syntyr.semantic.css</code> <strong>after</strong> core;
+add <code>syn-semantic</code> to the scoped root to style ordinary HTML elements.</li>
+<li><strong>Optional SaaS layouts:</strong> load <code>syntyr.recipes.css</code> after core when using
+documented recipes.</li>
+<li><strong>Optional decorative effects:</strong> use <code>syntyr.effects.css</code> only if needed.</li>
+</ul>
+<p>Do not combine <code>syntyr.all.css</code> with individual modules, or
+<code>syntyr.css</code> with core and effects. These bundles overlap.</p>
+<p>Read the <a href="components.html">component reference</a>, <a href="recipes.html">recipe reference</a>,
+and <a href="framework-integrations.html">framework integrations</a> for HTML variants
+and host-application responsibilities. Syntyr styles controls; your app
+provides form handling, data access, authorization, and navigation.</p>
+<h2 id="4-validate-markup-optional-alpha5-zip-candidate">4. Validate markup (optional, alpha.5 ZIP candidate)</h2>
+<p>After the alpha.5 archive is released, its extracted root will include
+<code>scripts/syntyr_check.py</code> and <code>metadata/syntyr-contract.json</code>.
+The checker requires <strong>Python 3.10+ on the developer machine only</strong>;
+it ships no JavaScript or build-time requirement to consumers.</p>
+<p>From the <strong>extracted matching-version archive</strong>, check your HTML file:</p>
+<pre><code class="language-sh">python3 scripts/syntyr_check.py /path/to/your/index.html
+python3 scripts/syntyr_check.py --format json /path/to/your/index.html
+</code></pre>
+<p>It reports misspelled <code>syn-*</code> classes, invalid literal state values,
+unscoped classes in complete documents, and missing optional CSS files when
+it can identify the installed stylesheets. For HTML fragments with no links,
+pass the actual modules using <code>--stylesheets syntyr.core.css</code>.
+Dynamic template expressions are skipped, not executed.</p>
+<p><strong>Do not run the candidate checker against published alpha.4 CSS</strong> and assume
+its alpha.5 class inventory is accurate for alpha.4. Use matching-version
+metadata; this is a static HTML check, not an accessibility or runtime audit.
+See the <a href="editor-integration.html">editor and validator guide</a>.</p>
+<h2 id="5-optional-package-manager-projects">5. Optional package-manager projects</h2>
+<p><code>@syntyr/css</code> is prepared in the alpha.5 source, but it is <strong>not yet published to npm</strong>.
+Do not assume <code>npm install @syntyr/css</code> works today. If your application
+already uses a bundler, the source candidate supports a locally packed
+tarball; follow the <a href="package-managers.html">package-manager guide</a>.
+Applications that don't use a build tool can remain on copied CSS indefinitely.</p>
+<h2 id="check-before-production">Check before production</h2>
+<p>Test real routes and submission behavior, keyboard focus, zoom/reflow,
+forced colors, and browser compatibility in your own application. Alpha
+releases are experimental and do not carry a v1 compatibility or accessibility
+conformance guarantee. <a href="distribution.html">Release guidance</a> and
+<a href="accessibility.html">accessibility checklist</a> explain the current boundaries.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-copy-the-released-css">1. Copy the released CSS</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-paste-a-complete-working-page">2. Paste a complete working page</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-choose-the-minimum-css-you-need">3. Choose the minimum CSS you need</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#4-validate-markup-optional-alpha5-zip-candidate">4. Validate markup (optional, alpha.5 ZIP candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#5-optional-package-manager-projects">5. Optional package-manager projects</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#check-before-production">Check before production</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="getting-started.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

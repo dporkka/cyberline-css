@@ -65,6 +65,8 @@ by `python3 scripts/export_api_metadata.py` and checked by `--check`. Do
 not edit it directly. The existing `metadata/components.json` remains a
 curated subset and is not a complete list of classes.
 
+The unreleased alpha.5 release ZIP candidate now includes both `scripts/syntyr_check.py` and its matching `metadata/syntyr-contract.json`, so the extracted archive can run the optional checker without a source checkout. The published alpha.4 ZIP does not include these tools.
+
 To validate static HTML during development (Python 3.10+, standard library only):
 
 ```sh
