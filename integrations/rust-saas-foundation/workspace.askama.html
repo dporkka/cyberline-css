@@ -1,0 +1,85 @@
+<!doctype html>
+<!-- Copy into Rust SaaS Foundation's templates/ directory and bind a server-owned view model.
+     No Syntyr JS or client-side auth. This template is not wired to routes in this repository. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ workspace_name }} · Workspace</title>
+  <!-- Self-host files from the selected Syntyr source/release; do not use unpinned CDN assets. -->
+  <link rel="stylesheet" href="/assets/syntyr.core.css">
+  <link rel="stylesheet" href="/assets/syntyr.recipes.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button" href="#main">Skip to workspace</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Workspace sidebar">
+      <p class="syn-logo">{{ workspace_name }}</p>
+      <nav class="syn-app-nav" aria-label="Workspace navigation">
+        <a href="#main" aria-current="page">Overview</a>
+        <a href="#members">Members</a>
+        <a href="#usage">Usage</a>
+      </nav>
+    </aside>
+    <main class="syn-workspace" id="main">
+      <header class="syn-app-topbar"><div><p class="syn-eyebrow">WORKSPACE SETTINGS</p><h1>{{ workspace_name }}</h1><p class="syn-muted">Your organization settings and usage</p></div></header>
+      {% if has_error %}
+      <div class="syn-alert syn-alert--danger" role="alert">{{ error_message }}</div>
+      {% endif %}
+      {% if has_notice %}
+      <div class="syn-alert" role="status" aria-live="polite">{{ notice_message }}</div>
+      {% endif %}
+
+      <section class="syn-app-card" aria-labelledby="switch-heading">
+        <h2 id="switch-heading" class="syn-heading">Switch organization</h2>
+        <form method="post" action="/workspace/switch" class="syn-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <label class="syn-label" for="workspace-switch">YOUR ORGANIZATIONS
+            <select id="workspace-switch" class="syn-select" name="workspace_id" required>
+              {% for organization in accessible_workspaces %}
+              <option value="{{ organization.id }}">{{ organization.name }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <button class="syn-button syn-button--outline" type="submit">SWITCH WORKSPACE</button>
+        </form>
+      </section>
+
+      <section class="syn-app-card" id="members" aria-labelledby="members-heading">
+        <h2 id="members-heading" class="syn-heading">Members</h2>
+        <div class="syn-table-wrap"><table class="syn-table">
+          <caption>Members you are authorized to view</caption>
+          <thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead>
+          <tbody>
+            {% for member in members %}
+            <tr><th scope="row">{{ member.name }}</th><td>{{ member.role }}</td><td>{{ member.status }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table></div>
+        {% if can_invite %}
+        <form action="/workspace/invitations" method="post" class="syn-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+          <label class="syn-label" for="invite-email">EMAIL ADDRESS
+            <input class="syn-input" type="email" id="invite-email" name="email" autocomplete="email" maxlength="254" required>
+          </label>
+          <label class="syn-label" for="invite-role">ROLE
+            <select class="syn-select" id="invite-role" name="role" required>
+              <option value="viewer">Viewer</option><option value="editor">Editor</option>
+            </select>
+          </label>
+          <button class="syn-button syn-button--primary" type="submit">INVITE MEMBER</button>
+        </form>
+        {% endif %}
+      </section>
+
+      <section id="usage" class="syn-app-card" aria-labelledby="usage-heading">
+        <h2 id="usage-heading" class="syn-heading">Subscription usage</h2>
+        <p class="syn-muted">Plan: {{ plan_name }}</p>
+        <label class="syn-label" for="requests">API requests: {{ requests_used }} / {{ requests_limit }}</label>
+        <progress id="requests" class="syn-meter" value="{{ requests_used }}" max="{{ requests_limit }}">{{ requests_used }}</progress>
+        <p class="syn-caption">Period and limits are calculated by the server; do not trust client-supplied usage values.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

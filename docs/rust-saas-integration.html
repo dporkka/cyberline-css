@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS documentation: Optional Rust SaaS Foundation / Askama / HTMX integration. Read the complete illustrated HTML reference.">
+  <meta name="syntyr-source-sha256" content="243b6d983f8c7aaeb5b51b0aea12abf51fa051ac47fb61365962ffadbeb6d9de">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Rust SaaS Foundation / Askama / HTMX integration — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/rust-saas-integration.html">
+  <link rel="alternate" type="text/markdown" href="rust-saas-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Rust SaaS Foundation / Askama / HTMX integration</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="rust-saas-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Rust SaaS Foundation / Askama / HTMX integration">
+<h1 id="optional-rust-saas-foundation-askama-htmx-integration">Optional Rust SaaS Foundation / Askama / HTMX integration</h1>
+<p>An opt-in Syntyr profile is implemented on the
+<code>feat/optional-syntyr-skin</code> integration branch of
+<code>dporkka/rust-saas-foundation</code>. It uses a separate Askama page template,
+shares the original <code>catalog.html</code> fragment, and does not require npm,
+external assets, or any additional runtime JavaScript.</p>
+<p>The source adapter is <code>integrations/rust-saas-foundation/catalog.css</code>.
+It scopes the existing <code>.wrap</code>, <code>.items</code> and <code>.item</code> classes beneath
+<code>.syn-rust-foundation</code> so the default page is unaffected. Load a pinned
+Syntyr core stylesheet first, then the adapter. The optional page sets
+<code>class=&quot;syn-root syn-rust-foundation&quot;</code> and <code>data-syn-theme=&quot;studio&quot;</code>.</p>
+<p>The Rust integration vendors the <strong>published alpha.4 core CSS</strong> and serves
+versioned assets from the application binary. It exposes <code>APP_UI_SKIN=syntyr</code>
+at startup; unknown values are rejected. The backend's identity, tenants,
+permissions, PostgreSQL queries and HTMX fragments are not touched.</p>
+<p>This demonstrates a public catalog. It does not prove an authenticated admin
+flow or certify accessibility. Browser, keyboard, contrast and zoom tests on
+real application pages are required before production claims.</p>
+<h2 id="saas-workspace-reference-server-rendered-application-ui">SaaS workspace reference: server-rendered application UI</h2>
+<p>The <a href="../examples/saas-workspace.html">script-free SaaS workspace preview</a> combines organization context, member roles and invitations, subscription usage, invoices, API-key presentation, webhooks, audit events, and accessible success/error/empty/loading states. <strong>Every name, amount, event and status is fictional</strong>; the static page does not persist data, change tenants, send invitations, create keys or process payments. Its form controls for writes are disabled intentionally. The example classes and recipes are part of the <strong>unreleased alpha.5 source candidate</strong>, not the already published alpha.4 CSS.</p>
+<p>For a concrete server-rendered integration starting point, copy <a href="https://github.com/dporkka/syntyr-css/blob/main/integrations/rust-saas-foundation/workspace.askama.html"><code>integrations/rust-saas-foundation/workspace.askama.html</code></a> into Rust SaaS Foundation's <code>templates/workspace.html</code>, and load locally self-hosted, pinned <code>syntyr.core.css</code> and <code>syntyr.recipes.css</code> at <code>/assets/</code>. The template is <strong>illustrative</strong>, not a connected Rust route or an authenticated end-to-end feature. It uses ordinary Askama-escaped interpolation (<code>{{ ... }}</code>), a member loop, conditional notices, native HTML forms, server-selected organization options, and a <code>&lt;progress&gt;</code> element. Syntyr itself contains no request or routing logic.</p>
+<p>Bind the Askama view model with: <code>workspace_name</code>, <code>accessible_workspaces</code> (each with <code>id</code>, <code>name</code>), <code>members</code> (each with <code>name</code>, <code>role</code>, <code>status</code>), <code>plan_name</code>, <code>requests_used</code>, <code>requests_limit</code>, <code>csrf_token</code>, <code>can_invite</code>, <code>has_error</code>, <code>error_message</code>, <code>has_notice</code>, and <code>notice_message</code>. Use an <code>askama::Template</code> derive with <code>#[template(path = &quot;workspace.html&quot;)]</code>; render the returned HTML from a route that verifies a session and resolves the active tenant. The template does not include credential secrets, pricing calculations or client-driven permission checks.</p>
+<h3 id="required-rust-saas-foundation-backend-contracts">Required Rust SaaS Foundation backend contracts</h3>
+<ol>
+<li><strong>GET <code>/workspace</code>:</strong> Authenticate, derive the current organization from the session, recheck tenant membership, load authorized members and usage, then render the template. Return a real 403/404 when permission checks fail; don't rely on CSS to hide data.</li>
+<li><strong>POST <code>/workspace/switch</code>:</strong> Validate a session-bound CSRF token, recheck that the submitted <code>workspace_id</code> belongs to an accessible organization, set the active tenant server-side, and redirect using POST/redirect/GET. Never accept tenant identity from a hidden input alone.</li>
+<li><strong>POST <code>/workspace/invitations</code>:</strong> Validate CSRF, authorize the invitation capability, validate the email/allowed role, rate-limit invitations, persist an audit event, and redirect with a server-rendered result. The demo intentionally does not include elevated roles in its public invitation selector.</li>
+<li><strong>Subscriptions, API keys and webhooks:</strong> Fetch and authorize server-side. Never return raw API-key material to templates after initial one-time issuance; verify billing provider webhooks using signatures before committing changes. The static UI makes no payment claim.</li>
+<li><strong>Accessible state rendering:</strong> Attach <code>role=&quot;alert&quot;</code> to errors only when present, use <code>role=&quot;status&quot;</code> for confirmation messages, keep labels and table captions, and use real server-provided progress values (with <code>requests_limit &gt; 0</code>). Test keyboard access, 320px reflow, forced colors and zoom on the integrated page.</li>
+</ol>
+<p>The copyable template is a <strong>presentation adapter</strong>, not authentication, authorization, CSRF infrastructure, or a production-tested route. It does not alter Rust SaaS Foundation's existing tenant/RLS boundary, and it does not make Syntyr dependent on Rust, Askama or HTMX.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#saas-workspace-reference-server-rendered-application-ui">SaaS workspace reference: server-rendered application UI</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#required-rust-saas-foundation-backend-contracts">Required Rust SaaS Foundation backend contracts</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="rust-saas-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

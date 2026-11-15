@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A script-free SaaS workspace reference with organizations, access, subscriptions, developer operations, and server-owned states.">
+  <title>Syntyr — SaaS workspace reference</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="saas-workspace.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button workspace-demo-skip" href="#main">Skip to content</a>
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Workspace sidebar">
+      <a class="syn-logo" href="../index.html">SYNTYR <span class="syn-muted">/ SAAS</span></a>
+      <span class="syn-caption">REFERENCE APPLICATION</span>
+      <nav class="syn-app-nav" aria-label="Workspace navigation">
+        <a href="#workspace" aria-current="page">Workspace</a>
+        <a href="#members">Team &amp; access</a>
+        <a href="#billing">Billing &amp; usage</a>
+        <a href="#developer">Developer operations</a>
+        <a href="#states">UI states</a>
+      </nav>
+      <p class="syn-caption">Fictional demonstration data. No backend, persistence, or runtime JavaScript.</p>
+    </aside>
+    <main class="syn-workspace" id="main">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb">
+        <ol><li><a href="saas.html">Examples</a></li><li><span aria-current="page">SaaS workspace</span></li></ol>
+      </nav>
+      <header class="syn-app-topbar" id="workspace">
+        <div>
+          <p class="syn-eyebrow">NORTHSTAR LABS / WORKSPACE</p>
+          <h1>SaaS workspace</h1>
+          <p class="syn-muted">Server-rendered building blocks for the everyday operations of a subscription application.</p>
+        </div>
+        <a class="syn-button syn-button--outline" href="../docs/rust-saas-integration.html">RUST INTEGRATION GUIDE</a>
+      </header>
+
+      <section class="syn-app-card workspace-demo-section" aria-labelledby="org-heading">
+        <div class="syn-app-card-header"><h2 class="syn-heading" id="org-heading">Organization context</h2><span class="syn-status syn-status--success">Active</span></div>
+        <div class="workspace-demo-flex">
+          <div>
+            <p class="syn-caption">CURRENT ORGANIZATION</p>
+            <p class="workspace-demo-emphasis">Northstar Labs</p>
+            <p class="syn-muted">Example tenant · 8 members · Growth plan</p>
+          </div>
+          <details class="syn-details workspace-demo-switcher">
+            <summary>Available workspaces (preview)</summary>
+            <p class="syn-muted">Northstar Labs — current</p>
+            <p class="syn-muted">Pilot Studio — switching requires authenticated server routes.</p>
+          </details>
+        </div>
+        <p class="syn-caption">This disclosure demonstrates organization selection UI only. It does not switch tenants or grant access.</p>
+      </section>
+
+      <section id="members" class="syn-app-card workspace-demo-section" aria-labelledby="members-heading">
+        <div class="syn-app-card-header"><h2 class="syn-heading" id="members-heading">Team &amp; access</h2><span class="syn-caption">FICTIONAL MEMBERS</span></div>
+        <div class="syn-table-wrap">
+          <table class="syn-table">
+            <caption class="workspace-demo-caption">Members and roles shown for layout review, not permission enforcement.</caption>
+            <thead><tr><th scope="col">Member</th><th scope="col">Role</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Alex Rivera</th><td>Owner</td><td><span class="syn-status syn-status--success">Active</span></td></tr>
+              <tr><th scope="row">Morgan Chen</th><td>Admin</td><td><span class="syn-status syn-status--success">Active</span></td></tr>
+              <tr><th scope="row">Jordan Lee</th><td>Viewer</td><td><span class="syn-status syn-status--warning">Invited</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <section class="workspace-demo-invite" aria-labelledby="invite-heading">
+          <div>
+            <h3 class="syn-section-heading" id="invite-heading">Invite a teammate</h3>
+            <p class="syn-caption">Preview only. The Rust template supplies an authenticated POST form and CSRF token.</p>
+          </div>
+          <div class="workspace-demo-invite-grid">
+            <label class="syn-label" for="invite-email">EMAIL ADDRESS
+              <input id="invite-email" class="syn-input" type="email" name="email" autocomplete="off" placeholder="person@example.com" disabled>
+            </label>
+            <label class="syn-label" for="invite-role">WORKSPACE ROLE
+              <select id="invite-role" class="syn-select" name="role" disabled><option>Viewer</option><option>Editor</option><option>Admin</option></select>
+            </label>
+            <button class="syn-button syn-button--primary" type="submit" disabled>INVITE (SERVER REQUIRED)</button>
+          </div>
+        </section>
+      </section>
+
+      <section id="billing" class="workspace-demo-section" aria-labelledby="billing-heading">
+        <div class="workspace-demo-section-head"><h2 id="billing-heading">Billing &amp; usage</h2><span class="syn-caption">EXAMPLE SUBSCRIPTION DATA</span></div>
+        <div class="workspace-demo-grid">
+          <article class="syn-app-card"><span class="syn-stat-label">CURRENT PLAN</span><p class="syn-stat-value">Growth</p><p class="syn-muted">$99/month (fictional)</p></article>
+          <article class="syn-app-card"><span class="syn-stat-label">ACTIVE SEATS</span><p class="syn-stat-value">8 / 12</p><p class="syn-muted">4 available seats</p></article>
+          <article class="syn-app-card"><span class="syn-stat-label">API USAGE</span><p class="syn-stat-value">68%</p><p class="syn-muted">Monthly allocation</p></article>
+        </div>
+        <article class="syn-app-card workspace-demo-section" aria-labelledby="usage-heading">
+          <div class="syn-app-card-header"><h3 id="usage-heading" class="syn-section-heading">Usage limits</h3><span class="syn-status syn-status--success">Within quota</span></div>
+          <label class="syn-label" for="api-usage">Monthly API requests: 6,800 of 10,000</label>
+          <progress id="api-usage" class="syn-meter" value="6800" max="10000">68%</progress>
+          <p class="syn-caption">The backend calculates the numerator, denominator and billing period.</p>
+        </article>
+        <article class="syn-app-card workspace-demo-section" aria-labelledby="invoices-heading">
+          <div class="syn-app-card-header"><h3 class="syn-section-heading" id="invoices-heading">Recent invoices</h3><span class="syn-caption">ILLUSTRATIVE ONLY</span></div>
+          <div class="syn-table-wrap"><table class="syn-table">
+            <caption class="workspace-demo-caption">Sample invoice history. No payments are initiated by this page.</caption>
+            <thead><tr><th scope="col">Invoice</th><th scope="col">Period</th><th scope="col">Amount</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">INV-1042</th><td>October 2026</td><td class="syn-cell--numeric">$99.00</td><td><span class="syn-status syn-status--success">Paid</span></td></tr>
+              <tr><th scope="row">INV-1031</th><td>September 2026</td><td class="syn-cell--numeric">$99.00</td><td><span class="syn-status syn-status--success">Paid</span></td></tr>
+            </tbody>
+          </table></div>
+        </article>
+      </section>
+
+      <section id="developer" class="workspace-demo-section" aria-labelledby="developer-heading">
+        <div class="workspace-demo-section-head"><h2 id="developer-heading">Developer operations</h2><span class="syn-caption">SENSITIVE ACTIONS DISABLED</span></div>
+        <div class="workspace-demo-grid workspace-demo-grid--two">
+          <article class="syn-app-card" aria-labelledby="keys-heading">
+            <div class="syn-app-card-header"><h3 id="keys-heading" class="syn-section-heading">API credentials</h3><span class="syn-status syn-status--warning">Redacted</span></div>
+            <p class="syn-muted">Production keys are never embedded in public HTML or example markup.</p>
+            <p class="workspace-demo-code">Example key · sk_•••••••• · Last used 2 days ago</p>
+            <button class="syn-button syn-button--outline" type="button" disabled>Create key (server required)</button>
+          </article>
+          <article class="syn-app-card" aria-labelledby="webhooks-heading">
+            <div class="syn-app-card-header"><h3 id="webhooks-heading" class="syn-section-heading">Webhook delivery</h3><span class="syn-caption">EXAMPLE EVENTS</span></div>
+            <ul class="syn-activity-list">
+              <li><span>invoice.paid</span><span class="syn-status syn-status--success">Delivered</span></li>
+              <li><span>subscription.updated</span><span class="syn-status syn-status--warning">Retrying</span></li>
+            </ul>
+          </article>
+        </div>
+        <article class="syn-app-card workspace-demo-section" aria-labelledby="audit-heading">
+          <div class="syn-app-card-header"><h3 id="audit-heading" class="syn-section-heading">Audit trail</h3><span class="syn-caption">SERVER-OWNED EVENT LOG</span></div>
+          <div class="syn-table-wrap"><table class="syn-table">
+            <caption class="workspace-demo-caption">Fictional events; retain actor, permission and timestamp on the server.</caption>
+            <thead><tr><th scope="col">Event</th><th scope="col">Actor</th><th scope="col">When</th></tr></thead>
+            <tbody><tr><th scope="row">Member invited</th><td>Morgan Chen</td><td>Nov 14, 2026</td></tr><tr><th scope="row">Plan updated</th><td>Alex Rivera</td><td>Nov 1, 2026</td></tr></tbody>
+          </table></div>
+        </article>
+      </section>
+
+      <section id="states" class="workspace-demo-section" aria-labelledby="states-heading">
+        <div class="workspace-demo-section-head"><h2 id="states-heading">Application states</h2><span class="syn-caption">RENDERED EXAMPLES, NOT LIVE EVENTS</span></div>
+        <div class="workspace-demo-grid workspace-demo-grid--two">
+          <article class="syn-app-card" aria-labelledby="saved-heading">
+            <h3 class="syn-section-heading" id="saved-heading">Success feedback</h3>
+            <div class="syn-alert" role="status" aria-live="polite">Example: Settings were saved.</div>
+          </article>
+          <article class="syn-app-card" aria-labelledby="error-heading">
+            <h3 class="syn-section-heading" id="error-heading">Validation feedback</h3>
+            <div class="syn-alert syn-alert--danger" role="alert">Example: The email address could not be verified.</div>
+          </article>
+          <article class="syn-app-card" aria-labelledby="denied-heading">
+            <h3 class="syn-section-heading" id="denied-heading">Permission denied</h3>
+            <p class="syn-muted">You need workspace administrator access to edit billing settings.</p>
+            <p class="syn-caption">A server must enforce this permission; hiding a button is not authorization.</p>
+          </article>
+          <article class="syn-app-card" aria-labelledby="empty-heading">
+            <h3 class="syn-section-heading" id="empty-heading">Empty state</h3>
+            <div class="syn-empty"><p>No API credentials are available to this role.</p></div>
+          </article>
+          <article class="syn-app-card" aria-labelledby="loading-heading">
+            <h3 class="syn-section-heading" id="loading-heading">Loading skeleton</h3>
+            <div class="workspace-demo-skeletons" aria-hidden="true"><span class="syn-skeleton"></span><span class="syn-skeleton syn-skeleton--short"></span></div>
+            <p class="syn-caption">Decorative preview. An application must manage actual loading state and announcements.</p>
+          </article>
+        </div>
+      </section>
+      <footer class="syn-caption workspace-demo-section">SYNTYR / FREE MIT REFERENCE / PRESENTATION ONLY · <a href="saas-workflows.html">Search and CRUD workflows</a> · <a href="../docs/rust-saas-integration.html">Rust server-rendered integration</a></footer>
+    </main>
+  </div>
+</body>
+</html>
