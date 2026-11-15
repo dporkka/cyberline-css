@@ -237,3 +237,20 @@ Use opt-in fluid type classes `.syn-fluid-display`, `.syn-fluid-lede` and
 application CSS. Keep real document headings and reading order.
 
 See [the working minimalist demo](../examples/minimalist-patterns.html).
+
+
+## Priority queue and spreadsheet-style visual states (optional)
+
+Load `syntyr.core.css` first, then `syntyr.operations.css` for priority-first action lists and `syntyr.data-grid.css` for dense data tables. These **opt-in** styles are part of the alpha.5 source candidate, not the published alpha.4 release. Both modules are MIT licensed and require no runtime JavaScript. [See the runnable static example](../examples/operations-ui-states.html).
+
+```html
+<ul class="syn-work-queue">
+  <li class="syn-work-item" data-syn-priority="critical" data-syn-state="overdue">
+    <span class="syn-work-marker" aria-hidden="true"></span>
+    <div class="syn-work-content"><h3>Review item</h3><p>Critical priority — overdue</p></div>
+    <div class="syn-work-actions"><a href="/work/123">View record</a></div>
+  </li>
+</ul>
+```
+
+The grid module styles `<table class="syn-data-grid-table">` inside a keyboard-focusable `.syn-data-grid-scroll` region, with `.syn-data-grid-cell` states for `selected`, `focused`, `dirty`, `invalid`, and `readonly`. Use `data-syn-state` for **presentational** state. Only use ARIA `aria-selected` when the host genuinely implements a selectable ARIA grid; plain tables should use native table semantics, `th scope`, `caption`, and visible text labels. Sort arrows reflect host-supplied `aria-sort` and do **not** sort records. CSS does not manage keyboard focus, selection, batch edits, validation, filtering, persistence or authorization. For many-row interactive spreadsheets, use a separate application grid engine.

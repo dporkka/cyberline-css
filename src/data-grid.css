@@ -1,0 +1,124 @@
+/* Optional data-grid presentation. The host owns keyboard routing, editing,
+ * focus management, sort, selection, virtualization and persistence.
+ * Use a native <table> for non-interactive data; opt into ARIA grid only when
+ * the host provides the complete keyboard interaction model.
+ */
+@layer syn.components {
+  :where(.syn-root, .syn-root *) {
+    &.syn-data-grid-scroll {
+      overflow-x: auto;
+      inline-size: 100%;
+      min-inline-size: 0;
+      border: 1px solid var(--syn-frame);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      scrollbar-gutter: stable;
+    }
+    &.syn-data-grid-scroll:focus-visible {
+      outline: 3px solid var(--syn-focus-ring);
+      outline-offset: 2px;
+    }
+    &.syn-data-grid-table {
+      width: 100%;
+      min-inline-size: var(--syn-data-grid-min-width, 38rem);
+      border-spacing: 0;
+      border-collapse: separate;
+      font: var(--syn-type-sm)/1.5 var(--syn-font-ui);
+      color: var(--syn-text);
+      text-align: start;
+    }
+    &.syn-data-grid-table :is(th, td) {
+      padding: var(--syn-row-padding-block) .75rem;
+      border-block-end: 1px solid var(--syn-frame);
+      text-align: start;
+      vertical-align: middle;
+      overflow-wrap: anywhere;
+    }
+    &.syn-data-grid-table thead th {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 1;
+      background: var(--syn-surface-raised);
+      color: var(--syn-text);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    &.syn-data-grid-table tbody tr:last-child > :is(th, td) { border-block-end: 0; }
+    &.syn-data-grid-table tbody tr:hover { background: var(--syn-surface-raised); }
+    &.syn-data-grid-table tr[aria-selected="true"],
+    &.syn-data-grid-table tr[data-syn-state="selected"] {
+      background: var(--syn-surface-pressed);
+    }
+    &.syn-data-grid-table tr[aria-selected="true"] > :first-child,
+    &.syn-data-grid-table tr[data-syn-state="selected"] > :first-child {
+      box-shadow: inset 3px 0 var(--syn-accent);
+    }
+    &.syn-data-grid-table th[aria-sort="ascending"]::after { content: " ↑"; color: var(--syn-accent); }
+    &.syn-data-grid-table th[aria-sort="descending"]::after { content: " ↓"; color: var(--syn-accent); }
+    &.syn-data-grid-table :is(th, td):focus-within {
+      outline: 2px solid var(--syn-focus-ring);
+      outline-offset: -2px;
+      position: relative;
+      z-index: 2;
+    }
+    &.syn-data-grid-cell { min-inline-size: 0; }
+    &.syn-data-grid-cell[data-syn-state="selected"] {
+      box-shadow: inset 0 0 0 2px var(--syn-accent);
+    }
+    &.syn-data-grid-cell[data-syn-state="focused"] {
+      outline: 2px solid var(--syn-focus-ring);
+      outline-offset: -2px;
+    }
+    &.syn-data-grid-cell[data-syn-state="dirty"] {
+      box-shadow: inset 0 -3px var(--syn-warning);
+    }
+    &.syn-data-grid-cell[data-syn-state="invalid"],
+    &.syn-data-grid-cell:has([aria-invalid="true"]) {
+      outline: 2px dashed var(--syn-danger);
+      outline-offset: -2px;
+    }
+    &.syn-data-grid-cell[data-syn-state="readonly"] {
+      color: var(--syn-muted);
+      background: var(--syn-surface-recessed);
+    }
+    &.syn-data-grid-cell[data-syn-type="numeric"] {
+      font-variant-numeric: tabular-nums;
+      text-align: end;
+      white-space: nowrap;
+    }
+    &.syn-data-grid-bulkbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 1rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: .65rem .8rem;
+      border: 1px solid var(--syn-frame);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-raised);
+      color: var(--syn-text);
+      font-size: var(--syn-type-sm);
+    }
+    &.syn-data-grid-bulkbar > * { min-inline-size: 0; }
+    &.syn-data-grid-bulkbar :is(button, a) { min-block-size: 2.75rem; }
+  }
+  @media (forced-colors: active) {
+    :where(.syn-root, .syn-root *) {
+      &.syn-data-grid-scroll, &.syn-data-grid-table :is(th, td), &.syn-data-grid-bulkbar { border-color: CanvasText; }
+      &.syn-data-grid-cell[data-syn-state="selected"], &.syn-data-grid-cell[data-syn-state="focused"] { outline: 2px solid Highlight; }
+      &.syn-data-grid-cell[data-syn-state="dirty"] { outline: 2px dotted Highlight; box-shadow: none; }
+      &.syn-data-grid-cell[data-syn-state="invalid"], &.syn-data-grid-cell:has([aria-invalid="true"]) { outline: 2px dashed CanvasText; }
+      &.syn-data-grid-table tr[aria-selected="true"] > :first-child { box-shadow: inset 3px 0 Highlight; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.syn-root, .syn-root *) { &.syn-data-grid-scroll { scroll-behavior: auto; } }
+  }
+  @media print {
+    :where(.syn-root, .syn-root *) {
+      &.syn-data-grid-scroll { overflow: visible; }
+      &.syn-data-grid-table { min-inline-size: 0; }
+      &.syn-data-grid-table thead th { position: static; }
+    }
+  }
+}

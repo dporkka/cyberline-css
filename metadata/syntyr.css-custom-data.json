@@ -392,6 +392,14 @@
     {
       "name": "--syn-wash-secondary-alpha",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-work-accent",
+      "description": "Syntyr CSS property (operations.css)."
+    },
+    {
+      "name": "--syn-work-priority-color",
+      "description": "Syntyr CSS property (operations.css)."
     }
   ]
 }

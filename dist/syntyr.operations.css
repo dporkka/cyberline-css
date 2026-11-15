@@ -1,0 +1,115 @@
+/* Optional priority-first work queue. Hosts own sorting, permissions and actions.
+ * Based on generic enterprise operations patterns; no application-specific data.
+ */
+@layer syn.recipes {
+  :where(.syn-root, .syn-root *) {
+    &.syn-work-queue {
+      display: grid;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+      min-inline-size: 0;
+      list-style: none;
+      border: 1px solid var(--syn-frame);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      overflow: clip;
+    }
+    &.syn-work-item {
+      --syn-work-priority-color: var(--syn-muted);
+      --syn-work-accent: var(--syn-accent);
+      display: grid;
+      grid-template-columns: .7rem minmax(0, 1fr) auto;
+      align-items: start;
+      gap: var(--syn-space-2);
+      min-inline-size: 0;
+      padding: max(var(--syn-row-padding-block), .65rem) var(--syn-space-3);
+      border-block-end: 1px solid var(--syn-frame);
+      color: var(--syn-text);
+      background: var(--syn-surface);
+    }
+    &.syn-work-item:last-child { border-block-end: 0; }
+    &.syn-work-item[data-syn-priority="critical"] { --syn-work-priority-color: var(--syn-danger); }
+    &.syn-work-item[data-syn-priority="high"] { --syn-work-priority-color: var(--syn-warning); }
+    &.syn-work-item[data-syn-priority="normal"] { --syn-work-priority-color: var(--syn-muted); }
+    &.syn-work-item[data-syn-state="overdue"] {
+      box-shadow: inset 3px 0 var(--syn-danger);
+    }
+    &.syn-work-item:focus-within {
+      outline: 2px solid var(--syn-focus-ring);
+      outline-offset: -2px;
+      position: relative;
+      z-index: 1;
+    }
+    &.syn-work-marker {
+      display: block;
+      inline-size: .65rem;
+      block-size: .65rem;
+      margin-block-start: .48rem;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+      color: var(--syn-work-priority-color, var(--syn-muted));
+      background: currentColor;
+      flex: none;
+    }
+    &.syn-work-content { display: grid; gap: .25rem; min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-work-content > :is(h2, h3, p) { margin: 0; }
+    &.syn-work-content > :is(h2, h3) { font-size: 1rem; line-height: 1.4; }
+    &.syn-work-content > p { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    &.syn-work-meta {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .25rem .85rem;
+      color: var(--syn-muted);
+      font-size: var(--syn-type-xs);
+      font-variant-numeric: tabular-nums;
+    }
+    &.syn-work-meta [data-syn-state="overdue"] {
+      color: var(--syn-danger);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: .16em;
+    }
+    &.syn-work-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .45rem; }
+    &.syn-work-actions :is(a, button) { min-block-size: 2.75rem; display: inline-flex; align-items: center; }
+    &.syn-work-actions a:focus-visible {
+      outline: 2px solid var(--syn-focus-ring);
+      outline-offset: 3px;
+    }
+    &.syn-work-summary { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+    &.syn-work-summary > span {
+      padding: .25rem .55rem;
+      border: 1px solid var(--syn-frame);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+      font-size: var(--syn-type-xs);
+      font-variant-numeric: tabular-nums;
+    }
+  }
+  @media (max-width: 40rem) {
+    :where(.syn-root, .syn-root *) {
+      &.syn-work-item { grid-template-columns: .7rem minmax(0, 1fr); }
+      &.syn-work-actions { grid-column: 2; justify-content: flex-start; }
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.syn-root, .syn-root *) {
+      &.syn-work-queue, &.syn-work-item { border-color: CanvasText; }
+      &.syn-work-marker { background: CanvasText; color: CanvasText; }
+      &.syn-work-item[data-syn-state="overdue"] { box-shadow: inset 3px 0 Highlight; }
+      &.syn-work-item:focus-within { outline-color: Highlight; }
+      &.syn-work-meta [data-syn-state="overdue"] { color: CanvasText; }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.syn-root, .syn-root *) { &.syn-work-item { scroll-behavior: auto; transition: none; } }
+  }
+  @media print {
+    :where(.syn-root, .syn-root *) {
+      &.syn-work-queue { overflow: visible; }
+      &.syn-work-item { break-inside: avoid; }
+    }
+  }
+}

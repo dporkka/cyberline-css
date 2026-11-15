@@ -17,10 +17,12 @@
     "syntyr.all.css",
     "syntyr.core.css",
     "syntyr.css",
+    "syntyr.data-grid.css",
     "syntyr.effects.css",
     "syntyr.geometry.css",
     "syntyr.motion.css",
     "syntyr.native-recipes.css",
+    "syntyr.operations.css",
     "syntyr.print.css",
     "syntyr.recipes.css",
     "syntyr.semantic-bundle.css",
@@ -519,6 +521,42 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid-bulkbar",
+      "module": "data-grid.css",
+      "description": "Syntyr CSS class (data-grid.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid-cell",
+      "module": "data-grid.css",
+      "description": "Presentational cell states; host owns grid interactions.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid-scroll",
+      "module": "data-grid.css",
+      "description": "Keyboard-focusable horizontal scroll region for dense tables.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
+      ]
+    },
+    {
+      "name": "syn-data-grid-table",
+      "module": "data-grid.css",
+      "description": "Native table styling with optional visual data-grid states.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.data-grid.css"
       ]
     },
     {
@@ -2451,6 +2489,69 @@
       ]
     },
     {
+      "name": "syn-work-actions",
+      "module": "operations.css",
+      "description": "Syntyr CSS class (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-content",
+      "module": "operations.css",
+      "description": "Syntyr CSS class (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-item",
+      "module": "operations.css",
+      "description": "Work item with host-controlled data-syn-priority and overdue state.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-marker",
+      "module": "operations.css",
+      "description": "Syntyr CSS class (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-meta",
+      "module": "operations.css",
+      "description": "Syntyr CSS class (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-queue",
+      "module": "operations.css",
+      "description": "CSS-only prioritized work list; host owns ordering and actions.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "syn-work-summary",
+      "module": "operations.css",
+      "description": "Syntyr CSS class (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
       "name": "syn-workspace",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -3558,6 +3659,24 @@
         "syntyr.css",
         "syntyr.semantic-bundle.css"
       ]
+    },
+    {
+      "name": "--syn-work-accent",
+      "module": "operations.css",
+      "description": "Syntyr CSS property (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
+    },
+    {
+      "name": "--syn-work-priority-color",
+      "module": "operations.css",
+      "description": "Syntyr CSS property (operations.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.operations.css"
+      ]
     }
   ],
   "themes": [
@@ -3595,10 +3714,15 @@
       "active",
       "complete",
       "degraded",
+      "dirty",
       "down",
       "error",
+      "focused",
       "healthy",
+      "invalid",
       "loading",
+      "overdue",
+      "readonly",
       "selected",
       "unknown"
     ]

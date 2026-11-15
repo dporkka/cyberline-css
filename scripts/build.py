@@ -27,6 +27,8 @@ def distributions():
         'syntyr.server.css': ('server.css',),
         'syntyr.semantic-bundle.css': core + ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
+        'syntyr.operations.css': ('operations.css',),
+        'syntyr.data-grid.css': ('data-grid.css',),
         'syntyr.native-recipes.css': ('native-recipes.css',),
         'syntyr.effects.css': ('effects.css',),
         'syntyr.motion.css': ('motion.css',),
@@ -36,7 +38,7 @@ def distributions():
         'syntyr.utilities.css': ('utilities.css',),
         'syntyr.print.css': ('print.css',),
         'syntyr.css': core + ('effects.css',),
-        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'native-recipes.css', 'geometry.css', 'symbols.css', 'effects.css', 'motion.css', 'viz.css', 'utilities.css', 'print.css', 'server.css'),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'operations.css', 'data-grid.css', 'native-recipes.css', 'geometry.css', 'symbols.css', 'effects.css', 'motion.css', 'viz.css', 'utilities.css', 'print.css', 'server.css'),
     }
     return primary
 

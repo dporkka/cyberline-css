@@ -198,6 +198,22 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-data-grid-bulkbar",
+          "description": "Syntyr CSS class (data-grid.css)."
+        },
+        {
+          "name": "syn-data-grid-cell",
+          "description": "Presentational cell states; host owns grid interactions."
+        },
+        {
+          "name": "syn-data-grid-scroll",
+          "description": "Keyboard-focusable horizontal scroll region for dense tables."
+        },
+        {
+          "name": "syn-data-grid-table",
+          "description": "Native table styling with optional visual data-grid states."
+        },
+        {
           "name": "syn-defer-section",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -954,6 +970,34 @@
           "description": "Syntyr CSS class (viz.css)."
         },
         {
+          "name": "syn-work-actions",
+          "description": "Syntyr CSS class (operations.css)."
+        },
+        {
+          "name": "syn-work-content",
+          "description": "Syntyr CSS class (operations.css)."
+        },
+        {
+          "name": "syn-work-item",
+          "description": "Work item with host-controlled data-syn-priority and overdue state."
+        },
+        {
+          "name": "syn-work-marker",
+          "description": "Syntyr CSS class (operations.css)."
+        },
+        {
+          "name": "syn-work-meta",
+          "description": "Syntyr CSS class (operations.css)."
+        },
+        {
+          "name": "syn-work-queue",
+          "description": "CSS-only prioritized work list; host owns ordering and actions."
+        },
+        {
+          "name": "syn-work-summary",
+          "description": "Syntyr CSS class (operations.css)."
+        },
+        {
           "name": "syn-workspace",
           "description": "Syntyr CSS class (recipes.css)."
         }
@@ -1033,16 +1077,31 @@
           "name": "degraded"
         },
         {
+          "name": "dirty"
+        },
+        {
           "name": "down"
         },
         {
           "name": "error"
         },
         {
+          "name": "focused"
+        },
+        {
           "name": "healthy"
         },
         {
+          "name": "invalid"
+        },
+        {
           "name": "loading"
+        },
+        {
+          "name": "overdue"
+        },
+        {
+          "name": "readonly"
         },
         {
           "name": "selected"

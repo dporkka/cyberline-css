@@ -19,7 +19,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+         "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/operations-ui-states.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
          "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
 )
@@ -54,6 +54,14 @@ def assert_page(browser, name: str, viewport: int) -> None:
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
+    if name == "examples/operations-ui-states.html":
+        assert page.locator('.syn-work-item').count() == 3
+        assert page.locator('.syn-work-item[data-syn-priority="critical"]').count() == 1
+        assert page.locator('.syn-work-queue').evaluate('e => getComputedStyle(e).display') == 'grid'
+        assert page.locator('.syn-data-grid-table').count() == 1
+        assert page.locator('.syn-data-grid-table thead th').first.evaluate('e => getComputedStyle(e).position') == 'sticky'
+        assert page.locator('.syn-data-grid-cell[data-syn-state="invalid"]').evaluate('e => getComputedStyle(e).outlineStyle') == 'dashed'
+        assert page.locator('.syn-data-grid-scroll').get_attribute('tabindex') == '0'
     if name == "examples/crm.html":
         board = page.locator(".syn-pipeline")
         assert board.get_attribute("tabindex") == "0"

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntyr — Work queue and grid states</title>
+  <meta name="description" content="CSS-only enterprise work queues and data-grid presentation with native HTML, no JavaScript.">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.operations.css">
+  <link rel="stylesheet" href="../dist/syntyr.data-grid.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-density="compact">
+<a class="syn-button syn-button--outline" href="#main">Skip to content</a>
+<main class="syn-shell syn-stack" id="main">
+  <header class="syn-page-header">
+    <div><p class="syn-eyebrow">OPERATIONS / CSS ONLY</p><h1>Work queue and data-grid states</h1>
+    <p class="syn-muted">Illustrative records. Prioritization, selection, editing and saving are not implemented by CSS.</p></div>
+    <a class="syn-button syn-button--outline" href="../docs/recipes.html">Back to recipes</a>
+  </header>
+  <section aria-labelledby="queue-title" class="syn-stack">
+    <div class="syn-page-header"><h2 id="queue-title">Items requiring attention</h2>
+      <div class="syn-work-summary" role="group" aria-label="Illustrative priority totals"><span>Critical: 1</span><span>High: 1</span><span>Normal: 1</span></div>
+    </div>
+    <ul class="syn-work-queue">
+      <li class="syn-work-item" data-syn-priority="critical" data-syn-state="overdue">
+        <span class="syn-work-marker" aria-hidden="true"></span>
+        <div class="syn-work-content"><h3>Review overdue evidence</h3><p>Site inspection requires supervisor review.</p>
+          <div class="syn-work-meta"><span>Critical priority</span><span data-syn-state="overdue">Overdue</span><time datetime="2026-11-12">Due 12 Nov</time></div></div>
+        <div class="syn-work-actions"><a href="#task-review">View details</a></div>
+      </li>
+      <li class="syn-work-item" data-syn-priority="high"><span class="syn-work-marker" aria-hidden="true"></span>
+        <div class="syn-work-content"><h3>Confirm updated delivery</h3><p>Awaiting customer sign-off.</p><div class="syn-work-meta"><span>High priority</span><time datetime="2026-11-17">Due 17 Nov</time></div></div>
+        <div class="syn-work-actions"><a href="#task-delivery">View details</a></div>
+      </li>
+      <li class="syn-work-item" data-syn-priority="normal"><span class="syn-work-marker" aria-hidden="true"></span>
+        <div class="syn-work-content"><h3>Check contract renewal</h3><p>Prepare the next account review.</p><div class="syn-work-meta"><span>Normal priority</span><time datetime="2026-11-20">Due 20 Nov</time></div></div>
+        <div class="syn-work-actions"><a href="#task-renewal">View details</a></div>
+      </li>
+    </ul>
+  </section>
+  <section class="syn-stack" aria-labelledby="grid-title">
+    <h2 id="grid-title">Record grid — visual states</h2>
+    <p class="syn-caption">The sample is a read-only HTML table. State attributes demonstrate visual styling, not functioning spreadsheet editing or selection.</p>
+    <div class="syn-data-grid-bulkbar" role="status"><span>2 of 4 sample records marked selected</span><button type="button" class="syn-button syn-button--outline" disabled>Update selected (not implemented)</button></div>
+    <div class="syn-data-grid-scroll" role="region" tabindex="0" aria-label="Illustrative records; scroll horizontally to view all columns">
+      <table class="syn-data-grid-table"><caption>Sample inventory records and their presentation states</caption>
+        <thead><tr><th scope="col" aria-sort="ascending">Record</th><th scope="col">Owner</th><th scope="col">Value</th><th scope="col">State</th><th scope="col">Review</th></tr></thead>
+        <tbody>
+          <tr data-syn-state="selected"><th scope="row">A-101</th><td class="syn-data-grid-cell" data-syn-state="selected">North team</td><td class="syn-data-grid-cell" data-syn-type="numeric">12,400</td><td class="syn-data-grid-cell" data-syn-state="dirty">Pending changes</td><td>Queued</td></tr>
+          <tr data-syn-state="selected"><th scope="row">A-102</th><td class="syn-data-grid-cell" data-syn-state="readonly">Assigned</td><td class="syn-data-grid-cell" data-syn-type="numeric">8,250</td><td class="syn-data-grid-cell" data-syn-state="invalid">Needs correction</td><td>Blocked</td></tr>
+          <tr><th scope="row">A-103</th><td>Central team</td><td class="syn-data-grid-cell" data-syn-type="numeric">6,000</td><td>Confirmed</td><td>Approved</td></tr>
+          <tr><th scope="row">A-104</th><td class="syn-data-grid-cell" data-syn-state="focused">West team</td><td class="syn-data-grid-cell" data-syn-type="numeric">4,400</td><td>Draft</td><td>Pending</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="syn-grid" aria-label="Example task details">
+    <article class="syn-panel" id="task-review"><h2>Evidence review</h2><p>Requires an authorized approval workflow in the host application.</p></article>
+    <article class="syn-panel" id="task-delivery"><h2>Delivery confirmation</h2><p>No customer approval was requested or recorded.</p></article>
+    <article class="syn-panel" id="task-renewal"><h2>Renewal review</h2><p>All records and dates are synthetic.</p></article>
+  </section>
+</main>
+</body>
+</html>

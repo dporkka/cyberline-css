@@ -16,6 +16,8 @@
     "./server.css": "./dist/syntyr.server.css",
     "./semantic-bundle.css": "./dist/syntyr.semantic-bundle.css",
     "./recipes.css": "./dist/syntyr.recipes.css",
+    "./operations.css": "./dist/syntyr.operations.css",
+    "./data-grid.css": "./dist/syntyr.data-grid.css",
     "./effects.css": "./dist/syntyr.effects.css",
     "./motion.css": "./dist/syntyr.motion.css",
     "./geometry.css": "./dist/syntyr.geometry.css",

@@ -72,6 +72,7 @@
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
 - [Three flagship visual compositions](docs/visual-composition.md): [Studio operations](examples/flagship-studio.html), [Noir editorial](examples/flagship-noir.html), and [Grid control](examples/flagship-grid.html); original, static, zero-JavaScript showcases.
+- [Priority-first work queue and advanced data-grid states](examples/operations-ui-states.html): two optional MIT CSS modules, with native tables and host-owned behavior
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Vertigo-inspired four-stage resource lifecycle reference](examples/vertigo-resource-workflow.html): schema-driven CRUD visual patterns (index, detail, editor, settings) with zero runtime JavaScript and disabled mutations.

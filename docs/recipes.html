@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="90b655daafc020f700c02c25641872086376cfa58cf6c91beacc144321ac8c25">
+  <meta name="syntyr-source-sha256" content="8b9881ac9901376c7343d367731212ff6eeaa74c76e09167247c9789ee122fe7">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -220,6 +220,17 @@ which can display different numbers of columns at intermediate widths.</p>
 <code>--syn-type-lede</code> and <code>--syn-reading-width</code> can be overridden in plain
 application CSS. Keep real document headings and reading order.</p>
 <p>See <a href="../examples/minimalist-patterns.html">the working minimalist demo</a>.</p>
+<h2 id="priority-queue-and-spreadsheet-style-visual-states-optional">Priority queue and spreadsheet-style visual states (optional)</h2>
+<p>Load <code>syntyr.core.css</code> first, then <code>syntyr.operations.css</code> for priority-first action lists and <code>syntyr.data-grid.css</code> for dense data tables. These <strong>opt-in</strong> styles are part of the alpha.5 source candidate, not the published alpha.4 release. Both modules are MIT licensed and require no runtime JavaScript. <a href="../examples/operations-ui-states.html">See the runnable static example</a>.</p>
+<pre><code class="language-html">&lt;ul class=&quot;syn-work-queue&quot;&gt;
+  &lt;li class=&quot;syn-work-item&quot; data-syn-priority=&quot;critical&quot; data-syn-state=&quot;overdue&quot;&gt;
+    &lt;span class=&quot;syn-work-marker&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;
+    &lt;div class=&quot;syn-work-content&quot;&gt;&lt;h3&gt;Review item&lt;/h3&gt;&lt;p&gt;Critical priority — overdue&lt;/p&gt;&lt;/div&gt;
+    &lt;div class=&quot;syn-work-actions&quot;&gt;&lt;a href=&quot;/work/123&quot;&gt;View record&lt;/a&gt;&lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>The grid module styles <code>&lt;table class=&quot;syn-data-grid-table&quot;&gt;</code> inside a keyboard-focusable <code>.syn-data-grid-scroll</code> region, with <code>.syn-data-grid-cell</code> states for <code>selected</code>, <code>focused</code>, <code>dirty</code>, <code>invalid</code>, and <code>readonly</code>. Use <code>data-syn-state</code> for <strong>presentational</strong> state. Only use ARIA <code>aria-selected</code> when the host genuinely implements a selectable ARIA grid; plain tables should use native table semantics, <code>th scope</code>, <code>caption</code>, and visible text labels. Sort arrows reflect host-supplied <code>aria-sort</code> and do <strong>not</strong> sort records. CSS does not manage keyboard focus, selection, batch edits, validation, filtering, persistence or authorization. For many-row interactive spreadsheets, use a separate application grid engine.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-vertical-flow">Optional vertical flow</a>
@@ -233,6 +244,7 @@ application CSS. Keep real document headings and reading order.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessible-navigation-and-loading-placeholders">Accessible navigation and loading placeholders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#priority-queue-and-spreadsheet-style-visual-states-optional">Priority queue and spreadsheet-style visual states (optional)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="recipes.md">Markdown source</a></nav>
