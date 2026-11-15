@@ -29,6 +29,13 @@ FILES = (
     "docs/recipes.md",
     "docs/component-recipes.md",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    # Four-page MIT business-site starter, no runtime JS or external assets.
+    "examples/business-starter/index.html",
+    "examples/business-starter/services.html",
+    "examples/business-starter/case-study.html",
+    "examples/business-starter/contact.html",
+    "examples/business-starter/site.css",
+    "examples/business-starter/README.md",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",

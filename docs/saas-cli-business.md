@@ -29,6 +29,7 @@ The optional recipes module provides app shells, responsive navigation, KPI card
 
 - [Responsive SaaS application](../examples/saas.html)
 - [Professional business website](../examples/business.html)
+- [Complete four-page business-site starter](../examples/business-starter/index.html) — homepage, services, illustrative case study and safely disabled contact-form pattern; [copy/edit guide](../examples/business-starter/README.md) is repository-only.
 - [Browser terminal/documentation](../examples/terminal.html)
 - [Original Grid dashboard](../examples/console.html)
 - [Original Noir marketing page](../examples/landing.html)

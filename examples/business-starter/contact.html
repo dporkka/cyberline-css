@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Accessible business contact page template with a safely disabled demo form and instructions for secure server integration.">
+  <meta name="color-scheme" content="light dark">
+  <title>Contact integration example — Northstar Systems (fictional Syntyr example)</title>
+  <link rel="stylesheet" href="../../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="./site.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="bs-skip" href="#main-content">Skip to content</a>
+  <div class="syn-shell bs-shell">
+    <header class="syn-header bs-header">
+      <a class="bs-brand" href="index.html" aria-label="Northstar Systems home"><span class="bs-brand-mark" aria-hidden="true">N</span><span>northstar<span class="bs-brand-muted"> / systems</span></span></a>
+      <nav class="syn-nav bs-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="case-study.html">Case study</a>
+        <a href="contact.html" aria-current="page">Contact</a>
+      </nav>
+    </header>
+    <main id="main-content">
+
+      <section class="bs-page-hero" aria-labelledby="contact-title"><p class="syn-eyebrow">GET IN TOUCH / INTEGRATION EXAMPLE</p><h1 id="contact-title" class="syn-site-heading">Tell us what needs to work better.</h1><p class="syn-lede">This is an illustrative lead-capture page, not a live contact service. Replace the demo content and connect a secure server endpoint before accepting inquiries.</p></section>
+      <section class="bs-section bs-contact-grid" aria-label="Example contact workflow">
+        <div class="syn-panel bs-form-panel">
+          <h2 class="syn-section-heading">Describe your project</h2>
+          <p class="syn-muted">Demo mode: the form is disabled to prevent submitting personal information to an inactive endpoint.</p>
+          <form method="post">
+            <fieldset disabled class="bs-fieldset">
+              <legend>Example inquiry fields — disabled</legend>
+              <div class="bs-form-grid">
+                <div class="syn-field"><label class="syn-label" for="inquiry-name">Name</label><input class="syn-input" id="inquiry-name" name="name" autocomplete="name" required placeholder="Your name"></div>
+                <div class="syn-field"><label class="syn-label" for="inquiry-email">Email</label><input class="syn-input" id="inquiry-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+              </div>
+              <div class="syn-field"><label class="syn-label" for="inquiry-topic">What can we help with?</label><select class="syn-select" id="inquiry-topic" name="topic"><option value="">Choose an area</option><option value="design">Product design</option><option value="engineering">Business software</option><option value="workflow">Workflow improvement</option></select></div>
+              <div class="syn-field"><label class="syn-label" for="inquiry-message">Project context</label><textarea class="syn-textarea" id="inquiry-message" name="message" rows="5" required placeholder="What are you trying to improve?"></textarea></div>
+              <button class="syn-button syn-button--primary" type="submit" disabled>Send inquiry (demo disabled)</button>
+            </fieldset>
+          </form>
+        </div>
+        <aside class="bs-aside" aria-labelledby="expect-title">
+          <p class="syn-eyebrow">BEFORE YOU PUBLISH</p>
+          <h2 id="expect-title" class="syn-section-heading">Connect the real workflow.</h2>
+          <p>Provide a genuine business address or other verified contact method, a privacy notice, and an operational endpoint.</p>
+          <p>Use server-side validation, CSRF protection, abuse controls, confirmation and accessible error recovery. Do not enable submission until the process is verified.</p>
+          <a class="bs-text-link" href="services.html">Review services</a>
+        </aside>
+      </section>
+
+    </main>
+    <footer class="bs-footer">
+      <div><strong>Northstar Systems</strong><p>Fictional business-site starter built with Syntyr CSS. Not a real company or offer.</p></div>
+      <nav class="bs-footnav" aria-label="Footer navigation"><a href="services.html">Services</a><a href="case-study.html">Example project</a><a href="contact.html">Contact</a></nav>
+    </footer>
+  </div>
+</body>
+</html>

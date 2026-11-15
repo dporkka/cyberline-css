@@ -1,0 +1,79 @@
+/* Original business-site composition. Reuses Syntyr's MIT core/recipes, no JS. */
+.syn-root .bs-shell { min-inline-size:0; }
+.syn-root .bs-skip { position:absolute; z-index:10; inset-block-start:-10rem; inset-inline-start:1rem; padding:.7rem 1rem; background:var(--syn-accent); color:var(--syn-on-accent); border-radius:.25rem; }
+.syn-root .bs-skip:focus-visible { inset-block-start:.5rem; }
+.syn-root .bs-header { padding-block:1.25rem; border-block-end:1px solid var(--syn-border-subtle); }
+.syn-root .bs-brand { display:inline-flex; align-items:center; gap:.75rem; min-inline-size:0; color:var(--syn-text); font-weight:750; font-size:1.1rem; letter-spacing:-.035em; text-decoration:none; }
+.syn-root .bs-brand-mark { display:grid; place-items:center; inline-size:2.3rem; block-size:2.3rem; flex:none; border-radius:.45rem; background:var(--syn-accent); color:var(--syn-on-accent); font-weight:800; }
+.syn-root .bs-brand-muted { color:var(--syn-muted); font-weight:450; }
+.syn-root .bs-nav { gap:.45rem 1rem; }
+.syn-root .bs-nav a { padding:.55rem .2rem; border-block-end:2px solid transparent; }
+.syn-root .bs-nav a[aria-current="page"] { border-block-end-color:var(--syn-accent); }
+.syn-root .bs-hero { display:grid; grid-template-columns:minmax(0,1fr); gap:clamp(1.5rem,4vw,3rem); margin-block-start:1.75rem; align-items:center; }
+.syn-root .bs-hero-copy, .syn-root .bs-hero-art { min-inline-size:0; }
+.syn-root .bs-hero .syn-site-heading { max-inline-size:14ch; }
+.syn-root .bs-lede { max-inline-size:55ch; }
+.syn-root .bs-actions { display:flex; flex-wrap:wrap; align-items:center; gap:.75rem; }
+.syn-root .bs-disclaimer { font-size:.78rem; color:var(--syn-muted); margin-block:1.5rem 0; }
+.syn-root .bs-hero-art { padding:clamp(1rem,3vw,2rem); border:1px solid var(--syn-border-default); background:var(--syn-bg); border-radius:var(--syn-radius); box-shadow:var(--syn-shadow-sm); }
+.syn-root .bs-art-head { display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 1rem; color:var(--syn-muted); font-size:.7rem; letter-spacing:.06em; font-weight:700; }
+.syn-root .bs-live { color:var(--syn-accent); letter-spacing:0; }
+.syn-root .bs-art-grid { display:grid; gap:.7rem; margin-block:1.3rem; }
+.syn-root .bs-art-stat { display:grid; gap:.5rem; padding:1rem; background:var(--syn-surface); border:1px solid var(--syn-border-subtle); border-inline-start:3px solid var(--syn-accent); min-inline-size:0; overflow-wrap:anywhere; }
+.syn-root .bs-art-stat span { font-size:.78rem; color:var(--syn-muted); }
+.syn-root .bs-art-stat strong { font-size:1.15rem; }
+.syn-root .bs-art-note { font-size:.75rem; color:var(--syn-muted); }
+.syn-root .bs-section { margin-block:clamp(3rem,6vw,5rem); }
+.syn-root .bs-section-heading { max-inline-size:64ch; margin-block-end:1.5rem; }
+.syn-root .bs-section-heading > p:last-child { color:var(--syn-muted); }
+.syn-root .bs-section h2, .syn-root .bs-page-hero h1 { overflow-wrap:anywhere; }
+.syn-root .bs-text-link { color:var(--syn-accent); font-weight:700; text-underline-offset:.2em; overflow-wrap:anywhere; }
+.syn-root .bs-split { display:grid; grid-template-columns:minmax(0,1fr); gap:1.5rem 3.5rem; border-block-start:1px solid var(--syn-border-subtle); padding-block-start:2rem; }
+.syn-root .bs-copy { min-inline-size:0; max-inline-size:55ch; color:var(--syn-muted); }
+.syn-root .bs-copy > :first-child { margin-block-start:0; }
+.syn-root .bs-cta { margin-block:3rem; }
+.syn-root .bs-cta > div { min-inline-size:0; max-inline-size:57ch; }
+.syn-root .bs-footer { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:start; gap:1.5rem; padding-block:2rem 3rem; border-block-start:1px solid var(--syn-border-subtle); color:var(--syn-muted); font-size:.87rem; }
+.syn-root .bs-footer strong { color:var(--syn-text); }
+.syn-root .bs-footer p { max-inline-size:41ch; margin:.4rem 0 0; }
+.syn-root .bs-footnav { display:flex; gap:.6rem 1.2rem; flex-wrap:wrap; }
+.syn-root .bs-footnav a { color:var(--syn-muted); }
+.syn-root .bs-page-hero { padding-block:clamp(2rem,5vw,4rem); max-inline-size:75ch; }
+.syn-root .bs-page-hero .syn-site-heading { max-inline-size:20ch; }
+.syn-root .bs-services { display:grid; gap:1rem; }
+.syn-root .bs-service { min-inline-size:0; }
+.syn-root .bs-service h2 { font-size:clamp(1.3rem,2.5vw,1.8rem); margin-block:.5rem .85rem; }
+.syn-root .bs-service h3 { margin-block:1.5rem .5rem; }
+.syn-root .bs-service li { margin-block:.4rem; }
+.syn-root .bs-steps { display:grid; gap:1rem; margin:0; padding-inline-start:1.4rem; }
+.syn-root .bs-steps li { padding-inline-start:.45rem; }
+.syn-root .bs-steps li span { display:block; color:var(--syn-muted); }
+.syn-root .bs-story-note { border:1px solid var(--syn-border-default); border-inline-start:4px solid var(--syn-accent); padding:1rem 1.5rem; background:var(--syn-accent-soft); overflow-wrap:anywhere; }
+.syn-root .bs-story-note p { margin-block:.4rem 0; }
+.syn-root .bs-outcome { max-inline-size:76ch; }
+.syn-root .bs-contact-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:2rem; align-items:start; }
+.syn-root .bs-form-panel { min-inline-size:0; }
+.syn-root .bs-form-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:.7rem; }
+.syn-root .bs-fieldset { margin:0; padding:0; border:0; min-inline-size:0; }
+.syn-root .bs-fieldset legend { padding:0; margin-block-end:1.2rem; color:var(--syn-muted); }
+.syn-root .bs-fieldset .syn-field { margin-block-end:1rem; min-inline-size:0; }
+.syn-root .bs-fieldset .syn-input, .syn-root .bs-fieldset .syn-select, .syn-root .bs-fieldset .syn-textarea { inline-size:100%; max-inline-size:100%; }
+.syn-root .bs-aside { min-inline-size:0; max-inline-size:39ch; }
+.syn-root :is(a, button, input, select, textarea):focus-visible { outline:3px solid var(--syn-focus-ring); outline-offset:3px; }
+@media(min-width:47rem) {
+ .syn-root .bs-hero { grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); }
+ .syn-root .bs-split { grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); }
+ .syn-root .bs-services { grid-template-columns:repeat(3,minmax(0,1fr)); }
+ .syn-root .bs-contact-grid { grid-template-columns:minmax(0,1.5fr) minmax(0,.7fr); }
+ .syn-root .bs-form-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:35rem) {
+ .syn-root .bs-header { align-items:stretch; }
+ .syn-root .bs-nav { inline-size:100%; justify-content:space-between; }
+ .syn-root .bs-hero { padding:clamp(1rem,5vw,2rem); }
+ .syn-root .bs-actions > a { flex:1 1 auto; text-align:center; }
+}
+@media(forced-colors:active) {
+ .syn-root :is(.bs-art-stat, .bs-hero-art, .bs-story-note) { border-color:CanvasText; }
+ .syn-root .bs-brand-mark { background:Highlight; color:HighlightText; }
+}

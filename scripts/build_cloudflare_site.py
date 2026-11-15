@@ -31,6 +31,8 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
     "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html",
+    "examples/business-starter/index.html", "examples/business-starter/services.html",
+    "examples/business-starter/case-study.html", "examples/business-starter/contact.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -272,6 +274,8 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
+        "business-starter/index.html", "business-starter/services.html", "business-starter/case-study.html",
+        "business-starter/contact.html", "business-starter/site.css",
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",

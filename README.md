@@ -100,7 +100,7 @@ The authoring dependency does **not** ship to consumers or run during the static
 
 ## Start in 10 seconds
 
-Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [complete four-page business starter](examples/business-starter/index.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
