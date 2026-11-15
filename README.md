@@ -40,6 +40,7 @@
 - [Performance and design polish guide (no size gate)](docs/performance-and-polish.md)
 - [Progressive loading and critical CSS decision guide](docs/progressive-loading.md) and [zero-JS performance-first example](examples/performance-first.html)
 - [Framework integrations: LiveView, Livewire, Hotwire/Turbo, HTMX, Go templ and frontend stacks](docs/framework-integrations.md)
+- [Go vs Rails vs Laravel: same project-search interface](docs/backend-integration-comparison.md) — runnable [Go stdlib server](examples/go-stdlib-projects/README.md), copyable [Rails ERB + Turbo](examples/rails-hotwire/README.md), and [Laravel Blade](examples/laravel-blade/README.md) recipes. [Go templ](examples/server-rendered/search.templ) remains available.
 - [Lit / Web Components integration guide](docs/lit-integration.md), [opt-in runnable example](https://github.com/dporkka/syntyr-css/tree/main/examples/lit), and [component-authoring contract](docs/component-authoring.md)
 - [Runnable HTMX + Python local example](examples/htmx.html) (requires local demo server; not part of the static Cloudflare site)
 - [Cloudflare static hosting and immutable CSS CDN releases](docs/cloudflare-hosting.md)

@@ -1446,6 +1446,34 @@ message must use an associated `aria-describedby` and `aria-invalid`
 on the input. Do not use `phx-update="ignore"` or `wire:ignore` just to
 make styling survive framework patches.
 
+For the same project-search interface rendered in all three backends,
+see the [Go vs Rails vs Laravel comparison](backend-integration-comparison.md).
+
+## Go, Ruby/Rails, and PHP/Laravel: copyable application recipes
+
+The same CSS works without a component runtime or build tool. Copy
+`dist/syntyr.core.css` from the checked-out revision to your application's
+`public/css/syntyr.core.css`; load it once and render HTML under `.syn-root`.
+
+- **Go:** [Runnable Go stdlib search](https://github.com/dporkka/syntyr-css/blob/main/examples/go-stdlib-projects/README.md)
+  with an accessible table and Go runtime tests, plus [Go templ GET search](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ).
+  Go `html/template` can emit the same `syn-*` classes; no Syntyr Go module
+  is needed.
+- **Ruby on Rails:** [Rails ERB + optional Hotwire/Turbo recipe](https://github.com/dporkka/syntyr-css/blob/main/examples/rails-hotwire/README.md)
+  (`examples/rails-hotwire/README.md`). Copy a controller, ERB view, and a
+  single GET route into your existing Rails app. Search works without Turbo;
+  when present, Turbo replaces only the results frame.
+- **PHP / Laravel:** [Plain Blade recipe](https://github.com/dporkka/syntyr-css/blob/main/examples/laravel-blade/README.md)
+  (`examples/laravel-blade/README.md`). Copy a GET route and an escaped
+  Blade view; no Tailwind, Vite, Livewire, or extra PHP package is required.
+  Livewire users can instead start from the component example below.
+
+These are **zero-JavaScript Syntyr integrations**, not replacements for
+application frameworks. Search routes are non-mutating demonstration data,
+not production data access or authorization. Keep your app's normal CSRF and
+validation on mutations. The checked-in Syntyr alpha.5 code is not the
+published alpha.4 release; vendor a CSS file from one pinned revision.
+
 ## Phoenix LiveView (HEEx)
 
 [Copyable HEEx form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/liveview.heex)
@@ -1530,11 +1558,13 @@ classes, apply `aria-invalid` and `aria-describedby` from server
 validation, and keep static assets versioned. Choose framework-native
 partials/components and anti-CSRF mechanisms.
 
-**Verification scope:** the optional bridge and the copyable templates
-are statically tested with Python's standard library; the repository's
-existing HTMX demo has integration coverage. These examples are not a
-claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
-framework-owned end-to-end tests when you adopt a template in an app.
+**Verification scope:** the optional bridge and copyable templates
+are statically checked in Syntyr's Python suite. The Rails and Laravel
+recipes also ship framework-native request/feature test files for use
+inside a host app. Those framework tests were not run in Syntyr's CI.
+Existing HTMX demo integration coverage does not establish Rails,
+Laravel, Phoenix or Go runtime compatibility. Run app-owned tests and
+accessibility checks before deployment.
 
 ## Lit / Web Components
 

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Projects — Syntyr + Go</title>
+    <link rel="stylesheet" href="/css/syntyr.core.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+    <main class="syn-panel" aria-labelledby="syntyr-projects-title">
+        <h1 class="syn-heading" id="syntyr-projects-title">Projects</h1>
+        <form class="syn-form" action="/syntyr/projects" method="get" role="search">
+            <div class="syn-field">
+                <label class="syn-label" for="syntyr-project-query">Search projects</label>
+                <input class="syn-input" id="syntyr-project-query" type="search"
+                       name="q" maxlength="100" value="{{.Query}}">
+            </div>
+            <button class="syn-button syn-button--primary" type="submit">Search</button>
+            <a class="syn-button" href="/syntyr/projects">Clear</a>
+        </form>
+        <p class="syn-muted" role="status" aria-live="polite">
+            {{len .Projects}} {{if eq (len .Projects) 1}}project{{else}}projects{{end}} found
+        </p>
+        {{if .Projects}}
+            <div class="syn-table-wrap">
+                <table class="syn-table">
+                    <caption>Projects matching your search</caption>
+                    <thead>
+                        <tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col">Status</th></tr>
+                    </thead>
+                    <tbody>
+                        {{range .Projects}}
+                            <tr data-project-row>
+                                <td>{{.Name}}</td>
+                                <td>{{.Owner}}</td>
+                                <td>{{.Status}}</td>
+                            </tr>
+                        {{end}}
+                    </tbody>
+                </table>
+            </div>
+        {{else}}
+            <p>No matching projects. Try another search.</p>
+        {{end}}
+    </main>
+</body>
+</html>

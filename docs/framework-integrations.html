@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="4cb867c3568cef25730694080e572a9e3e8120727328a33b8f87bbce8ed23fd0">
+  <meta name="syntyr-source-sha256" content="e952c6f582d190ae3867a34f178fefa7f50ee529693aa5bd4abe493047c68364">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -125,6 +125,31 @@ Prefer stable, unique input and form IDs. A server-rendered validation
 message must use an associated <code>aria-describedby</code> and <code>aria-invalid</code>
 on the input. Do not use <code>phx-update=&quot;ignore&quot;</code> or <code>wire:ignore</code> just to
 make styling survive framework patches.</p>
+<p>For the same project-search interface rendered in all three backends,
+see the <a href="backend-integration-comparison.html">Go vs Rails vs Laravel comparison</a>.</p>
+<h2 id="go-rubyrails-and-phplaravel-copyable-application-recipes">Go, Ruby/Rails, and PHP/Laravel: copyable application recipes</h2>
+<p>The same CSS works without a component runtime or build tool. Copy
+<code>dist/syntyr.core.css</code> from the checked-out revision to your application's
+<code>public/css/syntyr.core.css</code>; load it once and render HTML under <code>.syn-root</code>.</p>
+<ul>
+<li><strong>Go:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/go-stdlib-projects/README.md">Runnable Go stdlib search</a>
+with an accessible table and Go runtime tests, plus <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/search.templ">Go templ GET search</a>.
+Go <code>html/template</code> can emit the same <code>syn-*</code> classes; no Syntyr Go module
+is needed.</li>
+<li><strong>Ruby on Rails:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/rails-hotwire/README.md">Rails ERB + optional Hotwire/Turbo recipe</a>
+(<code>examples/rails-hotwire/README.md</code>). Copy a controller, ERB view, and a
+single GET route into your existing Rails app. Search works without Turbo;
+when present, Turbo replaces only the results frame.</li>
+<li><strong>PHP / Laravel:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/laravel-blade/README.md">Plain Blade recipe</a>
+(<code>examples/laravel-blade/README.md</code>). Copy a GET route and an escaped
+Blade view; no Tailwind, Vite, Livewire, or extra PHP package is required.
+Livewire users can instead start from the component example below.</li>
+</ul>
+<p>These are <strong>zero-JavaScript Syntyr integrations</strong>, not replacements for
+application frameworks. Search routes are non-mutating demonstration data,
+not production data access or authorization. Keep your app's normal CSRF and
+validation on mutations. The checked-in Syntyr alpha.5 code is not the
+published alpha.4 release; vendor a CSS file from one pinned revision.</p>
 <h2 id="phoenix-liveview-heex">Phoenix LiveView (HEEx)</h2>
 <p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/liveview.heex">Copyable HEEx form</a>
 uses the normal <code>phx-change</code> and <code>phx-submit</code> handlers. Server assigns
@@ -191,11 +216,13 @@ and other HTML renderers need no special integration: render actual
 classes, apply <code>aria-invalid</code> and <code>aria-describedby</code> from server
 validation, and keep static assets versioned. Choose framework-native
 partials/components and anti-CSRF mechanisms.</p>
-<p><strong>Verification scope:</strong> the optional bridge and the copyable templates
-are statically tested with Python's standard library; the repository's
-existing HTMX demo has integration coverage. These examples are not a
-claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
-framework-owned end-to-end tests when you adopt a template in an app.</p>
+<p><strong>Verification scope:</strong> the optional bridge and copyable templates
+are statically checked in Syntyr's Python suite. The Rails and Laravel
+recipes also ship framework-native request/feature test files for use
+inside a host app. Those framework tests were not run in Syntyr's CI.
+Existing HTMX demo integration coverage does not establish Rails,
+Laravel, Phoenix or Go runtime compatibility. Run app-owned tests and
+accessibility checks before deployment.</p>
 <h2 id="lit-web-components">Lit / Web Components</h2>
 <p>Syntyr works with Lit but does not depend on it. Lit components using light DOM
 can use ordinary <code>.syn-*</code> classes within a Syntyr root. Components with Shadow
@@ -275,6 +302,7 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#choose-one-styling-mode">Choose one styling mode</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#htmx-progressive-enhancement">HTMX: progressive enhancement</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-driven-html-optional-request-state-bridge">Server-driven HTML: optional request-state bridge</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#go-rubyrails-and-phplaravel-copyable-application-recipes">Go, Ruby/Rails, and PHP/Laravel: copyable application recipes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#phoenix-liveview-heex">Phoenix LiveView (HEEx)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#laravel-livewire-blade">Laravel Livewire (Blade)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#rails-hotwire-turbo-frames">Rails Hotwire / Turbo Frames</a>

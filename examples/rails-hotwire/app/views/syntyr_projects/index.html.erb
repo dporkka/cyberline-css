@@ -1,0 +1,42 @@
+<%# Load syntyr.core.css from the host application layout. %>
+<section class="syn-root" data-syn-theme="studio" aria-labelledby="syntyr-projects-title">
+  <article class="syn-panel">
+    <h1 class="syn-heading" id="syntyr-projects-title">Projects</h1>
+    <form class="syn-form" action="<%= syntyr_projects_path %>" method="get"
+          data-turbo-frame="syntyr-project-results" role="search">
+      <div class="syn-field">
+        <label class="syn-label" for="syntyr-project-query">Search projects</label>
+        <input class="syn-input" id="syntyr-project-query" type="search"
+               name="q" maxlength="100" value="<%= h(@query) %>">
+      </div>
+      <button class="syn-button syn-button--primary" type="submit">Search</button>
+      <a class="syn-button" href="<%= syntyr_projects_path %>" data-turbo-frame="_top">Clear</a>
+    </form>
+    <turbo-frame id="syntyr-project-results">
+      <p class="syn-muted" role="status" aria-live="polite">
+        <%= @projects.length %> <%= @projects.length == 1 ? "project" : "projects" %> found
+      </p>
+      <% if @projects.any? %>
+        <div class="syn-table-wrap">
+          <table class="syn-table">
+            <caption>Projects matching your search</caption>
+            <thead>
+              <tr><th scope="col">Project</th><th scope="col">Owner</th><th scope="col">Status</th></tr>
+            </thead>
+            <tbody>
+              <% @projects.each do |project| %>
+                <tr>
+                  <td><%= h(project[:name]) %></td>
+                  <td><%= h(project[:owner]) %></td>
+                  <td><%= h(project[:status]) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p>No matching projects. Try another search.</p>
+      <% end %>
+    </turbo-frame>
+  </article>
+</section>

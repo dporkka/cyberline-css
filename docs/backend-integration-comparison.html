@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Build the same accessible Syntyr project search and data table with Go standard library, Rails ERB/Turbo and Laravel Blade, without a frontend build runtime.">
+  <meta name="syntyr-source-sha256" content="b1b100fbd6c35caa0a7904b4ba1aa21bdaeeb1347a7395d4b78d40c54193e5aa">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>One interface, three backends: Go, Rails and Laravel — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/backend-integration-comparison">
+  <link rel="alternate" type="text/markdown" href="backend-integration-comparison.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">One interface, three backends: Go, Rails and Laravel</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="backend-integration-comparison.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="One interface, three backends: Go, Rails and Laravel">
+<h1 id="one-interface-three-backends-go-rails-and-laravel">One interface, three backends: Go, Rails and Laravel</h1>
+<p>Syntyr's design system is <strong>ordinary CSS with semantic HTML</strong>. The three
+recipes below render the same <em>Projects</em> search form and accessible data table
+using Go's standard library, Ruby on Rails ERB and Laravel Blade. The CSS
+class API, theme, color tokens and HTML semantics do not change by language.</p>
+<p><strong>Zero required Syntyr JavaScript.</strong> Rails may optionally use the host app's
+Turbo Frames; Laravel may optionally use Livewire; neither is a Syntyr
+dependency. The plain GET search still works with browser JavaScript disabled.</p>
+<h2 id="compare-the-integrations">Compare the integrations</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Go stdlib</th>
+<th>Ruby on Rails</th>
+<th>PHP / Laravel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server renderer</td>
+<td><code>html/template</code> + <code>embed</code></td>
+<td>Rails ERB</td>
+<td>Laravel Blade</td>
+</tr>
+<tr>
+<td>Route</td>
+<td><code>GET /syntyr/projects</code></td>
+<td><code>get &quot;/syntyr/projects&quot;</code></td>
+<td><code>Route::get('/syntyr/projects', ...)</code></td>
+</tr>
+<tr>
+<td>Escaped query value</td>
+<td><code>{{.Query}}</code></td>
+<td><code>&lt;%= h(@query) %&gt;</code></td>
+<td><code>{{ $query }}</code></td>
+</tr>
+<tr>
+<td>State and authorization</td>
+<td>Owned by Go app</td>
+<td>Owned by Rails</td>
+<td>Owned by Laravel</td>
+</tr>
+<tr>
+<td>Optional progressive behavior</td>
+<td>HTMX (host choice)</td>
+<td>Turbo Frames (host choice)</td>
+<td>Livewire (host choice)</td>
+</tr>
+<tr>
+<td>Syntyr runtime dependencies</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>The sample rows and search behavior are deliberately identical:
+<code>Station expansion</code>, <code>Airport displays</code>, and <code>Downtown refresh</code>.
+All three use the <strong>Studio</strong> theme with the same portable surface, form, and
+table classes. A search for <code>airport</code> yields only <code>Airport displays</code>;
+an unmatched search yields a readable empty state. Queries are trimmed
+and limited, and each renderer escapes displayed user input by default.</p>
+<h2 id="common-html-and-css-contract">Common HTML and CSS contract</h2>
+<p>The examples intentionally keep this markup recognizable in every backend:</p>
+<pre><code class="language-html">&lt;body class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main class=&quot;syn-panel&quot;&gt;
+    &lt;form class=&quot;syn-form&quot; method=&quot;get&quot; role=&quot;search&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syntyr-project-query&quot;&gt;Search projects&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syntyr-project-query&quot;
+             name=&quot;q&quot; type=&quot;search&quot; maxlength=&quot;100&quot;&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Search&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;p class=&quot;syn-muted&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;1 project found&lt;/p&gt;
+    &lt;div class=&quot;syn-table-wrap&quot;&gt;
+      &lt;table class=&quot;syn-table&quot;&gt;
+        &lt;caption&gt;Projects matching your search&lt;/caption&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Project&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody&gt;&lt;!-- Framework-escaped rows --&gt;&lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p>The markup above is an <strong>illustrative common contract</strong>, not a fourth
+copyable application. Actual recipes provide the full three-column table,
+server route, search and empty state. Rails uses <code>&lt;section class=&quot;syn-root&quot;&gt;</code>
+inside its existing layout rather than duplicating the application's
+<code>&lt;body&gt;</code> element; this is intentional and keeps Syntyr scoped.</p>
+<p><strong>Self-host the same pinned CSS file</strong> in each application: copy
+<code>dist/syntyr.core.css</code> into the app's public assets and load it once.
+For optional request-loading visuals, load <code>syntyr.server.css</code> <em>after</em>
+core; it does not implement request state or lock controls. Never assume
+that an unreleased Syntyr alpha.5 asset is already on npm.</p>
+<h2 id="run-each-reference">Run each reference</h2>
+<ul>
+<li><strong>Go:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/go-stdlib-projects/README.md">Working <code>net/http</code> example</a>
+(<code>examples/go-stdlib-projects/README.md</code>). <code>cd examples/go-stdlib-projects</code>,
+copy the stylesheet under <code>public/css/</code>, then <code>go test ./...</code> and
+<code>go run .</code>. No nonstandard Go module required.</li>
+<li><strong>Rails:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/rails-hotwire/README.md">ERB controller, view, and optional Turbo</a>
+(<code>examples/rails-hotwire/README.md</code>). Copy into an existing Rails app;
+run the included <code>bin/rails test</code> integration tests there.</li>
+<li><strong>Laravel:</strong> <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/laravel-blade/README.md">Plain Blade and read-only route</a>
+(<code>examples/laravel-blade/README.md</code>). Copy into an existing Laravel app;
+run the included <code>php artisan test</code> feature tests there.</li>
+</ul>
+<p>All source examples are MIT licensed. No production authentication, data
+storage, payments, or mutation is included. For actual workloads, apply
+host-framework authorization and validation, native CSRF protection to
+state-changing methods, and normal browser/security testing.</p>
+<h2 id="adoption-and-validation-boundaries">Adoption and validation boundaries</h2>
+<p><strong>Do not confuse identical CSS contracts with identical runtime behavior.</strong>
+Each host framework still owns escaping, URL generation, form lifecycle,
+focus management, and Turbo/Livewire updates. Go is compiled and tested in
+Syntyr's repository; Rails and Laravel example test files must be executed
+in actual applications with supported Ruby/PHP versions and framework
+dependencies. Native keyboard navigation, zoom/reflow, screen-reader
+announcements, and CSS resource requests require browser checks.</p>
+<p>For existing apps that use Tailwind or Bootstrap, prefer a narrow
+<code>.syn-root</code> subtree and explicit <code>syn-*</code> classes, test cascade order,
+and avoid importing Syntyr's optional semantic mode globally. See the
+<a href="framework-integrations.html">full framework integration guide</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#compare-the-integrations">Compare the integrations</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#common-html-and-css-contract">Common HTML and CSS contract</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#run-each-reference">Run each reference</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#adoption-and-validation-boundaries">Adoption and validation boundaries</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="backend-integration-comparison.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>
