@@ -66,6 +66,13 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
+  /* Preserve usable touch controls without sacrificing desktop information density.
+     This is intentionally limited to the compact density profile. */
+  @media (pointer: coarse) {
+    :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+      --syn-control-height: max(2.75rem, 44px);
+    }
+  }
   /* Explicit default restores regular spacing inside a compact ancestor. */
   :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
     --syn-control-height: 2.75rem;

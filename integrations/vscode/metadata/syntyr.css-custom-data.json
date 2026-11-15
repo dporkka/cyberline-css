@@ -82,6 +82,14 @@
       "description": "Syntyr CSS property (viz.css)."
     },
     {
+      "name": "--syn-columns-gap",
+      "description": "Logical gap between optional reading columns."
+    },
+    {
+      "name": "--syn-columns-min-width",
+      "description": "Preferred minimum width for each optional reading column."
+    },
+    {
       "name": "--syn-control-height",
       "description": "Syntyr CSS property (tokens.css)."
     },

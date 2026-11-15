@@ -66,6 +66,13 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
+  /* Preserve usable touch controls without sacrificing desktop information density.
+     This is intentionally limited to the compact density profile. */
+  @media (pointer: coarse) {
+    :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+      --syn-control-height: max(2.75rem, 44px);
+    }
+  }
   /* Explicit default restores regular spacing inside a compact ancestor. */
   :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
     --syn-control-height: 2.75rem;
@@ -407,6 +414,10 @@
     &.syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
     &.syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
     &.syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
+    /* Small modifiers remain touch-operable on coarse pointers. */
+    @media (pointer: coarse) {
+      &.syn-button--small { min-height: max(2.75rem, 44px); }
+    }
     &.syn-button--ghost { background: transparent; border-color: transparent; }
     &.syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
       &.syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {
@@ -432,6 +443,11 @@
       width: 100%; min-height: var(--syn-control-height); padding: var(--syn-control-padding-block) .8rem;
       border: 1px solid var(--syn-border-default); background: var(--syn-bg);
       border-radius: var(--syn-radius); color: var(--syn-text);
+    }
+    /* Prevent unexpected zoom of text-entry controls on mobile Safari while
+       preserving larger application typography. */
+    @media (pointer: coarse) {
+      &.syn-input, &.syn-select, &.syn-textarea { font-size: max(1em, 16px); }
     }
     &.syn-input::placeholder, &.syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
     &.syn-input:where(:not(:disabled):hover), &.syn-select:where(:not(:disabled):hover),
@@ -1834,6 +1850,15 @@
   /* Common composition glue: additive, fixed vocabulary, no utility compiler. */
   .syn-root :where(.syn-u-w-full) { width: 100%; }
   .syn-root :where(.syn-u-max-reading) { max-inline-size: var(--syn-reading-width, 68ch); }
+  /* Responsive top-to-bottom reading flow for short resource lists / TOCs.
+     CSS columns do not rearrange DOM or keyboard order. */
+  :where(.syn-root.syn-u-columns, .syn-root .syn-u-columns) {
+    column-width: var(--syn-columns-min-width, 18rem);
+    column-gap: var(--syn-columns-gap, var(--syn-space-3));
+  }
+  :where(.syn-root.syn-u-columns, .syn-root .syn-u-columns) > :where(*) {
+    break-inside: avoid;
+  }
   .syn-root :where(.syn-u-overflow-auto) { overflow: auto; }
   .syn-root :where(.syn-u-text-center) { text-align: center; }
   .syn-root :where(.syn-u-min-w-0) { min-width: 0; }

@@ -29,6 +29,7 @@ FILES = (
     "docs/recipes.md",
     "docs/component-recipes.md",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    "examples/component-imports.html",  # Offline-openable selective-import consumer.
     "docs/native-patterns.md",
     "docs/radix-integration.md",
     "docs/framework-integrations.md",

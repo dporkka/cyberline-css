@@ -8,6 +8,11 @@
       border: 1px solid var(--syn-border-default); background: var(--syn-bg);
       border-radius: var(--syn-radius); color: var(--syn-text);
     }
+    /* Prevent unexpected zoom of text-entry controls on mobile Safari while
+       preserving larger application typography. */
+    @media (pointer: coarse) {
+      &.syn-input, &.syn-select, &.syn-textarea { font-size: max(1em, 16px); }
+    }
     &.syn-input::placeholder, &.syn-textarea::placeholder { color: var(--syn-muted); opacity: 1; }
     &.syn-input:where(:not(:disabled):hover), &.syn-select:where(:not(:disabled):hover),
     &.syn-textarea:where(:not(:disabled):hover) { border-color: var(--syn-border-hover); }

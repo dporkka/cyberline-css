@@ -806,6 +806,10 @@
           "description": "Syntyr CSS class (utilities.css)."
         },
         {
+          "name": "syn-u-columns",
+          "description": "Optional responsive multicolumn reading flow for short lists and indexes."
+        },
+        {
           "name": "syn-u-flex",
           "description": "Opt-in flexbox layout utility."
         },

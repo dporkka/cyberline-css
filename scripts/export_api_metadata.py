@@ -46,6 +46,7 @@ CLASS_DOCS = {
     "syn-semantic": "Opt-in styling of native HTML elements.",
     "syn-u-flex": "Opt-in flexbox layout utility.",
     "syn-u-w-full": "Opt-in full-width utility.",
+    "syn-u-columns": "Optional responsive multicolumn reading flow for short lists and indexes.",
 }
 TOKEN_DOCS = {
     "--syn-accent": "Theme accent color; also check --syn-on-accent contrast.",
@@ -63,6 +64,8 @@ TOKEN_DOCS = {
     "--syn-panel-border-width": "Per-panel border width; defaults to 1px.",
     "--syn-button-padding-inline": "Per-button inline padding; defaults to 1rem.",
     "--syn-button-border-width": "Per-button border width; defaults to 1px.",
+    "--syn-columns-min-width": "Preferred minimum width for each optional reading column.",
+    "--syn-columns-gap": "Logical gap between optional reading columns.",
     "--syn-frame-cut": "Shared fallback corner size for optional geometry shapes.",
     "--syn-frame-cut-tl": "Optional top-left frame cut size.",
     "--syn-frame-cut-tr": "Optional top-right frame cut size.",
@@ -81,6 +84,8 @@ EXPLICIT_TOKENS = {
     "--syn-panel-border-width": "components/layout.css",
     "--syn-button-padding-inline": "components/buttons.css",
     "--syn-button-border-width": "components/buttons.css",
+    "--syn-columns-min-width": "utilities.css",
+    "--syn-columns-gap": "utilities.css",
     "--syn-frame-cut": "geometry.css",
     "--syn-frame-cut-tl": "geometry.css",
     "--syn-frame-cut-tr": "geometry.css",

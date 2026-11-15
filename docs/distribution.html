@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Install and self-host Syntyr CSS using versioned stylesheets, optional modules, and immutable releases for production websites.">
-  <meta name="syntyr-source-sha256" content="d241f9202c86986e5e9aef131dda202668ec38104bf861bfb52995779acdd7e2">
+  <meta name="syntyr-source-sha256" content="1350b49acdd369491dd3f20df6df3e230bb6086358f9a9bd4d27b8c22f30eab8">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS distribution — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/distribution">
@@ -96,6 +96,36 @@ The optional <code>syntyr.symbols.css</code> adds BYO-SVG icon sizing, literal U
 <code>syntyr.css</code> bundles core and effects. <code>syntyr.all.css</code> bundles all modules
 while still requiring <code>.syn-semantic</code> to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final <code>syn.utilities</code> cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see <a href="https://github.com/dporkka/syntyr-css/blob/main/ARCHITECTURE.md">the architecture policy</a>.</p>
+<h2 id="individual-component-imports-and-responsive-resource-columns-alpha5-source">Individual component imports and responsive resource columns (alpha.5 source)</h2>
+<p>For a page that only uses native typography, panels, buttons and forms, load
+the matching component CSS in the same order as the source manifest. Use
+<code>components/tokens.css</code> first and <code>components/base.css</code> second; the
+other component files follow their order in <code>scripts/build.py</code>. Optional
+utilities come last. Do not combine these files with <code>core.css</code> or
+<code>all.css</code>, since that duplicates component rules.</p>
+<p>The <a href="../examples/component-imports.html">standalone component-import example</a>
+demonstrates actual browser <code>&lt;link&gt;</code> imports with no bundler or runtime
+JavaScript. These source paths are also exposed as package exports in the
+unpublished <code>@syntyr/css</code> alpha.5 manifest for CSS-aware bundlers.</p>
+<p>The opt-in <code>.syn-u-columns</code> utility in <code>syntyr.utilities.css</code> creates a
+responsive multi-column reading flow for short indexes and resource lists:</p>
+<pre><code class="language-html">&lt;ol class=&quot;syn-u-columns&quot; style=&quot;--syn-columns-min-width: 19rem; --syn-columns-gap: 2rem&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;/docs/setup&quot;&gt;Setup&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/docs/forms&quot;&gt;Forms&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;/docs/themes&quot;&gt;Themes&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<p>Keep links in logical reading/keyboard order: CSS columns fill top-to-bottom,
+then advance across the line. They are <strong>not</strong> appropriate for complex cards,
+long independent articles, tables or keyboard-reorderable dashboards.
+The utility only applies in a <code>.syn-root</code> subtree, works with RTL and
+degrades to one column at narrow widths. Override its two custom properties
+locally without introducing viewport breakpoints.</p>
+<p>Compact density remains opt-in. On coarse-pointer devices, Syntyr raises
+compact control heights to at least 44px and keeps native text-entry font
+sizes at least 16px to avoid mobile browser focus zoom. The
+<code>.syn-button--small</code> modifier is also touch-operable. Desktop compact
+density retains its smaller control sizes.</p>
 <h2 id="optional-explicit-selective-build">Optional explicit selective build</h2>
 <p>Applications needing fewer core components can assemble a custom CSS file with
 the Python standard-library-only <code>scripts/build_selective.py</code>. It does not scan
@@ -133,6 +163,7 @@ cross-browser and full accessibility audits are still release gates.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#one-file-semantic-starter-unreleased-alpha5-source">One-file semantic starter (unreleased alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-npmpackage-manager-distribution">Optional npm/package-manager distribution</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-themes-and-semantic-html">Optional themes and semantic HTML</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#individual-component-imports-and-responsive-resource-columns-alpha5-source">Individual component imports and responsive resource columns (alpha.5 source)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-explicit-selective-build">Optional explicit selective build</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#pinned-cdn-for-prototyping">Pinned CDN for prototyping</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#release-artifacts-and-guarantees">Release artifacts and guarantees</a>

@@ -1060,6 +1060,44 @@ The optional `syntyr.symbols.css` adds BYO-SVG icon sizing, literal Unicode styl
 while still requiring `.syn-semantic` to opt into semantic element styles.
 Avoid loading these bundles alongside their component files: that duplicates CSS. Optional utilities live in the final `syn.utilities` cascade layer, allowing explicitly applied utility classes to override ordinary component declarations; see [the architecture policy](../ARCHITECTURE.md).
 
+## Individual component imports and responsive resource columns (alpha.5 source)
+
+For a page that only uses native typography, panels, buttons and forms, load
+the matching component CSS in the same order as the source manifest. Use
+`components/tokens.css` first and `components/base.css` second; the
+other component files follow their order in `scripts/build.py`. Optional
+utilities come last. Do not combine these files with `core.css` or
+`all.css`, since that duplicates component rules.
+
+The [standalone component-import example](../examples/component-imports.html)
+demonstrates actual browser `<link>` imports with no bundler or runtime
+JavaScript. These source paths are also exposed as package exports in the
+unpublished `@syntyr/css` alpha.5 manifest for CSS-aware bundlers.
+
+The opt-in `.syn-u-columns` utility in `syntyr.utilities.css` creates a
+responsive multi-column reading flow for short indexes and resource lists:
+
+```html
+<ol class="syn-u-columns" style="--syn-columns-min-width: 19rem; --syn-columns-gap: 2rem">
+  <li><a href="/docs/setup">Setup</a></li>
+  <li><a href="/docs/forms">Forms</a></li>
+  <li><a href="/docs/themes">Themes</a></li>
+</ol>
+```
+
+Keep links in logical reading/keyboard order: CSS columns fill top-to-bottom,
+then advance across the line. They are **not** appropriate for complex cards,
+long independent articles, tables or keyboard-reorderable dashboards.
+The utility only applies in a `.syn-root` subtree, works with RTL and
+degrades to one column at narrow widths. Override its two custom properties
+locally without introducing viewport breakpoints.
+
+Compact density remains opt-in. On coarse-pointer devices, Syntyr raises
+compact control heights to at least 44px and keeps native text-entry font
+sizes at least 16px to avoid mobile browser focus zoom. The
+`.syn-button--small` modifier is also touch-operable. Desktop compact
+density retains its smaller control sizes.
+
 ## Optional explicit selective build
 
 Applications needing fewer core components can assemble a custom CSS file with

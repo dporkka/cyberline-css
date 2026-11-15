@@ -1002,6 +1002,11 @@
       "description": "Syntyr CSS class (utilities.css)."
     },
     {
+      "name": "syn-u-columns",
+      "module": "utilities.css",
+      "description": "Optional responsive multicolumn reading flow for short lists and indexes."
+    },
+    {
       "name": "syn-u-flex",
       "module": "utilities.css",
       "description": "Opt-in flexbox layout utility."
@@ -1267,6 +1272,16 @@
       "name": "--syn-chart-tooltip-bg",
       "module": "viz.css",
       "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-columns-gap",
+      "module": "utilities.css",
+      "description": "Logical gap between optional reading columns."
+    },
+    {
+      "name": "--syn-columns-min-width",
+      "module": "utilities.css",
+      "description": "Preferred minimum width for each optional reading column."
     },
     {
       "name": "--syn-control-height",

@@ -20,6 +20,10 @@
     &.syn-button--danger { color: var(--syn-danger); border-color: var(--syn-danger); background: transparent; }
     &.syn-button--danger:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: color-mix(in srgb, var(--syn-danger), transparent 88%); }
     &.syn-button--small { min-height: 2.25rem; padding: .4rem .65rem; font-size: var(--syn-type-xs); }
+    /* Small modifiers remain touch-operable on coarse pointers. */
+    @media (pointer: coarse) {
+      &.syn-button--small { min-height: max(2.75rem, 44px); }
+    }
     &.syn-button--ghost { background: transparent; border-color: transparent; }
     &.syn-button--ghost:where(:not(:disabled):not([aria-disabled="true"]):hover) { background: var(--syn-accent-soft); border-color: var(--syn-frame); }
       &.syn-button:where([aria-pressed="true"], [data-syn-state="active"]) {

@@ -26,6 +26,7 @@
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
+- [Real CSS module consumer example](examples/component-imports.html): only individual component CSS plus utilities, responsive text columns, and mobile-safe compact controls (alpha.5 source)
 - [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)

@@ -29,6 +29,7 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
     "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html",
+    "examples/component-imports.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -267,6 +268,7 @@ def source_files() -> dict[str, bytes]:
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
+        "component-imports.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
         "resources.html", "saas.html", "saas-workflows.html", "crm.html", "saas-workflows.css", "premium-compositions.html",

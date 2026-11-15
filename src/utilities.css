@@ -19,6 +19,15 @@
   /* Common composition glue: additive, fixed vocabulary, no utility compiler. */
   .syn-root :where(.syn-u-w-full) { width: 100%; }
   .syn-root :where(.syn-u-max-reading) { max-inline-size: var(--syn-reading-width, 68ch); }
+  /* Responsive top-to-bottom reading flow for short resource lists / TOCs.
+     CSS columns do not rearrange DOM or keyboard order. */
+  :where(.syn-root.syn-u-columns, .syn-root .syn-u-columns) {
+    column-width: var(--syn-columns-min-width, 18rem);
+    column-gap: var(--syn-columns-gap, var(--syn-space-3));
+  }
+  :where(.syn-root.syn-u-columns, .syn-root .syn-u-columns) > :where(*) {
+    break-inside: avoid;
+  }
   .syn-root :where(.syn-u-overflow-auto) { overflow: auto; }
   .syn-root :where(.syn-u-text-center) { text-align: center; }
   .syn-root :where(.syn-u-min-w-0) { min-width: 0; }

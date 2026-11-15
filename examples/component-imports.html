@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr opt-in per-component CSS imports, responsive text columns and compact accessible controls.">
+  <title>SYNTYR CSS — Individual component imports</title>
+  <!-- This example deliberately does not load core.css or all.css. -->
+  <link rel="stylesheet" href="../dist/components/tokens.css">
+  <link rel="stylesheet" href="../dist/components/base.css">
+  <link rel="stylesheet" href="../dist/components/layout.css">
+  <link rel="stylesheet" href="../dist/components/typography.css">
+  <link rel="stylesheet" href="../dist/components/buttons.css">
+  <link rel="stylesheet" href="../dist/components/forms.css">
+  <link rel="stylesheet" href="../dist/syntyr.utilities.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-density="compact">
+  <main class="syn-shell">
+    <nav aria-label="Breadcrumb"><a href="../docs/">Documentation</a></nav>
+    <header>
+      <h1>Only import the CSS your page needs</h1>
+      <p>This example loads six individual component stylesheets and optional utilities. No JavaScript or bundler is required.</p>
+    </header>
+    <section aria-labelledby="resource-heading">
+      <h2 id="resource-heading">Resource index</h2>
+      <p>Read down each column before continuing to the next. Tab order follows document order.</p>
+      <ol class="syn-u-columns">
+        <li><a href="#contact">Getting started with native HTML</a></li>
+        <li><a href="#contact">Forms with persistent accessible labels</a></li>
+        <li><a href="#contact">Scoped presentation, no global reset</a></li>
+        <li><a href="#contact">Modern cascade layers</a></li>
+        <li><a href="#contact">Responsive layout without breakpoints</a></li>
+        <li><a href="#contact">Accessible compact density</a></li>
+        <li><a href="#contact">Optional modules by page</a></li>
+        <li><a href="#contact">Minimal script-free integration</a></li>
+      </ol>
+    </section>
+    <section aria-labelledby="contact-heading" id="contact">
+      <h2 id="contact-heading">Native form</h2>
+      <form action="#contact" method="get" class="syn-form">
+        <label for="email" class="syn-label">Email address</label>
+        <input id="email" name="email" type="email" class="syn-input" autocomplete="email" required>
+        <button type="submit" class="syn-button syn-button--primary">Preview native GET</button>
+      </form>
+      <p><a class="syn-button syn-button--small" href="#resource-heading">Back to resources</a></p>
+      <p>This demonstration has no subscription backend. Submission only updates the URL.</p>
+    </section>
+  </main>
+</body>
+</html>

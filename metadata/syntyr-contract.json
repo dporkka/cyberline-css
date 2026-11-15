@@ -2103,6 +2103,15 @@
       ]
     },
     {
+      "name": "syn-u-columns",
+      "module": "utilities.css",
+      "description": "Optional responsive multicolumn reading flow for short lists and indexes.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
       "name": "syn-u-flex",
       "module": "utilities.css",
       "description": "Opt-in flexbox layout utility.",
@@ -2615,6 +2624,24 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-columns-gap",
+      "module": "utilities.css",
+      "description": "Logical gap between optional reading columns.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.utilities.css"
+      ]
+    },
+    {
+      "name": "--syn-columns-min-width",
+      "module": "utilities.css",
+      "description": "Preferred minimum width for each optional reading column.",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.utilities.css"
       ]
     },
     {
