@@ -49,6 +49,8 @@
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
 - [Premium CSS-only compositions](docs/premium-compositions.md) and [Studio/Grid/Noir live gallery](examples/premium-compositions.html): layered surfaces, detail inspector, command presentation, timeline, and showcase
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
+- [Design Lab: side-by-side theme comparison, viewport and density controls](docs/playground.html) (docs-only JS; no CSS runtime dependency)
+- [Agent-readable whole-page composition recipes](metadata/agent-compositions.json) and [deterministic generator](scripts/build_agent_compositions.py): [operations dashboard](examples/composition-operations-dashboard.html), [product marketing](examples/composition-product-marketing.html) (experimental alpha.5 source)
 - [Interactive component playground — live prerelease preview](https://8cfcb0ce.syntyr-css.pages.dev/docs/playground.html) ([permanent site URL after merge](https://syntyr-css.pages.dev/docs/playground.html); [HTML source](docs/playground.html))
 - [Editor autocomplete, full component contract and optional static HTML diagnostics](docs/editor-integration.md) (`metadata/syntyr-contract.json`, `scripts/syntyr_check.py`)
 - [Tailwind v4 interoperability, local VS Code extension, and Figma token exports](docs/ecosystem-integrations.md) (opt-in alpha.5 source adapters)

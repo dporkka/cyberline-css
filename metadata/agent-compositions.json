@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "operations-dashboard",
+      "title": "Operations dashboard",
+      "description": "KPIs, server-ready search, accessible records, and recent activity.",
+      "theme": "studio",
+      "blocks": ["metric-overview", "filter-toolbar", "data-table", "activity-feed"]
+    },
+    {
+      "id": "product-marketing",
+      "title": "Product marketing page",
+      "description": "Product introduction, features, illustrative pricing, and native FAQ.",
+      "theme": "studio",
+      "blocks": ["hero-product", "feature-grid", "pricing-trio", "faq"]
+    }
+  ]
+}

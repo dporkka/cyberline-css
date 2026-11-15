@@ -66,3 +66,42 @@ The consolidated reference is deterministic and checked in CI through the Python
 ## What Syntyr does not do
 
 Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.
+
+## Complete pages from existing validated blocks (alpha.5 source)
+
+The versioned **source candidate**, not published alpha.4, contains
+[`metadata/agent-compositions.json`](../metadata/agent-compositions.json): two
+small, agent-readable page recipes. Each references existing MIT-licensed block
+IDs in [`blocks/manifest.json`](https://github.com/dporkka/syntyr-css/blob/main/blocks/manifest.json), rather than
+introducing a second CSS class vocabulary. The checked-in deterministic
+builder derives CSS modules directly from each block's metadata and removes
+per-block fixed Studio themes so the page root controls the palette.
+
+The examples can be copied or adapted in any framework:
+
+- [Operations dashboard](../examples/composition-operations-dashboard.html):
+  KPIs, server-ready GET filter form, accessible records table, activity feed.
+- [Product marketing](../examples/composition-product-marketing.html):
+  hero, feature grid, illustrative pricing and FAQ disclosures.
+
+To rebuild and validate **locally**, using only Python's standard library:
+
+```sh
+python3 scripts/build_agent_compositions.py --check
+python3 scripts/syntyr_check.py examples/composition-*.html
+python3 -m unittest discover -s tests -p 'test_design_lab_compositions.py'
+```
+
+For an AI coding agent: load this manifest and the referenced
+`blocks/snippets/<block-id>.html` files, derive the required stylesheets
+from `blocks/manifest.json`, and choose one page-level theme. Start from the
+corresponding full-page example, but preserve unique IDs and label references.
+After changing markup, run `syntyr_check.py` with the **actual installed**
+stylesheets; verify interactive behavior with browser tests. Replace example
+routes, illustrative data and checkout links with real handlers. Do not claim
+that these static compositions implement filtering, analytics or payments.
+
+The [Design Lab](playground.html) compares the same editable HTML under two
+palettes at exact CSS viewport widths. Its JavaScript and iframe previews are
+**docs-only**, and the CSS core remains JS-free. It is for design exploration,
+not a substitute for end-to-end host-application testing.

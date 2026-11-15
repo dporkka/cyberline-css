@@ -24,6 +24,34 @@ def verify(browser, viewport):
     frame.locator("body[data-syn-theme='grid']").wait_for()
     accent = frame.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()")
     assert accent == "#76e7f7", ("grid theme CSS did not load", accent)
+    # Both sandboxed frames use identical markup but independently resolve
+    # theme tokens. The selected viewport must remain an exact CSS width,
+    # even inside a narrow scrolling comparison column.
+    page.locator("#playground-compare").check()
+    secondary = page.frame_locator("#playground-preview-compare")
+    secondary.locator("body[data-syn-theme='grid']").wait_for()
+    assert page.locator("#playground-secondary").is_visible()
+    assert secondary.locator(".syn-stat").count() == 3
+    assert frame.locator("body[data-syn-theme='grid']").count() == 1
+    page.locator("#playground-compare-theme").select_option("noir")
+    secondary.locator("body[data-syn-theme='noir']").wait_for()
+    assert secondary.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()") == "#f1b574"
+    page.locator("#playground-viewport").select_option("375")
+    page.locator("#playground-density").select_option("compact")
+    page.locator("#playground-radius").fill("18")
+    frame.locator("body[data-syn-density='compact']").wait_for()
+    assert page.locator("#playground-preview").evaluate("e => e.clientWidth") == 375
+    assert page.locator("#playground-preview-compare").evaluate("e => e.clientWidth") == 375
+    assert frame.locator("body").evaluate("e => getComputedStyle(e).getPropertyValue('--syn-radius').trim()") == "18px"
+    configured = page.locator("#playground-configured-html").input_value()
+    assert 'data-syn-theme="grid"' in configured
+    assert 'data-syn-density="compact"' in configured
+    assert '--syn-radius: 18px' in configured
+    page.locator("#playground-copy-configured").click()
+    page.wait_for_function("document.getElementById('playground-status').textContent.includes('Configured HTML')")
+    page.locator("#playground-compare").uncheck()
+    page.locator("#playground-secondary").wait_for(state="hidden")
+    assert page.locator("#playground-compare-theme").is_disabled()
     page.locator("#playground-example").select_option("actions")
     frame.locator(".syn-panel").wait_for()
     panel_radius = frame.locator(".syn-panel").evaluate("e => getComputedStyle(e).borderTopLeftRadius")

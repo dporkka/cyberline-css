@@ -3,13 +3,27 @@
   .playground-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1.25rem; align-items: start; }
   .playground-editor, .playground-view { display: grid; gap: 1rem; min-width: 0; }
   .playground-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+  .playground-configured-code { width: 100%; font: .8rem/1.5 var(--syn-mono); resize: vertical; }
   .playground-code { width: 100%; min-height: 23rem; resize: vertical; font: .84rem/1.55 var(--syn-mono); tab-size: 2; }
   .playground-view-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-  #playground-preview { display: block; width: 100%; height: min(65vh, 35rem); min-height: 21rem; background: var(--syn-surface); border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+  .playground-design-controls { min-width: 0; margin: 0; padding: .9rem; border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+  .playground-design-controls legend { padding-inline: .35rem; }
+  .playground-design-controls output { float: right; font-variant-numeric: tabular-nums; }
+  .playground-design-controls input[type="range"] { display: block; width: 100%; min-height: 2.75rem; }
+  .playground-compare-controls { display: grid; gap: .5rem; }
+  .playground-frame-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; min-width: 0; }
+  .playground-frame-grid.is-comparing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .playground-frame { min-width: 0; }
+  .playground-frame[hidden] { display: none; }
+  .playground-frame > .syn-caption { margin-block: 0 .5rem; }
+  .playground-stage { max-width: 100%; overflow: auto; overscroll-behavior-inline: contain; border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+  .playground-device { width: var(--playground-width, 960px); }
+  .playground-device iframe { display: block; width: 100%; height: min(65vh, 35rem); min-height: 21rem; background: var(--syn-surface); border: 0; }
   .playground-footer { margin-block: 1.5rem 3rem; }
   @media (max-width: 60rem) { .playground-layout { grid-template-columns: minmax(0, 1fr); } }
   @media (max-width: 35rem) { .playground-controls { grid-template-columns: minmax(0, 1fr); } }
-  @media (forced-colors: active) { #playground-preview { border-color: CanvasText; } }
+  @media (max-width: 50rem) { .playground-frame-grid.is-comparing { grid-template-columns: minmax(0, 1fr); } }
+  @media (forced-colors: active) { .playground-stage, .playground-design-controls { border-color: CanvasText; } }
 }
 
 @layer docs {

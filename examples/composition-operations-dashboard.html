@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="KPIs, server-ready search, accessible records, and recent activity. Copy-owned Syntyr page composition.">
+  <title>Operations dashboard — Syntyr CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#main" class="syn-button">Skip to content</a>
+  <header class="syn-header syn-shell">
+    <a class="syn-logo" href="../docs/blocks.html">SYNTYR / COMPOSITIONS</a>
+    <nav class="syn-nav" aria-label="Composition navigation">
+      <a href="../docs/playground.html">Design Lab</a>
+      <a href="../docs/agent-integration.html">Agent guide</a>
+    </nav>
+  </header>
+  <main id="main" class="syn-shell syn-stack">
+    <header class="syn-region">
+      <span class="syn-eyebrow">ILLUSTRATIVE / COPY-OWNED HTML</span>
+      <h1 class="syn-title">Operations dashboard</h1>
+      <p class="syn-lede">KPIs, server-ready search, accessible records, and recent activity.</p>
+    </header>
+    <!-- Existing MIT block: metric-overview -->
+    <section class="syn-region" aria-labelledby="syn-kpi-heading">
+      <h2 id="syn-kpi-heading" class="syn-heading">Operations snapshot</h2>
+      <div class="syn-stats">
+        <article class="syn-stat"><p class="syn-stat-label">Active accounts</p><p class="syn-stat-value">1,284</p></article>
+        <article class="syn-stat"><p class="syn-stat-label">Open requests</p><p class="syn-stat-value">38</p></article>
+        <article class="syn-stat"><p class="syn-stat-label">Completion</p><p class="syn-stat-value">94%</p></article>
+      </div>
+    </section>
+    <!-- Existing MIT block: filter-toolbar -->
+    <section class="syn-region" aria-labelledby="syn-filter-heading">
+      <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
+      <form class="syn-panel syn-form" method="get" action="/requests">
+        <label class="syn-label" for="syn-block-query">Search by name</label>
+        <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
+        <label class="syn-label" for="syn-block-status">Status</label>
+        <select class="syn-select" id="syn-block-status" name="status">
+          <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
+        </select>
+        <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
+      </form>
+    </section>
+    <!-- Existing MIT block: data-table -->
+    <section class="syn-region" aria-labelledby="syn-table-heading">
+      <h2 id="syn-table-heading" class="syn-heading">Active requests</h2>
+      <div class="syn-table-wrap">
+        <table class="syn-table">
+          <caption>Illustrative requests and their current state</caption>
+          <thead><tr><th scope="col">Request</th><th scope="col">Owner</th><th scope="col">Status</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">REQ-103</th><td>Alex</td><td><span class="syn-status syn-status--success">Ready</span></td></tr>
+            <tr><th scope="row">REQ-104</th><td>Casey</td><td><span class="syn-status syn-status--warning">Review</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <!-- Existing MIT block: activity-feed -->
+    <section class="syn-region" aria-labelledby="syn-activity-heading">
+      <div class="syn-app-card">
+        <header class="syn-app-card-header"><h2 id="syn-activity-heading" class="syn-heading">Recent activity</h2><span class="syn-badge">Today</span></header>
+        <ol class="syn-activity-list">
+          <li><span>Report prepared</span><time datetime="2026-11-15T10:30:00">10:30</time></li>
+          <li><span>New workspace added</span><time datetime="2026-11-15T09:15:00">09:15</time></li>
+          <li><span>Settings reviewed</span><time datetime="2026-11-15T08:00:00">08:00</time></li>
+        </ol>
+      </div>
+    </section>
+    <p class="syn-caption">Static example data, pricing and routes. Supply real data and server handlers in your application; Syntyr does not implement business logic.</p>
+  </main>
+</body>
+</html>

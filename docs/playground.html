@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Explore, edit and preview SYNTYR CSS components in a sandboxed browser frame with no application build step.">
-  <title>Component Playground — SYNTYR CSS</title>
+  <title>Design Lab — SYNTYR CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
   <link rel="stylesheet" href="playground.css">
@@ -24,8 +24,8 @@
     <main>
       <section class="syn-stage" aria-labelledby="playground-title">
         <span class="syn-eyebrow">DEVELOPER EXPERIENCE / BUILD-FREE</span>
-        <h1 id="playground-title" class="syn-title">Component playground</h1>
-        <p class="syn-lede">Edit native HTML, switch palettes, and render Syntyr's real CSS in an isolated preview. No bundler, account, or external service required.</p>
+        <h1 id="playground-title" class="syn-title">Design Lab</h1>
+        <p class="syn-lede">Edit native HTML, compare two palettes side by side, and test mobile, tablet or desktop layouts with Syntyr's real CSS. No bundler, account, or external service required.</p>
       </section>
 
       <div class="playground-layout">
@@ -38,6 +38,8 @@
                 <option value="actions">Action toolbar</option>
                 <option value="form">Accessible form</option>
                 <option value="cards">Marketing cards</option>
+                <option value="console">Operations console</option>
+                <option value="marketing">Product landing page</option>
               </select>
             </label>
             <label class="syn-label" for="playground-theme">PREVIEW THEME
@@ -53,14 +55,56 @@
               </select>
             </label>
           </div>
+          <fieldset class="playground-design-controls">
+            <legend class="syn-label">DESIGN LAB / PREVIEW CONTROLS</legend>
+            <div class="playground-controls">
+              <label class="syn-label" for="playground-viewport">VIEWPORT WIDTH
+                <select class="syn-select" id="playground-viewport">
+                  <option value="960">Desktop · 960px</option>
+                  <option value="768">Tablet · 768px</option>
+                  <option value="375">Mobile · 375px</option>
+                </select>
+              </label>
+              <label class="syn-label" for="playground-density">DENSITY
+                <select class="syn-select" id="playground-density">
+                  <option value="comfortable">Comfortable</option>
+                  <option value="compact">Compact</option>
+                  <option value="spacious">Spacious</option>
+                </select>
+              </label>
+              <label class="syn-label" for="playground-radius">CORNER RADIUS <output id="playground-radius-value" for="playground-radius">4px</output>
+                <input class="syn-input" type="range" id="playground-radius" min="0" max="24" step="2" value="4">
+              </label>
+              <div class="playground-compare-controls">
+                <label class="syn-check" for="playground-compare"><input type="checkbox" id="playground-compare"> Compare palettes</label>
+                <label class="syn-label" for="playground-compare-theme">SECOND PALETTE
+                  <select class="syn-select" id="playground-compare-theme" disabled>
+                    <option value="grid">Grid</option>
+                    <option value="noir">Noir</option>
+                    <option value="studio">Studio</option>
+                    <option value="industrial">Industrial</option>
+                    <option value="terminal">Terminal</option>
+                    <option value="corporate">Corporate</option>
+                    <option value="minimal">Minimal</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </fieldset>
           <label class="syn-label" for="playground-markup">EDITABLE HTML</label>
           <textarea class="syn-textarea playground-code" id="playground-markup" spellcheck="false" rows="17" aria-describedby="playground-help"></textarea>
           <p class="syn-muted" id="playground-help">The preview is sandboxed: scripts and form submission cannot run. Changes appear automatically, or press Render.</p>
           <div class="syn-inline">
             <button class="syn-button syn-button--primary" id="playground-render" type="button">RENDER PREVIEW</button>
             <button class="syn-button" id="playground-copy" type="button">COPY HTML</button>
+            <button class="syn-button" id="playground-copy-configured" type="button">COPY CONFIGURED HTML</button>
           </div>
           <p id="playground-status" role="status" aria-live="polite" class="syn-caption">Ready to preview.</p>
+          <details>
+            <summary>Inspect configured HTML (including theme, density and radius)</summary>
+            <label class="syn-label" for="playground-configured-html">COPY-READY HTML</label>
+            <textarea class="syn-textarea playground-configured-code" id="playground-configured-html" readonly rows="8" spellcheck="false"></textarea>
+          </details>
         </section>
 
         <section class="syn-panel playground-view" aria-labelledby="playground-view-title">
@@ -68,8 +112,17 @@
             <h2 id="playground-view-title" class="syn-heading">Live preview</h2>
             <span class="syn-badge">ISOLATED</span>
           </div>
-          <iframe id="playground-preview" title="Sandboxed Syntyr component preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
-          <p class="syn-caption">Syntyr styling runs with ordinary CSS. Only this documentation page uses JavaScript to update the preview.</p>
+          <div class="playground-frame-grid" id="playground-frame-grid">
+            <section class="playground-frame" aria-label="Primary theme preview">
+              <p class="syn-caption" id="playground-primary-label">Studio preview</p>
+              <div class="playground-stage"><div class="playground-device"><iframe id="playground-preview" title="Sandboxed primary Syntyr preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe></div></div>
+            </section>
+            <section class="playground-frame" id="playground-secondary" aria-label="Comparison theme preview" hidden>
+              <p class="syn-caption" id="playground-secondary-label">Grid preview</p>
+              <div class="playground-stage"><div class="playground-device"><iframe id="playground-preview-compare" title="Sandboxed secondary Syntyr preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe></div></div>
+            </section>
+          </div>
+          <p class="syn-caption">The viewport widths are exact CSS pixels; wide previews can scroll horizontally. Both frames disable scripts and form submission. Only this documentation page uses JavaScript.</p>
         </section>
       </div>
       <section class="syn-panel playground-geometry" aria-labelledby="geometry-title">

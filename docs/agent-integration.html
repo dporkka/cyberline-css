@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
-  <meta name="syntyr-source-sha256" content="eabcb32b19f37868119859e604a5d1fd730bc7caa2dbe077a20e1fd6a72ffd25">
+  <meta name="syntyr-source-sha256" content="d219d4f7bd909bd777850c9e09405738493fe34f5db3e22f199f5202ebea86aa">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
@@ -84,6 +84,38 @@ python3 scripts/build_cloudflare_site.py --check
 <p>The consolidated reference is deterministic and checked in CI through the Python test suite. The Cloudflare publisher uses a strict allowlist, so exposing new documentation does not expose internal files or business planning documents.</p>
 <h2 id="what-syntyr-does-not-do">What Syntyr does not do</h2>
 <p>Syntyr styles browser HTML/CSS. It does not supply a JavaScript component runtime, chart rendering engine, AI API, CRUD handlers, form submission or remote data access. The optional local read-only MCP adapter is a separate developer tool, never a CSS runtime dependency. Use your existing application technology for those responsibilities.</p>
+<h2 id="complete-pages-from-existing-validated-blocks-alpha5-source">Complete pages from existing validated blocks (alpha.5 source)</h2>
+<p>The versioned <strong>source candidate</strong>, not published alpha.4, contains
+<a href="../metadata/agent-compositions.json"><code>metadata/agent-compositions.json</code></a>: two
+small, agent-readable page recipes. Each references existing MIT-licensed block
+IDs in <a href="https://github.com/dporkka/syntyr-css/blob/main/blocks/manifest.json"><code>blocks/manifest.json</code></a>, rather than
+introducing a second CSS class vocabulary. The checked-in deterministic
+builder derives CSS modules directly from each block's metadata and removes
+per-block fixed Studio themes so the page root controls the palette.</p>
+<p>The examples can be copied or adapted in any framework:</p>
+<ul>
+<li><a href="../examples/composition-operations-dashboard.html">Operations dashboard</a>:
+KPIs, server-ready GET filter form, accessible records table, activity feed.</li>
+<li><a href="../examples/composition-product-marketing.html">Product marketing</a>:
+hero, feature grid, illustrative pricing and FAQ disclosures.</li>
+</ul>
+<p>To rebuild and validate <strong>locally</strong>, using only Python's standard library:</p>
+<pre><code class="language-sh">python3 scripts/build_agent_compositions.py --check
+python3 scripts/syntyr_check.py examples/composition-*.html
+python3 -m unittest discover -s tests -p 'test_design_lab_compositions.py'
+</code></pre>
+<p>For an AI coding agent: load this manifest and the referenced
+<code>blocks/snippets/&lt;block-id&gt;.html</code> files, derive the required stylesheets
+from <code>blocks/manifest.json</code>, and choose one page-level theme. Start from the
+corresponding full-page example, but preserve unique IDs and label references.
+After changing markup, run <code>syntyr_check.py</code> with the <strong>actual installed</strong>
+stylesheets; verify interactive behavior with browser tests. Replace example
+routes, illustrative data and checkout links with real handlers. Do not claim
+that these static compositions implement filtering, analytics or payments.</p>
+<p>The <a href="playground.html">Design Lab</a> compares the same editable HTML under two
+palettes at exact CSS viewport widths. Its JavaScript and iframe previews are
+<strong>docs-only</strong>, and the CSS core remains JS-free. It is for design exploration,
+not a substitute for end-to-end host-application testing.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-context-to-supply-an-agent">Recommended context to supply an agent</a>
@@ -93,6 +125,7 @@ python3 scripts/build_cloudflare_site.py --check
 <a class="docs-article-toc-link docs-article-toc-2" href="#documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-maintenance">Validation and maintenance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#what-syntyr-does-not-do">What Syntyr does not do</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#complete-pages-from-existing-validated-blocks-alpha5-source">Complete pages from existing validated blocks (alpha.5 source)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="agent-integration.md">Markdown source</a></nav>

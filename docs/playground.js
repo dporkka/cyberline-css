@@ -42,31 +42,104 @@
   </article>
 </section>`
   };
-  const example = document.getElementById("playground-example");
-  const theme = document.getElementById("playground-theme");
-  const markup = document.getElementById("playground-markup");
-  const preview = document.getElementById("playground-preview");
-  const status = document.getElementById("playground-status");
-  const renderButton = document.getElementById("playground-render");
-  const copyButton = document.getElementById("playground-copy");
+  // Short, self-contained explorations complement the generated multi-block pages.
+  examples.console = `<section class="syn-region">
+  <h2 class="syn-heading">Operations overview</h2>
+  <p class="syn-muted">Illustrative dashboard, ready for real application data.</p>
+  <div class="syn-stats">
+    <article class="syn-stat"><p class="syn-stat-label">ACTIVE CAMPAIGNS</p><p class="syn-stat-value">128</p></article>
+    <article class="syn-stat"><p class="syn-stat-label">UTILIZATION</p><p class="syn-stat-value">84.6%</p></article>
+  </div>
+  <div class="syn-table-wrap"><table class="syn-table">
+    <caption>Campaigns awaiting approval</caption>
+    <thead><tr><th scope="col">Campaign</th><th scope="col">Status</th></tr></thead>
+    <tbody><tr><th scope="row">North region</th><td><span class="syn-status syn-status--warning">Review</span></td></tr>
+    <tr><th scope="row">Downtown</th><td><span class="syn-status syn-status--success">Ready</span></td></tr></tbody>
+  </table></div>
+</section>`;
+  examples.marketing = `<section class="syn-region">
+  <div class="syn-site-hero">
+    <p class="syn-eyebrow">A SIMPLER WAY TO WORK</p>
+    <h2 class="syn-site-heading">Clarity for every growing team.</h2>
+    <p class="syn-lede">Organize your work, measure progress and focus on outcomes.</p>
+    <a class="syn-button syn-button--primary" href="/demo">Explore a demo</a>
+  </div>
+  <div class="syn-feature-grid">
+    <article class="syn-feature-card"><h3>One workspace</h3><p>Keep your team aligned.</p></article>
+    <article class="syn-feature-card"><h3>Simple reporting</h3><p>Find the numbers that matter.</p></article>
+  </div>
+</section>`;
+  const byId = id => document.getElementById(id);
+  const example = byId("playground-example");
+  const theme = byId("playground-theme");
+  const markup = byId("playground-markup");
+  const preview = byId("playground-preview");
+  const comparePreview = byId("playground-preview-compare");
+  const compare = byId("playground-compare");
+  const compareTheme = byId("playground-compare-theme");
+  const comparePane = byId("playground-secondary");
+  const frameGrid = byId("playground-frame-grid");
+  const viewport = byId("playground-viewport");
+  const density = byId("playground-density");
+  const radius = byId("playground-radius");
+  const configuredHtml = byId("playground-configured-html");
+  const status = byId("playground-status");
+  const renderButton = byId("playground-render");
+  const copyButton = byId("playground-copy");
+  const configuredCopyButton = byId("playground-copy-configured");
+  const themes = new Set(["studio", "grid", "noir", "industrial", "terminal", "corporate", "minimal", "auto"]);
+  const densities = new Set(["compact", "comfortable", "spacious"]);
+  const widths = new Set([375, 768, 960]);
   let framePending = false;
 
-  function render() {
-    // No script or form permissions, even if an editor pastes arbitrary markup.
-    // allow-same-origin permits Syntyr's *local* stylesheet to load; it does
-    // not permit script execution without allow-scripts.
-    // In Firefox an about:srcdoc stylesheet can have an opaque CSP 'self'
-    // even when the iframe permits same-origin CSS but never scripts.
-    // Explicitly allow ONLY the parent page's concrete origin for this CSS.
+  function settings() {
+    const width = Number(viewport.value);
+    return {
+      width: widths.has(width) ? width : 960,
+      theme: themes.has(theme.value) ? theme.value : "studio",
+      comparison: themes.has(compareTheme.value) ? compareTheme.value : "grid",
+      density: densities.has(density.value) ? density.value : "comfortable",
+      radius: Math.max(0, Math.min(24, Number(radius.value) || 0))
+    };
+  }
+
+  function renderFrame(selectedTheme, options) {
+    // Script execution and form submission remain forbidden in both frames.
+    // Explicitly allow the concrete page origin for the versioned local CSS.
     const localStyleOrigin = /^https?:$/.test(location.protocol) ? location.origin : "'self'";
-    const shell = `<!doctype html><html lang="en"><head><meta charset="utf-8">
+    return `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data:; base-uri 'none'; form-action 'none'">
 <link rel="stylesheet" href="../dist/syntyr.all.css">
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
-</head><body class="syn-root syn-page" data-syn-theme="${theme.value}">${markup.value}</body></html>`;
-    preview.srcdoc = shell;
-    status.textContent = `Preview updated: ${theme.options[theme.selectedIndex].text} theme.`;
+</head><body class="syn-root syn-page" data-syn-theme="${selectedTheme}" data-syn-density="${options.density}" style="--syn-radius:${options.radius}px">${markup.value}</body></html>`;
+  }
+
+  function configuredSource(options) {
+    return `<!-- Load a pinned syntyr.core.css and the optional modules used by this snippet. -->
+<section class="syn-root" data-syn-theme="${options.theme}" data-syn-density="${options.density}" style="--syn-radius: ${options.radius}px">
+${markup.value}
+</section>`;
+  }
+
+  function render() {
+    const options = settings();
+    const comparing = compare.checked;
+    frameGrid.classList.toggle("is-comparing", comparing);
+    frameGrid.style.setProperty("--playground-width", `${options.width}px`);
+    comparePane.hidden = !comparing;
+    compareTheme.disabled = !comparing;
+    byId("playground-radius-value").textContent = `${options.radius}px`;
+    byId("playground-primary-label").textContent = `${options.theme} · ${options.width}px`;
+    preview.srcdoc = renderFrame(options.theme, options);
+    if (comparing) {
+      byId("playground-secondary-label").textContent = `${options.comparison} · ${options.width}px`;
+      comparePreview.srcdoc = renderFrame(options.comparison, options);
+    } else {
+      comparePreview.removeAttribute("srcdoc");
+    }
+    configuredHtml.value = configuredSource(options);
+    status.textContent = `${comparing ? "Both previews" : "Preview"} updated at ${options.width}px. Wide frames scroll horizontally.`;
   }
 
   function scheduleRender() {
@@ -80,20 +153,30 @@
     scheduleRender();
   }
 
+  async function copy(text, fallback, label) {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(text);
+      status.textContent = `${label} copied.`;
+    } catch (_error) {
+      fallback.focus();
+      fallback.select();
+      status.textContent = `${label} selected. Copy it with your keyboard.`;
+    }
+  }
+
   example.addEventListener("change", loadExample);
-  theme.addEventListener("change", scheduleRender);
+  for (const control of [theme, compareTheme, viewport, density, radius, compare]) {
+    control.addEventListener("input", scheduleRender);
+    control.addEventListener("change", scheduleRender);
+  }
   markup.addEventListener("input", scheduleRender);
   renderButton.addEventListener("click", render);
-  copyButton.addEventListener("click", async () => {
-    try {
-      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard unavailable");
-      await navigator.clipboard.writeText(markup.value);
-      status.textContent = "HTML copied.";
-    } catch (_error) {
-      markup.focus();
-      markup.select();
-      status.textContent = "HTML selected. Copy it with your keyboard.";
-    }
+  copyButton.addEventListener("click", () => copy(markup.value, markup, "HTML"));
+  configuredCopyButton.addEventListener("click", () => {
+    const html = configuredSource(settings());
+    configuredHtml.value = html;
+    copy(html, configuredHtml, "Configured HTML");
   });
   loadExample();
 })();
