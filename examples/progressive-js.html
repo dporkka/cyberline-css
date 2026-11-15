@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-syn-demo-ready="false">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntyr: progressive JS, static fallback</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.viz.css">
+  <style>
+    body.syn-root { margin: 0; min-height: 100svh; padding: clamp(1rem, 4vw, 3rem); background: var(--syn-bg); color: var(--syn-text); }
+    main { max-width: 58rem; margin-inline: auto; }
+    .demo-block { border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+      background: var(--syn-surface); padding: 1.5rem; margin-block: 1.5rem; }
+    .demo-block h2 { margin-top: 0; }
+    .demo-values { margin-top: 1rem; }
+    .demo-values td, .demo-values th { padding: .5rem; }
+    .demo-values td { text-align: right; font-variant-numeric: tabular-nums; }
+    .demo-hint { color: var(--syn-muted); }
+    .demo-chart { padding: 1rem; }
+    .demo-chart svg { height: 13rem; width: 100%; overflow: visible; }
+    .demo-chart [data-syn-point] { fill: var(--syn-chart-1); stroke: var(--syn-bg); stroke-width: 2; }
+    .demo-chart [data-syn-point]:focus-visible { stroke: var(--syn-chart-2); stroke-width: 4; outline: none; }
+  </style>
+</head>
+<body class="syn-root" data-syn-theme="studio">
+  <main>
+    <header>
+      <h1>Optional progressive JavaScript</h1>
+      <p>Always readable without scripts. Data and page content remain present,
+        even when optional interaction and entrance effects are unavailable.</p>
+    </header>
+    <section class="demo-block" aria-label="Interactive chart demonstration">
+      <figure class="syn-chart demo-chart" data-syn-viz="points" data-syn-viz-resize>
+        <figcaption class="syn-chart-title">Monthly revenue (thousands of dollars)</figcaption>
+        <svg viewBox="0 0 280 90" role="group" aria-label="Revenue across four months">
+          <path class="syn-chart-grid" stroke-width="1" d="M0 80H280 M0 45H280 M0 10H280"></path>
+          <polyline class="syn-viz-sparkline-path" points="30,70 100,48 170,32 240,12"></polyline>
+          <line data-syn-crosshair hidden aria-hidden="true" y1="5" y2="82" x1="0" x2="0"></line>
+          <circle data-syn-point data-syn-label="Jan" data-syn-value="$20k" cx="30" cy="70" r="6" aria-label="January: 20 thousand dollars"></circle>
+          <circle data-syn-point data-syn-label="Feb" data-syn-value="$32k" cx="100" cy="48" r="6" aria-label="February: 32 thousand dollars"></circle>
+          <circle data-syn-point data-syn-label="Mar" data-syn-value="$41k" cx="170" cy="32" r="6" aria-label="March: 41 thousand dollars"></circle>
+          <circle data-syn-point data-syn-label="Apr" data-syn-value="$55k" cx="240" cy="12" r="6" aria-label="April: 55 thousand dollars"></circle>
+        </svg>
+        <p class="demo-hint">When enhanced: focus a point, use arrow keys, Home/End or Escape. Hover for a tooltip.</p>
+        <table class="syn-table demo-values">
+          <caption>Full underlying revenue data</caption>
+          <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Jan</th><td>20</td></tr>
+            <tr><th scope="row">Feb</th><td>32</td></tr>
+            <tr><th scope="row">Mar</th><td>41</td></tr>
+            <tr><th scope="row">Apr</th><td>55</td></tr>
+          </tbody>
+        </table>
+      </figure>
+    </section>
+    <section class="demo-block" aria-label="Motion demonstration">
+      <h2 data-syn-motion-js="enter">Optional introduction</h2>
+      <p class="demo-hint" data-syn-motion-js="fade">The page renders immediately without scripts, and
+        animations do not run when the visitor requests reduced motion.</p>
+    </section>
+    <p><a href="../docs/index.html">Back to gallery</a> · <a href="../docs/progressive-js.md">Enhancement guide</a></p>
+  </main>
+  <script type="module">
+    import {enhanceViz} from "../dist/syntyr.viz.js";
+    import {enhanceMotion} from "../dist/syntyr.motion.js";
+    const root = document.querySelector(".syn-root");
+    enhanceViz(root);
+    enhanceMotion(root);
+    document.documentElement.dataset.synDemoReady = "true";
+  </script>
+</body>
+</html>

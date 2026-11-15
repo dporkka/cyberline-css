@@ -68,7 +68,11 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "docs/theme-editor.js").is_file())
             self.assertFalse(any("<script" in page.read_text().lower()
                                  for page in out.rglob("*.html")
-                                 if page.relative_to(out).as_posix() not in {"docs/theme-editor.html", "docs/catalog.html"}))
+                                 if page.relative_to(out).as_posix() not in {
+                                     "docs/theme-editor.html",
+                                     "docs/catalog.html",
+                                     "examples/progressive-js.html",
+                                 }))
 
     def test_cache_contract_and_version_snapshot(self):
         with TemporaryDirectory() as temp:

@@ -998,6 +998,26 @@
     box-shadow: var(--syn-shadow-sm);
   }
 
+  /* Optional script adds overlays only after explicit enhanceViz(root). */
+  .syn-root .syn-chart[data-syn-viz="points"] { position: relative; }
+  .syn-root .syn-chart-tooltip[data-syn-viz-tip] {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    white-space: normal;
+    inline-size: max-content;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+  .syn-root .syn-chart-tooltip[hidden] { display: none; }
+  .syn-root [data-syn-crosshair] {
+    stroke: var(--syn-chart-axis);
+    stroke-width: 1;
+    stroke-dasharray: 4 3;
+    vector-effect: non-scaling-stroke;
+  }
+  .syn-root [data-syn-crosshair][hidden] { display: none; }
+
   /* Tiny inline SVG trend; the application supplies an accessible name/data. */
   :where(.syn-root .syn-viz-sparkline, .syn-root.syn-viz-sparkline) {
     display: block;

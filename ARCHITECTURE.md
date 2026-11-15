@@ -23,7 +23,9 @@ smallest working application must need only a local stylesheet and HTML.
 6. **One-way dependencies:** core CSS cannot import from `examples/`, `docs/`,
    `integrations/`, or a consumer framework. Optional adapters may depend on
    the public core but must never become core dependencies.
-7. **Predictable releases:** generated CSS comes only from `src/`, is checked
+7. **Explicit JavaScript only:** optional standalone ESM enhancements start only
+   when called, support refresh/destroy, and never become CSS dependencies.
+8. **Predictable releases:** generated CSS comes only from `src/`, is checked
    into `dist/`, and must exactly match the deterministic Python stdlib build.
    Published versioned CDN assets are immutable; consumers should pin a
    version or self-host it.

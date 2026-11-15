@@ -1,6 +1,7 @@
 """Build reproducible modular CSS distributions using only Python's standard library.
 
-No compiler, minifier, runtime JS, network access, or package-manager install.
+No compiler, minifier, network access, or package-manager install.
+Optional ESM modules are copied byte-for-byte; no JavaScript is required by CSS consumers.
 """
 from pathlib import Path
 import argparse
@@ -37,6 +38,15 @@ def distributions():
     return primary
 
 
+
+def js_distributions():
+    """Independent, explicitly opt-in ES modules; never imported by CSS."""
+    return {
+        'syntyr.viz.js': 'js/viz.js',
+        'syntyr.motion.js': 'js/motion.js',
+    }
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--check', action='store_true', help='fail if committed dist is stale')
@@ -44,6 +54,18 @@ def main():
     failed = False
     for name, inputs in distributions().items():
         output = assemble(inputs).encode('utf-8')
+        path = DIST / name
+        zipped = len(gzip.compress(output, mtime=0))
+        if args.check:
+            match = path.exists() and path.read_bytes() == output
+            print(f'{"OK" if match else "STALE"} {name}: {len(output)} raw / {zipped} gzip')
+            failed |= not match
+        else:
+            DIST.mkdir(exist_ok=True)
+            path.write_bytes(output)
+            print(f'WROTE {name}: {len(output)} raw / {zipped} gzip')
+    for name, source in js_distributions().items():
+        output = (SOURCE / source).read_bytes()
         path = DIST / name
         zipped = len(gzip.compress(output, mtime=0))
         if args.check:

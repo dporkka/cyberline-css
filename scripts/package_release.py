@@ -1,7 +1,7 @@
-"""Create a deterministic, minimal SYNTYR CSS release without third-party tools.
+"""Create a deterministic, minimal SYNTYR CSS and opt-in ESM release without third-party tools.
 
 Only allowlisted public MIT artifacts are packaged; business drafts and development
-files are deliberately omitted. This script refuses to bundle stale compiled CSS.
+files are deliberately omitted. This script refuses to bundle stale compiled CSS and optional JS.
 """
 import argparse
 from pathlib import Path
@@ -10,9 +10,9 @@ import sys
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 if __package__:
-    from .build import distributions
+    from .build import distributions, js_distributions
 else:
-    from build import distributions
+    from build import distributions, js_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 # One source of truth: scripts/build.py defines public CSS entrypoints.
@@ -22,7 +22,7 @@ FILES = (
     "ARCHITECTURE.md",
     "docs/distribution.md",
     "docs/api-stability.md",
-) + tuple(f"dist/{name}" for name in distributions()) + (
+) + tuple(f"dist/{name}" for name in (*distributions(), *js_distributions())) + (
     "terminal/palettes.json",
 )
 

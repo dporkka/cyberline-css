@@ -3,7 +3,7 @@
 **Experimental v0.3.0-alpha.5 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
 - **The `syn-` class, CSS token, and HTML data-attribute namespace is the public API.**
-- **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
+- **0 required JavaScript / 0 CSS runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
 - **Modern, plain CSS.** Native HTML primitives, cascade layers, color-mix, responsive Grid, accessible contrast targets and scoped theme tokens.
 - **Neutral Studio palette by default:** opt into Grid, Noir, Industrial, Terminal, Corporate, or Minimal with `data-syn-theme`. Seven palettes are in the unreleased alpha.5 candidate; published alpha.4 provides Grid, Noir, and Studio.
@@ -46,6 +46,7 @@
 - [Advanced frame and terminal lab](examples/geometry-terminal.html) with [geometry integration guide](docs/geometry-terminal.md)
 - [Optional SVG icons, Unicode markers and ASCII/box-drawing demo](examples/symbols.html) with [copy-paste guide](docs/symbols.md)
 - [Seven-theme static visualization gallery](examples/viz.html) and [Syntyr Viz guide](docs/viz.md): charts, sparklines, bar lists, status trackers and heatmaps, no runtime JavaScript
+- [Optional progressive JavaScript enhancements](examples/progressive-js.html) and [integration guide](docs/progressive-js.md): pointer/keyboard SVG inspection, resize notifications, interruptible animations, lifecycle cleanup
 - [Free production-shaped operations console](examples/operations-console.html): responsive SaaS dashboard composed from existing CSS modules; no backend or runtime JS
 - [Search, filtering, settings and pagination SaaS workflow demonstration](examples/saas-workflows.html): server-ready semantic HTML, static illustrative data, zero JavaScript
 - [Optional Vertigo admin styling demo](examples/vertigo-admin.html) and [integration guide](docs/vertigo-integration.md)
@@ -58,7 +59,7 @@ Use the release ZIP, copy `dist/syntyr.core.css` into your static assets, and lo
 
 ## Start in 10 seconds
 
-Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The gallery needs no server, Node, NPM, runtime JS or remote fonts.
+Open [docs/index.html](docs/index.html) in a browser. Try the [SaaS dashboard](examples/saas.html), [business website](examples/business.html), [browser terminal](examples/terminal.html), [Grid console](examples/console.html), [Noir landing page](examples/landing.html), or [Noir pricing demo](examples/pricing.html). The original static galleries need no server, Node, NPM, runtime JS or remote fonts; the separate progressive-JS demo is opt-in.
 
 ```html
 <link rel="stylesheet" href="syntyr.core.css">
@@ -96,6 +97,8 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
 | `dist/syntyr.viz.css` | Optional theme-aware data visualization styles, no chart renderer or JS |
+| `dist/syntyr.viz.js` | Optional zero-dependency ES module for SVG keyboard/pointer point inspection and resize signals |
+| `dist/syntyr.motion.js` | Optional zero-dependency ES module for interruptible entrance animations |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
@@ -109,7 +112,7 @@ separate from core and included only in the all-in-one bundle.
 
 Geometry, symbols, Viz and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+The CSS source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/viz.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 
@@ -155,7 +158,7 @@ The browser scripts require developer-installed `playwright` and the browser eng
 
 ## Roadmap
 
-v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Performance: raw/gzip sizes are reported per distributable, not bounded by arbitrary byte ceilings; runtime JS remains 0 bytes. Browser behavior and modular loading matter more than a fixed compressed-size target.
+v0.2-alpha: free console + landing demos, accessible form-error styles, button variants, independent page/embedded scopes. v0.3-alpha: portable container-query recipes, attribute state styling, pricing example and Tailwind/Plus architectural study. v0.4: docs/theme editor; v1: stability + expanded browser/accessibility validation. Performance: raw/gzip sizes are reported per distributable, not bounded by arbitrary byte ceilings; required runtime JS remains 0 bytes. Browser behavior and modular loading matter more than a fixed compressed-size target.
 
 ## Provenance and license
 

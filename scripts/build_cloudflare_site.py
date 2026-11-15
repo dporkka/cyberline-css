@@ -1,6 +1,6 @@
 """Build an explicit public-only SYNTYR site for Cloudflare Workers Static Assets.
 
-Pure stdlib, no Node dependencies, no browser JavaScript, no repo-root publishing.
+Pure stdlib, no Node dependencies, no mandatory browser JavaScript, no repo-root publishing.
 """
 from __future__ import annotations
 
@@ -13,9 +13,9 @@ import sys
 import tempfile
 
 if __package__:
-    from .build import distributions
+    from .build import distributions, js_distributions
 else:
-    from build import distributions
+    from build import distributions, js_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / ".cloudflare-public"
@@ -69,7 +69,7 @@ def source_files() -> dict[str, bytes]:
         "index.html", "recipes.md", "saas-cli-business.md",
         "site-generator-decision.md", "tailwind-research.md",
         "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
-        "vertigo-integration.md", "viz.md",
+        "vertigo-integration.md", "viz.md", "progressive-js.md",
     )
     public_examples = (
         "business.html", "console.html", "geometry-terminal.html", "landing.html",
@@ -77,14 +77,14 @@ def source_files() -> dict[str, bytes]:
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",
-        "viz.html",
+        "viz.html", "progressive-js.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
-    public_css = tuple(distributions())
+    public_assets = (*distributions(), *js_distributions())
     paths.extend(ROOT / "docs" / name for name in public_docs)
     paths.extend(ROOT / "examples" / name for name in public_examples)
-    paths.extend(ROOT / "dist" / name for name in public_css)
+    paths.extend(ROOT / "dist" / name for name in public_assets)
     for path in paths:
         if path.is_symlink() or not path.is_file() or not path.resolve().is_relative_to(ROOT):
             raise ValueError(f"Not a regular repo file: {path}")

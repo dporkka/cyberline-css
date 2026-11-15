@@ -128,6 +128,10 @@ than reducing each cell below its minimum width.
 </div>
 ```
 
+For opt-in keyboard/pointer SVG chart point inspection and resize notifications,
+see [Progressive JavaScript](progressive-js.md). Neither Syntyr Viz CSS nor its
+static gallery requires these scripts.
+
 ## Generic chart styling and integrations
 
 `syn-chart`, `syn-chart-title`, `syn-chart-grid`, `syn-chart-axis`,
