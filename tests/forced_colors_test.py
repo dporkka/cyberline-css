@@ -99,6 +99,31 @@ class ForcedColorsTest(unittest.TestCase):
         finally:
             context.close()
 
+    def test_rtl_navigation_and_error_summary_survive_forced_colors(self):
+        context = self.browser.new_context(viewport={"width": 390, "height": 820},
+                                           forced_colors="active", color_scheme="light")
+        try:
+            page = context.new_page()
+            page.goto((ROOT / "examples/mature-patterns.html").as_uri())
+            self.assertTrue(page.evaluate("matchMedia('(forced-colors: active)').matches"))
+            summary = page.locator(".syn-error-summary")
+            border = summary.evaluate("""e => {
+                const c = getComputedStyle(e);
+                return {width: parseFloat(c.borderInlineStartWidth),
+                        color: c.borderInlineStartColor, background: c.backgroundColor};
+            }""")
+            self.assertGreaterEqual(border["width"], 3)
+            self.assertNotEqual(border["color"], border["background"])
+            active = page.locator('[dir="rtl"] .syn-app-nav [aria-current="page"]')
+            marker = active.evaluate("""e => {
+                const c = getComputedStyle(e, '::before');
+                return {width: parseFloat(c.width), background: c.backgroundColor};
+            }""")
+            self.assertGreaterEqual(marker["width"], 3)
+            self.assertNotEqual(marker["background"], "rgba(0, 0, 0, 0)")
+        finally:
+            context.close()
+
 
 if __name__ == "__main__":
     unittest.main()

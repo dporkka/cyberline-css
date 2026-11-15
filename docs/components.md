@@ -49,9 +49,9 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
 | Forms | `.syn-form`, `.syn-label`, `.syn-input`, `.syn-select`, `.syn-textarea`, `.syn-check`, `.syn-fieldset`, `.syn-help`, `.syn-error` | unclassed form controls |
-| Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon` | native `form`, `label`, `input`, `button` |
+| Form compositions | `.syn-field`, `.syn-field-row`, `.syn-field-body`, `.syn-input-group`, `.syn-input-addon`, `.syn-error-summary` | native `form`, `label`, `input`, `button` |
 | Overlays | `.syn-popover` on `[popover]`, `.syn-dialog` on `dialog`, `.syn-details` on `details` | browser defaults |
-| Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--numeric` | unclassed `table` |
+| Data | `.syn-table-wrap`, `.syn-table`, `.syn-cell--wrap`, `.syn-cell--numeric`, `.syn-description-list`, `.syn-description-actions` | unclassed `table`, native `dl` |
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
@@ -85,6 +85,10 @@ Inspect `metadata/syntyr-api.json` for the machine-readable API index,
 or use the [editor integration instructions](editor-integration.md).
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
+
+### Review screens and accessible error summaries
+
+For server-rendered validation, combine `.syn-error-summary` with `.syn-error`, `aria-invalid="true"` and `aria-describedby`, and have the application move focus to the summary after a failed submit. For key/value review views, use a native `dl.syn-description-list` with `dt`/`dd` children. Table sort affordances respond to `th[aria-sort] > button`; the application supplies the sorting logic and updates `aria-sort`. The styles use logical direction where appropriate. See the [design-system pattern guide](mature-system-patterns.md) and [static example](../examples/mature-patterns.html).
 
 ## Neutral-first visual styling
 

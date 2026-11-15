@@ -38,7 +38,15 @@
     &.syn-app-nav a:where(:hover, [aria-current="page"]) {
       color: var(--syn-accent); background: var(--syn-accent-soft);
     }
-    &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+    &.syn-app-nav a[aria-current="page"] { position: relative; }
+    &.syn-app-nav a[aria-current="page"]::before {
+      content: ""; position: absolute; pointer-events: none;
+      inset-block: 0; inset-inline-start: 0;
+      width: 3px; background: var(--syn-accent);
+    }
+    @media (forced-colors: active) {
+      &.syn-app-nav a[aria-current="page"]::before { background: Highlight; }
+    }
     &.syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
     &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
     &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }

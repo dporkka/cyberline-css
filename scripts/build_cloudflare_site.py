@@ -80,6 +80,7 @@ def source_files() -> dict[str, bytes]:
         "console-kit.html", "component-recipes.md", "design-research-linear-resend.md",
         "distribution.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js", "framework-integrations.md",
         "geometry-terminal.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
+        "mature-system-patterns.md",
         "performance-validation.md", "progressive-enhancement.md",
         "index.html", "playground.html", "playground.css", "playground.js",
         "editor-integration.md", "recipes.md", "saas-cli-business.md",
@@ -89,7 +90,7 @@ def source_files() -> dict[str, bytes]:
     )
     public_examples = (
         "business.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html",
-        "minimalist-patterns.html", "design-states.html", "native-elements.html",
+        "minimalist-patterns.html", "design-states.html", "native-elements.html", "mature-patterns.html",
         "operations-console.css", "operations-console.html", "pricing.html",
         "resources.html", "saas.html", "saas-workflows.html", "saas-workflows.css",
         "terminal.html", "themes.html", "vertigo-admin.html", "symbols.html",

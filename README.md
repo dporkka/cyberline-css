@@ -24,6 +24,7 @@
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
+- [Mature design-system patterns: accessible form errors, semantic review lists and table sorting](docs/mature-system-patterns.md) ([static example](examples/mature-patterns.html))
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
 - [Tagged GitHub releases](https://github.com/dporkka/syntyr-css/releases)
 - [Architecture, API stability and low-entropy maintenance policy](ARCHITECTURE.md)

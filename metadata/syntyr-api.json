@@ -197,6 +197,16 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-description-actions",
+      "module": "components/data.css",
+      "description": "Optional labeled action in a description list row."
+    },
+    {
+      "name": "syn-description-list",
+      "module": "components/data.css",
+      "description": "Responsive native dl/dt/dd review layout, scoped to a Syntyr root."
+    },
+    {
       "name": "syn-details",
       "module": "components/overlays.css",
       "description": "Syntyr CSS class (components/overlays.css)."
@@ -220,6 +230,11 @@
       "name": "syn-error",
       "module": "components/forms.css",
       "description": "Syntyr CSS class (components/forms.css)."
+    },
+    {
+      "name": "syn-error-summary",
+      "module": "components/form-composition.css",
+      "description": "Visible server-rendered form error summary; application must focus on failed submit."
     },
     {
       "name": "syn-eyebrow",

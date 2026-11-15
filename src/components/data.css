@@ -6,7 +6,7 @@
     &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
     &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
     &.syn-table-wrap { overflow-x: auto; }
-    &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+    &.syn-table { width: 100%; border-collapse: collapse; text-align: start; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
     /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
     &.syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
@@ -16,9 +16,48 @@
     &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
     &.syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
     &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
+    /* ARIA owns the sort state; the application owns sorting and the button action. */
+    &.syn-table th[aria-sort] > button {
+      display: inline-flex;
+      align-items: center;
+      gap: .35em;
+      padding: .25rem;
+      border: 0;
+      border-block-end: 1px dotted currentColor;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      text-align: inherit;
+    }
+    &.syn-table th[aria-sort="ascending"] > button::after { content: "↑"; }
+    &.syn-table th[aria-sort="descending"] > button::after { content: "↓"; }
     /* No implicit last-column accent: table columns may contain any kind of data. */
     &.syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
-    &.syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
+    &.syn-table .syn-cell--numeric { text-align: end; font-variant-numeric: tabular-nums; }
+    /* Native dl/dt/dd relationship stays in the DOM at every viewport. */
+    &.syn-description-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      font: var(--syn-type-sm)/1.55 var(--syn-font-ui);
+    }
+    &.syn-description-list > div {
+      display: grid;
+      gap: .35rem;
+      padding-block: var(--syn-row-padding-block);
+      border-block-end: 1px solid var(--syn-border-subtle);
+      min-inline-size: 0;
+    }
+    &.syn-description-list dt { color: var(--syn-text-subtle); font-weight: 650; min-inline-size: 0; }
+    &.syn-description-list dd { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-description-list .syn-description-actions { font-size: var(--syn-type-sm); }
+    @container syn-region (min-width: 38rem) {
+      &.syn-description-list > div {
+        grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto;
+        align-items: baseline;
+      }
+    }
     &.syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
     &.syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
     &.syn-status--success { color: var(--syn-success); }

@@ -2,6 +2,31 @@
 
 **Status:** experimental alpha; not a WCAG certification or professional audit.
 
+## PR #57 follow-up automation (November 15, 2026)
+
+After the new error-summary, semantic review list and targeted RTL changes,
+the **20-page gallery** passed the Chromium, Firefox and WebKit matrix at
+three viewport widths (**180 page/viewport combinations**). The enlarged-text
+reflow stress suite also passed four width/font-size combinations on all
+20 pages in all three engines (**240 combinations**). Three simulated Chromium
+forced-colors regression checks passed, including RTL navigation and the error
+summary.
+
+axe-core 4.10.3 found **0 confirmed automated WCAG-tagged violations** on
+the 20 pages, but **11 incomplete color-contrast rule results encompassing
+87 element targets** on 11 pages. The new mature-patterns example accounts
+for **2** of those targets (the notch and circuit frames). These are unresolved
+manual review items, **not 87 proven failures and not 87 passes**.
+
+These tests used local developer-only Playwright browsers and user-local
+WebKit shared-library workarounds; no Syntyr runtime dependency was added.
+The automated browser and reflow checks do **not** verify actual browser UI
+zoom at 200%/400%, NVDA/VoiceOver behavior, native OS contrast settings,
+or interactive server-side form error focus and sorting. Those release
+acceptance gates remain open. The checks describe this PR's worktree and
+do not establish that its current exact GitHub head has passed Woodpecker.
+
+
 ## Latest post-merge results (November 14, 2026)
 
 On `main` commit `b19c331` (after PRs #14 and #22), the Python suite
@@ -49,6 +74,16 @@ python3 tests/browser_matrix.py --browsers chromium firefox webkit
 python3 tests/reflow_test.py --browsers chromium firefox webkit
 python3 tests/minimalist_browser.py --browsers chromium firefox webkit
 ```
+
+For developer machines with custom browser binaries or a user-local WebKit launcher,
+the matrix and enlarged-text reflow harness accept optional
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE`, `PLAYWRIGHT_FIREFOX_EXECUTABLE`, and
+`PLAYWRIGHT_WEBKIT_EXECUTABLE` environment variables. The path must name an
+executable compatible with the installed Playwright driver. A wrapper may
+supply temporary missing native libraries without modifying the host OS.
+Browser-launch failure is reported as **BLOCKED**, never counted as a pass.
+These settings affect testing only and do not change the zero-runtime-dependency
+distribution contract.
 
 For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
 JavaScript file is shipped to application consumers:

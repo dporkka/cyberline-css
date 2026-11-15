@@ -2,18 +2,18 @@
 
 Run in a developer-only Playwright environment:
     PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium-browser python3 tests/reflow_test.py
+    PLAYWRIGHT_WEBKIT_EXECUTABLE=/path/to/browser-wrapper python3 tests/reflow_test.py --browsers webkit
 
 This changes the document's root font size and is a *text-size stress test*,
 not proof of real browser 200%/400% zoom or WCAG certification.
 Horizontal scrolling *inside* the tabular-data widget remains allowed.
 """
 import argparse
-import os
 from pathlib import Path
-import shutil
 import sys
 
 from playwright.sync_api import sync_playwright
+from browser_options import launch_options
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = (
@@ -23,7 +23,7 @@ PAGES = (
     "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+    "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html", "examples/mature-patterns.html",
 )
 
 
@@ -73,11 +73,7 @@ def main() -> int:
     failed = 0
     with sync_playwright() as p:
         for engine in args.browsers:
-            opts = {"headless": True}
-            if engine == "chromium":
-                binary = os.getenv("PLAYWRIGHT_CHROMIUM_EXECUTABLE") or shutil.which("chromium") or shutil.which("chromium-browser")
-                if binary:
-                    opts.update(executable_path=binary, args=["--no-sandbox"])
+            opts = launch_options(engine)
             try:
                 browser = getattr(p, engine).launch(**opts)
             except Exception as e:

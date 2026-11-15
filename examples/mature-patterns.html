@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntyr – mature component patterns</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.geometry.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <main class="syn-shell syn-stack" style="padding-block: 2rem;">
+    <h1 class="syn-title">Application patterns</h1>
+    <p class="syn-lede">Static examples of server-rendered errors, a semantic review list, and a sortable-table presentation. No behavior is simulated.</p>
+    <section class="syn-panel syn-stack" aria-labelledby="errors-heading">
+      <h2 id="errors-heading" class="syn-section-heading">Form errors</h2>
+      <!-- The server should only render this summary when errors exist.
+           The application must focus it after a failed submit. -->
+      <div class="syn-error-summary" role="alert" tabindex="-1" aria-labelledby="error-summary-heading">
+        <h3 id="error-summary-heading">There is a problem</h3>
+        <ul><li><a href="#name">Enter an account name</a></li></ul>
+      </div>
+      <form class="syn-form" action="#" method="get" novalidate>
+        <div class="syn-field">
+          <label class="syn-label" for="name">Account name</label>
+          <p class="syn-help" id="name-help">Use the name shown on your invoices.</p>
+          <p class="syn-error" id="name-error">Error: Enter an account name</p>
+          <input class="syn-input" id="name" name="name" type="text" value="" aria-invalid="true" aria-describedby="name-help name-error" required>
+        </div>
+        <button class="syn-button syn-button--primary" type="submit">Save account</button>
+      </form>
+    </section>
+    <section class="syn-panel syn-region syn-stack" aria-labelledby="review-heading">
+      <h2 id="review-heading" class="syn-section-heading">Review details</h2>
+      <dl class="syn-description-list">
+        <div><dt>Account</dt><dd>Example Industries</dd><dd class="syn-description-actions"><a href="#name">Change account name</a></dd></div>
+        <div><dt>Plan</dt><dd>Growth</dd></div>
+        <div><dt>Status</dt><dd><span class="syn-status syn-status--success">Active</span></dd></div>
+      </dl>
+    </section>
+    <section class="syn-panel syn-stack" aria-labelledby="table-heading">
+      <h2 id="table-heading" class="syn-section-heading">Table sort affordance</h2>
+      <div class="syn-table-wrap" role="region" aria-label="Example accounts table" tabindex="0">
+        <table class="syn-table">
+          <caption>Accounts (illustrative; sorting is application-owned)</caption>
+          <thead><tr><th scope="col" aria-sort="ascending"><button type="button">Account</button></th><th scope="col">Balance</th></tr></thead>
+          <tbody><tr><th scope="row">Aster</th><td class="syn-cell--numeric">120</td></tr><tr><th scope="row">Zenith</th><td class="syn-cell--numeric">980</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="syn-panel syn-region syn-stack" dir="rtl" lang="ar" aria-labelledby="rtl-heading">
+      <h2 id="rtl-heading" class="syn-section-heading">عرض من اليمين إلى اليسار</h2>
+      <dl class="syn-description-list">
+        <div><dt>الحساب</dt><dd>شركة المثال</dd></div>
+        <div><dt>الحالة</dt><dd>نشط</dd></div>
+      </dl>
+      <table class="syn-table">
+        <caption>بيانات الحساب</caption>
+        <thead><tr><th scope="col">الاسم</th><th scope="col">المبلغ</th></tr></thead>
+        <tbody><tr><th scope="row">المثال</th><td class="syn-cell--numeric">100</td></tr></tbody>
+      </table>
+      <nav class="syn-breadcrumbs" aria-label="التسلسل">
+        <ol><li><a href="#rtl-heading">الرئيسية</a></li><li aria-current="page">الحساب</li></ol>
+      </nav>
+      <nav class="syn-app-nav" aria-label="التنقل">
+        <a href="#rtl-heading" aria-current="page">الحساب</a><a href="#table-heading">التقارير</a>
+      </nav>
+      <div class="syn-panel syn-panel--cut">لوحة بزاوية معكوسة</div>
+      <div class="syn-frame syn-frame--notch syn-panel">إطار متكيف مع الاتجاه</div>
+      <div class="syn-frame syn-frame--circuit syn-panel">إطار تقني متكيف مع الاتجاه</div>
+      <div class="syn-panel syn-panel--cut" dir="ltr" lang="en">Nested left-to-right exception</div>
+    </section>
+  </main>
+</body>
+</html>

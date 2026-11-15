@@ -310,10 +310,13 @@
       min-width: 0;
     }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      content: ""; pointer-events: none; position: absolute;
+      inset-inline-end: -1px; inset-block-end: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-bg);
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
     }
+    /* Direction is inherited from the nearest element, including nested RTL panels. */
+    &.syn-panel--cut:dir(rtl)::after { clip-path: polygon(0 0, 100% 100%, 0 100%); }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }
@@ -474,8 +477,29 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    /* Server-rendered validation summary: the host must move focus on failure. */
+    &.syn-error-summary {
+      display: grid;
+      gap: var(--syn-space-2);
+      padding: 1rem;
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: .25rem solid var(--syn-danger);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+      min-inline-size: 0;
+    }
+    &.syn-error-summary > :where(h2, h3, p, ul, ol) { margin-block: 0; }
+    &.syn-error-summary > :where(ul, ol) { padding-inline-start: 1.5rem; }
+    &.syn-error-summary a {
+      color: var(--syn-text);
+      text-decoration: underline;
+      text-underline-offset: .2em;
+      overflow-wrap: anywhere;
+    }
+    &.syn-error-summary a:hover { color: var(--syn-accent); }
     @media (forced-colors: active) {
       &.syn-input-addon { border-color: CanvasText; }
+      &.syn-error-summary { border-color: CanvasText; border-inline-start-color: Highlight; }
     }
   }
 }
@@ -506,7 +530,7 @@
     &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
     &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
     &.syn-table-wrap { overflow-x: auto; }
-    &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+    &.syn-table { width: 100%; border-collapse: collapse; text-align: start; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); white-space: nowrap; }
     /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
     &.syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
@@ -516,9 +540,48 @@
     &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
     &.syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
     &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
+    /* ARIA owns the sort state; the application owns sorting and the button action. */
+    &.syn-table th[aria-sort] > button {
+      display: inline-flex;
+      align-items: center;
+      gap: .35em;
+      padding: .25rem;
+      border: 0;
+      border-block-end: 1px dotted currentColor;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      text-align: inherit;
+    }
+    &.syn-table th[aria-sort="ascending"] > button::after { content: "↑"; }
+    &.syn-table th[aria-sort="descending"] > button::after { content: "↓"; }
     /* No implicit last-column accent: table columns may contain any kind of data. */
     &.syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
-    &.syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; }
+    &.syn-table .syn-cell--numeric { text-align: end; font-variant-numeric: tabular-nums; }
+    /* Native dl/dt/dd relationship stays in the DOM at every viewport. */
+    &.syn-description-list {
+      display: grid;
+      gap: 0;
+      margin: 0;
+      font: var(--syn-type-sm)/1.55 var(--syn-font-ui);
+    }
+    &.syn-description-list > div {
+      display: grid;
+      gap: .35rem;
+      padding-block: var(--syn-row-padding-block);
+      border-block-end: 1px solid var(--syn-border-subtle);
+      min-inline-size: 0;
+    }
+    &.syn-description-list dt { color: var(--syn-text-subtle); font-weight: 650; min-inline-size: 0; }
+    &.syn-description-list dd { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-description-list .syn-description-actions { font-size: var(--syn-type-sm); }
+    @container syn-region (min-width: 38rem) {
+      &.syn-description-list > div {
+        grid-template-columns: minmax(9rem, 13rem) minmax(0, 1fr) auto;
+        align-items: baseline;
+      }
+    }
     &.syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
     &.syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
     &.syn-status--success { color: var(--syn-success); }
@@ -554,6 +617,7 @@
       &.syn-breadcrumbs ol { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
     &.syn-breadcrumbs li { display: inline-flex; align-items: center; gap: .5rem; min-width: 0; }
     &.syn-breadcrumbs li + li::before { content: ""; height: .85em; border-inline-start: 1px solid var(--syn-frame-strong); transform: skew(-22deg); }
+    &.syn-breadcrumbs li + li:dir(rtl)::before { transform: skew(22deg); }
     &.syn-breadcrumbs a { color: var(--syn-muted); }
     &.syn-breadcrumbs [aria-current="page"] { color: var(--syn-text); font-weight: 650; }
     &.syn-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .375rem; }

@@ -46,6 +46,14 @@
         100% var(--syn-frame-cut, 1rem), 100% 100%,
         var(--syn-frame-cut, 1rem) 100%, 0 calc(100% - var(--syn-frame-cut, 1rem)));
     }
+    /* Flip the asymmetric notch, not the content or text. */
+    &.syn-frame--notch:dir(rtl) {
+      --syn-frame-shape: polygon(
+        var(--syn-frame-cut, 1rem) 0, 100% 0,
+        100% calc(100% - var(--syn-frame-cut, 1rem)),
+        calc(100% - var(--syn-frame-cut, 1rem)) 100%,
+        0 100%, 0 var(--syn-frame-cut, 1rem));
+    }
     &.syn-frame--bevel::before,
     &.syn-frame--notch::before {
       clip-path: var(--syn-frame-shape);
@@ -94,6 +102,8 @@
         linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 28% 2px no-repeat,
         linear-gradient(var(--syn-accent),var(--syn-accent)) bottom right / 2px 38% no-repeat;
     }
+    /* Decorative pseudo-layer only; mirror circuit corners for RTL regions. */
+    &.syn-frame--circuit:dir(rtl)::after { transform: scaleX(-1); }
     @media (forced-colors: active) {
       &.syn-frame {
         border: 1px solid CanvasText;

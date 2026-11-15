@@ -58,8 +58,29 @@
       border-end-end-radius: var(--syn-radius);
     }
     &.syn-input-group > :not(:first-child) { border-inline-start: 0; }
+    /* Server-rendered validation summary: the host must move focus on failure. */
+    &.syn-error-summary {
+      display: grid;
+      gap: var(--syn-space-2);
+      padding: 1rem;
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: .25rem solid var(--syn-danger);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+      min-inline-size: 0;
+    }
+    &.syn-error-summary > :where(h2, h3, p, ul, ol) { margin-block: 0; }
+    &.syn-error-summary > :where(ul, ol) { padding-inline-start: 1.5rem; }
+    &.syn-error-summary a {
+      color: var(--syn-text);
+      text-decoration: underline;
+      text-underline-offset: .2em;
+      overflow-wrap: anywhere;
+    }
+    &.syn-error-summary a:hover { color: var(--syn-accent); }
     @media (forced-colors: active) {
       &.syn-input-addon { border-color: CanvasText; }
+      &.syn-error-summary { border-color: CanvasText; border-inline-start-color: Highlight; }
     }
   }
 }
