@@ -36,7 +36,7 @@ src/tokens.css + src/base.css + src/components/*.css
               syntyr.core.css
                        |
             optional CSS modules
-   semantic | recipes | geometry | symbols | effects | utilities | print
+   semantic | recipes | geometry | symbols | effects | motion | utilities | print
                        |
        examples, integrations, templates, docs
                        |
@@ -56,7 +56,7 @@ Layers have an explicit normal-declaration priority, earliest to latest:
 
 ```css
 @layer syn.tokens, syn.base, syn.components, syn.semantic,
-       syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;
+       syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.motion, syn.utilities;
 ```
 
 Component styles belong in `syn.components`. Optional finite utilities belong

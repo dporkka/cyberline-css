@@ -12,6 +12,7 @@ import os
 import shutil
 import sys
 from playwright.sync_api import sync_playwright
+from browser_launch import launch_options
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = ("index.html", "docs/index.html", "examples/console.html",
@@ -19,7 +20,7 @@ PAGES = ("index.html", "docs/index.html", "examples/console.html",
          "docs/console-kit.html", "examples/saas.html",
          "examples/business.html", "examples/terminal.html", "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html")
+         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/motion.html")
 
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -413,13 +414,7 @@ def main() -> int:
     with sync_playwright() as p:
         failed = 0
         for name in args.browsers:
-            kwargs = {"headless": True}
-            if name == "chromium":
-                exe = (os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
-                       or shutil.which("chromium") or shutil.which("chromium-browser"))
-                if exe:
-                    kwargs["executable_path"] = exe
-                    kwargs["args"] = ["--no-sandbox"]
+            kwargs = launch_options(name)
             try:
                 browser = getattr(p, name).launch(**kwargs)
             except Exception as exc:

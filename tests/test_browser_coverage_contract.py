@@ -33,6 +33,12 @@ class BrowserCoverageContract(unittest.TestCase):
                 self.assertIn('"examples/design-states.html"',
                               (ROOT / "tests" / script).read_text(encoding="utf-8"))
 
+    def test_motion_lab_is_covered_in_browser_a11y_and_reflow_suites(self):
+        for script in ("browser_matrix.py", "axe_audit.py", "reflow_test.py"):
+            with self.subTest(script=script):
+                self.assertIn('"examples/motion.html"',
+                              (ROOT / "tests" / script).read_text(encoding="utf-8"))
+
     def test_cross_browser_matrix_covers_selected_hover_and_compact_inputs(self):
         source = (ROOT / "tests/browser_matrix.py").read_text()
         self.assertIn("assert_visual_refinement(browser)", source)

@@ -10,6 +10,7 @@ from pathlib import Path
 import shutil
 import sys
 from playwright.sync_api import sync_playwright
+from browser_launch import launch_options
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -91,12 +92,7 @@ def main():
     failures = 0
     with sync_playwright() as playwright:
         for name in args.browsers:
-            launch = {"headless": True}
-            if name == "chromium":
-                exe = (os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
-                       or shutil.which("chromium") or shutil.which("chromium-browser"))
-                if exe:
-                    launch.update(executable_path=exe, args=["--no-sandbox"])
+            launch = launch_options(name)
             try:
                 browser = getattr(playwright, name).launch(**launch)
             except Exception as exc:

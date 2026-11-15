@@ -14,7 +14,7 @@ class ArchitectureContract(unittest.TestCase):
     def test_optional_utilities_occupy_final_cascade_layer(self):
         expected = (
             "@layer syn.tokens, syn.base, syn.components, syn.semantic, "
-            "syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;"
+            "syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.motion, syn.utilities;"
         )
         self.assertIn(expected, (ROOT / "src/tokens.css").read_text())
         self.assertIn("@layer syn.utilities {", (ROOT / "src/utilities.css").read_text())

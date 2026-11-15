@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr's CSS-native motion showcase: fade, enter, scale, reveal, stagger and accessible native overlays.">
+  <title>SYNTYR — Native Motion Lab</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.motion.css">
+  <style>
+    .skip-motion { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 10; }
+    .skip-motion:focus { inset-block-start: 1rem; }
+    .motion-section { margin-block: 2.5rem; }
+    .motion-hero { padding-block: clamp(2rem, 8vw, 5rem); }
+    .motion-card { min-inline-size: 0; }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="grid">
+  <a class="syn-button skip-motion" href="#main">Skip to content</a>
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="../docs/index.html">SYNTYR / MOTION</a>
+      <nav class="syn-nav" aria-label="Lab navigation">
+        <a href="#primitives">PRIMITIVES</a>
+        <a href="#native">NATIVE OVERLAYS</a>
+        <a href="../docs/index.html">GALLERY</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="motion-hero" aria-labelledby="motion-title">
+        <p class="syn-eyebrow" data-syn-animate="fade">CSS-NATIVE / ZERO RUNTIME DEPENDENCIES</p>
+        <h1 id="motion-title" class="syn-title" data-syn-animate="enter">Motion with restraint.</h1>
+        <p class="syn-lede">Deliberate movement, accessible defaults, and a subtle futuristic signature. No animation engine required.</p>
+        <a class="syn-button syn-button--primary" href="../docs/motion.md">READ MOTION API</a>
+      </section>
+
+      <section class="motion-section" id="primitives" aria-labelledby="primitives-title">
+        <h2 id="primitives-title" class="syn-heading">01 / Opt-in primitives</h2>
+        <div class="syn-grid" data-syn-stagger>
+          <article class="syn-panel motion-card" data-syn-animate="enter" style="--syn-motion-index:0">
+            <p class="syn-eyebrow">FADE + TRANSLATE</p>
+            <h3 class="syn-heading">Enter</h3>
+            <p class="syn-muted">Compose direction with <code>data-syn-from</code>, without overriding ordinary CSS transforms.</p>
+          </article>
+          <article class="syn-panel motion-card" data-syn-animate="scale" style="--syn-motion-index:1">
+            <p class="syn-eyebrow">FADE + SCALE</p>
+            <h3 class="syn-heading">Scale</h3>
+            <p class="syn-muted">Subtle arrivals for cards and small interface elements.</p>
+          </article>
+          <article class="syn-panel motion-card syn-motion-sweep" data-syn-animate="reveal" data-syn-from="right" style="--syn-motion-index:2">
+            <p class="syn-eyebrow">DIRECTIONAL MASK</p>
+            <h3 class="syn-heading">Reveal</h3>
+            <p class="syn-muted">Geometric clipping and a purely decorative hover/focus sweep.</p>
+          </article>
+        </div>
+        <p class="syn-caption">Primitives run once on page entry. A browser requesting reduced motion sees all content immediately.</p>
+      </section>
+
+      <section class="motion-section" id="native" aria-labelledby="native-title">
+        <h2 id="native-title" class="syn-heading">02 / Native controls</h2>
+        <div class="syn-stack">
+          <p role="status"><span class="syn-loader" aria-hidden="true"></span> Illustrative loading indicator (no live operation)</p>
+          <div class="syn-inline">
+            <button class="syn-button syn-button--primary" type="button" popovertarget="motion-menu">OPEN POPOVER</button>
+            <a class="syn-button" href="../docs/motion.md">USAGE GUIDE</a>
+          </div>
+          <div id="motion-menu" popover class="syn-popover syn-motion-popover">
+            <h3 class="syn-heading">Native popover</h3>
+            <p>Keyboard, dismissal and accessibility semantics come from the browser.</p>
+            <button class="syn-button" type="button" popovertarget="motion-menu" popovertargetaction="hide">CLOSE</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="syn-caption">SYNTYR / MIT / ORIGINAL CSS / NO JAVASCRIPT REQUIRED</footer>
+  </div>
+</body>
+</html>

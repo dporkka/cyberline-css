@@ -1,5 +1,8 @@
 ## Unreleased — v0.3.0-alpha.5 candidate
 
+- Add original, opt-in CSS-native motion primitives: fade, directional enter, scale, clip-path reveal, explicit stagger, a reduced-motion-aware loader and decorative sweep, plus progressive native dialog/popover transitions. No required JavaScript.
+- Publish a standalone motion distribution and guide. Do not modify any immutable versioned release assets.
+
 - Add opt-in system light/dark palette selection, composed from the existing Studio and Grid tokens without JavaScript.
 - Add opt-in intrinsic Sidebar/Switcher layouts and fluid typography in recipes; improve native checkbox/radio label alignment in semantic mode.
 - Publish a standalone minimalist HTML example and source/browser regression checks. No new CSS distribution or runtime dependency.

@@ -1,4 +1,4 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.motion, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {
@@ -31,6 +31,11 @@
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
+    --syn-ease-out: cubic-bezier(.22, 1, .36, 1);
+    --syn-motion-duration: 220ms;
+    --syn-motion-duration-slow: 420ms;
+    --syn-motion-distance: .75rem;
+    --syn-motion-stagger: 65ms;
   }
   /* Derived surfaces recompute inside nested themes, not just on the parent. */
   :where(.syn-root, .syn-root [data-syn-theme]) {

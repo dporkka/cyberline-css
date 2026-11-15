@@ -28,10 +28,11 @@ def distributions():
         'syntyr.effects.css': ('effects.css',),
         'syntyr.geometry.css': ('geometry.css',),
         'syntyr.symbols.css': ('symbols.css',),
+        'syntyr.motion.css': ('motion.css',),
         'syntyr.utilities.css': ('utilities.css',),
         'syntyr.print.css': ('print.css',),
         'syntyr.css': core + ('effects.css',),
-        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'symbols.css', 'effects.css', 'utilities.css', 'print.css'),
+        'syntyr.all.css': core + ('semantic.css', 'recipes.css', 'geometry.css', 'symbols.css', 'effects.css', 'motion.css', 'utilities.css', 'print.css'),
     }
     return primary
 

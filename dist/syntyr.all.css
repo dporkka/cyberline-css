@@ -1,4 +1,4 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.motion, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {
@@ -31,6 +31,11 @@
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
+    --syn-ease-out: cubic-bezier(.22, 1, .36, 1);
+    --syn-motion-duration: 220ms;
+    --syn-motion-duration-slow: 420ms;
+    --syn-motion-distance: .75rem;
+    --syn-motion-stagger: 65ms;
   }
   /* Derived surfaces recompute inside nested themes, not just on the parent. */
   :where(.syn-root, .syn-root [data-syn-theme]) {
@@ -842,6 +847,152 @@
   @media (forced-colors: active) {
     .syn-scanlines::after { display: none; }
     .syn-horizon, .syn-atmosphere, .syn-gradient-wash { background-image: none; }
+  }
+}
+/* Optional, CSS-native motion. Every effect is opt-in and scoped to .syn-root.
+   No initial opacity/translation is applied when reduced motion is requested. */
+@layer syn.motion {
+  /* Static loading fallback: a visible ring even when motion is disabled. */
+  .syn-root :where(.syn-loader) {
+    display: inline-block;
+    inline-size: 1em;
+    block-size: 1em;
+    border: .15em solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: 50%;
+    vertical-align: -.1em;
+  }
+
+  /* Direction and reveal origin are overridable without changing keyframes. */
+  .syn-root :where([data-syn-animate="enter"]) {
+    --syn-motion-from-x: 0px;
+    --syn-motion-from-y: var(--syn-motion-distance);
+  }
+  .syn-root :where([data-syn-animate="enter"][data-syn-from="down"]) {
+    --syn-motion-from-y: calc(-1 * var(--syn-motion-distance));
+  }
+  .syn-root :where([data-syn-animate="enter"][data-syn-from="left"]) {
+    --syn-motion-from-x: calc(-1 * var(--syn-motion-distance));
+    --syn-motion-from-y: 0px;
+  }
+  .syn-root :where([data-syn-animate="enter"][data-syn-from="right"]) {
+    --syn-motion-from-x: var(--syn-motion-distance);
+    --syn-motion-from-y: 0px;
+  }
+  .syn-root :where([data-syn-animate="enter"][data-syn-from="up"]) {
+    --syn-motion-from-y: var(--syn-motion-distance);
+  }
+  .syn-root :where([data-syn-animate="reveal"]) {
+    --syn-motion-clip-from: inset(0 100% 0 0);
+  }
+  .syn-root :where([data-syn-animate="reveal"][data-syn-from="right"]) {
+    --syn-motion-clip-from: inset(0 0 0 100%);
+  }
+  .syn-root :where([data-syn-animate="reveal"][data-syn-from="up"]) {
+    --syn-motion-clip-from: inset(100% 0 0 0);
+  }
+  .syn-root :where([data-syn-animate="reveal"][data-syn-from="down"]) {
+    --syn-motion-clip-from: inset(0 0 100% 0);
+  }
+
+  @keyframes syn-motion-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes syn-motion-enter {
+    from { opacity: 0; translate: var(--syn-motion-from-x) var(--syn-motion-from-y); }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-motion-scale {
+    from { opacity: 0; scale: var(--syn-motion-scale-from, .96); }
+    to { opacity: 1; scale: 1; }
+  }
+  @keyframes syn-motion-reveal {
+    from { clip-path: var(--syn-motion-clip-from); }
+    to { clip-path: inset(0); }
+  }
+  @keyframes syn-motion-spin {
+    to { rotate: 360deg; }
+  }
+  @keyframes syn-motion-sweep {
+    from { translate: -110% 0; opacity: 0; }
+    25% { opacity: .6; }
+    to { translate: 110% 0; opacity: 0; }
+  }
+
+  /* A decorative light sweep for opt-in cinematic components. */
+  .syn-root :where(.syn-motion-sweep) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+  .syn-root :where(.syn-motion-sweep)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(105deg, transparent 30%, var(--syn-accent-soft) 50%, transparent 70%);
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .syn-root :where([data-syn-animate="fade"], [data-syn-animate="enter"],
+                     [data-syn-animate="scale"], [data-syn-animate="reveal"]) {
+      animation-duration: var(--syn-motion-duration);
+      animation-timing-function: var(--syn-ease-out);
+      animation-delay: var(--syn-motion-delay, 0ms);
+      /* Preserve the starting pose through delays, then release clip-path,
+         opacity, scale and translate so focus/disabled states work normally. */
+      animation-fill-mode: backwards;
+      animation-iteration-count: 1;
+    }
+    .syn-root :where([data-syn-animate="fade"]) { animation-name: syn-motion-fade; }
+    .syn-root :where([data-syn-animate="enter"]) { animation-name: syn-motion-enter; }
+    .syn-root :where([data-syn-animate="scale"]) { animation-name: syn-motion-scale; }
+    .syn-root :where([data-syn-animate="reveal"]) {
+      animation-name: syn-motion-reveal;
+      animation-duration: var(--syn-motion-duration-slow);
+    }
+    /* No fixed item-count limit. Set --syn-motion-index on children (0, 1, ...).
+       If multiplying time and number is unsupported, ordinary delay still works. */
+    .syn-root :where([data-syn-stagger]) > :where([data-syn-animate]) {
+      animation-delay: calc(var(--syn-motion-delay, 0ms) + var(--syn-motion-index, 0) * var(--syn-motion-stagger));
+    }
+    .syn-root :where(.syn-loader) {
+      animation: syn-motion-spin 900ms linear infinite;
+    }
+    .syn-root :where(.syn-motion-sweep:is(:hover, :focus-within))::after {
+      animation: syn-motion-sweep var(--syn-motion-duration-slow) var(--syn-ease-out) both;
+    }
+
+    /* Native top-layer exit transitions are a progressive enhancement only. */
+    @supports (transition-behavior: allow-discrete) {
+      .syn-root :where([popover].syn-motion-popover, dialog.syn-motion-dialog) {
+        opacity: 0;
+        translate: 0 var(--syn-motion-distance);
+        transition:
+          opacity var(--syn-motion-duration) var(--syn-ease-out),
+          translate var(--syn-motion-duration) var(--syn-ease-out),
+          display var(--syn-motion-duration) allow-discrete,
+          overlay var(--syn-motion-duration) allow-discrete;
+        transition-behavior: allow-discrete;
+      }
+      .syn-root :where([popover].syn-motion-popover:popover-open, dialog.syn-motion-dialog[open]) {
+        opacity: 1;
+        translate: 0 0;
+      }
+      @starting-style {
+        .syn-root :where([popover].syn-motion-popover:popover-open, dialog.syn-motion-dialog[open]) {
+          opacity: 0;
+          translate: 0 var(--syn-motion-distance);
+        }
+      }
+    }
+  }
+
+  @media (forced-colors: active) {
+    .syn-root :where(.syn-loader) { border-color: CanvasText; border-inline-end-color: transparent; }
+    .syn-root :where(.syn-motion-sweep)::after { display: none; }
   }
 }
 /* Optional, finite utilities: no generator, JS runtime, resets or network assets.

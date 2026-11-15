@@ -3,9 +3,57 @@
 This report distinguishes the most recent automated findings from older
 pixel-sampling evidence. It is **not** a WCAG certification.
 
+## PR #31 motion candidate — cross-engine verification (November 14, 2026)
+
+**Branch-only evidence; not published, merged, or WCAG-certified.** On the
+`feat/css-native-motion` candidate rebased onto `3cfa2fe`, the current
+on-device verification records:
+
+- **178** Python stdlib regression checks passed, including coverage of
+  isolated motion distributions and browser executable selection.
+- Chromium **156.0.8078.4**, Firefox **159.0**, and WebKit **27.2**
+  (Playwright Python **1.65.2**): **18 pages x 3 viewport widths x 3
+  engines** passed the gallery/keyboard/popover matrix (**162 cases**).
+- **18 pages x 4 enlarged-text cases x 3 engines** passed the reflow
+  stress suite (**216 cases**). These resize root text; they are *not*
+  genuine browser UI zoom at 200%/400%.
+- All three engines passed normal/reduced-motion, stagger, scope, native
+  popover and post-animation focus/disabled state tests. The progressive
+  auto-theme/print/layout matrix passed in each engine.
+- Chromium screenshot-based forced-colors link/outline tests passed. This
+  does not replace native OS high-contrast testing.
+- axe-core **4.10.3** WCAG-tagged automated audit on the **18-page** public
+  set returned **0 confirmed violations**, **15 incomplete rule results**,
+  and **378 unadjudicated target elements**: 349 in the existing 16-page
+  gallery, 19 from the symbols showcase and 10 from the motion showcase. Incomplete
+  findings are not passes, and opacity-changing text introductions should
+  not be used for essential explanatory copy; the motion demo now avoids one
+  reproduced transient contrast defect.
+- Automated review found one-shot animations previously retained `clip-path`
+  or `opacity` after completion, which could conceal focus outlines or
+  override disabled styling. Changed those presets to backwards-only fill;
+  a previously failing browser regression now passes on all three engines.
+
+On Ubuntu 26.04, local WebKit startup was initially blocked by missing
+`libevent-2.1-7t64`, `libavif16`, `libyuv0`, `libgav1-2` and
+`libmanette-0.2-0`. The packages were extracted into a temporary user
+folder and a temporary WebKit launcher supplied the library path. No
+system-wide package installation, runtime library, or consumer dependency
+was added. For normal developer setups, install Playwright's browser
+system dependencies in the **test host** before running the matrix.
+The test scripts now accept `PLAYWRIGHT_CHROMIUM_EXECUTABLE`,
+`PLAYWRIGHT_FIREFOX_EXECUTABLE`, and `PLAYWRIGHT_WEBKIT_EXECUTABLE` for
+custom browser paths.
+
+**Open manual gates:** adjudicate the 378 inconclusive contrast targets,
+test actual browser zoom at 200%/400%, verify actual screen-reader and
+native OS high-contrast/reduced-motion behavior, and exercise end-to-end
+keyboard workflows in representative real applications. Do not merge or
+publish a release solely on these automated findings.
+
 ## Post-merge snapshot: `b19c331` (November 14, 2026, Brasília)
 
-This is the latest **executed** audit snapshot, after the merges of
+This is a prior **executed** audit snapshot, after the merges of
 [PR #14](https://github.com/dporkka/syntyr-css/pull/14) and
 [PR #22](https://github.com/dporkka/syntyr-css/pull/22).
 The published alpha.4 CSS remains immutable; alpha.5 is not yet published.
@@ -57,7 +105,7 @@ python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
 
 The earlier pixel-sampling results below were collected against `4a623d0`,
 **not** `b19c331`. They cannot be transferred to the additional 20 findings
-or used to close the current 345 targets. Prioritize gradient/pseudo-element
+or used to close the historical 345 targets. Prioritize gradient/pseudo-element
 cases, the previously narrow 4.65:1 margin, keyboard and contrast states,
 and text-overflow cases in horizontally scrollable tables.
 
@@ -163,7 +211,7 @@ Automated browser evidence covers **126 viewport cases** across Chromium/Firefox
 
 ## Remaining release checklist
 
-- [ ] Measure or adjudicate each of the **345 current** inconclusive text/background cases (the table of 325 above is historical).
+- [ ] Measure or adjudicate each of the **378 PR-branch** inconclusive text/background cases (the table of 325 above is historical).
 - [ ] Test keyboard-only navigation, native dialog/popover focus, table regions, disclosure and form semantics in a representative real app.
 - [ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.
 - [ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.

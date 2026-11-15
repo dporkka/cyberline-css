@@ -13,7 +13,7 @@ reviewed consistently before `1.0.0`. It is not a new compatibility guarantee.
 | `data-syn-theme` and documented `data-syn-*` state hooks | Public prerelease API | Stable names and meanings |
 | `syntyr.semantic.css` and `.syn-semantic` | Opt-in prerelease API | Stable scoped semantics after audit |
 | `syntyr.recipes.css`, `syntyr.geometry.css` | Experimental, opt-in | Evaluate for individual stabilization |
-| `syntyr.effects.css`, `syntyr.utilities.css` | Experimental, opt-in | Evaluate for individual stabilization |
+| `syntyr.effects.css`, `syntyr.utilities.css`, `syntyr.motion.css` | Experimental, opt-in | Evaluate for individual stabilization |
 | `syntyr.css`, `syntyr.all.css` | Public convenience bundles | Maintain documented contents/meaning at v1 |
 | `terminal/palettes.json` | Optional example/palette asset | Separate compatibility decision from CSS |
 | `integrations/`, `examples/`, documentation editor | Non-core adapters/showcases | No automatic CSS-core stability promise |

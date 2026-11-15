@@ -92,6 +92,7 @@ For semantic mode, add `syntyr.semantic.css` **after** core:
 | `dist/syntyr.effects.css` | Optional, static decorative effects |
 | `dist/syntyr.geometry.css` | Optional bevel, notch, bracket, inset and circuit panel frames |
 | `dist/syntyr.symbols.css` | Optional vendor-neutral SVG icons, Unicode symbols and text-art alignment |
+| `dist/syntyr.motion.css` | Optional CSS-native fades, directional entries, reveals and overlay transitions |
 | `dist/syntyr.recipes.css` | Optional SaaS, marketing and browser-terminal layouts |
 | `dist/syntyr.utilities.css` | Optional finite spacing, layout and visually hidden helpers |
 | `dist/syntyr.print.css` | Optional printer-friendly reports and business documents |
@@ -103,9 +104,11 @@ Grid/Studio system-aware `data-syn-theme="auto"` is built into the core styleshe
 no separate automatic-theme file is required. The optional print sheet is
 separate from core and included only in the all-in-one bundle.
 
-Geometry, symbols and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
+Geometry, symbols, motion and utilities are opt-in; neither the core bundle nor ordinary component selectors require them. The symbols module ships no SVG assets, icon fonts, glyph sets or runtime dependencies.
 
-The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
+See the [live motion lab](examples/motion.html). The [motion guide](docs/motion.md) explains optional one-shot animation, loader, stagger and native overlay patterns.
+
+The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css`, `src/semantic.css`, `src/recipes.css`, `src/effects.css`, `src/geometry.css`, `src/symbols.css`, `src/motion.css`, `src/print.css` and `src/utilities.css`. The optional utilities module uses a final dedicated `syn.utilities` cascade layer, and `scripts/build.py` is the single authoritative manifest of CSS distribution filenames. Check the [component and token contract](docs/components.md), [free composition recipes](docs/recipes.md), and [Tailwind/Tailwind Plus study](docs/tailwind-research.md).
 
 ## Modern SaaS, CLI and business websites
 

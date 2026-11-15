@@ -38,7 +38,7 @@ class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_keeps_declared_layers(self):
         css = (ROOT/'dist/syntyr.css').read_bytes()
         self.assertGreater(len(css), 0)
-        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.utilities;', css[:400])
+        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.motion, syn.utilities;', css[:400])
 
     def test_theme_tokens_and_components(self):
         css = (ROOT/'dist/syntyr.css').read_text()

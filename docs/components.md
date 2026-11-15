@@ -43,6 +43,7 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 | Navigation | `.syn-breadcrumbs`, `.syn-pagination`, `.syn-page-link` | native `<nav>`, `<ol>`, links and `aria-current` |
 | Loading | `.syn-skeleton`, `.syn-skeleton--short` | decorative placeholders; announce status separately |
 | Effects (optional) | `.syn-grid-effect`, `.syn-glow`, `.syn-scanlines` | none |
+| Motion (optional) | `data-syn-animate`, `data-syn-from`, `.syn-loader`, `.syn-motion-popover`, `.syn-motion-dialog` | native popover/dialog; see [motion guide](motion.md) |
 
 Use native button `popovertarget="id"` to control a popover and `commandfor="id" command="show-modal"` to open a dialog in supporting browsers. This last native dialog invoker API has newer browser support; provide alternate ways to reach important content where needed. Do not build custom ARIA dialog/tab/combobox patterns unless they are tested and necessary.
 
