@@ -82,6 +82,10 @@
       "description": "Syntyr CSS property (viz.css)."
     },
     {
+      "name": "--syn-collab-avatar",
+      "description": "Syntyr CSS property (collaboration.css)."
+    },
+    {
       "name": "--syn-control-height",
       "description": "Syntyr CSS property (tokens.css)."
     },

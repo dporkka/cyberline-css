@@ -27,6 +27,8 @@ FILES = (
     "docs/agent-integration.md",
     "docs/components.md",
     "docs/recipes.md",
+    "docs/collaboration.md",
+    "examples/collaboration.html",
     "docs/component-recipes.md",
     "examples/saas.html",  # Offline-openable, no external assets or scripts.
     "docs/native-patterns.md",

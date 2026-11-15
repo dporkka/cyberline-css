@@ -15,6 +15,7 @@
     "components/tokens.css",
     "components/typography.css",
     "syntyr.all.css",
+    "syntyr.collaboration.css",
     "syntyr.core.css",
     "syntyr.css",
     "syntyr.effects.css",
@@ -59,6 +60,24 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-agent-run",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-agent-run__steps",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -174,6 +193,33 @@
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-attachment",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-attachment__details",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-attachment__icon",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -459,6 +505,15 @@
       ]
     },
     {
+      "name": "syn-collab-layout",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
       "name": "syn-collection-actions",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -537,6 +592,51 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-composer",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-composer__toolbar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-conversation",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-conversation__header",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-conversation__stream",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -1051,6 +1151,33 @@
       ]
     },
     {
+      "name": "syn-identity",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-identity--agent",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-identity__role",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
       "name": "syn-inline",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css).",
@@ -1153,6 +1280,78 @@
         "syntyr.core.css",
         "syntyr.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-message",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message--continued",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__actions",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__avatar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__body",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__content",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__meta",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
+      "name": "syn-message__subtle",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -1381,6 +1580,15 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.motion.css"
+      ]
+    },
+    {
+      "name": "syn-presence",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -2166,6 +2374,15 @@
       ]
     },
     {
+      "name": "syn-thread-panel",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
+      ]
+    },
+    {
       "name": "syn-timeline",
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css).",
@@ -2729,6 +2946,15 @@
       "stylesheets": [
         "syntyr.all.css",
         "syntyr.viz.css"
+      ]
+    },
+    {
+      "name": "--syn-collab-avatar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS property (collaboration.css).",
+      "stylesheets": [
+        "syntyr.all.css",
+        "syntyr.collaboration.css"
       ]
     },
     {
@@ -3883,6 +4109,31 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "Collaboration and agent operations",
+      "module": "syntyr.collaboration.css",
+      "elements": [
+        "section",
+        "ol",
+        "li",
+        "article",
+        "aside",
+        "form",
+        "time"
+      ],
+      "classes": [
+        "syn-conversation",
+        "syn-message",
+        "syn-identity",
+        "syn-presence",
+        "syn-attachment",
+        "syn-composer",
+        "syn-collab-layout",
+        "syn-thread-panel",
+        "syn-agent-run"
+      ],
+      "notes": "Unreleased optional MIT CSS module. Read-only styling only; the application supplies actual messages, role/status, file access, actions and approvals."
     }
   ]
 }

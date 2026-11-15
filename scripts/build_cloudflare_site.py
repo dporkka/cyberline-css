@@ -234,7 +234,7 @@ PUBLIC_DOCS = (
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
-    "editor-integration.md", "recipes.md", "saas-cli-business.md", "products.html",
+    "editor-integration.md", "recipes.md", "collaboration.md", "saas-cli-business.md", "products.html",
     "site-generator-decision.md", "tailwind-research.md",
     "theme-customization.md", "theme-editor.html", "theme-editor.js", "symbols.md",
     "vertigo-integration.md", "viz.md",
@@ -277,7 +277,7 @@ def source_files() -> dict[str, bytes]:
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",
-        "resources.html", "saas.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
+        "collaboration.html", "resources.html", "saas.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html",
     )

@@ -229,6 +229,31 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "Collaboration and agent operations",
+      "module": "syntyr.collaboration.css",
+      "elements": [
+        "section",
+        "ol",
+        "li",
+        "article",
+        "aside",
+        "form",
+        "time"
+      ],
+      "classes": [
+        "syn-conversation",
+        "syn-message",
+        "syn-identity",
+        "syn-presence",
+        "syn-attachment",
+        "syn-composer",
+        "syn-collab-layout",
+        "syn-thread-panel",
+        "syn-agent-run"
+      ],
+      "notes": "Unreleased optional MIT CSS module. Read-only styling only; the application supplies actual messages, role/status, file access, actions and approvals."
     }
   ]
 }

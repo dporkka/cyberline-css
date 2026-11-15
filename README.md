@@ -47,6 +47,7 @@
 - [Optional five-framework browser benchmark: Syntyr, plain CSS, Pure, Tailwind v4 and UnoCSS](docs/framework-performance.md)
 - [Theme customization, design tokens, and copy-paste recipes](docs/theme-customization.md)
 - [Design research: Linear, Resend, and developer tooling](docs/design-research-linear-resend.md)
+- [Chatudo-inspired collaboration UI: conversations, agent status, artifacts, threads](examples/collaboration.html) and [integration guide](docs/collaboration.md) (optional MIT CSS; unreleased source)
 - [Premium CSS-only compositions](docs/premium-compositions.md) and [Studio/Grid/Noir live gallery](examples/premium-compositions.html): layered surfaces, detail inspector, command presentation, timeline, and showcase
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Interactive component playground — live prerelease preview](https://8cfcb0ce.syntyr-css.pages.dev/docs/playground.html) ([permanent site URL after merge](https://syntyr-css.pages.dev/docs/playground.html); [HTML source](docs/playground.html))

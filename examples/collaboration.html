@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS-only collaboration, messages, attachment previews, and human/AI agent UI across three themes.">
+  <title>SYNTYR — Collaboration compositions</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.collaboration.css">
+  <style>
+    .collab-page { max-inline-size: 78rem; margin-inline: auto; padding: clamp(8px, 4vw, 3rem); overflow-wrap: anywhere; }
+    .collab-theme { padding: clamp(8px, 3vw, 2rem); margin-block: 2rem; background: var(--syn-bg); color: var(--syn-text); border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+    .collab-theme > header { margin-block-end: 1rem; }
+    .collab-theme > header p { color: var(--syn-muted); }
+    .collab-theme h2, .collab-theme h3 { margin-block: 0 .5rem; }
+    .collab-theme a { color: var(--syn-accent); }
+    .collab-preview { max-inline-size: 42rem; }
+    .collab-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .collab-links > a { min-inline-size: 0; overflow-wrap: anywhere; }
+    .collab-page .syn-button { white-space: normal; overflow-wrap: anywhere; text-align: center; }
+    .collab-secondary { color: var(--syn-muted); }
+    .collab-skip { position: absolute; inset-block-start: -9rem; inset-inline-start: 1rem; }
+    .collab-skip:focus-visible { inset-block-start: 1rem; }
+  </style>
+</head>
+<body class="syn-root" data-syn-theme="minimal">
+  <a class="syn-button collab-skip" href="#main">Skip to examples</a>
+  <main id="main" class="collab-page">
+    <header>
+      <p class="syn-eyebrow">SYNTYR / OPTIONAL CSS MODULE</p>
+      <h1>Collaboration, without a framework dependency.</h1>
+      <p>Static, original patterns informed by Chatudo's collaboration workflows. All people, artifacts, and statuses below are fictitious; no messages are sent or agents run.</p>
+      <nav class="collab-links" aria-label="Example themes">
+        <a href="#minimal">Minimal</a><a href="#grid">Grid</a><a href="#noir">Noir</a>
+        <a href="../docs/collaboration.md">Implementation guide</a>
+      </nav>
+    </header>
+
+    <section id="minimal" class="collab-theme" data-syn-theme="minimal" data-syn-density="comfortable" aria-labelledby="minimal-heading">
+      <header>
+        <h2 id="minimal-heading">Minimal — a collaborative workspace</h2>
+        <p>Dense enough for real discussions, spacious enough for readable content.</p>
+      </header>
+      <div class="syn-collab-layout">
+        <section class="syn-conversation" aria-label="Illustrative team conversation">
+          <header class="syn-conversation__header">
+            <div>
+              <h3>Release operations</h3>
+              <span class="syn-presence" data-syn-presence="online">3 members online</span>
+            </div>
+            <span class="collab-secondary">Read-only demo</span>
+          </header>
+          <ol class="syn-conversation__stream" role="list" aria-label="Conversation history">
+            <li class="syn-message">
+              <span class="syn-message__avatar" aria-hidden="true">MC</span>
+              <div class="syn-message__content">
+                <div class="syn-message__meta"><strong class="syn-identity">Maya Chen</strong><time datetime="2026-11-15T11:05:00">11:05</time></div>
+                <div class="syn-message__body"><p>I've uploaded the launch checklist. Could someone review the deployment evidence?</p></div>
+                <div class="syn-attachment">
+                  <span class="syn-attachment__icon" aria-hidden="true">PDF</span>
+                  <div class="syn-attachment__details">
+                    <strong>Launch checklist.pdf</strong>
+                    <small>Illustrative attachment · 248 KB · no file download</small>
+                  </div>
+                </div>
+                <nav class="syn-message__actions" aria-label="Message context">
+                  <a href="#thread-example">View thread</a>
+                </nav>
+              </div>
+            </li>
+            <li class="syn-message syn-message--continued">
+              <span class="syn-message__avatar" aria-hidden="true">MC</span>
+              <div class="syn-message__content">
+                <div class="syn-message__meta"><span class="syn-message__subtle">Maya Chen · follow-up</span><time datetime="2026-11-15T11:06:00">11:06</time></div>
+                <div class="syn-message__body"><p>The checklist also includes a rollback plan.</p></div>
+              </div>
+            </li>
+            <li class="syn-message">
+              <span class="syn-message__avatar" aria-hidden="true">QA</span>
+              <div class="syn-message__content">
+                <div class="syn-message__meta">
+                  <span class="syn-identity syn-identity--agent">Quality Agent <span class="syn-identity__role">AI agent</span></span>
+                  <time datetime="2026-11-15T11:07:00">11:07</time>
+                  <span class="syn-presence" data-syn-presence="busy">Review in progress</span>
+                </div>
+                <div class="syn-message__body"><p>Static example: verifying test evidence before recommending a release decision.</p></div>
+                <div class="syn-agent-run" role="group" aria-label="Illustrative agent execution">
+                  <strong>Review checklist</strong>
+                  <ol class="syn-agent-run__steps">
+                    <li><strong>Passed:</strong> CI checks reviewed</li>
+                    <li><strong>In progress:</strong> Browser compatibility review</li>
+                    <li>Pending: human approval</li>
+                  </ol>
+                  <span class="syn-presence" data-syn-presence="busy" role="status">Illustrative run · awaiting verification</span>
+                </div>
+                <nav class="syn-message__actions" aria-label="Agent message context">
+                  <a href="#thread-example">Review details</a>
+                </nav>
+              </div>
+            </li>
+          </ol>
+          <form class="syn-composer" aria-label="Read-only message composer">
+            <label for="collab-message">Reply to Release operations</label>
+            <textarea id="collab-message" placeholder="Messaging requires an application backend…" disabled></textarea>
+            <div class="syn-composer__toolbar">
+              <small class="collab-secondary">Preview only · no chat backend</small>
+              <button class="syn-button syn-button--primary" type="button" disabled>Send</button>
+            </div>
+          </form>
+        </section>
+        <aside id="thread-example" class="syn-thread-panel" aria-labelledby="thread-heading">
+          <h3 id="thread-heading">Thread and review context</h3>
+          <p>Conversation context, evidence, and decisions remain visible next to the discussion on large screens and stack on narrow screens.</p>
+          <dl>
+            <dt>Owner</dt><dd>Maya Chen</dd>
+            <dt>Artifact</dt><dd>Launch checklist</dd>
+            <dt>Review</dt><dd><span class="syn-presence" data-syn-presence="busy">Pending human decision</span></dd>
+          </dl>
+          <p class="collab-secondary">No approval, file viewing, or mutation is implemented.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="grid" class="collab-theme" data-syn-theme="grid" data-syn-intensity="quiet" aria-labelledby="grid-heading">
+      <header><h2 id="grid-heading">Grid — agent control room</h2><p>High-contrast technical presentation using the same collaboration classes.</p></header>
+      <section class="syn-conversation collab-preview" aria-label="Illustrative system conversation">
+        <header class="syn-conversation__header"><h3>Runtime activity</h3><span class="syn-presence" data-syn-presence="online">Available</span></header>
+        <div class="syn-conversation__stream">
+          <article class="syn-message">
+            <span class="syn-message__avatar" aria-hidden="true">SYS</span>
+            <div class="syn-message__content">
+              <div class="syn-message__meta"><span class="syn-identity syn-identity--agent">Build Agent <span class="syn-identity__role">AI agent</span></span><time datetime="2026-11-15T12:00:00">12:00</time></div>
+              <div class="syn-message__body"><p>Example execution report generated from fictional data.</p></div>
+              <span class="syn-presence" data-syn-presence="online">Completed</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+
+    <section id="noir" class="collab-theme" data-syn-theme="noir" data-syn-intensity="quiet" aria-labelledby="noir-heading">
+      <header><h2 id="noir-heading">Noir — editorial collaboration</h2><p>Warm dark surfaces without a special-purpose messaging theme.</p></header>
+      <section class="syn-conversation collab-preview" aria-label="Illustrative client discussion">
+        <header class="syn-conversation__header"><h3>Creative review</h3><span class="syn-presence" data-syn-presence="online">2 collaborators</span></header>
+        <div class="syn-conversation__stream">
+          <article class="syn-message">
+            <span class="syn-message__avatar" aria-hidden="true">AR</span>
+            <div class="syn-message__content">
+              <div class="syn-message__meta"><strong class="syn-identity">Alex Rivera</strong><time datetime="2026-11-15T12:10:00">12:10</time></div>
+              <div class="syn-message__body"><p>The proposed creative direction is ready for the next review.</p></div>
+              <span class="syn-presence" data-syn-presence="online">Ready for review</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </section>
+    <footer><p>MIT original Syntyr CSS styles. Real products must implement authentication, authorization, live statuses, message ordering, uploads, and announcements.</p></footer>
+  </main>
+</body>
+</html>

@@ -26,7 +26,7 @@ else:
 SITE = "https://syntyr-css.pages.dev"
 GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
-    ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico", "adoption-starters", "components", "recipes", "native-patterns", "component-recipes")),
+    ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico", "adoption-starters", "components", "recipes", "collaboration", "native-patterns", "component-recipes")),
     ("Design system", ("theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
     ("Integrations", ("framework-integrations", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),
@@ -60,6 +60,7 @@ DESCRIPTION_OVERRIDES = {
     "theme-customization.md": "Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.",
     "component-authoring.md": "Define semantic HTML, styling namespaces, theme scopes, and accessibility contracts for Syntyr-compatible application and Web Components.",
     "design-research-linear-resend.md": "Explore the design principles Syntyr adapts from Linear, Resend, and other developer tools without copying proprietary interfaces or assets.",
+    "collaboration.md": "Create accessible, CSS-only collaboration interfaces for humans and AI agents, including messages, attachments, status, and responsive threads.",
     "recipes.md": "Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.",
     "saas-cli-business.md": "Style SaaS dashboards, business websites, and CLI-inspired interfaces with Syntyr's framework-neutral Grid, Noir, and Studio themes.",
     "tailwind-research.md": "Compare Syntyr CSS with Tailwind CSS and Tailwind Plus: tokens, cascade layers, responsive components, build tooling, and licensing tradeoffs.",

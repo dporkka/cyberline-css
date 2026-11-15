@@ -21,7 +21,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html", "examples/collaboration.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -54,6 +54,37 @@ def assert_page(browser, name: str, viewport: int) -> None:
     overflow = page.evaluate("() => document.documentElement.scrollWidth - document.documentElement.clientWidth")
     assert overflow <= 1, (name, viewport, overflow)
     assert not errors, (name, errors)
+    if name == "examples/collaboration.html":
+        stream = page.locator("#minimal .syn-conversation__stream")
+        assert stream.get_attribute("role") == "list"
+        assert stream.evaluate("e => getComputedStyle(e).listStyleType") == "none"
+        message = page.locator("#minimal .syn-message").first
+        assert message.evaluate("e => getComputedStyle(e).display") == "grid"
+        layout = page.locator("#minimal .syn-collab-layout")
+        cols = len(layout.evaluate("e => getComputedStyle(e).gridTemplateColumns.split(' ')"))
+        assert cols == (1 if viewport <= 768 else 2), (viewport, cols)
+        themes = [
+            page.locator("#" + theme).evaluate(
+                "e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"
+            )
+            for theme in ("minimal", "grid", "noir")
+        ]
+        assert len(set(themes)) == 3, themes
+        assert page.get_by_role("button", name="Send").is_disabled()
+        assert page.get_by_role("textbox", name="Reply to Release operations").count() == 1
+        if viewport == 320:
+            identity = page.locator("#minimal .syn-identity").first
+            measure = identity.evaluate("""e => {
+              e.textContent = 'LongNameWithoutSpaces'.repeat(25);
+              const r = e.getBoundingClientRect();
+              const parent = e.parentElement.getBoundingClientRect();
+              return {height: r.height, lineHeight: parseFloat(getComputedStyle(e).lineHeight),
+                      right: r.right, parentRight: parent.right,
+                      pageOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth};
+            }""")
+            assert measure["height"] > measure["lineHeight"] * 2, measure
+            assert measure["right"] <= measure["parentRight"] + 1, measure
+            assert measure["pageOverflow"] <= 1, measure
     if name == "examples/crm.html":
         board = page.locator(".syn-pipeline")
         assert board.get_attribute("tabindex") == "0"

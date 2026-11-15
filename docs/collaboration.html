@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Create accessible, CSS-only collaboration interfaces for humans and AI agents, including messages, attachments, status, and responsive threads.">
+  <meta name="syntyr-source-sha256" content="2c8ee85e2c13137298bff1f9ee76ad9f728d5613b920cde45d36381b86b7b7ef">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Collaboration and human/AI agent UI — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/collaboration">
+  <link rel="alternate" type="text/markdown" href="collaboration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Collaboration and human/AI agent UI</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="collaboration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Collaboration and human/AI agent UI">
+<h1 id="collaboration-and-humanai-agent-ui">Collaboration and human/AI agent UI</h1>
+<p>Syntyr's optional, <strong>MIT-licensed</strong> collaboration module offers original CSS-only layouts for threaded discussions, agent activity, attached artifacts, and contextual review. The information hierarchy is informed by <a href="https://github.com/dporkka/chatudo">Chatudo (CircleChat)</a>, but this module does not copy Chatudo's React application, Tailwind rules, runtime, icons, or branding.</p>
+<p><a href="../examples/collaboration.html">View the static three-theme collaboration example</a>. It demonstrates <strong>Minimal</strong>, <strong>Grid</strong>, and <strong>Noir</strong> with the same selectors and synthetic data. No network connection, web font, JavaScript, authentication, message delivery, or persistent state is provided.</p>
+<h2 id="installation">Installation</h2>
+<p>Load the existing core stylesheet and the separate optional collaboration module:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.collaboration.css&quot;&gt;
+</code></pre>
+<p>Or load the full, larger <code>syntyr.all.css</code> distribution (do not load the collaboration file twice). <code>syntyr.core.css</code> remains unchanged. The new module is alpha-candidate source until included in an actual tagged release; do not claim it is available in older published archives.</p>
+<h2 id="css-api">CSS API</h2>
+<table>
+<thead>
+<tr>
+<th>Selector</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-conversation</code>, <code>.syn-conversation__header</code>, <code>.syn-conversation__stream</code></td>
+<td>Surface, heading, scrollable stream</td>
+</tr>
+<tr>
+<td><code>.syn-message</code>, <code>.syn-message--continued</code>, <code>.syn-message__avatar</code>, <code>.syn-message__content</code>, <code>.syn-message__meta</code>, <code>.syn-message__body</code>, <code>.syn-message__actions</code></td>
+<td>Readable message groups and accessible action presentation</td>
+</tr>
+<tr>
+<td><code>.syn-identity</code>, <code>.syn-identity--agent</code>, <code>.syn-identity__role</code></td>
+<td>Name and explicit AI/human role metadata</td>
+</tr>
+<tr>
+<td><code>.syn-presence[data-syn-presence]</code></td>
+<td>Online, busy, error or neutral statuses; caller supplies visible status text</td>
+</tr>
+<tr>
+<td><code>.syn-attachment</code>, <code>.syn-attachment__icon</code>, <code>.syn-attachment__details</code></td>
+<td>Attachment / artifact cards; no file handler</td>
+</tr>
+<tr>
+<td><code>.syn-composer</code>, <code>.syn-composer__toolbar</code></td>
+<td>Bordered textarea and action layout; no rich-text engine</td>
+</tr>
+<tr>
+<td><code>.syn-collab-layout</code>, <code>.syn-thread-panel</code></td>
+<td>Responsive main stream and adjacent thread/details area</td>
+</tr>
+<tr>
+<td><code>.syn-agent-run</code>, <code>.syn-agent-run__steps</code></td>
+<td>Read-only step/result presentation</td>
+</tr>
+</tbody>
+</table>
+<p>The opt-in <code>--syn-collab-avatar</code> and <code>--syn-collab-thread-width</code> custom properties control avatar size and thread width. All colors, borders, shadows, and typography read existing <code>--syn-*</code> tokens; nested themes, density, and visual intensity remain orthogonal.</p>
+<h2 id="server-rendered-pattern">Server-rendered pattern</h2>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;minimal&quot;&gt;
+  &lt;div class=&quot;syn-collab-layout&quot;&gt;
+    &lt;section class=&quot;syn-conversation&quot; aria-label=&quot;Project updates&quot;&gt;
+      &lt;header class=&quot;syn-conversation__header&quot;&gt;&lt;h2&gt;Project updates&lt;/h2&gt;&lt;/header&gt;
+      &lt;ol class=&quot;syn-conversation__stream&quot; role=&quot;list&quot; aria-label=&quot;Message history&quot;&gt;
+        &lt;li class=&quot;syn-message&quot;&gt;
+          &lt;span class=&quot;syn-message__avatar&quot; aria-hidden=&quot;true&quot;&gt;QA&lt;/span&gt;
+          &lt;div class=&quot;syn-message__content&quot;&gt;
+            &lt;div class=&quot;syn-message__meta&quot;&gt;
+              &lt;span class=&quot;syn-identity syn-identity--agent&quot;&gt;
+                QA Agent &lt;span class=&quot;syn-identity__role&quot;&gt;AI agent&lt;/span&gt;
+              &lt;/span&gt;
+              &lt;time datetime=&quot;2026-11-15T11:07:00&quot;&gt;11:07&lt;/time&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;syn-message__body&quot;&gt;&lt;p&gt;Review finished.&lt;/p&gt;&lt;/div&gt;
+            &lt;span class=&quot;syn-presence&quot; data-syn-presence=&quot;online&quot;&gt;Completed&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+    &lt;aside class=&quot;syn-thread-panel&quot; aria-label=&quot;Related evidence&quot;&gt;
+      &lt;h2&gt;Evidence&lt;/h2&gt;
+      &lt;p&gt;Link to application-owned review details here.&lt;/p&gt;
+    &lt;/aside&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>A native <code>&lt;form&gt;</code> may wrap <code>.syn-composer</code>, and a labeled <code>&lt;textarea&gt;</code> is recommended. The example intentionally disables its send control because no backend exists. Never make a decorative &quot;Send&quot; button appear operational.</p>
+<h2 id="responsibilities-and-accessibility">Responsibilities and accessibility</h2>
+<p>The <strong>application</strong> provides authentic messages, timestamps, access controls, file links and sanitization, real-time presence, delivery, optimistic state, pagination, keyboard behavior, and any threaded discussion. CSS does not execute actions, infer member roles, or validate permissions.</p>
+<ul>
+<li>Use a real list for message history and distinguish each author in text. For continued messages, keep an author identifier in the DOM; the avatar is decorative and can be hidden visually.</li>
+<li>Do not rely on color or a dot for agent state: pair every status indicator with visible wording. Do not use <code>role=&quot;status&quot;</code> or <code>aria-live</code> indiscriminately on each message in a busy stream. Announce only meaningful new events using the application's live-region strategy.</li>
+<li>Action links/buttons stay visible on hover, keyboard and touch; never require pointer hover for access. Nonfunctional or dangerous actions must be disabled, not simulated.</li>
+<li>Use real anchors for downloadable artifacts; apply application-specific URL validation, content security, upload scanning and permission checks.</li>
+<li>At narrow widths the side rail stacks under the thread. For drawer-like mobile threads, implement correct focus handling and dismissal in the application rather than hiding content with CSS.</li>
+<li>Validate at 320px, 200%/400% zoom, keyboard-only input, forced-colors, reduced motion and actual screen readers. No animation is required for online/working indicators.</li>
+</ul>
+<h2 id="scope-and-commercial-separation">Scope and commercial separation</h2>
+<p>These <em>primitives</em> remain free under MIT. Complete premium conversation, human-review inbox, or agent-operations screen templates may be distributed separately as original, source-editable Pro layouts, but the paid kit must not relicense the MIT CSS. Existing Syntyr approval, timeline, inspector, pipeline and activity components should be reused rather than duplicated.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#installation">Installation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#css-api">CSS API</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-pattern">Server-rendered pattern</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#responsibilities-and-accessibility">Responsibilities and accessibility</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#scope-and-commercial-separation">Scope and commercial separation</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="collaboration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

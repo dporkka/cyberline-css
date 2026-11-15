@@ -18,6 +18,14 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-agent-run",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-agent-run__steps",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
           "name": "syn-alert",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -64,6 +72,18 @@
         {
           "name": "syn-atmosphere",
           "description": "Syntyr CSS class (effects.css)."
+        },
+        {
+          "name": "syn-attachment",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-attachment__details",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-attachment__icon",
+          "description": "Syntyr CSS class (collaboration.css)."
         },
         {
           "name": "syn-badge",
@@ -170,6 +190,10 @@
           "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
+          "name": "syn-collab-layout",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
           "name": "syn-collection-actions",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -204,6 +228,26 @@
         {
           "name": "syn-command-search",
           "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-composer",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-composer__toolbar",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-conversation",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-conversation__header",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-conversation__stream",
+          "description": "Syntyr CSS class (collaboration.css)."
         },
         {
           "name": "syn-cta-band",
@@ -410,6 +454,18 @@
           "description": "Syntyr CSS class (symbols.css)."
         },
         {
+          "name": "syn-identity",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-identity--agent",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-identity__role",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
           "name": "syn-inline",
           "description": "Syntyr CSS class (components/layout.css)."
         },
@@ -444,6 +500,38 @@
         {
           "name": "syn-logo",
           "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
+          "name": "syn-message",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message--continued",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__actions",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__avatar",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__body",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__content",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__meta",
+          "description": "Syntyr CSS class (collaboration.css)."
+        },
+        {
+          "name": "syn-message__subtle",
+          "description": "Syntyr CSS class (collaboration.css)."
         },
         {
           "name": "syn-meter",
@@ -528,6 +616,10 @@
         {
           "name": "syn-popover--transition",
           "description": "Syntyr CSS class (motion.css)."
+        },
+        {
+          "name": "syn-presence",
+          "description": "Syntyr CSS class (collaboration.css)."
         },
         {
           "name": "syn-price-card",
@@ -828,6 +920,10 @@
         {
           "name": "syn-textarea--autosize",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-thread-panel",
+          "description": "Syntyr CSS class (collaboration.css)."
         },
         {
           "name": "syn-timeline",

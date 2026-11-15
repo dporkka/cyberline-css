@@ -17,6 +17,16 @@
       "description": "Syntyr CSS class (recipes.css)."
     },
     {
+      "name": "syn-agent-run",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-agent-run__steps",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
       "name": "syn-alert",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
@@ -75,6 +85,21 @@
       "name": "syn-atmosphere",
       "module": "effects.css",
       "description": "Syntyr CSS class (effects.css)."
+    },
+    {
+      "name": "syn-attachment",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-attachment__details",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-attachment__icon",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
     },
     {
       "name": "syn-badge",
@@ -207,6 +232,11 @@
       "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
+      "name": "syn-collab-layout",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
       "name": "syn-collection-actions",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -250,6 +280,31 @@
       "name": "syn-command-search",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
+    },
+    {
+      "name": "syn-composer",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-composer__toolbar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-conversation",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-conversation__header",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-conversation__stream",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
     },
     {
       "name": "syn-cta-band",
@@ -507,6 +562,21 @@
       "description": "Syntyr CSS class (symbols.css)."
     },
     {
+      "name": "syn-identity",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-identity--agent",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-identity__role",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
       "name": "syn-inline",
       "module": "components/layout.css",
       "description": "Syntyr CSS class (components/layout.css)."
@@ -550,6 +620,46 @@
       "name": "syn-logo",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-message",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message--continued",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__actions",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__avatar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__body",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__content",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__meta",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
+      "name": "syn-message__subtle",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
     },
     {
       "name": "syn-meter",
@@ -655,6 +765,11 @@
       "name": "syn-popover--transition",
       "module": "motion.css",
       "description": "Syntyr CSS class (motion.css)."
+    },
+    {
+      "name": "syn-presence",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
     },
     {
       "name": "syn-price-card",
@@ -1032,6 +1147,11 @@
       "description": "Syntyr CSS class (components/forms.css)."
     },
     {
+      "name": "syn-thread-panel",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS class (collaboration.css)."
+    },
+    {
       "name": "syn-timeline",
       "module": "native-recipes.css",
       "description": "Syntyr CSS class (native-recipes.css)."
@@ -1322,6 +1442,11 @@
       "name": "--syn-chart-tooltip-bg",
       "module": "viz.css",
       "description": "Syntyr CSS property (viz.css)."
+    },
+    {
+      "name": "--syn-collab-avatar",
+      "module": "collaboration.css",
+      "description": "Syntyr CSS property (collaboration.css)."
     },
     {
       "name": "--syn-control-height",
