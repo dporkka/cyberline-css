@@ -27,9 +27,14 @@
     --syn-line: 1.55;
     --syn-control-height: 2.75rem;
     --syn-control-padding-block: .7rem;
+    --syn-control-padding-inline: 1rem;
     --syn-row-padding-block: .7rem;
+    --syn-table-padding-inline: .65rem;
     --syn-card-padding: var(--syn-space-3);
+    --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
+    --syn-price-padding: var(--syn-space-4);
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
+    --syn-shadow-md: 0 .625rem 1.875rem rgb(0 0 0 / 14%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
     --syn-duration-fast: 150ms;
   }
@@ -50,12 +55,37 @@
     --syn-font-ui: var(--syn-font);
     --syn-font-display: var(--syn-font);
   }
-  /* Compact presentation is an opt-in layout control, never a font-size override. */
+  /* Density is independent of palette and type scale. Nested regions can reset
+     to comfortable without requiring application-specific token overrides. */
   :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
     --syn-control-height: 2.25rem;
     --syn-control-padding-block: .3rem;
+    --syn-control-padding-inline: .7rem;
     --syn-row-padding-block: .4rem;
+    --syn-table-padding-inline: .5rem;
     --syn-card-padding: var(--syn-space-2);
+    --syn-panel-padding: var(--syn-space-2);
+    --syn-price-padding: var(--syn-space-3);
+  }
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-control-padding-inline: 1rem;
+    --syn-row-padding-block: .7rem;
+    --syn-table-padding-inline: .65rem;
+    --syn-card-padding: var(--syn-space-3);
+    --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
+    --syn-price-padding: var(--syn-space-4);
+  }
+  :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
+    --syn-control-height: 3rem;
+    --syn-control-padding-block: .85rem;
+    --syn-control-padding-inline: 1.15rem;
+    --syn-row-padding-block: 1rem;
+    --syn-table-padding-inline: .85rem;
+    --syn-card-padding: var(--syn-space-4);
+    --syn-panel-padding: clamp(1.5rem, 3vw, 2.25rem);
+    --syn-price-padding: var(--syn-space-5);
   }
   /* Neutral default; named palettes override it independently. */
   :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {

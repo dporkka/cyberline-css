@@ -34,8 +34,8 @@ For optional effects, load `syntyr.effects.css`. `syntyr.css` is the convenient 
 
 | Area | CSS API | Semantic alternative |
 | --- | --- | --- |
-| Buttons | `.syn-button`, `.syn-button--primary`, `.syn-button--outline`, `.syn-button--danger`, `.syn-button--small`, `.syn-button--ghost` | unclassed `button` |
-| Panels | `.syn-panel`, `.syn-panel--cut` | unclassed `article` |
+| Buttons | `.syn-button`, `.syn-button--primary`, `.syn-button--outline`, `.syn-button--danger`, `.syn-button--small`, `.syn-button--ghost`, `.syn-button--soft` | unclassed `button` |
+| Panels | `.syn-panel`, `.syn-panel--cut`, `.syn-panel--raised`, `.syn-panel--recessed` | unclassed `article` |
 | Layout | `.syn-page` (viewport-height opt-in), `.syn-shell`, `.syn-header`, `.syn-grid`, `.syn-layout`, `.syn-inline`, `.syn-stack` | normal CSS layout |
 | Typography | `.syn-logo`, `.syn-eyebrow`, `.syn-title`, `.syn-section-heading`, `.syn-heading`, `.syn-lede`, `.syn-mono`, `.syn-caption`, `.syn-muted` | native heading/text |
 | Status | `.syn-badge`, `.syn-badge--accent`, `.syn-status` and semantic variants, `.syn-alert`, `.syn-alert--danger`, `.syn-meter` on `progress` | native `progress` |
@@ -53,6 +53,16 @@ Use native button `popovertarget="id"` to control a popover and `commandfor="id"
 The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `data-syn-theme="grid"` and `data-syn-theme="terminal"` retain technical monospace presentation; other themes remain opt-in. `.syn-panel` and `.syn-stage` are flat by default; add `syn-surface--accent` from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. `.syn-badge` is a neutral label; use `.syn-status` with readable status text for meaningful state, or `.syn-badge--accent` to emphasize a badge.
 
 Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Tables retain compact no-wrap defaults for identifiers and numeric values; add `.syn-cell--wrap` to descriptive cells. Selected rows have a logical inline-start accent border in addition to their fill. Keep wide tables in `.syn-table-wrap` and provide an accessible caption.
+
+## Density and appearance controls
+
+Set `data-syn-density="compact|comfortable|spacious"` on the root or a
+nested region. The default is comfortable. The modes adjust real component
+spacing without altering the font scale. Explicit `comfortable` resets
+a compact or spacious parent region. `.syn-panel--raised`,
+`.syn-panel--recessed`, and `.syn-button--soft` compose with all themes.
+
+[Compare density and surface variants in the live CSS-only gallery](../examples/design-system.html).
 
 ## Theme tokens
 

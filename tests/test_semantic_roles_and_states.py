@@ -45,7 +45,10 @@ class SemanticRolesAndStates(unittest.TestCase):
 
     def test_button_density_uses_shared_control_padding_token(self):
         buttons = source("src/components/buttons.css")
-        self.assertIn("padding: var(--syn-control-padding-block) 1rem;", buttons)
+        self.assertIn(
+            "padding: var(--syn-control-padding-block) var(--syn-control-padding-inline);",
+            buttons,
+        )
 
     def test_classless_semantic_mode_shares_interactive_roles_and_disabled_rules(self):
         semantic = source("src/semantic.css")

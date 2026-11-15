@@ -167,8 +167,52 @@ To opt into compact operational layouts:
 </section>
 ```
 
-Compact density reduces padding and control heights, **not font sizes**.
-Use the default density for content-heavy business pages or touch-first forms.
+Density controls spacing independently of the active color palette and never shrink font sizes.
+Omitting `data-syn-density` uses **comfortable** spacing, suitable for everyday forms
+and business pages. Choose `compact` for dense operational tables and
+`spacious` for touch-friendly, onboarding, and editorial screens. Nested
+regions can restore the default explicitly:
+
+```html
+<section class="syn-root" data-syn-theme="studio" data-syn-density="compact">
+  <div data-syn-density="comfortable" class="syn-panel">Readable details</div>
+  <div data-syn-theme="noir" data-syn-density="spacious" class="syn-panel">
+    More breathing room without changing type size
+  </div>
+</section>
+```
+
+Density-aware role tokens include `--syn-control-height`,
+`--syn-control-padding-block`, `--syn-control-padding-inline`,
+`--syn-row-padding-block`, `--syn-table-padding-inline`,
+`--syn-card-padding`, `--syn-panel-padding`, and `--syn-price-padding`.
+They affect actual buttons, inputs, tables, statistics, panels, and pricing cards,
+not just sample UI. Compact mode is intended for pointer/keyboard-dense screens;
+verify interactive target sizes for touch devices.
+
+## Surface and action variants
+
+Keep appearance separate from palette and density. Standard `.syn-panel`
+remains flat, while `.syn-panel--raised` uses a subtle shadow and the
+derived raised surface. `.syn-panel--recessed` uses the derived recessed
+surface without a shadow. Both work with any theme. Use
+`.syn-button--soft` for low-emphasis actions, alongside existing primary,
+outline, ghost, and danger variants.
+
+```html
+<section class="syn-root" data-syn-theme="grid" data-syn-density="spacious">
+  <article class="syn-panel syn-panel--raised">
+    <h2>Account summary</h2>
+    <a href="/accounts" class="syn-button syn-button--soft">View accounts</a>
+  </article>
+  <aside class="syn-panel syn-panel--recessed">Supporting details</aside>
+</section>
+```
+
+`--syn-shadow-md` controls raised elevation. Derived surfaces adapt to
+nested themes; forced-colors mode removes elevation and retains a visible
+border. See the [static presentation gallery](../examples/design-system.html)
+for Studio, Grid and Noir examples.
 For an optional editorial hero, combine `syn-site-heading--editorial` from
 `syntyr.recipes.css` with `syn-gradient-wash` from `syntyr.effects.css`.
 Both use local fonts and static CSS without runtime dependencies.

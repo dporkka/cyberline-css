@@ -117,7 +117,7 @@ The source is split into `src/components/*.css`, `src/tokens.css`, `src/base.css
 
 ## Modern SaaS, CLI and business websites
 
-Use `data-syn-theme="studio"` for a neutral, professional light theme. Grid and Noir remain available. Themes control color and typography roles; optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently. Add `data-syn-density="compact"` to `.syn-root` or a nested region to tighten control heights, rows, and card padding without shrinking type.
+Use `data-syn-theme="studio"` for a neutral, professional light theme. Grid and Noir remain available. Themes control color and typography roles; optional `syn-frame--precision`, `syn-frame--industrial` and `syn-frame--soft` classes control visual geometry independently. Choose `data-syn-density="compact"`, `"comfortable"` (the default), or `"spacious"` on `.syn-root` or a nested region; spacing changes without shrinking type. Use `.syn-panel--raised`, `.syn-panel--recessed`, and `.syn-button--soft` for theme-aware presentation variants. [See the CSS-only presentation gallery](examples/design-system.html).
 
 For production-oriented examples, load `syntyr.core.css` **then** `syntyr.recipes.css` for responsive application shells (`syn-app-shell`), business landing layouts (`syn-site-hero`) and browser terminal panels (`syn-terminal`). Continue to use real headings, tables, labels, links and forms. The recipes provide layout and presentation, not authentication, data fetching, filtering or backend actions.
 

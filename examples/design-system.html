@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare three Syntyr interface densities, layered surfaces, and accessible component variants across modern and futuristic themes.">
+  <title>SYNTYR — Presentation System</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <style>
+    .presentation-lab { padding-block: clamp(1.25rem, 4vw, 3.5rem); }
+    .presentation-intro { max-width: 65ch; }
+    .presentation-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: var(--syn-space-3); margin-block: var(--syn-space-4); align-items: start; }
+    .presentation-demo { display: grid; align-content: start; gap: var(--syn-space-3); min-width: 0; }
+    .presentation-demo h2 { margin-block: 0; }
+    .presentation-demo .syn-panel { display: grid; gap: var(--syn-space-2); }
+    .presentation-meta { font: 600 var(--syn-type-xs)/1.5 var(--syn-mono); color: var(--syn-muted); }
+    .presentation-demo .syn-stack { gap: var(--syn-space-2); }
+    .presentation-demo .syn-inline { gap: var(--syn-space-1); }
+    .presentation-demo .syn-table { font-size: var(--syn-type-xs); }
+    .presentation-demo .syn-table th, .presentation-demo .syn-table td { white-space: normal; }
+    .presentation-demo .syn-table-wrap { min-width: 0; }
+    .presentation-demo .syn-panel p { margin-block: 0; }
+    .presentation-note { max-width: 72ch; }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <main class="syn-shell presentation-lab">
+    <nav aria-label="Documentation">
+      <a class="syn-button syn-button--outline" href="../docs/">Back to documentation</a>
+      <a class="syn-button syn-button--ghost" href="themes.html">All seven themes</a>
+    </nav>
+    <header class="presentation-intro syn-stack">
+      <span class="syn-eyebrow">SYNTYR / CSS-FIRST PRESENTATION SYSTEM</span>
+      <h1 class="syn-display">One component language, multiple visual rhythms.</h1>
+      <p class="syn-lede">Studio, Grid and Noir share the same CSS component API. Opt into compact, comfortable or spacious spacing independently of the color theme. Everything below uses local CSS and native HTML; the metrics are illustrative.</p>
+    </header>
+
+    <div class="presentation-grid">
+      <section class="presentation-demo" data-syn-theme="grid" data-syn-density="compact" aria-labelledby="compact-heading">
+        <div class="syn-panel syn-panel--raised">
+          <span class="presentation-meta">GRID / COMPACT / RAISED</span>
+          <h2 id="compact-heading">Operations desk</h2>
+          <p class="syn-muted">For dense tables and high-frequency workflows.</p>
+          <div class="syn-table-wrap">
+            <table class="syn-table">
+              <caption class="syn-muted">Illustrative service states</caption>
+              <thead><tr><th scope="col">Service</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Gateway</th><td><span class="syn-status syn-status--success">Healthy</span></td></tr>
+                <tr><th scope="row">Jobs</th><td><span class="syn-status syn-status--warning">Review</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="syn-inline">
+            <a href="../docs/components.md" class="syn-button syn-button--primary">Components</a>
+            <a href="../docs/theme-customization.md" class="syn-button syn-button--soft">Customize</a>
+          </div>
+        </div>
+        <div data-syn-density="comfortable" class="syn-panel syn-panel--recessed">
+          <span class="presentation-meta">NESTED COMFORTABLE RESET</span>
+          <p>Even within compact layouts, a subregion can restore comfortable spacing.</p>
+        </div>
+      </section>
+
+      <section class="presentation-demo" data-syn-theme="studio" data-syn-density="comfortable" aria-labelledby="comfortable-heading">
+        <div class="syn-panel syn-panel--raised">
+          <span class="presentation-meta">STUDIO / COMFORTABLE / RAISED</span>
+          <h2 id="comfortable-heading">Account settings</h2>
+          <p class="syn-muted">Balanced spacing for everyday business software.</p>
+          <div class="syn-stack">
+            <label class="syn-label" for="example-email">Notification email</label>
+            <input class="syn-input" id="example-email" type="email" value="team@example.com" autocomplete="off">
+            <span class="syn-help">This sample field does not submit or save data.</span>
+          </div>
+          <div class="syn-inline">
+            <a class="syn-button syn-button--primary" href="../docs/theme-customization.md">Theme tokens</a>
+            <a class="syn-button syn-button--soft" href="../docs/components.md">API reference</a>
+          </div>
+        </div>
+        <div class="syn-panel syn-panel--recessed">
+          <span class="presentation-meta">RECESSED / NO SHADOW</span>
+          <p>Quiet information remains visually distinct without glowing or animated effects.</p>
+        </div>
+      </section>
+
+      <section class="presentation-demo" data-syn-theme="noir" data-syn-density="spacious" aria-labelledby="spacious-heading">
+        <div class="syn-panel syn-panel--raised">
+          <span class="presentation-meta">NOIR / SPACIOUS / RAISED</span>
+          <h2 id="spacious-heading">Editorial workspace</h2>
+          <p class="syn-muted">More room for onboarding, reading and touch-first interfaces.</p>
+          <div class="syn-stack">
+            <span class="syn-badge syn-badge--accent">PREVIEW</span>
+            <p>Accent, surface, typography and density stay independently configurable.</p>
+          </div>
+          <div class="syn-inline">
+            <a class="syn-button syn-button--primary" href="themes.html">Browse themes</a>
+            <a class="syn-button syn-button--soft" href="../docs/theme-customization.md">Read guide</a>
+          </div>
+        </div>
+        <div class="syn-panel syn-panel--recessed">
+          <span class="presentation-meta">SPACIOUS / RECESSED</span>
+          <p>All presentation effects use CSS custom properties and semantic HTML.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="syn-panel presentation-note" aria-labelledby="integration-title">
+      <h2 id="integration-title">Works without JavaScript or a component framework</h2>
+      <p>Load <code>syntyr.core.css</code>, apply <code>data-syn-theme</code> and <code>data-syn-density</code>, then compose standard semantic HTML. For stronger sci-fi shapes, optionally load <code>syntyr.geometry.css</code>. For accessibility, verify color contrast and target sizes in your own application and avoid relying on visual appearance alone to express state.</p>
+      <a href="../docs/theme-customization.md">Implementation and customization guide</a>
+    </section>
+  </main>
+</body>
+</html>
