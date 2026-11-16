@@ -229,6 +229,41 @@
         "syn-record-fields"
       ],
       "notes": "Unreleased alpha.5, CSS-only optional layouts. Use a GET form, labelled stages, focusable board overflow and definition-list details; application implements filtering and pipeline state."
+    },
+    {
+      "name": "AI agent interfaces",
+      "module": "syntyr.recipes.css",
+      "elements": [
+        "section",
+        "ol",
+        "li",
+        "details",
+        "summary",
+        "div",
+        "button",
+        "pre",
+        "code"
+      ],
+      "classes": [
+        "syn-ai-thread",
+        "syn-ai-entry",
+        "syn-ai-entry--user",
+        "syn-ai-entry--assistant",
+        "syn-ai-entry-header",
+        "syn-ai-content",
+        "syn-ai-run",
+        "syn-ai-run-heading",
+        "syn-ai-status",
+        "syn-ai-steps",
+        "syn-ai-step",
+        "syn-ai-tool",
+        "syn-ai-tool-body",
+        "syn-ai-code",
+        "syn-ai-approval",
+        "syn-ai-facts",
+        "syn-ai-actions"
+      ],
+      "notes": "Unreleased alpha.5 source only. Core + recipes required. CSS styles presentation, not AI inference, tool execution, streaming, authorization, auditing or approval submission. Render trusted/sanitized text; approvals are disabled in previews."
     }
   ],
   "recipes": [

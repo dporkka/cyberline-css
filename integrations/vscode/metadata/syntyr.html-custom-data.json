@@ -18,6 +18,74 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-ai-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-approval",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-code",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-content",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-entry",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-entry--assistant",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-entry--user",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-entry-header",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-facts",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-run",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-run-heading",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-status",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-step",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-steps",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-thread",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-tool",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-ai-tool-body",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-alert",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -1187,6 +1255,9 @@
         },
         {
           "name": "loading"
+        },
+        {
+          "name": "pending"
         },
         {
           "name": "selected"

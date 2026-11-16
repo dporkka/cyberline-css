@@ -2,16 +2,16 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 20 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 23 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 20 copy-owned HTML compositions cover marketing, application and technical use
+The 23 copy-owned HTML compositions cover marketing, application, technical and AI interface use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all 23 static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
@@ -45,6 +45,26 @@ Three supported approaches:
 Routes like /settings and /checkout/team are example host-app routes. Replace
 them before using in production. Static samples do not implement authentication,
 filtering, payments, sorting, persistence or actual monitoring.
+
+## AI interface patterns (unreleased source candidate only)
+
+Three CSS-only compositions are available in the **AI interfaces** gallery category:
+
+- **AI conversation:** explicitly attributed ordered messages. Keep author names in text;
+  do not rely on bubbles or color for role meaning.
+- **Agent tool execution:** ordered steps and a native `<details>` disclosure for a
+  text-rendered result. Populate results from trusted or safely escaped data;
+  do not paste executable or untrusted HTML into the DOM.
+- **Human approval gate:** visual pending state with disabled preview buttons.
+  Enable controls **only** when your host app supplies authenticated, authorized,
+  CSRF-protected, audited approval/rejection handlers and a clear action scope.
+
+These examples are **alpha.5 unreleased source-only**, not available in the
+published alpha.4 CSS. Load candidate `syntyr.core.css` and
+`syntyr.recipes.css` together from the **same build**. Styling does not execute
+models or tools, stream messages, establish permission, or implement decisions.
+For streamed chat, manage announcement frequency and focus in the host application;
+never mark an entire updating transcript as an assertive live region.
 
 ## 12 original, optional CSS asset recipes
 

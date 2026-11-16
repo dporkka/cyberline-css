@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="23 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -23,7 +23,7 @@
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">23 production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -35,8 +35,7 @@
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            <option value="AI interfaces">AI interfaces</option><option value="Applications">Applications</option><option value="Marketing">Marketing</option><option value="Technical">Technical</option></select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -45,7 +44,7 @@
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">23 blocks available.</p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">
       <article class="blocks-card syn-panel" data-block-id="hero-product"
@@ -781,6 +780,160 @@
         </details>
         <button type="button" class="syn-button blocks-copy" data-block-copy
                 aria-label="Copy HTML for Release notes" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="ai-conversation"
+               data-block-category="AI interfaces"
+               data-block-keywords="AI conversation Semantic, clearly attributed messages for human and assistant responses. ai chat messages transcript"
+               aria-labelledby="block-title-ai-conversation">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">AI interfaces</p>
+            <h2 class="syn-heading" id="block-title-ai-conversation">AI conversation</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Semantic, clearly attributed messages for human and assistant responses.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-ai-conversation-heading">
+  <h2 class="syn-heading" id="syn-ai-conversation-heading">Research assistant</h2>
+  <ol class="syn-ai-thread" aria-label="Conversation example">
+    <li class="syn-ai-entry syn-ai-entry--user">
+      <div class="syn-ai-entry-header"><strong>You</strong><time datetime="2026-11-16T09:00:00Z">09:00</time></div>
+      <div class="syn-ai-content"><p>Summarize the weekly operational report.</p></div>
+    </li>
+    <li class="syn-ai-entry syn-ai-entry--assistant">
+      <div class="syn-ai-entry-header"><strong>Assistant</strong><time datetime="2026-11-16T09:01:00Z">09:01</time></div>
+      <div class="syn-ai-content"><p>Three incidents were resolved. One issue is awaiting review.</p></div>
+    </li>
+  </ol>
+  <p class="syn-caption">Illustrative conversation. Connect messaging, streaming and storage in your application.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for AI conversation</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-ai-conversation-heading&quot;&gt;
+  &lt;h2 class=&quot;syn-heading&quot; id=&quot;syn-ai-conversation-heading&quot;&gt;Research assistant&lt;/h2&gt;
+  &lt;ol class=&quot;syn-ai-thread&quot; aria-label=&quot;Conversation example&quot;&gt;
+    &lt;li class=&quot;syn-ai-entry syn-ai-entry--user&quot;&gt;
+      &lt;div class=&quot;syn-ai-entry-header&quot;&gt;&lt;strong&gt;You&lt;/strong&gt;&lt;time datetime=&quot;2026-11-16T09:00:00Z&quot;&gt;09:00&lt;/time&gt;&lt;/div&gt;
+      &lt;div class=&quot;syn-ai-content&quot;&gt;&lt;p&gt;Summarize the weekly operational report.&lt;/p&gt;&lt;/div&gt;
+    &lt;/li&gt;
+    &lt;li class=&quot;syn-ai-entry syn-ai-entry--assistant&quot;&gt;
+      &lt;div class=&quot;syn-ai-entry-header&quot;&gt;&lt;strong&gt;Assistant&lt;/strong&gt;&lt;time datetime=&quot;2026-11-16T09:01:00Z&quot;&gt;09:01&lt;/time&gt;&lt;/div&gt;
+      &lt;div class=&quot;syn-ai-content&quot;&gt;&lt;p&gt;Three incidents were resolved. One issue is awaiting review.&lt;/p&gt;&lt;/div&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Illustrative conversation. Connect messaging, streaming and storage in your application.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for AI conversation" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="ai-tool-run"
+               data-block-category="AI interfaces"
+               data-block-keywords="Agent tool execution Native disclosure and ordered status steps for host-supplied tool results. ai agents tools execution audit"
+               aria-labelledby="block-title-ai-tool-run">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">AI interfaces</p>
+            <h2 class="syn-heading" id="block-title-ai-tool-run">Agent tool execution</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Native disclosure and ordered status steps for host-supplied tool results.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-ai-tool-run-heading">
+  <div class="syn-ai-run">
+    <div class="syn-ai-run-heading">
+      <h2 class="syn-heading" id="syn-ai-tool-run-heading">Report analysis</h2>
+      <span class="syn-ai-status" data-syn-state="complete">Completed</span>
+    </div>
+    <ol class="syn-ai-steps" aria-label="Execution steps">
+      <li class="syn-ai-step"><strong>Read report</strong><span>Completed</span></li>
+      <li class="syn-ai-step"><strong>Extract totals</strong><span>Completed</span></li>
+    </ol>
+    <details class="syn-ai-tool">
+      <summary>View tool result</summary>
+      <div class="syn-ai-tool-body">
+        <pre class="syn-ai-code"><code>{ "incidents_resolved": 3, "requires_review": 1 }</code></pre>
+      </div>
+    </details>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Agent tool execution</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-ai-tool-run-heading&quot;&gt;
+  &lt;div class=&quot;syn-ai-run&quot;&gt;
+    &lt;div class=&quot;syn-ai-run-heading&quot;&gt;
+      &lt;h2 class=&quot;syn-heading&quot; id=&quot;syn-ai-tool-run-heading&quot;&gt;Report analysis&lt;/h2&gt;
+      &lt;span class=&quot;syn-ai-status&quot; data-syn-state=&quot;complete&quot;&gt;Completed&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;ol class=&quot;syn-ai-steps&quot; aria-label=&quot;Execution steps&quot;&gt;
+      &lt;li class=&quot;syn-ai-step&quot;&gt;&lt;strong&gt;Read report&lt;/strong&gt;&lt;span&gt;Completed&lt;/span&gt;&lt;/li&gt;
+      &lt;li class=&quot;syn-ai-step&quot;&gt;&lt;strong&gt;Extract totals&lt;/strong&gt;&lt;span&gt;Completed&lt;/span&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;details class=&quot;syn-ai-tool&quot;&gt;
+      &lt;summary&gt;View tool result&lt;/summary&gt;
+      &lt;div class=&quot;syn-ai-tool-body&quot;&gt;
+        &lt;pre class=&quot;syn-ai-code&quot;&gt;&lt;code&gt;{ &quot;incidents_resolved&quot;: 3, &quot;requires_review&quot;: 1 }&lt;/code&gt;&lt;/pre&gt;
+      &lt;/div&gt;
+    &lt;/details&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Agent tool execution" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="ai-approval"
+               data-block-category="AI interfaces"
+               data-block-keywords="Human approval gate A non-operational preview of a human-in-the-loop authorization request. ai agents approval human-review safety"
+               aria-labelledby="block-title-ai-approval">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">AI interfaces</p>
+            <h2 class="syn-heading" id="block-title-ai-approval">Human approval gate</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">A non-operational preview of a human-in-the-loop authorization request.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-ai-approval-heading">
+  <div class="syn-ai-approval">
+    <div class="syn-ai-run-heading">
+      <h2 class="syn-heading" id="syn-ai-approval-heading">Publish weekly report?</h2>
+      <span class="syn-ai-status" data-syn-state="pending">Awaiting approval</span>
+    </div>
+    <p>Review the recipients and content before allowing this action.</p>
+    <dl class="syn-ai-facts">
+      <div><dt>Destination</dt><dd>Internal operations portal</dd></div>
+      <div><dt>Scope</dt><dd>Weekly incident summary</dd></div>
+    </dl>
+    <div class="syn-ai-actions">
+      <button class="syn-button syn-button--primary" type="button" disabled>Approve</button>
+      <button class="syn-button syn-button--outline" type="button" disabled>Reject</button>
+    </div>
+    <p class="syn-caption">Preview only: the host must authorize, confirm and record the decision.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Human approval gate</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-ai-approval-heading&quot;&gt;
+  &lt;div class=&quot;syn-ai-approval&quot;&gt;
+    &lt;div class=&quot;syn-ai-run-heading&quot;&gt;
+      &lt;h2 class=&quot;syn-heading&quot; id=&quot;syn-ai-approval-heading&quot;&gt;Publish weekly report?&lt;/h2&gt;
+      &lt;span class=&quot;syn-ai-status&quot; data-syn-state=&quot;pending&quot;&gt;Awaiting approval&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;p&gt;Review the recipients and content before allowing this action.&lt;/p&gt;
+    &lt;dl class=&quot;syn-ai-facts&quot;&gt;
+      &lt;div&gt;&lt;dt&gt;Destination&lt;/dt&gt;&lt;dd&gt;Internal operations portal&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Scope&lt;/dt&gt;&lt;dd&gt;Weekly incident summary&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+    &lt;div class=&quot;syn-ai-actions&quot;&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;button&quot; disabled&gt;Approve&lt;/button&gt;
+      &lt;button class=&quot;syn-button syn-button--outline&quot; type=&quot;button&quot; disabled&gt;Reject&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;Preview only: the host must authorize, confirm and record the decision.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Human approval gate" hidden>Copy HTML</button>
       </article>
       </div>
     </section>

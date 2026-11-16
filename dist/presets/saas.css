@@ -1559,6 +1559,75 @@
       &.syn-command-row { transition: none; }
     }
 
+    /* Agent interface presentations; application owns the model, tool calls and approvals.
+       No pseudo-elements encode roles or statuses: visible text remains authoritative. */
+    &.syn-ai-thread, &.syn-ai-steps { list-style: none; margin: 0; padding: 0; }
+    &.syn-ai-thread { display: grid; gap: var(--syn-space-2); min-inline-size: 0; }
+    &.syn-ai-entry {
+      min-inline-size: 0; max-inline-size: min(100%, 65ch);
+      padding: var(--syn-space-2) var(--syn-space-3);
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface); overflow-wrap: anywhere;
+    }
+    &.syn-ai-entry--user { margin-inline-start: auto; background: var(--syn-surface-recessed); }
+    &.syn-ai-entry--assistant { margin-inline-end: auto; border-inline-start: 3px solid var(--syn-accent); }
+    &.syn-ai-entry-header, &.syn-ai-run-heading {
+      display: flex; align-items: baseline; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--syn-space-1); min-inline-size: 0;
+    }
+    &.syn-ai-entry-header { font-size: var(--syn-type-sm); margin-block-end: var(--syn-space-1); }
+    &.syn-ai-entry-header time { color: var(--syn-muted); font-size: var(--syn-type-xs); }
+    &.syn-ai-content { min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-ai-content > :last-child { margin-block-end: 0; }
+    &.syn-ai-run, &.syn-ai-approval {
+      min-inline-size: 0; padding: var(--syn-space-3);
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface); overflow-wrap: anywhere;
+    }
+    &.syn-ai-run-heading { margin-block-end: var(--syn-space-2); }
+    &.syn-ai-run-heading > :first-child { margin: 0; }
+    &.syn-ai-status {
+      display: inline-flex; align-items: center; min-height: 1.5rem;
+      padding: .15rem .55rem; border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); color: var(--syn-text);
+      background: var(--syn-surface-recessed); font-size: var(--syn-type-xs); font-weight: 650;
+    }
+    &.syn-ai-status[data-syn-state="pending"] { border-inline-start: 3px solid var(--syn-accent); }
+    &.syn-ai-status[data-syn-state="complete"] { border-inline-start: 3px solid var(--syn-accent); }
+    &.syn-ai-steps { display: grid; gap: var(--syn-space-1); margin-block: var(--syn-space-2); }
+    &.syn-ai-step {
+      display: flex; justify-content: space-between; align-items: baseline;
+      flex-wrap: wrap; gap: var(--syn-space-1); min-inline-size: 0;
+      border-block-end: 1px solid var(--syn-border-subtle); padding-block: var(--syn-space-1);
+    }
+    &.syn-ai-step > :last-child { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    &.syn-ai-tool {
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); min-inline-size: 0;
+    }
+    &.syn-ai-tool > summary { padding: var(--syn-space-2); cursor: pointer; font-weight: 650; }
+    &.syn-ai-tool > summary:focus-visible { outline: 3px solid var(--syn-focus-ring); outline-offset: -3px; }
+    &.syn-ai-tool-body { padding: 0 var(--syn-space-2) var(--syn-space-2); min-inline-size: 0; }
+    &.syn-ai-code {
+      max-inline-size: 100%; overflow: auto; min-inline-size: 0;
+      padding: var(--syn-space-2); border-radius: var(--syn-radius);
+      background: var(--syn-bg); color: var(--syn-text);
+      font: var(--syn-type-sm)/1.6 var(--syn-mono);
+      white-space: pre; tab-size: 2;
+    }
+    &.syn-ai-facts { margin-block: var(--syn-space-2); display: grid; gap: var(--syn-space-1); }
+    &.syn-ai-facts > div {
+      display: flex; flex-wrap: wrap; gap: var(--syn-space-1);
+      border-block-end: 1px solid var(--syn-border-subtle); padding-block: var(--syn-space-1);
+    }
+    &.syn-ai-facts dt { color: var(--syn-muted); min-inline-size: min(100%, 7rem); }
+    &.syn-ai-facts dd { margin: 0; min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-ai-actions { display: flex; flex-wrap: wrap; gap: var(--syn-space-1); }
+    @media (forced-colors: active) {
+      &.syn-ai-entry, &.syn-ai-run, &.syn-ai-approval, &.syn-ai-tool,
+      &.syn-ai-status { border-color: CanvasText; }
+    }
+
     /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
     &.syn-defer-section {
       content-visibility: auto;

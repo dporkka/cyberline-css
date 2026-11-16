@@ -253,3 +253,14 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 - Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
+
+## AI-agent interface patterns (unreleased alpha.5 only)
+
+The optional `syntyr.recipes.css` includes low-specificity, scoped classes for
+conversation entries (`syn-ai-thread`, `syn-ai-entry`), tool execution disclosure
+(`syn-ai-run`, `syn-ai-steps`, `syn-ai-tool`), and approval request presentation
+(`syn-ai-approval`, `syn-ai-actions`). Load core and recipes from one alpha.5
+source build and copy the complete native HTML examples in the [Blocks gallery](blocks.html).
+Each has explicit human-readable role and status text; CSS never implies an
+actual tool call or authorized approval. Approval preview controls stay disabled
+until an application supplies its own secure, audited workflow.

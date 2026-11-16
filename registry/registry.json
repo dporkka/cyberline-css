@@ -612,6 +612,75 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "ai-conversation",
+      "type": "registry:item",
+      "title": "AI conversation",
+      "description": "Semantic, clearly attributed messages for human and assistant responses.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/ai-conversation.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/ai-conversation.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "ai-tool-run",
+      "type": "registry:item",
+      "title": "Agent tool execution",
+      "description": "Native disclosure and ordered status steps for host-supplied tool results.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/ai-tool-run.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/ai-tool-run.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "ai-approval",
+      "type": "registry:item",
+      "title": "Human approval gate",
+      "description": "A non-operational preview of a human-in-the-loop authorization request.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/ai-approval.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/ai-approval.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }

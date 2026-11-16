@@ -119,6 +119,14 @@ The form must have a real server handler. Syntyr does not provide authentication
 - **Visualization:** `syntyr.viz.css` styles provided SVG and HTML. It **does not calculate chart geometry** or provide a renderer.
 - **Custom theme:** override documented `--syn-*` variables in application CSS. Verify text/background and interactive contrast.
 
+## Optional AI-agent interface presentations (unreleased alpha.5 source only)
+
+The [AI interfaces blocks](blocks.html) provide accessible, semantic HTML for
+message histories, tool-run details and human approval previews. They use
+`syntyr.core.css` and `syntyr.recipes.css` from the **same alpha.5 source build**;
+none of these classes exist in the immutable published alpha.4 release. For the
+required host behavior and safe approval wiring, see [agent integration](agent-integration.md#ai-interface-patterns-unreleased-alpha5-source-only).
+
 ## 6. Verify generated output
 
 1. Identify the installed Syntyr **version** and CSS modules.
@@ -845,6 +853,17 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 - Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
+
+## AI-agent interface patterns (unreleased alpha.5 only)
+
+The optional `syntyr.recipes.css` includes low-specificity, scoped classes for
+conversation entries (`syn-ai-thread`, `syn-ai-entry`), tool execution disclosure
+(`syn-ai-run`, `syn-ai-steps`, `syn-ai-tool`), and approval request presentation
+(`syn-ai-approval`, `syn-ai-actions`). Load core and recipes from one alpha.5
+source build and copy the complete native HTML examples in the [Blocks gallery](blocks.html).
+Each has explicit human-readable role and status text; CSS never implies an
+actual tool call or authorized approval. Approval preview controls stay disabled
+until an application supplies its own secure, audited workflow.
 
 ---
 
@@ -3175,6 +3194,23 @@ silently offering source-only `0.3.0-alpha.5` selectors. The read-only
 for source-located, machine-readable errors, available class suggestions, and
 valid theme/state values. Responses are constrained to the selected release's
 checked-in CSS rather than presenting candidate-only selectors as fixes.
+
+## AI interface patterns (unreleased alpha.5 source only)
+
+The [Syntyr Blocks gallery](blocks.html) includes three copy-owned **AI interface patterns**:
+[conversation history](../registry/r/ai-conversation.json),
+[tool-run disclosure](../registry/r/ai-tool-run.json), and
+[human approval preview](../registry/r/ai-approval.json). These are public
+shadcn-compatible registry items containing plain HTML and CSS-module references,
+not React components or an AI-agent execution SDK.
+
+Load both `syntyr.core.css` and `syntyr.recipes.css` from the same **unreleased
+alpha.5 source build**. The published alpha.4 release does not contain
+`syn-ai-*` classes. Use native list markup for messages, `<details>` for result
+inspection and explicit text for statuses. Escape model/tool outputs; manage
+streaming announcements, authorization, idempotency, CSRF and audit trails in
+the host application. Approval buttons in the gallery are intentionally disabled,
+so copying the block cannot accidentally perform an approval.
 
 ## Documents and machine-readable inventory
 

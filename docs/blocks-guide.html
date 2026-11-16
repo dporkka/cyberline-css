@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="a1efa213a518e7cde0636345b5e51a240a3b006793a41264bccf70e2b29e0aa2">
+  <meta name="syntyr-source-sha256" content="7d0e31b923f84bae3d65a810f3423483feea3e3ffecdbe65217c7f43f20eb268">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -36,13 +36,13 @@
         <article class="docs-prose" aria-label="Syntyr Blocks &amp; Assets — integration guide">
 <h1 id="syntyr-blocks-assets-integration-guide">Syntyr Blocks &amp; Assets — integration guide</h1>
 <p><strong>Status:</strong> Experimental alpha.5 source gallery, not an immutable release or published npm package.</p>
-<p><a href="blocks.html">Browse 20 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
+<p><a href="blocks.html">Browse 23 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
 <h2 id="contract">Contract</h2>
-<p>The 20 copy-owned HTML compositions cover marketing, application and technical use
+<p>The 23 copy-owned HTML compositions cover marketing, application, technical and AI interface use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.</p>
 <p>The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all 23 static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.</p>
 <h2 id="native-html-and-framework-integration">Native HTML and framework integration</h2>
@@ -70,6 +70,24 @@ event handlers in the host app, not in Syntyr.</li>
 <p>Routes like /settings and /checkout/team are example host-app routes. Replace
 them before using in production. Static samples do not implement authentication,
 filtering, payments, sorting, persistence or actual monitoring.</p>
+<h2 id="ai-interface-patterns-unreleased-source-candidate-only">AI interface patterns (unreleased source candidate only)</h2>
+<p>Three CSS-only compositions are available in the <strong>AI interfaces</strong> gallery category:</p>
+<ul>
+<li><strong>AI conversation:</strong> explicitly attributed ordered messages. Keep author names in text;
+do not rely on bubbles or color for role meaning.</li>
+<li><strong>Agent tool execution:</strong> ordered steps and a native <code>&lt;details&gt;</code> disclosure for a
+text-rendered result. Populate results from trusted or safely escaped data;
+do not paste executable or untrusted HTML into the DOM.</li>
+<li><strong>Human approval gate:</strong> visual pending state with disabled preview buttons.
+Enable controls <strong>only</strong> when your host app supplies authenticated, authorized,
+CSRF-protected, audited approval/rejection handlers and a clear action scope.</li>
+</ul>
+<p>These examples are <strong>alpha.5 unreleased source-only</strong>, not available in the
+published alpha.4 CSS. Load candidate <code>syntyr.core.css</code> and
+<code>syntyr.recipes.css</code> together from the <strong>same build</strong>. Styling does not execute
+models or tools, stream messages, establish permission, or implement decisions.
+For streamed chat, manage announcement frequency and focus in the host application;
+never mark an entire updating transcript as an assertive live region.</p>
 <h2 id="12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</h2>
 <p>The complete source is <a href="blocks-assets.css">blocks-assets.css</a>. It includes:
 fine-grid, dot-field, radar, ambient-glow, glass, blueprint, signal-stripes,
@@ -144,6 +162,7 @@ source-candidate Syntyr version and must not be confused with a tagged release.<
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-html-and-framework-integration">Native HTML and framework integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#ai-interface-patterns-unreleased-source-candidate-only">AI interface patterns (unreleased source candidate only)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#six-font-recipes-and-24-original-svg-icons">Six font recipes and 24 original SVG icons</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>

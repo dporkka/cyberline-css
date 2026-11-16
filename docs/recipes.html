@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Build MIT-licensed interface compositions with Syntyr CSS, including forms, layout flows, responsive sections, and SaaS presentation patterns.">
-  <meta name="syntyr-source-sha256" content="d62b1d551e6d12dfa1346c72b40e33ba39dcd3572c700c5f117e72ead9f631cb">
+  <meta name="syntyr-source-sha256" content="630ebc7b3e4743eea09c1c1b00070df5281a5b693a2b8ff72c2e142d5245ebe1">
   <meta name="theme-color" content="#f5f7fb">
   <title>MIT-licensed composition recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/recipes">
@@ -233,6 +233,15 @@ application CSS. Keep real document headings and reading order.</p>
 <li>Preserve search/filter/sort state in URL parameters. Announce actual result counts, not sample counts. Display no-result or service-error state only when it is true.</li>
 </ul>
 <p>The example is illustrative, <strong>not a configured server</strong>. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.</p>
+<h2 id="ai-agent-interface-patterns-unreleased-alpha5-only">AI-agent interface patterns (unreleased alpha.5 only)</h2>
+<p>The optional <code>syntyr.recipes.css</code> includes low-specificity, scoped classes for
+conversation entries (<code>syn-ai-thread</code>, <code>syn-ai-entry</code>), tool execution disclosure
+(<code>syn-ai-run</code>, <code>syn-ai-steps</code>, <code>syn-ai-tool</code>), and approval request presentation
+(<code>syn-ai-approval</code>, <code>syn-ai-actions</code>). Load core and recipes from one alpha.5
+source build and copy the complete native HTML examples in the <a href="blocks.html">Blocks gallery</a>.
+Each has explicit human-readable role and status text; CSS never implies an
+actual tool call or authorized approval. Approval preview controls stay disabled
+until an application supplies its own secure, audited workflow.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-vertical-flow">Optional vertical flow</a>
@@ -247,6 +256,7 @@ application CSS. Keep real document headings and reading order.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#server-rendered-saas-filter-and-settings-patterns">Server-rendered SaaS filter and settings patterns</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#intrinsic-responsive-layouts-optional-recipes-css">Intrinsic responsive layouts (optional recipes CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#collection-workspaces-and-error-recovery-source-candidate">Collection workspaces and error recovery (source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#ai-agent-interface-patterns-unreleased-alpha5-only">AI-agent interface patterns (unreleased alpha.5 only)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="recipes.md">Markdown source</a></nav>

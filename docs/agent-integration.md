@@ -33,6 +33,23 @@ for source-located, machine-readable errors, available class suggestions, and
 valid theme/state values. Responses are constrained to the selected release's
 checked-in CSS rather than presenting candidate-only selectors as fixes.
 
+## AI interface patterns (unreleased alpha.5 source only)
+
+The [Syntyr Blocks gallery](blocks.html) includes three copy-owned **AI interface patterns**:
+[conversation history](../registry/r/ai-conversation.json),
+[tool-run disclosure](../registry/r/ai-tool-run.json), and
+[human approval preview](../registry/r/ai-approval.json). These are public
+shadcn-compatible registry items containing plain HTML and CSS-module references,
+not React components or an AI-agent execution SDK.
+
+Load both `syntyr.core.css` and `syntyr.recipes.css` from the same **unreleased
+alpha.5 source build**. The published alpha.4 release does not contain
+`syn-ai-*` classes. Use native list markup for messages, `<details>` for result
+inspection and explicit text for statuses. Escape model/tool outputs; manage
+streaming announcements, authorization, idempotency, CSRF and audit trails in
+the host application. Approval buttons in the gallery are intentionally disabled,
+so copying the block cannot accidentally perform an approval.
+
 ## Documents and machine-readable inventory
 
 - [`llms.txt`](../llms.txt): small navigation file following the community `llms.txt` convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
-  <meta name="syntyr-source-sha256" content="eabcb32b19f37868119859e604a5d1fd730bc7caa2dbe077a20e1fd6a72ffd25">
+  <meta name="syntyr-source-sha256" content="16801ef2fd06cd7d677ab229ad745b2423d439e7c1a07e69189dfda1fa119165">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
@@ -62,6 +62,20 @@ silently offering source-only <code>0.3.0-alpha.5</code> selectors. The read-onl
 for source-located, machine-readable errors, available class suggestions, and
 valid theme/state values. Responses are constrained to the selected release's
 checked-in CSS rather than presenting candidate-only selectors as fixes.</p>
+<h2 id="ai-interface-patterns-unreleased-alpha5-source-only">AI interface patterns (unreleased alpha.5 source only)</h2>
+<p>The <a href="blocks.html">Syntyr Blocks gallery</a> includes three copy-owned <strong>AI interface patterns</strong>:
+<a href="../registry/r/ai-conversation.json">conversation history</a>,
+<a href="../registry/r/ai-tool-run.json">tool-run disclosure</a>, and
+<a href="../registry/r/ai-approval.json">human approval preview</a>. These are public
+shadcn-compatible registry items containing plain HTML and CSS-module references,
+not React components or an AI-agent execution SDK.</p>
+<p>Load both <code>syntyr.core.css</code> and <code>syntyr.recipes.css</code> from the same <strong>unreleased
+alpha.5 source build</strong>. The published alpha.4 release does not contain
+<code>syn-ai-*</code> classes. Use native list markup for messages, <code>&lt;details&gt;</code> for result
+inspection and explicit text for statuses. Escape model/tool outputs; manage
+streaming announcements, authorization, idempotency, CSRF and audit trails in
+the host application. Approval buttons in the gallery are intentionally disabled,
+so copying the block cannot accidentally perform an approval.</p>
 <h2 id="documents-and-machine-readable-inventory">Documents and machine-readable inventory</h2>
 <ul>
 <li><a href="../llms.txt"><code>llms.txt</code></a>: small navigation file following the community <code>llms.txt</code> convention; it is useful when deliberately retrieved, but not a universal automatic-discovery protocol.</li>
@@ -89,6 +103,7 @@ python3 scripts/build_cloudflare_site.py --check
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-context-to-supply-an-agent">Recommended context to supply an agent</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#project-level-integration">Project-level integration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-local-mcp-adapter">Optional local MCP adapter</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#ai-interface-patterns-unreleased-alpha5-source-only">AI interface patterns (unreleased alpha.5 source only)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documents-and-machine-readable-inventory">Documents and machine-readable inventory</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-maintenance">Validation and maintenance</a>

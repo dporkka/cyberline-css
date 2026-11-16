@@ -100,6 +100,14 @@ The form must have a real server handler. Syntyr does not provide authentication
 - **Visualization:** `syntyr.viz.css` styles provided SVG and HTML. It **does not calculate chart geometry** or provide a renderer.
 - **Custom theme:** override documented `--syn-*` variables in application CSS. Verify text/background and interactive contrast.
 
+## Optional AI-agent interface presentations (unreleased alpha.5 source only)
+
+The [AI interfaces blocks](blocks.html) provide accessible, semantic HTML for
+message histories, tool-run details and human approval previews. They use
+`syntyr.core.css` and `syntyr.recipes.css` from the **same alpha.5 source build**;
+none of these classes exist in the immutable published alpha.4 release. For the
+required host behavior and safe approval wiring, see [agent integration](agent-integration.md#ai-interface-patterns-unreleased-alpha5-source-only).
+
 ## 6. Verify generated output
 
 1. Identify the installed Syntyr **version** and CSS modules.

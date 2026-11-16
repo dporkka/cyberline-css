@@ -47,6 +47,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Progressive CSS loading](https://syntyr-css.pages.dev/docs/progressive-loading.md): Selective CSS, critical CSS tradeoffs, and measured loading approaches.
 - [Deployed mobile performance audit](https://syntyr-css.pages.dev/docs/live-performance-audit.md): Reproducible LCP, caching, CSP and accessibility evidence for the hosted business and SaaS examples.
 - [Optional visualization styles](https://syntyr-css.pages.dev/docs/viz.md): SVG/HTML rendering and boundaries.
+- [AI agent interface patterns](https://syntyr-css.pages.dev/docs/agent-integration.md#ai-interface-patterns-unreleased-alpha5-source-only): Alpha.5 source-only message, tool-run and approval preview compositions, with no agent execution runtime.
 - [How to use Syntyr with coding agents](https://syntyr-css.pages.dev/docs/agent-integration.md): Recommended prompts, retrieval and validation.
 
 ## Commercial research (not for sale)

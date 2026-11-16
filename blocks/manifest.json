@@ -290,6 +290,56 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "ai-conversation",
+      "category": "AI interfaces",
+      "title": "AI conversation",
+      "description": "Semantic, clearly attributed messages for human and assistant responses.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "ai",
+        "chat",
+        "messages",
+        "transcript"
+      ]
+    },
+    {
+      "id": "ai-tool-run",
+      "category": "AI interfaces",
+      "title": "Agent tool execution",
+      "description": "Native disclosure and ordered status steps for host-supplied tool results.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "ai",
+        "agents",
+        "tools",
+        "execution",
+        "audit"
+      ]
+    },
+    {
+      "id": "ai-approval",
+      "category": "AI interfaces",
+      "title": "Human approval gate",
+      "description": "A non-operational preview of a human-in-the-loop authorization request.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "ai",
+        "agents",
+        "approval",
+        "human-review",
+        "safety"
+      ]
     }
   ]
 }
