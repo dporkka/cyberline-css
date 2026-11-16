@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaign search — Syntyr + Spring MVC</title>
+  <!-- Copy dist/syntyr.core.css to src/main/resources/static/css/ -->
+  <link rel="stylesheet" href="/css/syntyr.core.css" th:href="@{/css/syntyr.core.css}">
+</head>
+<body>
+  <main class="syn-root syn-page" data-syn-theme="studio">
+    <section class="syn-panel" aria-labelledby="campaign-heading">
+      <h1 id="campaign-heading" class="syn-heading">Find campaigns</h1>
+      <form class="syn-form" method="get" action="/campaigns" th:action="@{/campaigns}">
+        <div class="syn-field">
+          <label class="syn-label" for="campaign-query">Campaign name</label>
+          <input id="campaign-query" name="q" class="syn-input" type="search"
+                 th:value="${query}" value="" autocomplete="off">
+        </div>
+        <button class="syn-button syn-button--primary" type="submit">Search</button>
+      </form>
+      <p th:if="${#lists.isEmpty(campaigns)}">No campaigns found.</p>
+      <ul th:unless="${#lists.isEmpty(campaigns)}" aria-label="Campaign search results">
+        <!-- th:text HTML-escapes application data. -->
+        <li th:each="campaign : ${campaigns}" th:text="${campaign}">Example campaign</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

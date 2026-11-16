@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.">
-  <meta name="syntyr-source-sha256" content="eb2a1336a6b3d6053261fa43ac1ff5f9a72fdc20d151523a6bc0cd321e5ea660">
+  <meta name="syntyr-source-sha256" content="3a96d729f6d7b4ab34d2c58308778535324fc1b0c3ac46ddad59dc42b00ffe9d">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS integration guide: server-rendered HTML and frontend stacks — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/framework-integrations">
@@ -238,11 +238,96 @@ export function StatusCard({ status }) {
 </code></pre>
 <p>Import CSS once from the app entry point (or root layout, as supported by
 the framework). No Syntyr provider, hooks, hydration, or dependency on React.</p>
-<h2 id="vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</h2>
-<p>Import the same CSS once. Bind native classes, <code>aria-*</code>, and
-<code>data-syn-state</code> using each framework's built-in template syntax.
-Do not wrap simple visual classes in additional runtime components unless the
-application benefits from reusable semantic component boundaries.</p>
+<h2 id="vue-3-nuxt">Vue 3 / Nuxt</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/vue">Runnable Vue 3 + Vite starter</a>
+uses the local Syntyr CSS package and a normal <code>&lt;script setup&gt;</code> component.
+Run <code>npm install &amp;&amp; npm run dev</code> from <code>examples/vue</code>; production compilation
+is <code>npm run build</code>. The CSS import belongs in <code>src/main.js</code>, once:</p>
+<pre><code class="language-js">import '@syntyr/css/core.css';
+</code></pre>
+<pre><code class="language-vue">&lt;script setup&gt;
+import { ref } from 'vue';
+const name = ref('');
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
+    &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; v-model=&quot;name&quot; /&gt;
+    &lt;p aria-live=&quot;polite&quot;&gt;{{ name }}&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/template&gt;
+</code></pre>
+<p>Vue owns <code>v-model</code>, <code>@submit.prevent</code>, computed state, disabling buttons,
+ARIA values and network requests. Syntyr never mutates Vue's DOM. Keep
+<code>.syn-root</code> on a stable ancestor when toggling conditional children;
+scope <code>.syn-semantic</code> to native HTML elements you intentionally opt in.
+In Nuxt, configure global CSS once in <code>nuxt.config.ts</code> via its <code>css</code>
+array; do not import the same bundle in each component. When using SSR,
+match the initial theme on server and client to prevent hydration mismatches.</p>
+<h2 id="svelte-5-sveltekit">Svelte 5 / SvelteKit</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/svelte">Runnable Svelte 5 + Vite starter</a>
+uses native Svelte 5 runes, <code>bind:value</code>, <code>onsubmit</code>, state-driven
+<code>aria-invalid</code>, and disabled/pending states. Run <code>npm install &amp;&amp; npm run dev</code>
+from <code>examples/svelte</code>; production compilation is <code>npm run build</code>.
+Import CSS once in <code>src/main.js</code> (or <code>src/routes/+layout.svelte</code> for SvelteKit):</p>
+<pre><code class="language-js">import '@syntyr/css/core.css';
+</code></pre>
+<pre><code class="language-svelte">&lt;script&gt;
+  let name = $state('');
+&lt;/script&gt;
+
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;label class=&quot;syn-label&quot; for=&quot;campaign-name&quot;&gt;Campaign&lt;/label&gt;
+  &lt;input id=&quot;campaign-name&quot; class=&quot;syn-input&quot; bind:value={name} /&gt;
+  &lt;p aria-live=&quot;polite&quot;&gt;{name}&lt;/p&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Svelte owns reactivity, validation, events and requests. Syntyr provides
+no Svelte actions, stores or hydration hook. In SvelteKit, keep the root
+and initial theme consistent across server rendering and hydration.
+The two runnable starters use a <strong>local-only campaign list</strong> and an
+explicitly simulated delay; they are examples of application-owned state,
+not real API persistence.</p>
+<h2 id="java-spring-mvc-thymeleaf">Java / Spring MVC + Thymeleaf</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/spring-thymeleaf.html">Copyable Thymeleaf view</a>
+and <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/CampaignSearchController.java">Spring MVC controller</a>
+demonstrate a real GET handler and escaped server-rendered campaign search.
+See the <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/README-java-dotnet.md">Java/.NET copy guide</a>.
+Copy <code>dist/syntyr.core.css</code> to
+<code>src/main/resources/static/css/syntyr.core.css</code>, the view to
+<code>src/main/resources/templates/campaigns.html</code>, and the controller to
+your application's Java package. Spring Web and Thymeleaf are host dependencies
+only. The view uses <code>th:text</code> and <code>th:value</code>, never unescaped <code>th:utext</code>.</p>
+<p>Use Spring MVC binding and Bean Validation for mutating forms; if you
+enable Spring Security, retain its CSRF protections. Syntyr cannot
+validate requests, encode controller data or submit forms on your behalf.
+HTMX or other partial responses should retain the outer theme root.
+Syntyr styles browser HTML, not Java Swing or JavaFX desktop widgets.
+Vaadin web components may use Shadow DOM; inherited tokens alone do not
+style internal elements unless exposed through supported <code>::part()</code>/theme
+APIs. Avoid assuming the Spring MVC example applies to Vaadin internals.</p>
+<h2 id="c-aspnet-core-razor-pages">C# / ASP.NET Core Razor Pages</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/server-rendered/dotnet/Pages">Copyable Razor view and PageModel</a>
+demonstrate a read-only GET search with HTML-encoded Razor output.
+See the <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/README-java-dotnet.md">Java/.NET copy guide</a>.
+Copy the CSS to <code>wwwroot/css/syntyr.core.css</code>; copy <code>Campaigns.cshtml</code>
+and <code>Campaigns.cshtml.cs</code> into your app's <code>Pages</code> directory and adjust the
+namespace. The example enables MVC Tag Helpers explicitly, so
+<code>asp-append-version=&quot;true&quot;</code> cache-busts the CSS asset.</p>
+<p>Razor <code>@Model.Query</code> and list entries are HTML encoded; avoid <code>Html.Raw</code> on
+untrusted content. Use ASP.NET Core antiforgery, authorization and model
+validation for mutations. Blazor also renders normal HTML <code>class</code> attributes,
+but its component lifecycle, state and hydration remain Blazor's responsibility;
+host CSS through the app layout or static asset pipeline.
+Syntyr does not style native WPF, WinUI, or .NET MAUI controls; it is a
+browser CSS system. Blazor component CSS isolation and third-party component
+Shadow DOM still require normal CSS cascade/part-boundary testing.</p>
+<p><strong>Verification boundary:</strong> Vue and Svelte starter production builds can run
+with Node and their optional example-only dependencies. The Java/C# sources
+have static contract tests but are not claimed to compile or run on hosts
+without Java/Spring and .NET toolchains. Syntyr itself adds no framework
+dependency, Java library or NuGet package.</p>
 <h2 id="astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</h2>
 <p>Serve <code>syntyr.core.css</code> as a normal static asset. Write HTML partials
 with real headings, forms and links. Optional interactive islands can use
@@ -284,7 +369,10 @@ and unnecessary hydration. Measure actual page LCP, CLS and INP.</li>
 <a class="docs-article-toc-link docs-article-toc-2" href="#alpinejs">Alpine.js</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#datastar">Datastar</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#react-nextjs">React / Next.js</a>
-<a class="docs-article-toc-link docs-article-toc-2" href="#vue-nuxt-and-svelte-sveltekit">Vue / Nuxt and Svelte / SvelteKit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#vue-3-nuxt">Vue 3 / Nuxt</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#svelte-5-sveltekit">Svelte 5 / SvelteKit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#java-spring-mvc-thymeleaf">Java / Spring MVC + Thymeleaf</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#c-aspnet-core-razor-pages">C# / ASP.NET Core Razor Pages</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#astro-hugo-zola-django-rails-gotempl-and-rust-templates">Astro, Hugo, Zola, Django, Rails, Go/templ and Rust templates</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#existing-tailwind-or-component-library-applications">Existing Tailwind or component-library applications</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#performance-and-compatibility-contract">Performance and compatibility contract</a>

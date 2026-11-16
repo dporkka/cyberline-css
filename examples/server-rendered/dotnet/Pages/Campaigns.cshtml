@@ -1,0 +1,41 @@
+@page "/campaigns"
+@model SyntyrExample.Pages.CampaignsModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campaign search — Syntyr + ASP.NET Core</title>
+  <!-- Copy dist/syntyr.core.css into wwwroot/css/ -->
+  <link rel="stylesheet" href="~/css/syntyr.core.css" asp-append-version="true" />
+</head>
+<body>
+  <main class="syn-root syn-page" data-syn-theme="studio">
+    <section class="syn-panel" aria-labelledby="campaign-heading">
+      <h1 id="campaign-heading" class="syn-heading">Find campaigns</h1>
+      <form class="syn-form" method="get" asp-page="/Campaigns">
+        <div class="syn-field">
+          <label class="syn-label" for="campaign-query">Campaign name</label>
+          <input id="campaign-query" name="Query" class="syn-input"
+                 type="search" value="@Model.Query" autocomplete="off" />
+        </div>
+        <button class="syn-button syn-button--primary" type="submit">Search</button>
+      </form>
+      @if (Model.Results.Count == 0)
+      {
+        <p>No campaigns found.</p>
+      }
+      else
+      {
+        <ul aria-label="Campaign search results">
+          @foreach (var campaign in Model.Results)
+          {
+            <li>@campaign</li>
+          }
+        </ul>
+      }
+    </section>
+  </main>
+</body>
+</html>
