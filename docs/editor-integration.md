@@ -55,6 +55,38 @@ A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's `module` in the generated catalog and
 load the corresponding Syntyr CSS distribution.
 
+## Optional CSS dependency and version diagnostics
+
+Syntyr can also diagnose duplicate stylesheet links, overlapping distribution
+bundles (for example, `syntyr.core.css` loaded with
+`syntyr.semantic-bundle.css`), and conflicting explicit release pins:
+
+```sh
+python3 scripts/syntyr_check.py --doctor --semantic index.html
+python3 scripts/syntyr_check.py --doctor --format json index.html
+```
+
+The `--doctor` flag builds on the existing validator; it does not install or
+change CSS. It reads the generated `distribution_sources` from
+`metadata/syntyr-contract.json`, which comes from the canonical CSS build
+registry. Keep the checker, metadata, and stylesheet release versions together.
+Older contracts without this field are rejected instead of silently missing
+overlaps.
+
+An overlapping bundle, including a duplicated stylesheet, produces a
+**warning** (exit code 0 if no errors). Two different explicit
+`/v/<version>/` release pins produce an **error** (exit code 1), since
+mixing different Syntyr releases is unsafe. Generated diagnostics include
+filename, source position, severity, code and explanation. Normal validation
+without `--doctor` is unchanged.
+
+**Scope:** This is a static HTML check of Syntyr `<link rel="stylesheet">`
+references. It does not infer versions for unpinned local assets, parse CSS
+`@import` graphs, or inspect imports inside JS/TS build pipelines. When
+using bundlers, validate the final loaded stylesheets and run browser tests.
+Unknown host-application CSS is ignored. Duplicate warnings are advisory;
+releases still need actual cross-browser and accessibility verification.
+
 ## Optional static HTML diagnostics
 
 The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable

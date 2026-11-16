@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="bf504ec8233c1e67da4b9e89f022992ea03e5420e5289e185bb176838f895a9d">
+  <meta name="syntyr-source-sha256" content="19e22741ae9aaf1b0ef39fe317328b5e54cde35382b7d8fa805052998aed15e6">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -76,6 +76,31 @@ are curated for core APIs and source-file-derived for others.</p>
 A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's <code>module</code> in the generated catalog and
 load the corresponding Syntyr CSS distribution.</p>
+<h2 id="optional-css-dependency-and-version-diagnostics">Optional CSS dependency and version diagnostics</h2>
+<p>Syntyr can also diagnose duplicate stylesheet links, overlapping distribution
+bundles (for example, <code>syntyr.core.css</code> loaded with
+<code>syntyr.semantic-bundle.css</code>), and conflicting explicit release pins:</p>
+<pre><code class="language-sh">python3 scripts/syntyr_check.py --doctor --semantic index.html
+python3 scripts/syntyr_check.py --doctor --format json index.html
+</code></pre>
+<p>The <code>--doctor</code> flag builds on the existing validator; it does not install or
+change CSS. It reads the generated <code>distribution_sources</code> from
+<code>metadata/syntyr-contract.json</code>, which comes from the canonical CSS build
+registry. Keep the checker, metadata, and stylesheet release versions together.
+Older contracts without this field are rejected instead of silently missing
+overlaps.</p>
+<p>An overlapping bundle, including a duplicated stylesheet, produces a
+<strong>warning</strong> (exit code 0 if no errors). Two different explicit
+<code>/v/&lt;version&gt;/</code> release pins produce an <strong>error</strong> (exit code 1), since
+mixing different Syntyr releases is unsafe. Generated diagnostics include
+filename, source position, severity, code and explanation. Normal validation
+without <code>--doctor</code> is unchanged.</p>
+<p><strong>Scope:</strong> This is a static HTML check of Syntyr <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code>
+references. It does not infer versions for unpinned local assets, parse CSS
+<code>@import</code> graphs, or inspect imports inside JS/TS build pipelines. When
+using bundlers, validate the final loaded stylesheets and run browser tests.
+Unknown host-application CSS is ignored. Duplicate warnings are advisory;
+releases still need actual cross-browser and accessibility verification.</p>
 <h2 id="optional-static-html-diagnostics">Optional static HTML diagnostics</h2>
 <p>The generated <code>metadata/syntyr-contract.json</code> is Syntyr's machine-readable
 development contract. It combines the <strong>full source-discovered</strong> class and token
@@ -169,6 +194,7 @@ to the browser by this integration.</p>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#vs-code-and-compatible-editors">VS Code and compatible editors</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#regenerate-after-css-changes">Regenerate after CSS changes</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-css-dependency-and-version-diagnostics">Optional CSS dependency and version diagnostics</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-static-html-diagnostics">Optional static HTML diagnostics</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#agent-ready-composition-recipes">Agent-ready composition recipes</a>
         </nav></aside>
