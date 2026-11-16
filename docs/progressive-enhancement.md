@@ -61,6 +61,50 @@ does **not** override a user's explicitly selected `grid`, `noir`, or
 Automatic themes use the native `light-dark()` CSS feature with a compatible
 fallback; existing tests verify that the palette stays aligned with Grid and Studio.
 
+## RTL, mixed-direction data and translated content
+
+Syntyr inherits the document's native `lang` and `dir` attributes. Its
+classed and opt-in semantic tables align to the inline start; explicitly
+numeric `.syn-cell--numeric` cells align to the inline end. Timeline
+markers, decorative panel cuts, and native popover fallbacks follow logical
+directions. No RTL-only bundle or JavaScript is required.
+
+```html
+<main class="syn-root syn-semantic" lang="ar" dir="rtl" data-syn-theme="studio">
+  <h1>لوحة التحكم</h1>
+  <p>رمز الأصل: <bdi dir="ltr">ACME-1029</bdi></p>
+  <table>
+    <thead><tr><th scope="col">الأصل</th><th scope="col">الحالة</th></tr></thead>
+    <tbody><tr><td>لوحة رقم ١</td><td>نشط</td></tr></tbody>
+  </table>
+</main>
+```
+
+Set `dir` on the actual text container, not on a Syntyr theme selector.
+Use `bdi` or an explicit `dir="ltr"` wrapper for identifiers, URLs, and
+mixed-language snippets. The host application owns translations, locale
+formatting, input validation and accessible names; CSS cannot translate text.
+Direction-aware numeric alignment intentionally differs from physically
+right-aligned LTR amounts. Consumers needing fixed geographic or numeric
+conventions should explicitly style those application-specific columns.
+
+The offline [Arabic/English/German fixture](../examples/rtl-dashboard.html)
+includes a native and classed table, long translated form labels,
+`dir="ltr"` content nested inside an RTL page, activity timeline, and
+native popover. It is illustrative: form navigation does not save any data.
+
+Development-only regression checks:
+
+```sh
+python3 -m unittest discover -s tests -p test_rtl_contract.py -v
+python3 tests/rtl_browser.py --browsers chromium firefox webkit
+```
+
+The RTL page is also included in the optional browser, reflow and axe audit
+inventories. Browser viewport tests do not establish actual 200% or 400%
+browser zoom, screen-reader interoperability, or WCAG conformance.
+If an engine cannot launch, report it as blocked rather than passing it.
+
 ## Opt-in print styling
 
 Load `syntyr.print.css` after core when printing reports or invoices:
@@ -84,6 +128,9 @@ is complete, because CSS cannot materialize unloaded or virtualized rows.
   Preserve user font scaling and test 200% and 400% genuine browser zoom.
 - Core never requires a polyfill. Load optional stylesheets only when their
   capabilities are needed, or use `syntyr.all.css` for demos.
+- Scoped semantic file inputs use `min-inline-size: 0` so browser-native
+  file pickers can shrink in a grid or narrow card without causing page-wide
+  horizontal overflow. Test translated picker labels in each target browser.
 - Reduced motion, forced colors and assistive-technology behavior still need
   manual, representative real-device verification. Automated checks alone
   cannot establish WCAG compliance.

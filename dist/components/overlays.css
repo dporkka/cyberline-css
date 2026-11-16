@@ -7,7 +7,7 @@
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
-    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    &.syn-popover { margin: .75rem; inset-block: auto 1rem; inset-inline: auto 1rem; }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
     @supports (position-area: bottom) {
       &.syn-popover.syn-popover--anchored {

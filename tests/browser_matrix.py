@@ -21,7 +21,7 @@ PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html
          "examples/operations-console.html", "examples/themes.html",
          "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html", "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
          "examples/native-apis.html", "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
-         "examples/semantic-starter.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
+         "examples/semantic-starter.html", "examples/rtl-dashboard.html", "examples/workflow-steps.html", "examples/premium-compositions.html",
 )
 
 def assert_page(browser, name: str, viewport: int) -> None:
@@ -373,7 +373,8 @@ def assert_page(browser, name: str, viewport: int) -> None:
         assert page.locator(".syn-terminal-error").count() == 1
         assert page.locator(".syn-terminal-warning").count() == 1
         numeric = page.locator(".syn-cell--numeric").first
-        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "right"
+        # Logical end stays physically right in LTR and mirrors in RTL.
+        assert numeric.evaluate("e => getComputedStyle(e).textAlign") == "end"
         if viewport == 1280:
             panel_group = page.locator("#geometry .syn-grid")
             panel_group.evaluate("e => e.style.setProperty('--syn-frame-fill', '#225533')")

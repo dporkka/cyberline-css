@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s default contract is HTML first . Core CSS doesn&#x27;t include JavaScript, network requests, icons, fonts or a client-side build step. Progressive…">
-  <meta name="syntyr-source-sha256" content="cb0f9d31ef48ac8abca8a66b95373f28cf2595c22d1e73471442d796642a0fd8">
+  <meta name="syntyr-source-sha256" content="776f7ebfa9c3895617f0808d0c3a6d7e82217be3bdfea0c11c569061f08579fc">
   <meta name="theme-color" content="#f5f7fb">
   <title>Progressive enhancement and document rendering — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/progressive-enhancement">
@@ -80,6 +80,40 @@ does <strong>not</strong> override a user's explicitly selected <code>grid</code
 <code>studio</code> theme. Host apps can change the attribute if they provide a theme picker.
 Automatic themes use the native <code>light-dark()</code> CSS feature with a compatible
 fallback; existing tests verify that the palette stays aligned with Grid and Studio.</p>
+<h2 id="rtl-mixed-direction-data-and-translated-content">RTL, mixed-direction data and translated content</h2>
+<p>Syntyr inherits the document's native <code>lang</code> and <code>dir</code> attributes. Its
+classed and opt-in semantic tables align to the inline start; explicitly
+numeric <code>.syn-cell--numeric</code> cells align to the inline end. Timeline
+markers, decorative panel cuts, and native popover fallbacks follow logical
+directions. No RTL-only bundle or JavaScript is required.</p>
+<pre><code class="language-html">&lt;main class=&quot;syn-root syn-semantic&quot; lang=&quot;ar&quot; dir=&quot;rtl&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;h1&gt;لوحة التحكم&lt;/h1&gt;
+  &lt;p&gt;رمز الأصل: &lt;bdi dir=&quot;ltr&quot;&gt;ACME-1029&lt;/bdi&gt;&lt;/p&gt;
+  &lt;table&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;الأصل&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;الحالة&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;&lt;tr&gt;&lt;td&gt;لوحة رقم ١&lt;/td&gt;&lt;td&gt;نشط&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Set <code>dir</code> on the actual text container, not on a Syntyr theme selector.
+Use <code>bdi</code> or an explicit <code>dir=&quot;ltr&quot;</code> wrapper for identifiers, URLs, and
+mixed-language snippets. The host application owns translations, locale
+formatting, input validation and accessible names; CSS cannot translate text.
+Direction-aware numeric alignment intentionally differs from physically
+right-aligned LTR amounts. Consumers needing fixed geographic or numeric
+conventions should explicitly style those application-specific columns.</p>
+<p>The offline <a href="../examples/rtl-dashboard.html">Arabic/English/German fixture</a>
+includes a native and classed table, long translated form labels,
+<code>dir=&quot;ltr&quot;</code> content nested inside an RTL page, activity timeline, and
+native popover. It is illustrative: form navigation does not save any data.</p>
+<p>Development-only regression checks:</p>
+<pre><code class="language-sh">python3 -m unittest discover -s tests -p test_rtl_contract.py -v
+python3 tests/rtl_browser.py --browsers chromium firefox webkit
+</code></pre>
+<p>The RTL page is also included in the optional browser, reflow and axe audit
+inventories. Browser viewport tests do not establish actual 200% or 400%
+browser zoom, screen-reader interoperability, or WCAG conformance.
+If an engine cannot launch, report it as blocked rather than passing it.</p>
 <h2 id="opt-in-print-styling">Opt-in print styling</h2>
 <p>Load <code>syntyr.print.css</code> after core when printing reports or invoices:</p>
 <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
@@ -98,6 +132,9 @@ its <strong>actual host</strong>, not only the viewport; narrow embedded panels 
 Preserve user font scaling and test 200% and 400% genuine browser zoom.</li>
 <li>Core never requires a polyfill. Load optional stylesheets only when their
 capabilities are needed, or use <code>syntyr.all.css</code> for demos.</li>
+<li>Scoped semantic file inputs use <code>min-inline-size: 0</code> so browser-native
+file pickers can shrink in a grid or narrow card without causing page-wide
+horizontal overflow. Test translated picker labels in each target browser.</li>
 <li>Reduced motion, forced colors and assistive-technology behavior still need
 manual, representative real-device verification. Automated checks alone
 cannot establish WCAG compliance.</li>
@@ -120,6 +157,7 @@ Real OS high-contrast and assistive-technology testing must be done manually.</p
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-actions-and-server-responses-come-first">Native actions and server responses come first</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#built-in-system-aware-theme">Built-in system-aware theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#rtl-mixed-direction-data-and-translated-content">RTL, mixed-direction data and translated content</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#opt-in-print-styling">Opt-in print styling</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#responsive-legible-and-fast">Responsive, legible, and fast</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#cross-engine-regression-verification">Cross-engine regression verification</a>

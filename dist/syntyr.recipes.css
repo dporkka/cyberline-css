@@ -337,16 +337,16 @@
     /* An ordered activity stream: markers and lines are decoration, text is truth. */
     &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
     &.syn-activity-timeline > li {
-      position: relative; padding: 0 0 var(--syn-space-3) 1.75rem; min-width: 0; overflow-wrap: anywhere;
+      position: relative; padding-block: 0 var(--syn-space-3); padding-inline: 1.75rem 0; min-width: 0; overflow-wrap: anywhere;
     }
     &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
     &.syn-activity-timeline > li::before {
-      content: ""; position: absolute; inset: .35em auto auto .25rem;
+      content: ""; position: absolute; inset-block-start: .35em; inset-inline-start: .25rem;
       width: .65rem; height: .65rem; border: 2px solid var(--syn-accent);
       border-radius: 50%; background: var(--syn-surface);
     }
     &.syn-activity-timeline > li:not(:last-child)::after {
-      content: ""; position: absolute; inset: 1.35em auto 0 .56rem;
+      content: ""; position: absolute; inset-block-start: 1.35em; inset-block-end: 0; inset-inline-start: .56rem;
       width: 1px; background: var(--syn-border-default);
     }
     &.syn-activity-timeline time {

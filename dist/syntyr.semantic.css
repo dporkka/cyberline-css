@@ -44,7 +44,7 @@
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
-  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: left; }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: start; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic])) { color: var(--syn-text-subtle); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(caption:not([class]), caption[data-syn-semantic])) {
@@ -214,6 +214,8 @@
   }
   /* Browser-native file and color controls (no custom pickers or runtime JS). */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])) {
+    /* File inputs have an intrinsic min-content width; allow grid tracks to shrink. */
+    min-inline-size: 0;
     max-inline-size: 100%;
     color: var(--syn-text);
     font: inherit;

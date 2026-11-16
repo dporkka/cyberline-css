@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Script-free RTL, bidirectional data and long-label regression fixture for Syntyr.">
+  <title>Syntyr — RTL and bilingual dashboard</title>
+  <!-- Unreleased source fixture. Pin a published stylesheet in production. -->
+  <link rel="stylesheet" href="../dist/presets/saas.css">
+</head>
+<body class="syn-root syn-page syn-semantic" data-syn-theme="studio">
+  <main class="syn-shell" style="padding-block:1.5rem">
+    <header class="syn-header">
+      <div>
+        <p><a href="../index.html">Syntyr CSS</a> / RTL</p>
+        <h1>لوحة إدارة الإعلانات</h1>
+        <p>نموذج ثابت يدعم اللغتين العربية والإنجليزية من دون جافاسكريبت.</p>
+      </div>
+      <button type="button" class="syn-button" popovertarget="rtl-menu">خيارات العرض</button>
+      <div id="rtl-menu" popover class="syn-popover">
+        <p>خيارات العرض متاحة باستخدام عناصر HTML الأصلية.</p>
+        <button type="button" popovertarget="rtl-menu" popovertargetaction="hide">إغلاق</button>
+      </div>
+    </header>
+
+    <section class="syn-grid" aria-label="ملخص الأصول">
+      <article class="syn-panel syn-panel--cut" id="rtl-panel">
+        <h2>إجمالي الأصول</h2>
+        <p><strong>1,240</strong> لوحة</p>
+      </article>
+      <article class="syn-panel" dir="ltr" lang="en" id="ltr-panel">
+        <h2>English account summary</h2>
+        <p>Account <bdi>ACME-1029</bdi> is active.</p>
+      </article>
+    </section>
+
+    <section aria-labelledby="inventory-title">
+      <h2 id="inventory-title">قائمة الأصول</h2>
+      <div class="syn-table-wrap" tabindex="0" role="region" aria-label="جدول المخزون القابل للتمرير">
+        <table class="syn-table syn-table--striped" id="rtl-table">
+          <caption>ملخص المخزون</caption>
+          <thead><tr>
+            <th scope="col">اسم اللوحة</th><th scope="col">معرّف الأصل</th><th scope="col">الميزانية</th>
+          </tr></thead>
+          <tbody><tr data-syn-state="selected">
+            <th scope="row">لوحة وسط المدينة</th>
+            <td><bdi dir="ltr">NYC-000142</bdi></td>
+            <td class="syn-cell--numeric"><bdi dir="ltr">12,450.00</bdi></td>
+          </tr><tr>
+            <th scope="row">لوحة المطار الدولية</th>
+            <td><bdi dir="ltr">DXB-000021</bdi></td>
+            <td class="syn-cell--numeric"><bdi dir="ltr">8,100.00</bdi></td>
+          </tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <article aria-labelledby="native-title">
+      <h2 id="native-title">جدول HTML الأصلي</h2>
+      <table id="rtl-native-table">
+        <caption>الأنشطة الحديثة</caption>
+        <thead><tr><th scope="col">النشاط</th><th scope="col">الحالة</th></tr></thead>
+        <tbody><tr><th scope="row">مراجعة الطلب</th><td>مكتمل</td></tr></tbody>
+      </table>
+    </article>
+
+    <section aria-labelledby="activity-title">
+      <h2 id="activity-title">التحديثات</h2>
+      <ol class="syn-activity-timeline" id="rtl-timeline">
+        <li><time datetime="2026-11-15">15 نوفمبر 2026</time>تم نشر الحملة الأولى.</li>
+        <li><time datetime="2026-11-14">14 نوفمبر 2026</time>تم اعتماد التصميم.</li>
+      </ol>
+    </section>
+
+    <article lang="de" dir="ltr" id="long-labels">
+      <h2>Lange, übersetzte Beschriftungen</h2>
+      <form action="?" method="get">
+        <label for="german-description">Ausführliche Beschreibung der Veröffentlichung für die automatisierte Werbeflächenverwaltung
+          <input id="german-description" name="description" type="text" required>
+        </label>
+        <button type="submit">Änderungen überprüfen</button>
+      </form>
+    </article>
+  </main>
+</body>
+</html>

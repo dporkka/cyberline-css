@@ -33,6 +33,13 @@ class NativeSemanticPrimitives(unittest.TestCase):
         self.assertNotIn("@import", css)
         self.assertNotIn("url(", css)
 
+    def test_native_file_input_can_shrink_in_narrow_grid_containers(self):
+        css = (ROOT / "src/semantic.css").read_text()
+        block = css.split('input[type="file"]:not([class])', 1)[1]
+        block = block.split('::file-selector-button', 1)[0]
+        self.assertIn("min-inline-size: 0;", block)
+        self.assertIn("max-inline-size: 100%;", block)
+
     def test_semantic_preview_contains_accessible_html_without_runtime_js(self):
         html = (ROOT / "examples/native-elements.html").read_text()
         for fragment in ('syn-root syn-page syn-semantic', 'syntyr.semantic.css',

@@ -30,10 +30,12 @@
     }
     &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      content: ""; pointer-events: none; position: absolute; inset-inline-end: -1px; inset-block-end: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-panel-cut-fill, var(--syn-bg));
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
     }
+    /* Mirror the decorative cut on RTL panels; never change the panel content flow. */
+    &:dir(rtl).syn-panel--cut::after { clip-path: polygon(0 0, 100% 100%, 0 100%); }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }

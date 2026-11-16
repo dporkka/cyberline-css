@@ -58,6 +58,11 @@ def run():
                         "() => document.documentElement.scrollWidth - document.documentElement.clientWidth"
                     )
                     assert overflow <= 1, (engine, width, "unexpected page overflow", overflow)
+                    # Native file controls must not enforce an intrinsic grid width.
+                    file_control = page.locator("#design-file")
+                    assert file_control.evaluate(
+                        "(e) => e.getBoundingClientRect().right <= innerWidth + 1"
+                    ), (engine, width, "file input clipped outside viewport")
                     pre = page.locator("pre")
                     assert pre.evaluate("(e) => e.scrollWidth > e.clientWidth"), (engine, width, "code must overflow its own box")
                     assert pre.evaluate("(e) => ['auto', 'scroll'].includes(getComputedStyle(e).overflowX)")

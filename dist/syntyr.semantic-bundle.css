@@ -347,10 +347,12 @@
     }
     &.syn-panel--raised { box-shadow: var(--syn-shadow-raised); }
     &.syn-panel--cut::after {
-      content: ""; pointer-events: none; position: absolute; right: -1px; bottom: -1px;
+      content: ""; pointer-events: none; position: absolute; inset-inline-end: -1px; inset-block-end: -1px;
       width: var(--syn-cut); height: var(--syn-cut); background: var(--syn-panel-cut-fill, var(--syn-bg));
       clip-path: polygon(100% 0, 0 100%, 100% 100%);
     }
+    /* Mirror the decorative cut on RTL panels; never change the panel content flow. */
+    &:dir(rtl).syn-panel--cut::after { clip-path: polygon(0 0, 100% 100%, 0 100%); }
     @media (forced-colors: active) { &.syn-stage, &.syn-panel { border-color: CanvasText; } }
   }
 }
@@ -534,7 +536,7 @@
       background: var(--syn-surface); color: var(--syn-text);
       box-shadow: var(--syn-shadow-overlay);
     }
-    &.syn-popover { margin: .75rem; inset: auto 1rem 1rem auto; }
+    &.syn-popover { margin: .75rem; inset-block: auto 1rem; inset-inline: auto 1rem; }
     /* The ordinary corner popover remains the fallback if anchors are unsupported. */
     @supports (position-area: bottom) {
       &.syn-popover.syn-popover--anchored {
@@ -582,7 +584,7 @@
     &.syn-table-wrap { overflow-x: auto; }
     /* Bounded, keyboard-scrollable overflow for large native tables. */
     &.syn-table-wrap--scroll { max-block-size: var(--syn-table-scroll-height, 24rem); overflow: auto; }
-    &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+    &.syn-table { width: 100%; border-collapse: collapse; text-align: start; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); overflow-wrap: anywhere; }
     /* Keep identifiers and quantities on one line only when explicitly requested. */
     &.syn-table .syn-cell--nowrap { white-space: nowrap; }
@@ -619,7 +621,7 @@
     &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
     /* No implicit last-column accent: table columns may contain any kind of data. */
     &.syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
-    &.syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    &.syn-table .syn-cell--numeric { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
     &.syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
     &.syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
     &.syn-status--success { color: var(--syn-success); }
@@ -916,7 +918,7 @@
   }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(legend:not([class]), legend[data-syn-semantic])) { padding-inline: .4rem; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(article:not([class]), article[data-syn-semantic])) { padding: clamp(1rem, 3vw, 1.75rem); border: 1px solid var(--syn-frame); background: var(--syn-surface); min-width: 0; }
-  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: left; }
+  :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(table:not([class]), table[data-syn-semantic])) { width: 100%; border-collapse: collapse; text-align: start; }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic]), :is(td:not([class]), td[data-syn-semantic])) { padding: .65rem; border-bottom: 1px solid var(--syn-frame); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(th:not([class]), th[data-syn-semantic])) { color: var(--syn-text-subtle); }
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(caption:not([class]), caption[data-syn-semantic])) {
@@ -1086,6 +1088,8 @@
   }
   /* Browser-native file and color controls (no custom pickers or runtime JS). */
   :is(.syn-root.syn-semantic, .syn-root .syn-semantic) :where(:is(input[type="file"]:not([class]), input[type="file"][data-syn-semantic])) {
+    /* File inputs have an intrinsic min-content width; allow grid tracks to shrink. */
+    min-inline-size: 0;
     max-inline-size: 100%;
     color: var(--syn-text);
     font: inherit;

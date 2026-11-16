@@ -30,7 +30,7 @@ SITE_URL = "https://syntyr-css.pages.dev"
 # These pages are illustrative applications or an error response, not search
 # landing pages. Their HTML remains publicly available and linkable.
 NOINDEX_HTML = frozenset({
-    "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
+    "404.html", "examples/crm.html", "examples/rtl-dashboard.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
     "examples/resource-workspace.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
@@ -275,7 +275,7 @@ def source_files() -> dict[str, bytes]:
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "common-ui.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "common-ui.html", "rtl-dashboard.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "native-recipes.html", "native-apis.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",

@@ -8,7 +8,7 @@
     &.syn-table-wrap { overflow-x: auto; }
     /* Bounded, keyboard-scrollable overflow for large native tables. */
     &.syn-table-wrap--scroll { max-block-size: var(--syn-table-scroll-height, 24rem); overflow: auto; }
-    &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
+    &.syn-table { width: 100%; border-collapse: collapse; text-align: start; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
     &.syn-table th, &.syn-table td { padding: var(--syn-row-padding-block) .65rem; border-block-end: 1px solid var(--syn-border-subtle); overflow-wrap: anywhere; }
     /* Keep identifiers and quantities on one line only when explicitly requested. */
     &.syn-table .syn-cell--nowrap { white-space: nowrap; }
@@ -45,7 +45,7 @@
     &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
     /* No implicit last-column accent: table columns may contain any kind of data. */
     &.syn-table .syn-table-emphasis { color: var(--syn-accent); font-weight: 650; }
-    &.syn-table .syn-cell--numeric { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    &.syn-table .syn-cell--numeric { text-align: end; font-variant-numeric: tabular-nums; white-space: nowrap; }
     &.syn-status { display: inline-flex; gap: .4em; align-items: center; color: var(--syn-text); font: 650 var(--syn-type-xs)/1.5 var(--syn-font-ui); }
     &.syn-status::before { content: ""; flex: none; width: .45em; height: .45em; border-radius: 50%; background: currentColor; }
     &.syn-status--success { color: var(--syn-success); }
