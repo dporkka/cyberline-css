@@ -1,7 +1,7 @@
 # Native platform patterns and component imports
 
 This prerelease Syntyr example uses original CSS, not upstream Blades source.
-All patterns retain native HTML semantics and need **no runtime JavaScript**.
+The standard native recipes retain semantic HTML and need **no runtime JavaScript**; the separate clipboard/toast companion described below is explicitly opt-in.
 For a live static preview, see [the native recipe example (live alpha.5 source preview)](https://syntyr-css.pages.dev/examples/native-recipes.html).
 
 ## Native interaction recipes
@@ -255,3 +255,60 @@ This guide intentionally avoids wrappers and framework-specific JavaScript.
 Refer to [framework integrations](framework-integrations.md) and the
 [progressive enhancement guide (online)](https://syntyr-css.pages.dev/docs/progressive-enhancement.md) for host behavior
 and fallbacks.
+
+## Common website and application controls (source candidate)
+
+[Open the common UI example](https://syntyr-css.pages.dev/examples/common-ux.html). This is a small, free,
+MIT-licensed addition to the existing native recipes, not a replacement for the
+standard core. Load `syntyr.core.css` and `syntyr.native-recipes.css`; no
+framework, icon runtime, bundler, or JavaScript is needed for the first four.
+
+| Need | Browser-native composition | Important limitation |
+| --- | --- | --- |
+| Action dropdown | `button[popovertarget]` + `[popover]` with `.syn-action-menu` and ordinary links/buttons | Native Tab navigation; do not add `role="menu"` unless implementing all menu keyboard semantics |
+| Slide-over inspector | `dialog.syn-dialog.syn-drawer` with `command="show-modal"` | Browser focus trapping/Escape; authorization and persistence remain application-owned |
+| Gallery / lightbox | `.syn-gallery` with `figure` and `dialog.syn-gallery-dialog` | Each image's button targets a real modal; keep thumbnails or an ordinary link as fallback |
+| Date range | Two labeled native `input[type=date]` fields inside `.syn-date-range` | Validate start <= end, timezones, and inclusive/exclusive policy **on the server** |
+| Copy and toast | Optional `syntyr.feedback.mjs` + `.syn-toast-region` | Requires a secure-context Clipboard API and a user click; failures are announced rather than silently ignored |
+
+The native gallery uses original Syntyr screenshot assets already authorized
+for public previews. Image alt text describes their content, figure captions
+label the previews, and modal close controls use `form method="dialog"`.
+The side drawer likewise has a real heading, labeled dialog and close button.
+Older browsers may lack declarative `commandfor` invokers; provide critical
+information as ordinary links or integrate an explicitly tested compatibility
+enhancement. These patterns do not ship a homemade modal manager.
+
+### Optional copy and toast enhancement
+
+The CSS-only core and native recipes remain entirely script-free. To enable
+one specific subtree's copy controls, load `dist/syntyr.feedback.mjs` as an
+explicit ES module, using an external initializer if the host CSP disallows
+inline JavaScript (as Syntyr's own site does):
+
+~~~html
+<section class="syn-root" id="my-feedback" data-syn-feedback-scope>
+  <pre id="my-snippet">Accessible HTML first.</pre>
+  <button type="button" data-syn-copy-target="my-snippet" disabled>Copy</button>
+  <output class="syn-toast-region" data-syn-feedback-status
+          role="status" aria-live="polite" aria-atomic="true" hidden></output>
+</section>
+~~~
+
+~~~js
+import { enhanceFeedback } from "/assets/syntyr.feedback.mjs";
+const dispose = enhanceFeedback(document.getElementById("my-feedback"));
+// Call dispose() before removing/replacing this host subtree.
+~~~
+
+The copy target is an **ID within the same feedback scope**, not a CSS
+selector. The enhancer uses the Clipboard API and copies the target's
+`value` or `textContent`; it does not parse HTML or execute copied content.
+It sets the disabled control to enabled only after initialization, is
+idempotent for the same root, and uses `textContent` for feedback (never
+`innerHTML`). Its `announceFeedback(status, message, { duration })`
+export also supports application-owned status messages; `duration: 0`
+keeps the message visible. The default auto-dismiss is 4.5 seconds. For
+important validation errors and irreversible operations, use persistent inline
+errors or dialogs rather than a disappearing toast. The enhancer adds no
+backend operations, user analytics, styling globals or remote dependencies.

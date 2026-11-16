@@ -502,3 +502,18 @@ block start so vertical connectors do not cross the marker or its numeral.
 
 See [the zero-JavaScript example](../examples/workflow-steps.html). These classes
 are not included in the published immutable alpha.4 release.
+
+## Common website and application interactions (optional recipes)
+
+The free native recipe module also provides `.syn-action-menu` for ordinary
+popover navigation, `.syn-drawer` for native modal inspectors, `.syn-gallery`
+and `.syn-gallery-dialog` for figure/lightbox layouts, `.syn-date-range`
+for two native date inputs, and `.syn-toast-region` for transient messages.
+They compose existing `.syn-popover`, `.syn-dialog`, `.syn-input` and
+`.syn-button` controls; none adds a new runtime to the core.
+
+Only copy-to-clipboard behavior needs the optional
+`dist/syntyr.feedback.mjs`. See [the complete guide](native-patterns.md)
+and [live copyable demo](https://syntyr-css.pages.dev/examples/common-ux.html). A native date range
+is *not* a custom calendar picker or a validation library; the server must
+check date order and authorized query bounds.

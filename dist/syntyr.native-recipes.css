@@ -128,6 +128,128 @@
     font: inherit;
     color: inherit;
   }
+  /* Common controls compose native popover, dialog, figure, and date inputs. */
+  :where(.syn-root.syn-action-menu, .syn-root .syn-action-menu) {
+    width: min(18rem, calc(100vw - 2rem));
+    padding: .4rem;
+  }
+  :where(.syn-root.syn-action-menu, .syn-root .syn-action-menu) ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  :where(.syn-root.syn-action-menu, .syn-root .syn-action-menu) :where(a, button) {
+    display: block;
+    inline-size: 100%;
+    text-align: start;
+    padding: .65rem .75rem;
+    border: 0;
+    border-radius: var(--syn-radius);
+    color: var(--syn-text);
+    background: transparent;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  :where(.syn-root.syn-action-menu, .syn-root .syn-action-menu) :where(a, button):hover {
+    background: var(--syn-accent-soft);
+    color: var(--syn-accent);
+  }
+
+  :where(.syn-root.syn-drawer, .syn-root .syn-drawer) {
+    position: fixed;
+    inset-block: 0;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    margin: 0;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100vh;
+    max-height: 100dvh;
+    width: min(28rem, calc(100vw - 1rem));
+    max-width: calc(100vw - 1rem);
+    border-radius: 0;
+    overflow: auto;
+  }
+
+  :where(.syn-root.syn-gallery, .syn-root .syn-gallery) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+    gap: var(--syn-space-2);
+    min-width: 0;
+  }
+  :where(.syn-root.syn-gallery, .syn-root .syn-gallery) figure {
+    min-width: 0;
+    margin: 0;
+  }
+  :where(.syn-root.syn-gallery, .syn-root .syn-gallery) .syn-gallery-trigger {
+    display: block;
+    inline-size: 100%;
+    padding: 0;
+    border: 1px solid var(--syn-frame);
+    border-radius: var(--syn-radius);
+    background: transparent;
+    cursor: zoom-in;
+    overflow: hidden;
+  }
+  :where(.syn-root.syn-gallery, .syn-root .syn-gallery) .syn-gallery-trigger img {
+    display: block;
+    inline-size: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  :where(.syn-root.syn-gallery, .syn-root .syn-gallery) figcaption {
+    margin-block-start: .4rem;
+    color: var(--syn-muted);
+  }
+  :where(.syn-root.syn-gallery-dialog, .syn-root .syn-gallery-dialog) {
+    width: min(56rem, calc(100vw - 2rem));
+    max-height: min(90vh, 55rem);
+    max-height: min(90dvh, 55rem);
+  }
+  :where(.syn-root.syn-gallery-dialog, .syn-root .syn-gallery-dialog) figure {
+    margin: 0 0 var(--syn-space-2);
+  }
+  :where(.syn-root.syn-gallery-dialog, .syn-root .syn-gallery-dialog) img {
+    display: block;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 65vh;
+    max-height: 65dvh;
+    object-fit: contain;
+    margin-inline: auto;
+  }
+  :where(.syn-root.syn-gallery-dialog, .syn-root .syn-gallery-dialog) figcaption {
+    margin-block-start: .6rem;
+    color: var(--syn-text);
+  }
+  :where(.syn-root.syn-date-range, .syn-root .syn-date-range) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr));
+    gap: var(--syn-space-2);
+    min-width: 0;
+  }
+
+  :where(.syn-root.syn-toast-region, .syn-root .syn-toast-region) {
+    position: fixed;
+    inset-block-end: var(--syn-space-3);
+    inset-inline-end: var(--syn-space-3);
+    z-index: 20;
+    max-width: calc(100vw - 2rem);
+    width: max-content;
+    padding: .75rem 1rem;
+    border: 1px solid var(--syn-frame);
+    border-radius: var(--syn-radius);
+    background: var(--syn-surface);
+    color: var(--syn-text);
+    box-shadow: var(--syn-shadow-overlay);
+    overflow-wrap: anywhere;
+    pointer-events: none;
+  }
+  :where(.syn-root.syn-toast-region, .syn-root .syn-toast-region)[hidden] {
+    display: none;
+  }
+
   @media (forced-colors: active) {
     :where(.syn-root.syn-timeline, .syn-root .syn-timeline) > li::before,
     :where(.syn-root.syn-code-figure, .syn-root .syn-code-figure) {

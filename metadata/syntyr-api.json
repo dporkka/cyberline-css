@@ -2,6 +2,11 @@
   "version": 1,
   "classes": [
     {
+      "name": "syn-action-menu",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
       "name": "syn-actions",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css)."
@@ -372,6 +377,11 @@
       "description": "Syntyr CSS class (data-grid.css)."
     },
     {
+      "name": "syn-date-range",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
       "name": "syn-defer-section",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css)."
@@ -415,6 +425,11 @@
       "name": "syn-divider-label",
       "module": "components/patterns.css",
       "description": "Syntyr CSS class (components/patterns.css)."
+    },
+    {
+      "name": "syn-drawer",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
       "name": "syn-email-body",
@@ -675,6 +690,21 @@
       "name": "syn-frame--step",
       "module": "geometry.css",
       "description": "Optional square-stepped top-right and bottom-left frame."
+    },
+    {
+      "name": "syn-gallery",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
+      "name": "syn-gallery-dialog",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
+    },
+    {
+      "name": "syn-gallery-trigger",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
       "name": "syn-glow",
@@ -1310,6 +1340,11 @@
       "name": "syn-title",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css)."
+    },
+    {
+      "name": "syn-toast-region",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css)."
     },
     {
       "name": "syn-toolbar",

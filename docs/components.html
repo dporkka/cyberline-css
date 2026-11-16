@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="0e651b406defc797338c46ea8ec195557a84ade031fb0c24768f8522c3ea0305">
+  <meta name="syntyr-source-sha256" content="9b517ba37be6e2c85e0c7fb4de3a8b8f628c83df4b4c6f0323617c8d89268af9">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -701,6 +701,18 @@ Long step descriptions and translated text keep numbered markers aligned at the
 block start so vertical connectors do not cross the marker or its numeral.</p>
 <p>See <a href="../examples/workflow-steps.html">the zero-JavaScript example</a>. These classes
 are not included in the published immutable alpha.4 release.</p>
+<h2 id="common-website-and-application-interactions-optional-recipes">Common website and application interactions (optional recipes)</h2>
+<p>The free native recipe module also provides <code>.syn-action-menu</code> for ordinary
+popover navigation, <code>.syn-drawer</code> for native modal inspectors, <code>.syn-gallery</code>
+and <code>.syn-gallery-dialog</code> for figure/lightbox layouts, <code>.syn-date-range</code>
+for two native date inputs, and <code>.syn-toast-region</code> for transient messages.
+They compose existing <code>.syn-popover</code>, <code>.syn-dialog</code>, <code>.syn-input</code> and
+<code>.syn-button</code> controls; none adds a new runtime to the core.</p>
+<p>Only copy-to-clipboard behavior needs the optional
+<code>dist/syntyr.feedback.mjs</code>. See <a href="native-patterns.html">the complete guide</a>
+and <a href="https://syntyr-css.pages.dev/examples/common-ux.html">live copyable demo</a>. A native date range
+is <em>not</em> a custom calendar picker or a validation library; the server must
+check date order and authorized query bounds.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#loading-and-scoping">Loading and scoping</a>
@@ -727,6 +739,7 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#visual-role-examples">Visual role examples</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#progressive-rendering-extensions">Progressive rendering extensions</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#workflow-steps-source-candidate-only">Workflow steps (source candidate only)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#common-website-and-application-interactions-optional-recipes">Common website and application interactions (optional recipes)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="components.md">Markdown source</a></nav>

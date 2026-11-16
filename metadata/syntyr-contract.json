@@ -38,6 +38,16 @@
   ],
   "classes": [
     {
+      "name": "syn-action-menu",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
       "name": "syn-actions",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css).",
@@ -944,6 +954,16 @@
       ]
     },
     {
+      "name": "syn-date-range",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
       "name": "syn-defer-section",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -1059,6 +1079,16 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-drawer",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
       ]
     },
     {
@@ -1634,6 +1664,36 @@
         "presets/cinematic.css",
         "syntyr.all.css",
         "syntyr.geometry.css"
+      ]
+    },
+    {
+      "name": "syn-gallery",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-gallery-dialog",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
+      ]
+    },
+    {
+      "name": "syn-gallery-trigger",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
       ]
     },
     {
@@ -3384,6 +3444,16 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-toast-region",
+      "module": "native-recipes.css",
+      "description": "Syntyr CSS class (native-recipes.css).",
+      "stylesheets": [
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.native-recipes.css"
       ]
     },
     {

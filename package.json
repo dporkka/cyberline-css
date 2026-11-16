@@ -49,6 +49,10 @@
     "./animate": {
       "types": "./dist/syntyr.animate.d.mts",
       "default": "./dist/syntyr.animate.mjs"
+    },
+    "./feedback": {
+      "types": "./dist/syntyr.feedback.d.mts",
+      "default": "./dist/syntyr.feedback.mjs"
     }
   },
   "sideEffects": [

@@ -39,6 +39,10 @@ class NpmDistributionContract(unittest.TestCase):
             'types': './dist/syntyr.animate.d.mts',
             'default': './dist/syntyr.animate.mjs',
         }
+        expected['./feedback'] = {
+            'types': './dist/syntyr.feedback.d.mts',
+            'default': './dist/syntyr.feedback.mjs',
+        }
         self.assertEqual({key: value for key, value in self.package['exports'].items() if key != '.'}, expected)
         for exported in expected.values():
             for relative in exported.values() if isinstance(exported, dict) else (exported,):

@@ -6,6 +6,10 @@
       "description": "Syntyr class names in the optional syn-* styling API.",
       "values": [
         {
+          "name": "syn-action-menu",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-actions",
           "description": "Syntyr CSS class (components/buttons.css)."
         },
@@ -302,6 +306,10 @@
           "description": "Syntyr CSS class (data-grid.css)."
         },
         {
+          "name": "syn-date-range",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
           "name": "syn-defer-section",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -336,6 +344,10 @@
         {
           "name": "syn-divider-label",
           "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-drawer",
+          "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
           "name": "syn-email-body",
@@ -544,6 +556,18 @@
         {
           "name": "syn-frame--step",
           "description": "Optional square-stepped top-right and bottom-left frame."
+        },
+        {
+          "name": "syn-gallery",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
+          "name": "syn-gallery-dialog",
+          "description": "Syntyr CSS class (native-recipes.css)."
+        },
+        {
+          "name": "syn-gallery-trigger",
+          "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
           "name": "syn-glow",
@@ -1052,6 +1076,10 @@
         {
           "name": "syn-title",
           "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
+          "name": "syn-toast-region",
+          "description": "Syntyr CSS class (native-recipes.css)."
         },
         {
           "name": "syn-toolbar",

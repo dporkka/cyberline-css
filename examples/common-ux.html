@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Native-first Syntyr recipes: dropdown, drawer, gallery lightbox, date-range and opt-in copy feedback.">
+  <title>Syntyr CSS — Common UI interactions</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.native-recipes.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button" href="#main">Skip to examples</a>
+  <header class="syn-header syn-shell">
+    <a class="syn-logo" href="../docs/index.html">SYNTYR / COMMON UI</a>
+    <a href="../docs/native-patterns.html" class="syn-button syn-button--outline">Implementation guide</a>
+  </header>
+  <main class="syn-shell syn-stack" id="main">
+    <h1 class="syn-title">Common website and application UI</h1>
+    <p class="syn-lede">Browser-native interactions work without JavaScript. Clipboard feedback is explicitly optional and the disabled copy button stays disabled without enhancement.</p>
+
+    <section class="syn-panel" id="actions" aria-labelledby="actions-title">
+      <h2 class="syn-heading" id="actions-title">Dropdown actions (native popover)</h2>
+      <p>Use links for navigation, not a fake ARIA menu. Native light-dismiss and keyboard focus remain browser-owned.</p>
+      <button type="button" class="syn-button syn-button--outline" popovertarget="common-action-list">Open actions</button>
+      <div id="common-action-list" class="syn-popover syn-popover--anchored syn-action-menu" popover="auto">
+        <nav aria-label="Example actions">
+          <ul>
+            <li><a href="#gallery">Browse gallery</a></li>
+            <li><a href="#date-range">Filter by dates</a></li>
+            <li><a href="#copy">Copy a snippet</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <section class="syn-panel" id="drawer-section" aria-labelledby="drawer-title">
+      <h2 class="syn-heading" id="drawer-title">Detail drawer (native dialog)</h2>
+      <p>A native modal provides focus containment and Escape dismissal. The close action uses a non-mutating dialog form.</p>
+      <button type="button" class="syn-button" commandfor="common-drawer" command="show-modal">Open details</button>
+      <dialog id="common-drawer" class="syn-dialog syn-drawer" aria-labelledby="drawer-dialog-title">
+        <div class="syn-stack">
+          <h3 id="drawer-dialog-title" class="syn-heading">Record details</h3>
+          <p>Use this for filters, inspectors and supplemental information. No data is saved.</p>
+          <dl><dt>Status</dt><dd>Example only</dd><dt>Accessibility</dt><dd>Native modal dialog</dd></dl>
+          <form method="dialog">
+            <button type="submit" value="close" class="syn-button syn-button--outline" autofocus>Close details</button>
+          </form>
+        </div>
+      </dialog>
+    </section>
+
+    <section class="syn-panel" id="gallery" aria-labelledby="gallery-title">
+      <h2 class="syn-heading" id="gallery-title">Image gallery and lightbox</h2>
+      <p>Click a preview to open its image in a native modal; the fallback image is still visible without script.</p>
+      <div class="syn-gallery">
+        <figure>
+          <button type="button" class="syn-gallery-trigger" commandfor="gallery-studio" command="show-modal" aria-label="Enlarge Studio dashboard">
+            <img src="../docs/previews/studio-overview.webp" alt="Studio dashboard interface preview" loading="lazy" width="480" height="300">
+          </button>
+          <figcaption>Studio dashboard</figcaption>
+        </figure>
+        <figure>
+          <button type="button" class="syn-gallery-trigger" commandfor="gallery-grid" command="show-modal" aria-label="Enlarge Grid resources">
+            <img src="../docs/previews/grid-resources.webp" alt="Grid resources interface preview" loading="lazy" width="480" height="300">
+          </button>
+          <figcaption>Grid resources</figcaption>
+        </figure>
+        <figure>
+          <button type="button" class="syn-gallery-trigger" commandfor="gallery-noir" command="show-modal" aria-label="Enlarge Noir billing">
+            <img src="../docs/previews/noir-billing.webp" alt="Noir billing interface preview" loading="lazy" width="480" height="300">
+          </button>
+          <figcaption>Noir billing</figcaption>
+        </figure>
+      </div>
+      <dialog id="gallery-studio" class="syn-dialog syn-gallery-dialog" aria-labelledby="gallery-studio-title">
+        <figure><img src="../docs/previews/studio-overview.webp" alt="Studio dashboard interface enlarged" width="1080" height="675"><figcaption id="gallery-studio-title">Studio dashboard</figcaption></figure>
+        <form method="dialog"><button class="syn-button syn-button--outline" value="close" autofocus>Close image</button></form>
+      </dialog>
+      <dialog id="gallery-grid" class="syn-dialog syn-gallery-dialog" aria-labelledby="gallery-grid-title">
+        <figure><img src="../docs/previews/grid-resources.webp" alt="Grid resources interface enlarged" width="1080" height="675"><figcaption id="gallery-grid-title">Grid resources</figcaption></figure>
+        <form method="dialog"><button class="syn-button syn-button--outline" value="close" autofocus>Close image</button></form>
+      </dialog>
+      <dialog id="gallery-noir" class="syn-dialog syn-gallery-dialog" aria-labelledby="gallery-noir-title">
+        <figure><img src="../docs/previews/noir-billing.webp" alt="Noir billing interface enlarged" width="1080" height="675"><figcaption id="gallery-noir-title">Noir billing</figcaption></figure>
+        <form method="dialog"><button class="syn-button syn-button--outline" value="close" autofocus>Close image</button></form>
+      </dialog>
+    </section>
+
+    <section class="syn-panel" id="date-range" aria-labelledby="date-range-title">
+      <h2 class="syn-heading" id="date-range-title">Native date-range form</h2>
+      <p>Two native date fields preserve platform pickers and server rendering. Always validate the date order on the server, including timezone and inclusive/exclusive endpoint policy.</p>
+      <form class="syn-form" method="get" action="common-ux.html">
+        <div class="syn-date-range">
+          <div class="syn-field"><label class="syn-label" for="date-from">Start date</label><input class="syn-input" type="date" name="date_from" id="date-from" required></div>
+          <div class="syn-field"><label class="syn-label" for="date-to">End date</label><input class="syn-input" type="date" name="date_to" id="date-to" required></div>
+        </div>
+        <button type="submit" class="syn-button syn-button--primary">Apply dates</button>
+      </form>
+    </section>
+
+    <section class="syn-panel" id="copy" data-syn-feedback-scope aria-labelledby="copy-title">
+      <h2 class="syn-heading" id="copy-title">Clipboard and toast feedback (opt in)</h2>
+      <p>The Clipboard API requires a secure context and user activation. This example reports failure rather than pretending a copy succeeded.</p>
+      <pre class="syn-code-figure" id="copy-example">Syntyr CSS: semantic HTML, native APIs, optional enhancements.</pre>
+      <button type="button" class="syn-button" data-syn-copy-target="copy-example" disabled>Copy snippet</button>
+      <output class="syn-toast-region" data-syn-feedback-status role="status" aria-live="polite" aria-atomic="true" hidden></output>
+    </section>
+    <p class="syn-caption">All dropdown, drawer and gallery navigation is native. Browser support for invoker commands varies; provide ordinary links when older browsers are a requirement.</p>
+  </main>
+  <script type="module" src="./common-ux.mjs"></script>
+</body>
+</html>

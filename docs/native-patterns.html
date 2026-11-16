@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. All patterns retain native HTML semantics and need no runtime JavaScript…">
-  <meta name="syntyr-source-sha256" content="023a925db06511642aa2b096b7d9d7a5445120c036a500827fd6c32614e4a6a7">
+  <meta name="description" content="This prerelease Syntyr example uses original CSS, not upstream Blades source. The standard native recipes retain semantic HTML and need no runtime…">
+  <meta name="syntyr-source-sha256" content="fc185a70fbc7ad05a47fb3e2a136b0864627a0ab92ea8c2f8dd0a185d30c29a2">
   <meta name="theme-color" content="#f5f7fb">
   <title>Native platform patterns and component imports — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-patterns">
@@ -36,7 +36,7 @@
         <article class="docs-prose" aria-label="Native platform patterns and component imports">
 <h1 id="native-platform-patterns-and-component-imports">Native platform patterns and component imports</h1>
 <p>This prerelease Syntyr example uses original CSS, not upstream Blades source.
-All patterns retain native HTML semantics and need <strong>no runtime JavaScript</strong>.
+The standard native recipes retain semantic HTML and need <strong>no runtime JavaScript</strong>; the separate clipboard/toast companion described below is explicitly opt-in.
 For a live static preview, see <a href="https://syntyr-css.pages.dev/examples/native-recipes.html">the native recipe example (live alpha.5 source preview)</a>.</p>
 <h2 id="native-interaction-recipes">Native interaction recipes</h2>
 <p>The standard library includes the following <strong>five native interaction
@@ -245,6 +245,81 @@ provide their own HTMX script and server response semantics.</p>
 Refer to <a href="framework-integrations.html">framework integrations</a> and the
 <a href="https://syntyr-css.pages.dev/docs/progressive-enhancement.md">progressive enhancement guide (online)</a> for host behavior
 and fallbacks.</p>
+<h2 id="common-website-and-application-controls-source-candidate">Common website and application controls (source candidate)</h2>
+<p><a href="https://syntyr-css.pages.dev/examples/common-ux.html">Open the common UI example</a>. This is a small, free,
+MIT-licensed addition to the existing native recipes, not a replacement for the
+standard core. Load <code>syntyr.core.css</code> and <code>syntyr.native-recipes.css</code>; no
+framework, icon runtime, bundler, or JavaScript is needed for the first four.</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Browser-native composition</th>
+<th>Important limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Action dropdown</td>
+<td><code>button[popovertarget]</code> + <code>[popover]</code> with <code>.syn-action-menu</code> and ordinary links/buttons</td>
+<td>Native Tab navigation; do not add <code>role=&quot;menu&quot;</code> unless implementing all menu keyboard semantics</td>
+</tr>
+<tr>
+<td>Slide-over inspector</td>
+<td><code>dialog.syn-dialog.syn-drawer</code> with <code>command=&quot;show-modal&quot;</code></td>
+<td>Browser focus trapping/Escape; authorization and persistence remain application-owned</td>
+</tr>
+<tr>
+<td>Gallery / lightbox</td>
+<td><code>.syn-gallery</code> with <code>figure</code> and <code>dialog.syn-gallery-dialog</code></td>
+<td>Each image's button targets a real modal; keep thumbnails or an ordinary link as fallback</td>
+</tr>
+<tr>
+<td>Date range</td>
+<td>Two labeled native <code>input[type=date]</code> fields inside <code>.syn-date-range</code></td>
+<td>Validate start &lt;= end, timezones, and inclusive/exclusive policy <strong>on the server</strong></td>
+</tr>
+<tr>
+<td>Copy and toast</td>
+<td>Optional <code>syntyr.feedback.mjs</code> + <code>.syn-toast-region</code></td>
+<td>Requires a secure-context Clipboard API and a user click; failures are announced rather than silently ignored</td>
+</tr>
+</tbody>
+</table>
+<p>The native gallery uses original Syntyr screenshot assets already authorized
+for public previews. Image alt text describes their content, figure captions
+label the previews, and modal close controls use <code>form method=&quot;dialog&quot;</code>.
+The side drawer likewise has a real heading, labeled dialog and close button.
+Older browsers may lack declarative <code>commandfor</code> invokers; provide critical
+information as ordinary links or integrate an explicitly tested compatibility
+enhancement. These patterns do not ship a homemade modal manager.</p>
+<h3 id="optional-copy-and-toast-enhancement">Optional copy and toast enhancement</h3>
+<p>The CSS-only core and native recipes remain entirely script-free. To enable
+one specific subtree's copy controls, load <code>dist/syntyr.feedback.mjs</code> as an
+explicit ES module, using an external initializer if the host CSP disallows
+inline JavaScript (as Syntyr's own site does):</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; id=&quot;my-feedback&quot; data-syn-feedback-scope&gt;
+  &lt;pre id=&quot;my-snippet&quot;&gt;Accessible HTML first.&lt;/pre&gt;
+  &lt;button type=&quot;button&quot; data-syn-copy-target=&quot;my-snippet&quot; disabled&gt;Copy&lt;/button&gt;
+  &lt;output class=&quot;syn-toast-region&quot; data-syn-feedback-status
+          role=&quot;status&quot; aria-live=&quot;polite&quot; aria-atomic=&quot;true&quot; hidden&gt;&lt;/output&gt;
+&lt;/section&gt;
+</code></pre>
+<pre><code class="language-js">import { enhanceFeedback } from &quot;/assets/syntyr.feedback.mjs&quot;;
+const dispose = enhanceFeedback(document.getElementById(&quot;my-feedback&quot;));
+// Call dispose() before removing/replacing this host subtree.
+</code></pre>
+<p>The copy target is an <strong>ID within the same feedback scope</strong>, not a CSS
+selector. The enhancer uses the Clipboard API and copies the target's
+<code>value</code> or <code>textContent</code>; it does not parse HTML or execute copied content.
+It sets the disabled control to enabled only after initialization, is
+idempotent for the same root, and uses <code>textContent</code> for feedback (never
+<code>innerHTML</code>). Its <code>announceFeedback(status, message, { duration })</code>
+export also supports application-owned status messages; <code>duration: 0</code>
+keeps the message visible. The default auto-dismiss is 4.5 seconds. For
+important validation errors and irreversible operations, use persistent inline
+errors or dialogs rather than a disappearing toast. The enhancer adds no
+backend operations, user analytics, styling globals or remote dependencies.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-interaction-recipes">Native interaction recipes</a>
@@ -258,6 +333,8 @@ and fallbacks.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#rust-askama">Rust Askama</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#astro">Astro</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#htmx-optional-enhancement">HTMX (optional enhancement)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#common-website-and-application-controls-source-candidate">Common website and application controls (source candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#optional-copy-and-toast-enhancement">Optional copy and toast enhancement</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="native-patterns.md">Markdown source</a></nav>
