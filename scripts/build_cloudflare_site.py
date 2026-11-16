@@ -226,7 +226,7 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
 
 
 PUBLIC_DOCS = (
-    "ai-quickstart.md", "agent-integration.md",
+    "ai-quickstart.md", "getting-started.md", "troubleshooting.md", "agent-integration.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",

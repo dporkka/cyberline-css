@@ -1,6 +1,6 @@
 # Syntyr CSS: AI-agent quickstart
 
-Use this guide when creating an application **with** Syntyr. To modify Syntyr itself, also read the repository [AGENTS.md](https://github.com/dporkka/syntyr-css/blob/main/AGENTS.md). Syntyr supplies styles, **not** application logic or a JavaScript component system.
+Use this guide when creating an application **with** Syntyr. To modify Syntyr itself, also read the repository [AGENTS.md](https://github.com/dporkka/syntyr-css/blob/main/AGENTS.md). Syntyr supplies styles, **not** application logic or a JavaScript component system. Human readers can start with [Getting started](getting-started.md) and use [Troubleshooting](troubleshooting.md) when a stylesheet, theme, or scope is missing.
 
 ## 1. Choose the correct version
 

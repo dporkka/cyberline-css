@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Fix unstyled pages, missing component classes, semantic CSS issues, theme conflicts, and partial DOM update problems.">
+  <meta name="syntyr-source-sha256" content="734f53de11b590d4908571f2e87f1d9ddd9e3f9fe9d9e5eedbfa611590a0ee73">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Troubleshooting Syntyr CSS — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/troubleshooting">
+  <link rel="alternate" type="text/markdown" href="troubleshooting.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Troubleshooting Syntyr CSS</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="troubleshooting.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Troubleshooting Syntyr CSS">
+<h1 id="troubleshooting-syntyr-css">Troubleshooting Syntyr CSS</h1>
+<p>Use this checklist when a page is unstyled, a component looks wrong, or styles behave differently across frameworks. Diagnose <strong>stylesheet version, loaded modules, scope, and actual HTML</strong> before changing CSS specificity.</p>
+<h2 id="my-page-is-completely-unstyled">My page is completely unstyled</h2>
+<ol>
+<li>Check DevTools → Network: did your stylesheet load with an HTTP success response, not HTML from a 404 fallback?</li>
+<li>Open the stylesheet and confirm it is Syntyr CSS from the version you intend to use.</li>
+<li>Ensure the intended ancestor has <code>class=&quot;syn-root&quot;</code>. Syntyr intentionally does not globally style your document.</li>
+<li>Inspect the element's computed styles. If <code>syn-*</code> rules do not appear, either the stylesheet is missing or the class is not supported by the loaded version.</li>
+<li>Check your framework's stylesheet registration: for example, its global CSS entry point or public assets directory.</li>
+</ol>
+<p><strong>Do not</strong> add <code>!important</code> globally or remove <code>syn-root</code> scoping to hide a missing stylesheet problem.</p>
+<h2 id="semantic-html-is-not-styled">Semantic HTML is not styled</h2>
+<p><code>syntyr.core.css</code> does <strong>not</strong> automatically restyle every unclassed <code>button</code>, <code>table</code>, or <code>article</code>. You must load <code>syntyr.semantic.css</code> <strong>after</strong> core and opt into <code>class=&quot;syn-root syn-semantic&quot;</code>. Alternatively, test the one-file <code>syntyr.semantic-bundle.css</code> in the <strong>unreleased alpha.5 source candidate</strong>; do not also load core or semantic with that bundle.</p>
+<p>Semantic rules intentionally target unclassed elements, with <code>data-syn-semantic</code> available for specific elements whose classes are inserted by libraries such as HTMX. Check the <a href="components.html">semantic guide</a> and <a href="framework-integrations.html">framework integration guide</a>.</p>
+<h2 id="a-class-from-an-example-has-no-effect">A class from an example has no effect</h2>
+<p>Confirm <strong>both</strong> the selector and its stylesheet. Some classes live only in <code>syntyr.recipes.css</code>, <code>syntyr.viz.css</code>, <code>syntyr.data-grid.css</code>, or other optional modules. A <code>syn-*</code> class name does not trigger automatic CSS loading.</p>
+<p>Use the <a href="components.html">component reference</a>, <a href="recipes.html">recipes reference</a>, and the <a href="../metadata/components.json">curated component metadata</a>. The metadata is intentionally non-exhaustive; the installed CSS is authoritative.</p>
+<p>Also check the release: the <strong>published v0.3.0-alpha.4</strong> has three themes and a narrower module set. The <strong>v0.3.0-alpha.5</strong> <code>main</code> tree is an <strong>unreleased candidate</strong>, not a published download. Do not mix stylesheets from both versions.</p>
+<h2 id="colors-typography-or-themes-are-inconsistent">Colors, typography, or themes are inconsistent</h2>
+<ul>
+<li>Set <code>data-syn-theme=&quot;studio&quot;</code>, <code>grid</code>, or <code>noir</code> on <code>.syn-root</code> (or a nested themed subtree) when using the published alpha.4 CSS.</li>
+<li>Theme-aware CSS variables such as <code>--syn-bg</code>, <code>--syn-text</code>, and <code>--syn-accent</code> inherit through the scoped element tree. Override them inside the relevant Syntyr scope.</li>
+<li>Check stylesheet order and other global CSS that may override Syntyr declarations. Avoid copying theme variable values from a different release.</li>
+<li>Do not assume alpha.5-only themes (<code>industrial</code>, <code>terminal</code>, <code>corporate</code>, <code>minimal</code>) exist in the published alpha.4 release.</li>
+</ul>
+<p>See <a href="theme-customization.html">theme customization</a> and <a href="api-stability.html">API stability</a>.</p>
+<h2 id="layout-breaks-after-a-partial-html-update">Layout breaks after a partial HTML update</h2>
+<p>Server-driven frameworks can replace containers or add transient state classes. Ensure the replacement includes necessary <code>syn-*</code> classes, or keep <code>.syn-root</code> on a stable ancestor. If semantic styling stops applying when classes appear, try <code>data-syn-semantic</code> on the affected element.</p>
+<p>If using HTMX, Datastar, Turbo, LiveView, or Livewire, request wiring, event lifecycles, and morphing belong to that framework, not Syntyr. The <a href="framework-integrations.html">integration guide</a> documents the opt-in server-state styles and limitations.</p>
+<h2 id="buttons-overlays-filters-and-charts-do-nothing">Buttons, overlays, filters, and charts do nothing</h2>
+<p>Syntyr supplies <strong>presentation</strong>, not application logic. A styled button needs a real event/action handler. Filtering and pagination need data logic. A chart needs markup or a renderer; <code>syntyr.viz.css</code> only styles HTML/SVG provided by the app.</p>
+<p>Native <code>details</code>, popover, dialog and invoker commands depend on browser support. For essential workflows, implement a working fallback or progressive enhancement. Do not mistake a static demo's sample controls for working backend features.</p>
+<p>See <a href="native-browser-apis.html">native browser APIs</a>, <a href="progressive-enhancement.html">progressive enhancement</a>, and <a href="accessibility.html">accessibility guidance</a>.</p>
+<h2 id="duplicate-rules-unexpectedly-large-css-or-conflicting-styles">Duplicate rules, unexpectedly large CSS, or conflicting styles</h2>
+<p>Choose one strategy:</p>
+<ul>
+<li><code>syntyr.core.css</code> plus the individual optional modules you use.</li>
+<li><code>syntyr.semantic-bundle.css</code> <strong>alone</strong> for one-file semantic styling in alpha.5 source.</li>
+<li>One <code>dist/presets/*.css</code> <strong>alone</strong> for a complete alpha.5 source preset.</li>
+<li><code>syntyr.all.css</code> <strong>alone</strong> when intentionally opting into all included modules.</li>
+</ul>
+<p>Do not combine a bundle or preset with files that it already contains. Prefer the smallest <em>maintainable</em> choice rather than introducing automated purging; Syntyr supports explicit <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/selective-builds.md">selective builds</a> for source users.</p>
+<h2 id="still-stuck">Still stuck?</h2>
+<p>Create a minimal reproduction containing the exact CSS filename/version, stylesheet order, root classes, a short HTML sample, browser and OS, and expected versus observed behavior. Check <a href="https://github.com/dporkka/syntyr-css/issues">existing issues</a> before filing a public bug. For security vulnerabilities, follow the <a href="https://github.com/dporkka/syntyr-css/blob/main/SECURITY.md">private reporting policy</a> instead.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#my-page-is-completely-unstyled">My page is completely unstyled</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#semantic-html-is-not-styled">Semantic HTML is not styled</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#a-class-from-an-example-has-no-effect">A class from an example has no effect</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#colors-typography-or-themes-are-inconsistent">Colors, typography, or themes are inconsistent</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#layout-breaks-after-a-partial-html-update">Layout breaks after a partial HTML update</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#buttons-overlays-filters-and-charts-do-nothing">Buttons, overlays, filters, and charts do nothing</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#duplicate-rules-unexpectedly-large-css-or-conflicting-styles">Duplicate rules, unexpectedly large CSS, or conflicting styles</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#still-stuck">Still stuck?</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="troubleshooting.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

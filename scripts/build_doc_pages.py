@@ -26,7 +26,7 @@ else:
 SITE = "https://syntyr-css.pages.dev"
 GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
-    ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
+    ("Start here", ("getting-started", "troubleshooting", "ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
                     "recipes", "native-patterns", "component-recipes")),
     ("Design system", ("theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
@@ -54,6 +54,8 @@ def renderer() -> MarkdownIt:
 
 
 DESCRIPTION_OVERRIDES = {
+    "getting-started.md": "Get started with pinned Syntyr CSS, scoped styles, semantic HTML, framework integration, and version-safe examples.",
+    "troubleshooting.md": "Fix unstyled pages, missing component classes, semantic CSS issues, theme conflicts, and partial DOM update problems.",
     "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
     "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
     "framework-integrations.md": "Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.",

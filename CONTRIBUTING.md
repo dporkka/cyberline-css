@@ -28,6 +28,15 @@ accessibility states, and the separation of core and optional modules.
 
 Documentation changes must keep the curated `llms.txt` index discoverable
 when relevant, then regenerate `llms-full.txt` using the repo's script.
+For public guide changes, edit the Markdown source, update the explicit
+`PUBLIC_DOCS` allowlist in `scripts/build_cloudflare_site.py` for new guides,
+and run `python3 scripts/build_doc_pages.py` to regenerate the committed HTML
+and documentation index. This requires the **maintainer-only** dependency in
+`requirements-docs.txt`. Run `python3 scripts/build_doc_pages.py --check`
+to detect stale HTML, and rebuild `llms-full.txt` with
+`python3 scripts/build_agent_docs.py`. Check browser navigation and local
+relative links; do not maintain duplicate hand-written HTML for guides.
+
 Public documentation and examples require deliberate updates to the
 Cloudflare site allowlist; never publish internal test artifacts, credentials,
 business notes, or entire source directories.

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Get started with pinned Syntyr CSS, scoped styles, semantic HTML, framework integration, and version-safe examples.">
+  <meta name="syntyr-source-sha256" content="20a4e62f12618d9235f5ff74e93da8cff950b0765344308a1fdd44188b5894af">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Getting started with Syntyr CSS — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/getting-started">
+  <link rel="alternate" type="text/markdown" href="getting-started.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Getting started with Syntyr CSS</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="getting-started.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Getting started with Syntyr CSS">
+<h1 id="getting-started-with-syntyr-css">Getting started with Syntyr CSS</h1>
+<p>Syntyr is a <strong>scoped CSS design system</strong> for ordinary HTML. You do not install a JavaScript component framework or adopt a build pipeline to use it. This guide starts with the <strong>published, pinned v0.3.0-alpha.4 release</strong>; source-only alpha.5 features are called out separately.</p>
+<p>For the shortest possible setup, use explicit <code>syn-*</code> classes. For mostly unclassed markup, add the optional semantic stylesheet and <code>syn-semantic</code> scope.</p>
+<h2 id="1-install-the-published-stylesheet">1. Install the published stylesheet</h2>
+<p>Download <a href="https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4">v0.3.0-alpha.4</a>, place <code>dist/syntyr.core.css</code> into your own project's static directory as <code>/css/syntyr.core.css</code>, and load it once:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+</code></pre>
+<p>For a throwaway prototype, use the <a href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css">version-pinned public URL</a>:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
+</code></pre>
+<p>Self-host for production so availability and release rollouts remain under your control. Do not point a page at a hypothetical alpha.5 release path: alpha.5 is currently <strong>unreleased source</strong>, not a tagged or npm-published release.</p>
+<h2 id="2-give-syntyr-a-scope">2. Give Syntyr a scope</h2>
+<p>The <code>.syn-root</code> class establishes the token and style scope. Put <code>data-syn-theme</code> on that element to pick a theme.</p>
+<pre><code class="language-html">&lt;main class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;section class=&quot;syn-panel&quot; aria-labelledby=&quot;overview-title&quot;&gt;
+    &lt;h1 id=&quot;overview-title&quot; class=&quot;syn-heading&quot;&gt;Overview&lt;/h1&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;Review the active projects.&lt;/p&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/projects&quot;&gt;Open projects&lt;/a&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Use a link for navigation, a button for a local action, and valid <code>href</code>, <code>action</code>, and <code>name</code> attributes for real workflows. Styling an element never adds event handlers or backend behavior.</p>
+<p>Published themes: <code>studio</code> (neutral SaaS), <code>grid</code> (high-contrast control panels), and <code>noir</code> (dark editorial). Four additional themes exist only in the unreleased alpha.5 candidate. You can scope nested areas with <code>data-syn-theme</code>; see <a href="theme-customization.html">theme customization</a>.</p>
+<h2 id="3-choose-explicit-or-semantic-styling">3. Choose explicit or semantic styling</h2>
+<p><strong>Explicit classes (core alone):</strong> start here when introducing Syntyr into an existing site or using a component library. Add classes only to the elements Syntyr should style.</p>
+<p><strong>Semantic opt-in (two published stylesheets):</strong> load <code>syntyr.semantic.css</code> after core and add <code>syn-semantic</code> to the Syntyr subtree. This styles native, largely unclassed elements while leaving other parts of your app alone:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic.css&quot;&gt;
+&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/subscribe&quot;&gt;
+    &lt;label for=&quot;email&quot;&gt;Email address&lt;/label&gt;
+    &lt;input type=&quot;email&quot; id=&quot;email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;
+    &lt;button type=&quot;submit&quot;&gt;Subscribe&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</code></pre>
+<p>A server must handle <code>/subscribe</code>. Apply the appropriate CSRF/authentication checks and response validation in that server; the form above is intentionally only a presentation example.</p>
+<p>For HTMX and similar frameworks that add transient classes, <code>data-syn-semantic</code> can opt an element into semantic styling even while it has other classes. See <a href="framework-integrations.html">framework integrations</a>.</p>
+<h2 id="4-add-optional-modules-only-as-needed">4. Add optional modules only as needed</h2>
+<p>Load optional styles <strong>after core</strong> and do not repeat the same stylesheet:</p>
+<table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Add after core</th>
+<th>Release availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Class-light native HTML</td>
+<td><code>syntyr.semantic.css</code></td>
+<td>Published alpha.4</td>
+</tr>
+<tr>
+<td>SaaS shells, pricing, and page compositions</td>
+<td><code>syntyr.recipes.css</code></td>
+<td>Published alpha.4</td>
+</tr>
+<tr>
+<td>Request-state style bridge</td>
+<td><code>syntyr.server.css</code></td>
+<td><strong>Unreleased alpha.5 source</strong></td>
+</tr>
+<tr>
+<td>Visualization presentation</td>
+<td><code>syntyr.viz.css</code></td>
+<td><strong>Unreleased alpha.5 source</strong></td>
+</tr>
+<tr>
+<td>Symbols, native recipes, geometry, motion, utilities</td>
+<td>Their corresponding <code>syntyr.*.css</code> modules</td>
+<td>Verify in the <a href="distribution.html">distribution guide</a> and actual installed version</td>
+</tr>
+</tbody>
+</table>
+<p><code>syntyr.recipes.css</code> supplies visual layouts, not filters, pagination or persistence. <code>syntyr.viz.css</code> styles HTML and SVG markup <strong>you supply</strong>; it does not generate charts.</p>
+<p>If testing the <strong>unreleased alpha.5 source</strong>, you can use <strong>one</strong> <code>dist/syntyr.semantic-bundle.css</code> instead of loading core plus semantic, or choose one complete <code>dist/presets/{minimal,saas,cinematic}.css</code> file. Do not load bundles and their constituent CSS together.</p>
+<p>For pinned production assets, use the actual published release and load no source-candidate modules until they are released. See <a href="distribution.html">distribution</a> and <a href="package-managers.html">package-manager status</a>.</p>
+<h2 id="5-use-it-in-your-framework">5. Use it in your framework</h2>
+<p>Syntyr does not care what emits the HTML. The only framework-specific changes are usually stylesheet inclusion, HTML attribute syntax, and how state or requests are handled.</p>
+<p><strong>React / Next.js:</strong></p>
+<pre><code class="language-jsx">export function Overview() {
+  return (
+    &lt;main className=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+      &lt;a className=&quot;syn-button syn-button--primary&quot; href=&quot;/reports&quot;&gt;
+        Reports
+      &lt;/a&gt;
+    &lt;/main&gt;
+  );
+}
+</code></pre>
+<p>Import or serve a <em>versioned CSS file</em> through your app's normal stylesheet pipeline. For Next.js, follow its global CSS import rules; Syntyr itself has no React dependency.</p>
+<p><strong>Server templates (Go, Rust, Rails, Laravel, Phoenix, Django):</strong> include the CSS in the layout and emit ordinary <code>class</code> attributes. You do not need a runtime adapter.</p>
+<p><strong>HTMX / Datastar / Turbo / LiveView / Livewire:</strong> keep request behavior in the host library, preserve forms and links as fallbacks where feasible, and use the optional request-state bridge <strong>only if your installed version actually contains it</strong>. Examples: <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">HTMX source</a> and <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/datastar.html">Datastar source</a>. Their live request demos need a local server; opening the static HTML file alone does not provide an API.</p>
+<p>Read the <a href="framework-integrations.html">full integration guide</a> for CSS ordering, DOM replacement boundaries, and framework-specific behavior.</p>
+<h2 id="6-verify-your-page">6. Verify your page</h2>
+<ul>
+<li>In the browser's Network tab, ensure the CSS file returns a successful response and matches the version you intended.</li>
+<li>Confirm the target subtree has <code>syn-root</code>. For plain native HTML, also check <code>syn-semantic</code> <strong>and</strong> that semantic CSS loaded after core.</li>
+<li>Inspect one real selector in DevTools and check that another application's global styles are not overriding the Syntyr rule.</li>
+<li>Test at 320 CSS pixels, 200% and 400% zoom; use keyboard-only navigation, reduced motion, and forced-colors modes where supported.</li>
+<li>Test real validation, form submission, loading, and error states in your application. Syntyr does not implement any of these behaviors.</li>
+<li>If an element still looks wrong, use the <a href="troubleshooting.html">troubleshooting checklist</a>, <a href="components.html">component contract</a>, and <a href="accessibility.html">accessibility guide</a>.</li>
+</ul>
+<p><strong>Next:</strong> browse the <a href="catalog.html">component catalog</a>, <a href="recipes.html">recipes</a>, or <a href="theme-customization.html">theme tokens</a>. AI tooling can start from the <a href="ai-quickstart.html">agent quickstart</a> and the repository <a href="../llms.txt">llms.txt</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-install-the-published-stylesheet">1. Install the published stylesheet</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-give-syntyr-a-scope">2. Give Syntyr a scope</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-choose-explicit-or-semantic-styling">3. Choose explicit or semantic styling</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#4-add-optional-modules-only-as-needed">4. Add optional modules only as needed</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#5-use-it-in-your-framework">5. Use it in your framework</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#6-verify-your-page">6. Verify your page</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="getting-started.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -24,6 +24,8 @@ FILES = (
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/ai-quickstart.md",
+    "docs/getting-started.md",
+    "docs/troubleshooting.md",
     "docs/agent-integration.md",
     "docs/components.md",
     "docs/recipes.md",

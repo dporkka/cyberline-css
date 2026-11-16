@@ -11,6 +11,8 @@ For browser readers, use the [human-readable HTML documentation directory](https
 ## Start here
 
 - [Canonical DESIGN.md contract](https://syntyr-css.pages.dev/DESIGN.md): Agent-readable design rationale and Studio token snapshot generated from source CSS; other themes remain in CSS.
+- [Getting started](https://syntyr-css.pages.dev/docs/getting-started.md): A step-by-step, version-pinned installation and semantic HTML guide.
+- [Troubleshooting](https://syntyr-css.pages.dev/docs/troubleshooting.md): Scope, module, version, theme and interaction diagnostic checklist.
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
