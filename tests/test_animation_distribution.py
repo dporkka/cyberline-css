@@ -49,6 +49,18 @@ class AnimationDistribution(unittest.TestCase):
         self.assertIn('node --test tests/animate.test.mjs',
                       (ROOT / '.woodpecker/js-adoption.yaml').read_text())
 
+    def test_motion_tokens_and_disclosures_are_native_and_opt_in(self):
+        tokens = (ROOT / 'src/tokens.css').read_text()
+        motion = (ROOT / 'src/motion.css').read_text()
+        for key in ('--syn-motion-duration', '--syn-motion-stagger',
+                    '--syn-motion-distance', '--syn-motion-scale-from',
+                    '--syn-motion-press-scale', '--syn-ease-out'):
+            self.assertIn(key + ':', tokens)
+        self.assertIn('var(--syn-motion-duration)', motion)
+        self.assertIn('.syn-disclosure--transition', motion)
+        self.assertIn('::details-content', motion)
+        self.assertIn('prefers-reduced-motion: no-preference', motion)
+
     def test_agent_index_lists_opt_in_animation_guide(self):
         index = (ROOT / 'llms.txt').read_text()
         self.assertIn('https://syntyr-css.pages.dev/docs/animation.md', index)

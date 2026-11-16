@@ -25,12 +25,28 @@
           animation-timeline: scroll(root block);
         }
       }
+      /* Native details disclosure: no JavaScript, graceful fallback in engines
+         without ::details-content or intrinsic size interpolation. */
+      @supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+        &.syn-disclosure--transition {
+          interpolate-size: allow-keywords;
+        }
+        &.syn-disclosure--transition::details-content {
+          block-size: 0;
+          overflow: clip;
+          transition: block-size var(--syn-motion-duration) var(--syn-ease-out),
+                      content-visibility var(--syn-motion-duration) allow-discrete;
+        }
+        &.syn-disclosure--transition[open]::details-content {
+          block-size: auto;
+        }
+      }
       /* Native top-layer entry/exit animation without a JavaScript animation engine. */
       @supports (transition-behavior: allow-discrete) {
         &.syn-popover.syn-popover--transition {
           opacity: 0;
           transform: translateY(-.4rem);
-          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition: opacity var(--syn-motion-duration) var(--syn-ease-out), transform var(--syn-motion-duration) var(--syn-ease-out), display var(--syn-motion-duration), overlay var(--syn-motion-duration);
           transition-behavior: allow-discrete;
         }
         &.syn-popover.syn-popover--transition:popover-open {
@@ -42,7 +58,7 @@
         &.syn-dialog.syn-dialog--transition {
           opacity: 0;
           transform: translateY(.4rem);
-          transition: opacity 180ms ease, transform 180ms ease, display 180ms, overlay 180ms;
+          transition: opacity var(--syn-motion-duration) var(--syn-ease-out), transform var(--syn-motion-duration) var(--syn-ease-out), display var(--syn-motion-duration), overlay var(--syn-motion-duration);
           transition-behavior: allow-discrete;
         }
         &.syn-dialog.syn-dialog--transition[open] {

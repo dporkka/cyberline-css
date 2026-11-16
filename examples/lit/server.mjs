@@ -4,10 +4,11 @@ import { readFile } from "node:fs/promises";
 import { extname, resolve, sep } from "node:path";
 
 const root = resolve(import.meta.dirname, "../..");
-const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8" };
+const types = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8", ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8" };
 createServer(async (req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
-  if (!["/dist/", "/examples/lit/", "/examples/web-components/"].some(prefix => pathname.startsWith(prefix))) {
+  if (!["/dist/", "/examples/lit/", "/examples/web-components/"].some(prefix => pathname.startsWith(prefix)) &&
+      !["/examples/animation.html", "/examples/animation-demo.mjs"].includes(pathname)) {
     res.writeHead(404); res.end(); return;
   }
   const file = resolve(root, "." + pathname);

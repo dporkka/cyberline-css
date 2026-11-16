@@ -138,6 +138,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-ease-out",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
       "name": "--syn-filter-field-min",
       "description": "Filter field basis and minimum; defaults to 11rem."
     },
@@ -307,6 +311,26 @@
     },
     {
       "name": "--syn-mono",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-motion-distance",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-motion-duration",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-motion-press-scale",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-motion-scale-from",
+      "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-motion-stagger",
       "description": "Syntyr CSS property (tokens.css)."
     },
     {

@@ -1,5 +1,5 @@
 /** Optional, dependency-free animation primitives for browser DOM elements. */
-export type SyntyrAnimationPreset = 'fade' | 'enter' | 'scale';
+export type SyntyrAnimationPreset = 'fade' | 'enter' | 'scale' | 'slide' | 'press' | 'highlight';
 export type SyntyrAnimationDirection = 'up' | 'down' | 'left' | 'right';
 
 export interface SyntyrAnimationOptions {
@@ -25,10 +25,25 @@ export declare function animate(
   options?: SyntyrAnimationOptions,
 ): Animation | null;
 
+/** Animate an exit; call onComplete to synchronously hide/remove the element.
+ * Canceled exits never invoke it. Reduced motion calls it immediately. */
+export declare function exit(
+  element: Element | null | undefined,
+  onComplete: () => void,
+  options?: SyntyrAnimationOptions,
+): Animation | null;
+
 export declare function stagger(
   elements: Iterable<Element> | null | undefined,
   preset?: SyntyrAnimationPreset,
   options?: SyntyrStaggerOptions,
 ): Array<Animation | null>;
 
-export declare function observeReveals(root?: Document | Element | null): () => void;
+export interface SyntyrRevealOptions {
+  threshold?: number;
+  rootMargin?: string;
+}
+export declare function observeReveals(
+  root?: Document | Element | null,
+  options?: SyntyrRevealOptions,
+): () => void;

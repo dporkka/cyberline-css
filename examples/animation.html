@@ -6,6 +6,7 @@
   <meta name="description" content="Optional Web Animations API motion companion for Syntyr, using progressive native browser features and reduced-motion support.">
   <title>Syntyr — Optional native animation library</title>
   <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.motion.css">
   <script type="module" src="./animation-demo.mjs"></script>
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
@@ -21,23 +22,34 @@
       <section class="syn-stage" aria-labelledby="title">
         <p class="syn-eyebrow">OPTIONAL / ZERO-DEPENDENCY JAVASCRIPT</p>
         <h1 id="title" class="syn-title">Motion when you ask for it.</h1>
-        <p class="syn-lede">This page uses native Web Animations and IntersectionObserver. Everything remains visible and usable with JavaScript disabled or reduced motion enabled.</p>
+        <p class="syn-lede">This page uses native Web Animations and IntersectionObserver. All content remains readable without JavaScript; the demo controls enable only after their handlers are available. Reduced motion leaves changes immediate.</p>
       </section>
       <section class="syn-stage" aria-labelledby="controls-title">
         <h2 id="controls-title" class="syn-heading">On-demand animation</h2>
         <p>Effects are one-shot, trigger only by the buttons below, and return to normal CSS state when complete.</p>
         <div class="syn-stack">
           <div class="syn-cluster">
-            <button type="button" id="animate-one" class="syn-button syn-button--primary">ANIMATE FIRST CARD</button>
-            <button type="button" id="animate-all" class="syn-button">STAGGER ALL CARDS</button>
+            <button type="button" id="animate-one" disabled class="syn-button syn-button--primary">ANIMATE FIRST CARD</button>
+            <button type="button" id="animate-all" disabled class="syn-button">STAGGER ALL CARDS</button>
+            <button type="button" id="animate-press" disabled class="syn-button">PRESS</button>
+            <button type="button" id="animate-highlight" disabled class="syn-button">HIGHLIGHT</button>
+            <button type="button" id="animate-slide" disabled class="syn-button">SLIDE</button>
           </div>
           <p id="animation-status" role="status" aria-live="polite">Select an animation to preview.</p>
+          <p id="exit-note">Dismissal demonstration: <button type="button" id="animate-exit" disabled class="syn-button syn-button--outline">DISMISS THIS NOTE</button></p>
           <div class="syn-grid" id="motion-cards">
             <article class="syn-panel"><h3 class="syn-heading">Native browser engine</h3><p>Opacity and individual translate properties stay independent of ordinary component styles.</p></article>
             <article class="syn-panel"><h3 class="syn-heading">Lightweight timing</h3><p>Stagger sequencing uses WAAPI delays, not JavaScript timers.</p></article>
             <article class="syn-panel"><h3 class="syn-heading">Accessible default</h3><p>No visibility changes happen before an actual animation begins.</p></article>
           </div>
         </div>
+      </section>
+      <section class="syn-stage" aria-labelledby="disclosure-title">
+        <h2 id="disclosure-title" class="syn-heading">Native CSS-only disclosure</h2>
+        <details id="motion-disclosure" class="syn-disclosure--transition">
+          <summary>View the native disclosure example</summary>
+          <p>The content opens and closes without JavaScript. Browsers supporting intrinsic-size interpolation may animate it; other browsers use the native immediate transition.</p>
+        </details>
       </section>
       <section class="syn-stage" aria-labelledby="viewport-title">
         <h2 id="viewport-title" class="syn-heading">Opt-in viewport entry</h2>

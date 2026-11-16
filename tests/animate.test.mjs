@@ -1,6 +1,6 @@
 import test, { afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { animate, stagger, observeReveals } from '../src/animate.mjs';
+import { animate, stagger, observeReveals, exit } from '../src/animate.mjs';
 
 const previous = {
   matchMedia: globalThis.matchMedia,
@@ -134,7 +134,7 @@ test('observer fallback avoids hiding content when JS features or motion are una
 
 test('package subpath exposes only the optional native animation module', async () => {
   const api = await import('@syntyr/css/animate');
-  assert.deepEqual(Object.keys(api).sort(), ['animate', 'observeReveals', 'stagger']);
+  assert.deepEqual(Object.keys(api).sort(), ['animate', 'exit', 'observeReveals', 'stagger']);
 });
 
 
@@ -201,4 +201,196 @@ test('two observers racing for the same element still animate it once', () => {
   assert.equal(calls.length, 1);
   stopOne();
   stopTwo();
+});
+
+function controlledTarget() {
+  const animations = [];
+  const element = {
+    dataset: {},
+    animate(frames, options) {
+      let resolve, reject;
+      const finished = new Promise((res, rej) => { resolve = res; reject = rej; });
+      const animation = {
+        frames, options, finished, cancelled: false,
+        finish() { resolve(); },
+        cancel() { this.cancelled = true; reject(new Error('cancelled')); },
+      };
+      animations.push(animation);
+      return animation;
+    },
+  };
+  globalThis.getComputedStyle = () => ({
+    backgroundColor: 'rgb(255, 255, 255)',
+    getPropertyValue: (key) => ({
+      '--syn-motion-press-scale': '0.95',
+      '--syn-accent-soft': 'rgb(220, 235, 255)',
+    }[key] ?? ''),
+  });
+  return { element, animations };
+}
+
+test('a later animation on the same element replaces the previous one', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  animate(element, 'fade');
+  animate(element, 'scale');
+  assert.equal(animations[0].cancelled, true);
+  assert.equal(animations[1].cancelled, false);
+  animations[1].finish();
+  await Promise.allSettled(animations.map(a => a.finished));
+});
+
+test('live reduced-motion change cancels existing animations and detaches its listener', async () => {
+  const listeners = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(name, fn) { assert.equal(name, 'change'); listeners.add(fn); },
+    removeEventListener(name, fn) { assert.equal(name, 'change'); listeners.delete(fn); },
+  };
+  globalThis.matchMedia = () => preference;
+  const first = controlledTarget(), second = controlledTarget();
+  animate(first.element, 'enter');
+  animate(second.element, 'fade');
+  assert.equal(listeners.size, 1);
+  preference.matches = true;
+  for (const fn of [...listeners]) fn({matches: true});
+  assert.equal(first.animations[0].cancelled, true);
+  assert.equal(second.animations[0].cancelled, true);
+  await Promise.allSettled([first.animations[0].finished, second.animations[0].finished]);
+  assert.equal(listeners.size, 0);
+});
+
+test('exit retains end style until synchronous removal callback, without replay on cancellation', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  const events = [];
+  const animation = exit(element, () => {
+    events.push('removed');
+    assert.equal(animation.options.fill, 'forwards');
+    assert.equal(animation.cancelled, false);
+  }, {direction: 'left'});
+  assert.equal(animation.frames[0].opacity, 1);
+  assert.equal(animation.frames[1].opacity, 0);
+  assert.equal(animation.frames[1].translate, 'calc(-1 * .75rem) 0');
+  animation.finish();
+  await animation.finished;
+  await Promise.resolve();
+  assert.deepEqual(events, ['removed']);
+  assert.equal(animation.cancelled, true);
+});
+
+test('exit commits immediately without motion and never fires after replacement', async () => {
+  const {element, animations} = controlledTarget();
+  const callbacks = [];
+  globalThis.matchMedia = () => ({matches: true});
+  assert.equal(exit(element, () => callbacks.push('reduced')), null);
+  assert.deepEqual(callbacks, ['reduced']);
+  globalThis.matchMedia = () => ({matches: false});
+  const outgoing = exit(element, () => callbacks.push('cancelled'));
+  animate(element, 'fade');
+  assert.equal(outgoing.cancelled, true);
+  animations.at(-1).finish();
+  await Promise.allSettled(animations.map(a => a.finished));
+  await Promise.resolve();
+  assert.deepEqual(callbacks, ['reduced']);
+});
+
+test('slide, press and highlight provide finite opt-in feedback keyframes', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  animate(element, 'slide', {direction:'right'});
+  assert.equal(animations[0].frames[0].translate, '.75rem 0');
+  assert.equal(animations[0].frames[0].opacity, undefined);
+  animate(element, 'press');
+  assert.deepEqual(animations[1].frames.map(frame => frame.scale), ['1', '0.95', '1']);
+  animate(element, 'highlight');
+  assert.equal(animations[2].frames[0].backgroundColor, 'rgb(255, 255, 255)');
+  assert.equal(animations[2].frames[1].backgroundColor, 'rgb(220, 235, 255)');
+  assert.equal(animations[2].frames[2].backgroundColor, 'rgb(255, 255, 255)');
+  animations[2].finish();
+  await Promise.allSettled(animations.map(a => a.finished));
+});
+
+test('viewport reveal supports optional threshold and rootMargin', () => {
+  const {element} = target();
+  let args;
+  globalThis.IntersectionObserver = class {
+    constructor(callback, options) { args = options; }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+  observeReveals({querySelectorAll: () => [element]}, {threshold: .3, rootMargin: '0px 0px 15px 0px'});
+  assert.deepEqual(args, {threshold: .3, rootMargin: '0px 0px 15px 0px'});
+});
+
+test('finished exit never removes content after a new animation replaces it before callbacks run', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  const removed = [];
+  const outgoing = exit(element, () => removed.push('removed'));
+  outgoing.finish(); // Queues a success callback which native cancel cannot undo.
+  const replacement = animate(element, 'fade');
+  replacement.finish();
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(outgoing.cancelled, true);
+  assert.deepEqual(removed, [], 'a stale queued exit must not remove its replacement target');
+});
+
+test('switching to reduced motion completes an in-flight exit immediately without replay', async () => {
+  const listeners = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(name, fn) { listeners.add(fn); },
+    removeEventListener(name, fn) { listeners.delete(fn); },
+  };
+  globalThis.matchMedia = () => preference;
+  const {element, animations} = controlledTarget();
+  let removed = 0;
+  exit(element, () => { removed += 1; });
+  assert.equal(removed, 0);
+  preference.matches = true;
+  for (const listener of [...listeners]) listener({matches: true});
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(removed, 1, 'reduced motion must not strand a pending dismissal');
+  assert.equal(animations[0].cancelled, true);
+  assert.equal(listeners.size, 0);
+});
+
+test('reduced-motion cancellation does not run a replaced exit callback', async () => {
+  const listeners = new Set();
+  const preference = {
+    matches: false,
+    addEventListener(_, fn) { listeners.add(fn); },
+    removeEventListener(_, fn) { listeners.delete(fn); },
+  };
+  globalThis.matchMedia = () => preference;
+  const {element, animations} = controlledTarget();
+  let removed = 0;
+  exit(element, () => { removed += 1; });
+  animate(element, 'fade');
+  preference.matches = true;
+  for (const fn of [...listeners]) fn({matches: true});
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  await Promise.resolve();
+  assert.equal(removed, 0);
+  assert.equal(animations.every(a => a.cancelled), true);
+});
+
+test('completed exit releases its filled effect when callback starts a new animation', async () => {
+  const {element, animations} = controlledTarget();
+  globalThis.matchMedia = () => ({matches: false});
+  const outgoing = exit(element, () => {
+    animate(element, 'press');
+  });
+  outgoing.finish();
+  await outgoing.finished;
+  await Promise.resolve();
+  assert.equal(animations.length, 2);
+  assert.equal(outgoing.cancelled, true, 'old forwards-filled opacity must be released');
+  assert.equal(animations[1].cancelled, false, 'cleanup must not cancel the new animation');
+  animations[1].finish();
+  await animations[1].finished;
 });

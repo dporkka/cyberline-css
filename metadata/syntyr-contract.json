@@ -1030,6 +1030,16 @@
       ]
     },
     {
+      "name": "syn-disclosure--transition",
+      "module": "motion.css",
+      "description": "Syntyr CSS class (motion.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "syntyr.all.css",
+        "syntyr.motion.css"
+      ]
+    },
+    {
       "name": "syn-display",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css).",
@@ -4208,6 +4218,22 @@
       ]
     },
     {
+      "name": "--syn-ease-out",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "--syn-filter-field-min",
       "module": "recipes.css",
       "description": "Filter field basis and minimum; defaults to 11rem.",
@@ -4722,6 +4748,86 @@
     },
     {
       "name": "--syn-mono",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-motion-distance",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-motion-duration",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-motion-press-scale",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-motion-scale-from",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-motion-stagger",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [

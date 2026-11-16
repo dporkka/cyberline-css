@@ -330,6 +330,10 @@
           "description": "Syntyr CSS class (motion.css)."
         },
         {
+          "name": "syn-disclosure--transition",
+          "description": "Syntyr CSS class (motion.css)."
+        },
+        {
           "name": "syn-display",
           "description": "Syntyr CSS class (components/typography.css)."
         },

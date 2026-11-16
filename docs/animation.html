@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="195b95a55d52dd56350319e212e19b83920f94e1c92584bd18c2ca892da22cf0">
+  <meta name="syntyr-source-sha256" content="0d2104fa3595c5143aba9714f7a15349e88a51981971bed4add54d598eb81378">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -38,8 +38,10 @@
 <p><code>syntyr.animate.mjs</code> is an <strong>opt-in, dependency-free ES module</strong> for
 application-triggered motion. It delegates timing and compositing to the native
 <strong>Web Animations API</strong> and viewport detection to <strong>IntersectionObserver</strong>.
-There are no imports, startup side effects, global listeners, background timers,
-framework adapters, CSS resets, or changes to core Syntyr.</p>
+There are no imports, startup side effects, persistent listeners, background
+timers, framework adapters, CSS resets, or mandatory changes to core Syntyr.
+While native animations are running, one temporary media-query listener
+cancels them if the user switches to reduced motion.</p>
 <p>Use the CSS-only <code>syntyr.motion.css</code> for static declarative effects. Load this
 JavaScript module only when you actually need to trigger animations in code or
 observe viewport entry; either add-on can be used without the other.</p>
@@ -55,7 +57,7 @@ browsers that support ES modules.</p>
 &lt;script type=&quot;module&quot; src=&quot;/js/animation-demo.mjs&quot;&gt;&lt;/script&gt;
 </code></pre>
 <pre><code class="language-js">// /js/animation-demo.mjs
-import { animate, stagger, observeReveals } from '/js/syntyr.animate.mjs';
+import { animate, exit, stagger, observeReveals } from '/js/syntyr.animate.mjs';
 
 document.querySelector('#show')?.addEventListener('click', () =&gt; {
   const card = document.querySelector('#card');
@@ -67,7 +69,7 @@ stagger(document.querySelectorAll('.syn-root .card'), 'fade', {
 });
 
 // This does nothing until invoked, and only animates opted-in descendants.
-const disconnect = observeReveals(document);
+const disconnect = observeReveals(document, { threshold: 0.1, rootMargin: '0px' });
 // Call disconnect() when unmounting the page/region.
 </code></pre>
 <p>When the experimental <code>@syntyr/css</code> npm package is published, the module
@@ -92,20 +94,28 @@ declarations. The default package import remains the CSS entrypoint.</p>
 <td>Native <code>Animation</code> or <code>null</code></td>
 </tr>
 <tr>
+<td><code>exit(element, onComplete, options?)</code></td>
+<td>Animate a dismissal; call a synchronous host hide/remove callback after exit</td>
+<td>Native <code>Animation</code> or <code>null</code></td>
+</tr>
+<tr>
 <td><code>stagger(iterable, preset = 'enter', options?)</code></td>
 <td>Animate each element with an incremental WAAPI delay</td>
 <td>Array of animations or <code>null</code> entries</td>
 </tr>
 <tr>
-<td><code>observeReveals(root = document)</code></td>
+<td><code>observeReveals(root = document, options?)</code></td>
 <td>Observe <code>.syn-root [data-syn-reveal]</code> once per element</td>
 <td><code>disconnect()</code> cleanup function</td>
 </tr>
 </tbody>
 </table>
-<p>Presets are <code>fade</code> (opacity), <code>enter</code> (opacity plus individual <code>translate</code>),
-and <code>scale</code> (opacity plus individual <code>scale</code>). There is no infinite or
-autoplay animation preset. <code>enter</code> supports <code>direction: 'up' | 'down' | 'left' | 'right'</code> and <code>distance: '.75rem'</code>. Use <code>scaleFrom</code> to override the
+<p>Presets are <code>fade</code> (opacity), <code>enter</code> (opacity and individual <code>translate</code>),
+<code>scale</code> (opacity and individual <code>scale</code>), <code>slide</code> (individual translate only),
+<code>press</code> (short scale-down-and-back interaction), and <code>highlight</code> (temporary
+background-color change). No preset autoplays or repeats indefinitely. The
+highlight effect repaints and should not be applied to large regions.
+<code>enter</code> and <code>slide</code> support <code>direction: 'up' | 'down' | 'left' | 'right'</code> and <code>distance: '.75rem'</code>. Use <code>scaleFrom</code> to override the
 initial scale.</p>
 <p>All presets accept <code>duration</code> and <code>delay</code> in milliseconds and <code>easing</code>
 as a CSS timing function. <code>stagger</code> additionally accepts <code>interval</code> in
@@ -117,10 +127,18 @@ are omitted: <code>--syn-motion-duration</code> (220ms default),
 stylesheet, and per-element CSS tokens can override them.</p>
 <p>Unknown presets and invalid directions throw <code>TypeError</code>; missing target,
 missing Web Animations API, or a reduced-motion preference return <code>null</code>
-without modifying the DOM. Prefer <code>animation?.cancel()</code> for interruption and
-<code>animation?.finished</code> when coordinating an actual transition (cancellation
-rejects its promise). Animation properties are released at the end rather
-than persisting a hidden or transformed element.</p>
+without modifying the DOM. Animations on <strong>the same element replace</strong> earlier
+Syntyr animations. Callers can still <code>animation?.cancel()</code> for interruption
+or inspect <code>animation?.finished</code>; cancellation rejects that native promise,
+so handle rejection when awaiting it. Per-element tracking and the transient
+motion-preference listener are cleaned up on settle. Ordinary entrance and
+feedback effects use <code>fill: 'none'</code> and release styles at completion.</p>
+<p>For dismissal, <code>exit(element, () =&gt; element.remove())</code> holds opacity at zero
+until the <strong>synchronous</strong> callback runs, then releases the effect. When reduced
+motion is requested or WAAPI is missing, the callback runs immediately.
+A replacement animation cancels the dismissal without invoking the callback.
+Do not use asynchronous removal callbacks: complete the DOM change
+synchronously before the exit's final keyframe is released.</p>
 <h2 id="viewport-reveals">Viewport reveals</h2>
 <pre><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
   &lt;h2&gt;Visible with CSS alone&lt;/h2&gt;
@@ -129,33 +147,49 @@ than persisting a hidden or transformed element.</p>
 &lt;/section&gt;
 </code></pre>
 <pre><code class="language-js">import { observeReveals } from '/js/syntyr.animate.mjs';
-const disconnect = observeReveals(document);
+const disconnect = observeReveals(document, { threshold: 0.15, rootMargin: '0px 0px 20px 0px' });
 </code></pre>
 <p>No <code>IntersectionObserver</code> is created automatically; call <code>observeReveals</code>
 after rendering the relevant HTML fragment. It observes only descendants of
 <code>.syn-root</code> with a <code>data-syn-reveal</code> attribute, runs each animation once,
 and does <strong>not</strong> add <code>opacity: 0</code> to page content before JavaScript starts.
 A region can be re-scanned after HTMX/Datastar/React renders new nodes.
-The root argument limits the query, and the return function disconnects it.
+The root argument limits the query, and optional <code>threshold</code> and <code>rootMargin</code>
+are forwarded to the native IntersectionObserver. The return function disconnects it.
 There is no <code>MutationObserver</code> or automatic event interception.</p>
 <h2 id="accessibility-and-performance">Accessibility and performance</h2>
 <ul>
 <li><code>prefers-reduced-motion: reduce</code> takes precedence over all presets and
 custom durations. Reduced-motion users always get visible, immediate content;
-if that preference changes while observing, animation is checked again.</li>
+if that preference changes while observing, animation is checked again;
+existing ordinary Syntyr animations are canceled when it changes to reduce,
+while any pending exit commits its synchronous hide/remove callback so it
+cannot leave content stranded in an intermediate state.</li>
 <li>Content is never hidden while waiting for JavaScript, scroll observation,
 or native feature detection. Effects do not replace semantic HTML, focus
 management, ARIA announcements, or actual state-change notifications.</li>
-<li>Keyframes use composited <code>opacity</code>, <code>translate</code>, and <code>scale</code> rather than
-layout dimensions. Avoid animating essential text and high-density data,
+<li>Most keyframes use composited <code>opacity</code>, <code>translate</code>, and <code>scale</code> rather than
+layout dimensions. <code>highlight</code> intentionally repaints a small surface. Avoid animating essential text and high-density data,
 where fading can temporarily reduce readability. An element with custom
 individual transform properties may need a wrapper for composition.</li>
-<li>The module uses one-shot <code>fill: 'none'</code> and <code>iterations: 1</code>, so focus and
-disabled states cannot remain overridden by a completed animation.</li>
+<li>Ordinary effects use one-shot <code>fill: 'none'</code> and <code>iterations: 1</code> to avoid
+persistent overrides. <code>exit</code> temporarily holds its end state until the
+host synchronously removes or hides the node.</li>
 <li>For layout changes, prefer native View Transitions where available. For
 interactive scrubbing and complex timelines, use a specialized animation
 engine <em>outside</em> Syntyr instead of expanding this low-level module.</li>
 </ul>
+<h2 id="css-only-disclosures-and-native-overlays">CSS-only disclosures and native overlays</h2>
+<p>Load <code>dist/syntyr.motion.css</code> alongside core, then opt in with
+<code>&lt;details class=&quot;syn-disclosure--transition&quot;&gt;</code> within <code>.syn-root</code>.
+The module animates native <code>::details-content</code> sizing only when
+<code>interpolate-size</code> and the pseudo-element are supported. Otherwise
+<code>&lt;details&gt;</code> opens and closes normally; no script or custom ARIA state is
+needed. The same stylesheet already provides the opt-in
+<code>syn-popover--transition</code> and <code>syn-dialog--transition</code> classes. These
+transitions read <code>--syn-motion-duration</code> and <code>--syn-ease-out</code> from the
+core tokens, matching the JS defaults. Avoid overriding these tokens with
+nonpositive or unreasonably long values in interactive contexts.</p>
 <h2 id="verification">Verification</h2>
 <pre><code class="language-sh">node --test tests/animate.test.mjs
 python3 scripts/build.py --check
@@ -170,6 +204,7 @@ by Syntyr's existing Python build, allowing deterministic release checks.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#minimal-api">Minimal API</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#viewport-reveals">Viewport reveals</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#css-only-disclosures-and-native-overlays">CSS-only disclosures and native overlays</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#verification">Verification</a>
         </nav></aside>
       </div>
