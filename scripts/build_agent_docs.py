@@ -18,6 +18,7 @@ SOURCES = (
     "docs/component-recipes.md",
     "docs/native-patterns.md",
     "docs/radix-integration.md",
+    "docs/base-ui-integration.md",
     "docs/distribution.md",
     "docs/from-pico.md",
     "docs/api-stability.md",

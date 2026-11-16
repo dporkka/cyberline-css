@@ -41,3 +41,8 @@ packages/react/dist/
 examples/react-vite/dist/
 examples/next-app-router/.next/
 *.tsbuildinfo
+
+# Optional real Base UI integration test; keep its pinned lockfile only.
+examples/base-ui-react/dist/
+examples/base-ui-react/test-results/
+!examples/base-ui-react/package-lock.json

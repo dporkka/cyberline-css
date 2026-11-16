@@ -35,6 +35,8 @@ FILES = (
     "docs/framework-integrations.md",
     "docs/headless-interactions.md",
     "integrations/headless/interactions.css",
+    "docs/base-ui-integration.md",
+    "integrations/base-ui/states.css",
     "docs/native-browser-apis.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",

@@ -31,6 +31,7 @@
 - [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
 - [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
+- [Optional Base UI React adapter](docs/base-ui-integration.md): scoped, CSS-only presentation for real Base UI menus, dialogs, selects, switches, tabs and fields; keep focus and keyboard behavior in Base UI. [Runnable integration smoke](https://github.com/dporkka/syntyr-css/tree/main/examples/base-ui-react).
 - [Optional headless interactions](docs/headless-interactions.md): accessible Radix menus/toasts and React Aria combobox source example; no core JavaScript dependency
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)

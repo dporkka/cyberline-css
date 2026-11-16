@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: Experimental alpha.5 source candidate. Syntyr is still plain CSS with no runtime JavaScript dependencies; Base UI is an optional React application…">
+  <meta name="syntyr-source-sha256" content="ffe7434351d73f409d965133060e4cc58f6a4cf5731283455fd066fee0bb971e">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Base UI / Syntyr integration — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/base-ui-integration">
+  <link rel="alternate" type="text/markdown" href="base-ui-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Base UI / Syntyr integration</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="base-ui-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Base UI / Syntyr integration">
+<h1 id="optional-base-ui-syntyr-integration">Optional Base UI / Syntyr integration</h1>
+<p><strong>Status:</strong> Experimental alpha.5 source candidate. Syntyr is still plain CSS with
+<strong>no runtime</strong> JavaScript dependencies; Base UI is an optional React application
+dependency, not part of Syntyr's CSS package.</p>
+<p>Use <a href="https://base-ui.com/react/handbook/styling">Base UI</a> for headless accessible
+interactions and Syntyr for presentation. Base UI owns keyboard navigation,
+focus management and restoration, ARIA semantics, positioning, selection,
+dismissal, transitions and form behavior. Syntyr does not replace those APIs.</p>
+<h2 id="install-and-load">Install and load</h2>
+<p>In a React application, install <code>@base-ui/react</code> separately. Load Syntyr core
+first, then the optional CSS adapter (the package export is an unpublished
+candidate until a release is approved):</p>
+<pre><code class="language-tsx">import &quot;@syntyr/css/core.css&quot;;
+import &quot;@syntyr/css/base-ui.css&quot;;
+</code></pre>
+<p>Or copy <code>dist/syntyr.core.css</code> and <code>integrations/base-ui/states.css</code> into
+your static assets and load both as ordinary stylesheets in that order. Syntyr
+can also be consumed with native HTML, Go templates, HTMX, Ruby, Rust or PHP;
+these do not need Base UI for native controls. Use Base UI only where rich
+accessible interaction is warranted in React.</p>
+<h2 id="styling-contracts">Styling contracts</h2>
+<p>Assign <strong>explicit</strong> Syntyr part classes to the matching Base UI components,
+for example:</p>
+<table>
+<thead>
+<tr>
+<th>Component family</th>
+<th>Parts</th>
+<th>State hooks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Menu, Select, Combobox, Popover, Tooltip</td>
+<td><code>syn-base-trigger</code>, <code>syn-base-popup</code>, <code>syn-base-item</code>, <code>syn-base-separator</code></td>
+<td><code>data-popup-open</code>, <code>data-highlighted</code>, <code>data-selected</code>, <code>data-disabled</code>, <code>data-focus-visible</code></td>
+</tr>
+<tr>
+<td>Dialog</td>
+<td><code>syn-base-dialog-viewport</code>, <code>syn-base-backdrop</code>, <code>syn-base-popup syn-base-dialog</code>, <code>syn-base-dialog-title</code>, <code>syn-base-dialog-description</code></td>
+<td><code>data-open</code>, <code>data-starting-style</code>, <code>data-ending-style</code></td>
+</tr>
+<tr>
+<td>Switch, Checkbox</td>
+<td><code>syn-base-switch</code>, <code>syn-base-switch-thumb</code>, <code>syn-base-checkbox</code>, <code>syn-base-checkbox-indicator</code></td>
+<td><code>data-checked</code>, <code>data-indeterminate</code>, <code>data-disabled</code></td>
+</tr>
+<tr>
+<td>Tabs</td>
+<td><code>syn-base-tabs-list</code>, <code>syn-base-tab</code>, <code>syn-base-tabs-panel</code></td>
+<td><code>data-selected</code>, <code>data-focus-visible</code>, <code>data-disabled</code></td>
+</tr>
+<tr>
+<td>Field</td>
+<td><code>syn-base-field</code>, <code>syn-base-field-error</code></td>
+<td><code>data-invalid</code></td>
+</tr>
+</tbody>
+</table>
+<p>Consult the exact Base UI component version for its emitted part attributes;
+not every state exists on every part. No selectors target Base UI implementation
+details, generic ARIA roles, unclassed elements, or global <code>:root</code>.</p>
+<h2 id="portal-and-theme-scope">Portal and theme scope</h2>
+<p>Base UI's <code>Portal</code> defaults to rendering into <code>document.body</code>. Content
+outside the <code>.syn-root</code> scope does not receive Syntyr CSS or inherit its
+palette. Put a stable portal container <strong>inside</strong> the theme root and pass it
+to <code>Portal container</code>. This is particularly important with nested themes.
+Do not rely on theme variables being magically inherited through a portal.</p>
+<pre><code class="language-tsx">import { useRef } from &quot;react&quot;;
+import { Dialog } from &quot;@base-ui/react/dialog&quot;;
+
+export function Example() {
+  const portalRef = useRef&lt;HTMLDivElement&gt;(null);
+  return (
+    &lt;section className=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+      &lt;Dialog.Root&gt;
+        &lt;Dialog.Trigger className=&quot;syn-base-trigger&quot;&gt;Open settings&lt;/Dialog.Trigger&gt;
+        &lt;Dialog.Portal container={portalRef} className=&quot;syn-base-dialog-viewport&quot;&gt;
+          &lt;Dialog.Backdrop className=&quot;syn-base-backdrop&quot; /&gt;
+          &lt;Dialog.Popup className=&quot;syn-base-popup syn-base-dialog&quot;&gt;
+            &lt;Dialog.Title className=&quot;syn-base-dialog-title&quot;&gt;Settings&lt;/Dialog.Title&gt;
+            &lt;Dialog.Description className=&quot;syn-base-dialog-description&quot;&gt;
+              Review this setting.
+            &lt;/Dialog.Description&gt;
+            &lt;Dialog.Close className=&quot;syn-base-trigger&quot;&gt;Close&lt;/Dialog.Close&gt;
+          &lt;/Dialog.Popup&gt;
+        &lt;/Dialog.Portal&gt;
+      &lt;/Dialog.Root&gt;
+      &lt;div ref={portalRef} /&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<p>The <code>Portal</code> element may be placed at a different DOM location after
+hydration. Verify that actual portaled DOM nodes descend from the intended
+<code>.syn-root</code>, including after a route change. Avoid attaching <code>syn-root</code> to
+the entire body unless the application explicitly wants global Syntyr styling.</p>
+<h2 id="rtl-and-state-behavior">RTL and state behavior</h2>
+<p>The adapter uses logical CSS properties such as <code>padding-inline</code>,
+<code>border-inline-start</code>, <code>inset</code>, and <code>block-size</code>. Switch-thumb travel
+changes direction via <code>:dir(rtl)</code>. Set <code>dir=&quot;rtl&quot;</code> at the application or
+nested component boundary; Base UI itself determines keyboard and placement
+semantics. CSS alone cannot implement those behaviors.</p>
+<p>The adapter honors reduced motion and forced-colors modes. Error and disabled
+states must be set by the application or Base UI; invalid visual styling is
+not a substitute for an accessible error message or server validation.
+Transitions never control visibility or focus; the headless primitive does.</p>
+<h2 id="runnable-integration-smoke">Runnable integration smoke</h2>
+<p><a href="https://github.com/dporkka/syntyr-css/tree/main/examples/base-ui-react">The optional React fixture</a> pins Base UI 1.9.0
+and runs real menu, dialog, select, switch and tabs browser tests. From that
+example directory run <code>npm ci</code>, <code>npm run build</code> and <code>npm test</code>. The test
+project does not change the Syntyr CSS distribution.</p>
+<h2 id="validation-and-limitations">Validation and limitations</h2>
+<p>Run <code>python3 -m unittest discover -s tests -p 'test_base_ui_integration.py' -v</code>,
+then the repository's full suite. Verify real Base UI dialogs, menus and selects
+with keyboard-only operation, screen readers, real portal roots, 200%/400%
+zoom and multiple themes. Syntyr's static selectors alone cannot certify
+Base UI accessibility. No JavaScript or React is included in Syntyr's core,
+standalone presets or CSS release bundle.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#install-and-load">Install and load</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#styling-contracts">Styling contracts</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#portal-and-theme-scope">Portal and theme scope</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#rtl-and-state-behavior">RTL and state behavior</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#runnable-integration-smoke">Runnable integration smoke</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-limitations">Validation and limitations</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="base-ui-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

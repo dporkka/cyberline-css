@@ -35,6 +35,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Native patterns and component imports](https://syntyr-css.pages.dev/docs/native-patterns.md): Candidate-only native browser recipes and individual CSS entrypoints (not in alpha.4).
 - [Enterprise native data tables](https://syntyr-css.pages.dev/docs/data-tables.md): Optional sticky headers, zebra rows, keyboard scroll regions and aria-sort indicators; server owns sorting and filtering (alpha.5 candidate).
 - [Pico.css migration and semantic starter](https://syntyr-css.pages.dev/docs/from-pico.md): Candidate-only one-file semantic bundle and migration cautions (not in alpha.4).
+- [Optional Base UI adapter](https://syntyr-css.pages.dev/docs/base-ui-integration.md): CSS-only presentation for Base UI React components with explicitly scoped portals (experimental alpha.5).
 - [Optional Radix adapter](https://syntyr-css.pages.dev/docs/radix-integration.md): State-only styling for projects that already use Radix Primitives.
 - [Framework integrations](https://syntyr-css.pages.dev/docs/framework-integrations.md): HTMX, server templates, React and other stacks.
 - [Theme tokens and customization](https://syntyr-css.pages.dev/docs/theme-customization.md): Supported design token overrides.

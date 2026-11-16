@@ -231,7 +231,7 @@ PUBLIC_DOCS = (
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "distribution.md", "native-patterns.md", "from-pico.md", "package-managers.md", "docs.css", "guides.html", "catalog.html", "catalog.css", "catalog.js",
-    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "framework-integrations.md",
+    "blocks.html", "blocks.css", "blocks.js", "blocks-assets.css", "blocks-guide.md", "headless-interactions.md", "base-ui-integration.md", "framework-integrations.md",
     "geometry-terminal.md", "native-browser-apis.md", "radix-integration.md", "visual-intensity.md", "performance-and-polish.md",
     "performance-validation.md", "progressive-enhancement.md", "progressive-loading.md", "live-performance-audit.md",
     "index.html", "lit-integration.md", "playground.html", "playground.css", "playground.js",
@@ -270,6 +270,7 @@ def source_files() -> dict[str, bytes]:
         ROOT / "integrations/vertigo/admin.css",
         ROOT / "integrations/radix/states.css",
         ROOT / "integrations/headless/interactions.css",
+        ROOT / "integrations/base-ui/states.css",
         ROOT / "examples/ansi_cli.py",
     ]
     # Explicit per-file allowlist: new repo files are private until reviewed.

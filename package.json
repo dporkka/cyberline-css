@@ -43,7 +43,8 @@
     "./presets/minimal.css": "./dist/presets/minimal.css",
     "./presets/saas.css": "./dist/presets/saas.css",
     "./presets/cinematic.css": "./dist/presets/cinematic.css",
-    "./contract.json": "./metadata/css-contract.v1.json"
+    "./contract.json": "./metadata/css-contract.v1.json",
+    "./base-ui.css": "./integrations/base-ui/states.css"
   },
   "sideEffects": [
     "**/*.css"
@@ -53,6 +54,7 @@
     "integrations/tailwind/",
     "integrations/shadcn/",
     "integrations/headless/",
+    "integrations/base-ui/",
     "metadata/css-contract.v1.json",
     "README.md",
     "LICENSE"
