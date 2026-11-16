@@ -20,6 +20,12 @@
     --syn-space-3: 1.125rem;
     --syn-space-4: 1.75rem;
     --syn-space-5: 2.5rem;
+    /* Shared composition roles; independent of palette, effects and geometry. */
+    --syn-page-gutter: clamp(1rem, 3vw, 2rem);
+    --syn-content-max: 72rem;
+    --syn-section-space: clamp(2rem, 5vw, 5rem);
+    --syn-content-gap: var(--syn-space-3);
+    --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
     --syn-cut: .9rem;
     --syn-radius: .25rem;
     --syn-line: 1.55;
@@ -63,6 +69,7 @@
     --syn-control-padding-block: .3rem;
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
+    --syn-panel-padding: var(--syn-space-2);
   }
   /* Explicit default restores regular spacing inside a compact ancestor. */
   :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
@@ -70,6 +77,7 @@
     --syn-control-padding-block: .7rem;
     --syn-row-padding-block: .7rem;
     --syn-card-padding: var(--syn-space-3);
+    --syn-panel-padding: clamp(1rem, 2.8vw, 1.75rem);
   }
   /* Spacious is for form-heavy or review contexts, without scaling typography. */
   :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
@@ -77,6 +85,7 @@
     --syn-control-padding-block: .95rem;
     --syn-row-padding-block: 1rem;
     --syn-card-padding: var(--syn-space-4);
+    --syn-panel-padding: var(--syn-space-4);
   }
   /* Visual richness is independent of palette, geometry and density.
      Explicit values on descendants reset the inherited presentation profile. */

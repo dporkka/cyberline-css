@@ -4025,6 +4025,38 @@
       ]
     },
     {
+      "name": "--syn-content-gap",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-content-max",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "--syn-control-height",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css).",
@@ -4769,6 +4801,22 @@
       ]
     },
     {
+      "name": "--syn-page-gutter",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "--syn-panel-border-width",
       "module": "components/layout.css",
       "description": "Per-panel border width; defaults to 1px.",
@@ -4786,10 +4834,10 @@
     },
     {
       "name": "--syn-panel-padding",
-      "module": "components/layout.css",
+      "module": "tokens.css",
       "description": "Per-panel padding; defaults to the existing fluid panel padding.",
       "stylesheets": [
-        "components/layout.css",
+        "components/tokens.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -4879,6 +4927,22 @@
       "name": "--syn-scanline-alpha",
       "module": "tokens.css",
       "description": "Scanline overlay opacity percentage.",
+      "stylesheets": [
+        "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.embed.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-section-space",
+      "module": "tokens.css",
+      "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
         "presets/cinematic.css",
