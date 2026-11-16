@@ -1,0 +1,21 @@
+# Optional framework-consumer verification. This pipeline uses Node.js only
+# for development tests; it never changes the CSS runtime or its Python-only gate.
+when:
+  - event: pull_request
+  - event: push
+    branch: main
+  - event: manual
+
+steps:
+  - name: node-react-next-consumers
+    image: node:24-bookworm-slim@sha256:dc26ae92c9fb15cf6b1d63e20f0944b2efe0f115b20e00be48fb23fceb061c54
+    commands:
+      - node --version && npm --version
+      - npm install --prefix packages/react --no-audit --no-fund
+      - npm test --prefix packages/react
+      - npm install --prefix examples/react-vite --no-audit --no-fund
+      - npm run build --prefix examples/react-vite
+      - npm install --prefix examples/next-app-router --no-audit --no-fund
+      - npm run build --prefix examples/next-app-router
+      - npm install --prefix examples/node-express --no-audit --no-fund
+      - npm test --prefix examples/node-express

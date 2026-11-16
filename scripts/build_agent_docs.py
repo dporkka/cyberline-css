@@ -11,7 +11,9 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "llms-full.txt"
 SOURCES = (
+    "docs/getting-started.md",
     "docs/ai-quickstart.md",
+    "docs/design-principles.md",
     "docs/components.md",
     "docs/data-grid.md",
     "docs/recipes.md",
@@ -31,6 +33,7 @@ SOURCES = (
     "docs/accessibility.md",
     "docs/agent-integration.md",
     "docs/editor-integration.md",
+    "docs/cli.md",
 )
 
 

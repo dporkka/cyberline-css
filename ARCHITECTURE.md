@@ -99,6 +99,15 @@ Accept a new module, component or theme only when it:
 - can be documented with a short example and a clear opt-in boundary;
 - has a credible owner for its continuing maintenance cost.
 
+Every CSS source must be part of a declared distribution, without duplicated
+source inclusion inside a bundle. Components and optional recipes cannot branch on
+`data-syn-theme` or rely on `!important`; palette variations belong in token
+declarations and cascade layers resolve normal precedence. Only tokens and
+existing base, print, and viz theme-context rules may select themed regions. The existing
+`base.css` reduced-motion accessibility exception remains intact.
+`maintenance_policy.py` enforces these rules without CSS compilation or byte
+ceilings.
+
 Prefer removing duplicate rules and simplifying variants before adding new
 features. Do not add a CSS compiler, framework runtime, NPM dependency,
 custom widget system or site generator without measured demand.
@@ -140,6 +149,7 @@ script-disabled sandbox, and is never bundled into distributed stylesheets.
 
 ```sh
 python3 scripts/build.py --check
+python3 scripts/maintenance_policy.py
 python3 scripts/export_api_metadata.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/package_release.py

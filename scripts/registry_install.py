@@ -1,24 +1,34 @@
 """Opt-in, stdlib-only planner for the local Syntyr copy-owned registry.
 
-No network, package manager, script execution or mutations in plan mode.
-Only the checked-in prerelease registry matching VERSION is supported.
+Offline and preview-first. Explicit installs never overwrite existing consumer
+files; lock metadata records exact installed bytes for later verification.
 """
 from __future__ import annotations
 
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
+import tempfile
 
 if __package__:
     from .build_shadcn_registry import ROOT, OUTPUT, DEFAULT_REGISTRY_URL
 else:
     from build_shadcn_registry import ROOT, OUTPUT, DEFAULT_REGISTRY_URL
 
+LOCKFILE = "syntyr.lock.json"
+ITEM_NAME = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
+SHA256 = re.compile(r"[0-9a-f]{64}\Z")
+
 
 class RegistryError(ValueError):
     """Invalid registry data, unsafe target, or existing-file conflict."""
+
+
+def _digest(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()
 
 
 def _safe_destination(project: Path, target: str) -> Path:
@@ -45,7 +55,7 @@ def _safe_destination(project: Path, target: str) -> Path:
 
 def plan_install(name: str, project: Path, registry_root: Path = OUTPUT) -> dict:
     """Resolve explicit CSS dependencies, validate hashes and preview all writes."""
-    if not isinstance(name, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
+    if not isinstance(name, str) or not ITEM_NAME.fullmatch(name):
         raise RegistryError("Invalid item name")
     project = Path(project).absolute()
     version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
@@ -77,7 +87,7 @@ def plan_install(name: str, project: Path, registry_root: Path = OUTPUT) -> dict
             if not isinstance(dep, str) or not dep.startswith(prefix) or not dep.endswith(".json"):
                 raise RegistryError("Untrusted registry dependency URL")
             child = dep[len(prefix):-5]
-            if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", child):
+            if not ITEM_NAME.fullmatch(child):
                 raise RegistryError("Invalid dependency item name")
             visit(child)
         hashes = meta.get("fileDigests")
@@ -94,7 +104,7 @@ def plan_install(name: str, project: Path, registry_root: Path = OUTPUT) -> dict
                 raise RegistryError("Missing file content")
             dest = _safe_destination(project, target)
             relative = dest.relative_to(project).as_posix()
-            expected_hash = hashlib.sha256(content.encode("utf-8")).hexdigest()
+            expected_hash = _digest(content.encode("utf-8"))
             if hashes.get(target) != expected_hash:
                 raise RegistryError("File digest mismatch: " + relative)
             old = collected.get(relative)
@@ -114,31 +124,154 @@ def plan_install(name: str, project: Path, registry_root: Path = OUTPUT) -> dict
                 raise RegistryError("Non-file registry destination: " + relative)
             status = "identical" if target.read_bytes() == content.encode("utf-8") else "conflict"
         files.append({"path": relative, "status": status,
-                      "sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
+                      "sha256": _digest(content.encode("utf-8")),
                       "bytes": len(content.encode("utf-8")), "_content": content})
     return {"item": name, "version": version, "project": str(project), "files": files}
 
 
+def _read_lock(project: Path) -> tuple[dict | None, bytes | None]:
+    path = project / LOCKFILE
+    if path.is_symlink():
+        raise RegistryError("Symlinked Syntyr lockfile")
+    if not path.exists():
+        return None, None
+    if not path.is_file():
+        raise RegistryError("Non-file Syntyr lockfile")
+    original = path.read_bytes()
+    try:
+        data = json.loads(original)
+    except (ValueError, UnicodeError) as exc:
+        raise RegistryError("Invalid Syntyr lockfile; refusing to overwrite") from exc
+    if not isinstance(data, dict) or data.get("schema") != 1:
+        raise RegistryError("Unsupported Syntyr lockfile schema")
+    if not isinstance(data.get("version"), str):
+        raise RegistryError("Invalid Syntyr lockfile version")
+    if not isinstance(data.get("files"), dict) or not isinstance(data.get("items"), list):
+        raise RegistryError("Invalid Syntyr lockfile contents")
+    for relative, digest in data["files"].items():
+        if not isinstance(relative, str) or not isinstance(digest, str) or not SHA256.fullmatch(digest):
+            raise RegistryError("Invalid Syntyr lockfile digest")
+        _safe_destination(project, "~/" + relative)
+    if any(not isinstance(item, str) or not ITEM_NAME.fullmatch(item) for item in data["items"]):
+        raise RegistryError("Invalid Syntyr lockfile item")
+    return data, original
+
+
+def verify_install(project: Path) -> list[dict]:
+    """Diagnose installed-file drift without mutating the consumer project."""
+    project = Path(project).absolute()
+    lock, _ = _read_lock(project)
+    if lock is None:
+        raise RegistryError("No syntyr.lock.json found; install a registry item first")
+    results = []
+    current_version = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+    if lock["version"] != current_version:
+        results.append({"code": "version-mismatch", "path": LOCKFILE,
+                        "severity": "error", "message": "Lockfile was created by a different Syntyr version"})
+    for relative, expected in sorted(lock["files"].items()):
+        target = _safe_destination(project, "~/" + relative)
+        if not target.exists() or not target.is_file():
+            code, message = "missing-file", "Installed Syntyr file is missing"
+        elif _digest(target.read_bytes()) != expected:
+            code, message = "modified-file", "Installed Syntyr file differs from lockfile"
+        else:
+            continue
+        results.append({"code": code, "path": relative, "severity": "error", "message": message})
+    return results
+
+
+def _write_new_file(target: Path, data: bytes) -> None:
+    """Exclusive create; never follow an already-existing file."""
+    flags = os.O_CREAT | os.O_EXCL | os.O_WRONLY | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(target, flags, 0o644)
+    owned = os.fstat(fd)
+    try:
+        with os.fdopen(fd, "wb") as output:
+            output.write(data)
+    except BaseException:
+        # Remove a partial write only if the target still refers to our inode.
+        try:
+            current = target.stat(follow_symlinks=False)
+            if (current.st_dev, current.st_ino) == (owned.st_dev, owned.st_ino):
+                target.unlink()
+        except FileNotFoundError:
+            pass
+        raise
+
+
+def _write_lock(project: Path, content: bytes, previous: bytes | None) -> None:
+    """Stage lock bytes then atomically publish if no external change is observed."""
+    lockfile = project / LOCKFILE
+    candidate = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="wb", prefix=".syntyr-lock-",
+                                         suffix=".tmp", dir=project, delete=False) as stream:
+            candidate = Path(stream.name)
+            stream.write(content)
+        if lockfile.is_symlink():
+            raise RegistryError("Symlinked Syntyr lockfile")
+        if previous is None:
+            try:
+                _write_new_file(lockfile, content)
+            except FileExistsError as exc:
+                raise RegistryError("Lockfile concurrently created") from exc
+        else:
+            if not lockfile.is_file() or lockfile.read_bytes() != previous:
+                raise RegistryError("Lockfile changed since preflight")
+            os.replace(candidate, lockfile)
+            candidate = None
+    finally:
+        if candidate is not None:
+            candidate.unlink(missing_ok=True)
+
+
 def apply_install(plan: dict, project: Path) -> None:
-    """Explicit opt-in copy; never replaces or follows an existing target."""
+    """Copy missing files and write integrity metadata; roll back new files on failure."""
     project = Path(project).absolute()
     if plan.get("project") != str(project):
         raise RegistryError("Installation target does not match the reviewed plan")
+    if not project.is_dir() or project.is_symlink():
+        raise RegistryError("Installation project must be an existing real directory")
+    existing, prior_bytes = _read_lock(project)
+    if existing is not None and existing["version"] != plan["version"]:
+        raise RegistryError("Existing lockfile tracks another Syntyr version")
+    if existing is not None and verify_install(project):
+        raise RegistryError("Existing Syntyr installation has drift; resolve before adding items")
+    planned_bytes = {}
     for entry in plan["files"]:
-        target = _safe_destination(project, "~/" + entry["path"])
-        if entry["status"] == "conflict" or (target.exists() and target.read_bytes() != entry["_content"].encode("utf-8")):
-            raise RegistryError("Would overwrite existing file: " + entry["path"])
-    for entry in plan["files"]:
-        target = _safe_destination(project, "~/" + entry["path"])
-        target.parent.mkdir(parents=True, exist_ok=True)
-        _safe_destination(project, "~/" + entry["path"])
-        if target.exists():
-            continue
-        try:
-            with target.open("xb") as stream:
-                stream.write(entry["_content"].encode("utf-8"))
-        except FileExistsError as error:
-            raise RegistryError("Concurrent installation conflict: " + entry["path"]) from error
+        relative = entry["path"]
+        target = _safe_destination(project, "~/" + relative)
+        content = entry["_content"].encode("utf-8")
+        if entry["status"] == "conflict" or (target.exists() and target.read_bytes() != content):
+            raise RegistryError("Would overwrite existing file: " + relative)
+        if entry["sha256"] != _digest(content):
+            raise RegistryError("Install plan content digest mismatch")
+        planned_bytes[relative] = content
+    files = dict(existing["files"]) if existing else {}
+    files.update({path: _digest(data) for path, data in planned_bytes.items()})
+    items = sorted(set((existing["items"] if existing else []) + [plan["item"]]))
+    lock_data = {"schema": 1, "version": plan["version"],
+                 "items": items, "files": dict(sorted(files.items()))}
+    serialized = (json.dumps(lock_data, sort_keys=True, indent=2) + "\n").encode("utf-8")
+    created: list[tuple[Path, bytes]] = []
+    try:
+        for relative, content in planned_bytes.items():
+            target = _safe_destination(project, "~/" + relative)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target = _safe_destination(project, "~/" + relative)
+            if target.exists():
+                if target.read_bytes() != content:
+                    raise RegistryError("Existing target changed during installation: " + relative)
+                continue
+            _write_new_file(target, content)
+            created.append((target, content))
+        _write_lock(project, serialized, prior_bytes)
+    except Exception:
+        for target, content in reversed(created):
+            # Never delete a file whose bytes were modified after creation.
+            if target.is_file() and not target.is_symlink() and target.read_bytes() == content:
+                target.unlink()
+        raise
 
 
 def main() -> int:
@@ -154,7 +287,7 @@ def main() -> int:
         print(f"Syntyr {plan['version']} / {len(plan['files'])} files")
         if args.apply:
             apply_install(plan, args.project)
-            print("Installed; existing identical files untouched")
+            print("Installed; existing identical files untouched; syntyr.lock.json updated")
         else:
             print("Dry run only. Pass --apply to copy missing files.")
         return 0

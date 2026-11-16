@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.">
-  <meta name="syntyr-source-sha256" content="71b0c36e596000d9eaf8f1a1c42ff5ced8f72e09e54602c73144ed9cd4bd243b">
+  <meta name="syntyr-source-sha256" content="1e07959c987689d7e61703924b3c97a91b54d3c70d5ddb83e2f0bc5786994386">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr CSS component and token contract — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/components">
@@ -181,6 +181,137 @@ or use the <a href="editor-integration.html">editor integration instructions</a>
 <p>The implicit <code>.syn-root</code> palette is Studio (light and sans-serif). Explicit <code>data-syn-theme=&quot;grid&quot;</code> and <code>data-syn-theme=&quot;terminal&quot;</code> retain technical monospace presentation; other themes remain opt-in. <code>.syn-panel</code> and <code>.syn-stage</code> are flat by default; add <code>syn-surface--accent</code> from the optional recipes CSS for emphasis, or the effects stylesheet for cinematic treatments. <code>.syn-badge</code> is a neutral label; use <code>.syn-status</code> with readable status text for meaningful state, or <code>.syn-badge--accent</code> to emphasize a badge.</p>
 <p>Use <code>.syn-section-heading</code> between <code>.syn-heading</code> and <code>.syn-display</code>. Table content wraps by default for better readability in narrow regions, including long text. Apply <code>.syn-cell--nowrap</code> to identifiers or short labels that must stay on one line; <code>.syn-cell--numeric</code> also preserves no-wrap numeric alignment. <code>.syn-cell--wrap</code> remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside <code>.syn-table-wrap</code> with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with <code>tabindex=&quot;0&quot;</code>, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.</p>
 <p>For large server-rendered tables, see the <a href="data-tables.html">enterprise tables guide</a> and <a href="../examples/data-tables.html">static example</a>. Sorting and filtering remain application responsibilities.</p>
+<h2 id="native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</h2>
+<p>Syntyr styles common HTML primitives within <code>.syn-root.syn-semantic</code> or a <code>.syn-semantic</code> subtree of <code>.syn-root</code>. Load <code>syntyr.semantic.css</code> <strong>after</strong> <code>syntyr.core.css</code>. Without the semantic stylesheet and scope, ordinary HTML remains untouched.</p>
+<table>
+<thead>
+<tr>
+<th>Native elements</th>
+<th>Included presentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ul</code>, <code>ol</code>, <code>menu</code>, <code>li</code>, <code>dl</code>, <code>dt</code>, <code>dd</code></td>
+<td>List spacing, preserved native markers, definition terms</td>
+</tr>
+<tr>
+<td><code>h5</code>, <code>h6</code>, <code>small</code>, <code>abbr[title]</code>, <code>address</code></td>
+<td>Heading depth, readable captions, abbreviations, contact text</td>
+</tr>
+<tr>
+<td><code>pre</code>, <code>code</code>, <code>kbd</code>, <code>samp</code>, <code>mark</code></td>
+<td>Scrollable code, keyboard hints, sample output, contrast-safe highlights</td>
+</tr>
+<tr>
+<td><code>figure</code>, <code>figcaption</code>, <code>img</code>, <code>video</code>, <code>audio</code></td>
+<td>Captions and width-constrained media; intrinsic image/video proportions</td>
+</tr>
+<tr>
+<td><code>table</code>, <code>caption</code>, <code>progress</code>, <code>meter</code>, <code>output</code></td>
+<td>Data captions and native browser indicators</td>
+</tr>
+<tr>
+<td><code>input[type=file]</code>, <code>input[type=color]</code></td>
+<td>Native chooser controls with theme-aware surfaces</td>
+</tr>
+<tr>
+<td><code>details</code>, <code>summary</code>, <code>dialog</code>, <code>[popover]</code></td>
+<td>Browser-owned disclosure, top-layer behavior and dismissal</td>
+</tr>
+</tbody>
+</table>
+<p>The selectors style <strong>unclassed elements only</strong>, or elements explicitly marked <code>data-syn-semantic</code>. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.</p>
+<p>For a copyable page covering the additions, see <a href="../examples/native-elements.html">native HTML element examples</a>. The <code>commandfor</code> / <code>command=&quot;show-modal&quot;</code> dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.semantic.css&quot;&gt;
+&lt;main class=&quot;syn-root syn-semantic&quot;&gt;
+  &lt;dl&gt;&lt;dt&gt;Availability&lt;/dt&gt;&lt;dd&gt;12 active screens&lt;/dd&gt;&lt;/dl&gt;
+  &lt;figure&gt;&lt;img src=&quot;/assets/preview.svg&quot; alt=&quot;Campaign preview&quot;&gt;
+    &lt;figcaption&gt;Proof-of-posting image&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;label for=&quot;fill&quot;&gt;Capacity&lt;/label&gt;
+  &lt;progress id=&quot;fill&quot; value=&quot;12&quot; max=&quot;20&quot;&gt;12 of 20&lt;/progress&gt;
+&lt;/main&gt;
+</code></pre>
+<h2 id="additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</h2>
+<p>The optional <code>syntyr.semantic.css</code> now covers the presentation-relevant
+<code>hgroup</code>, <code>time</code>, <code>data</code>, <code>cite</code>, <code>dfn</code>, <code>var</code>, <code>q</code>, <code>ins</code>, <code>del</code>,
+<code>picture</code>, <code>iframe</code>, <code>canvas</code>, and <code>svg</code> elements, plus native
+<code>select[multiple]</code> and <code>textarea</code> without a <code>rows</code> attribute.
+These styles apply only to unclassed elements inside <code>.syn-semantic</code> or to
+elements with <code>data-syn-semantic</code>. Existing semantics, quotes, change
+markings, media aspect ratios, and browser controls remain intact.</p>
+<p>Elements like <code>bdi</code>, <code>bdo</code>, <code>ruby</code>, <code>rt</code>, <code>rp</code>, <code>wbr</code>, <code>template</code>,
+<code>slot</code>, <code>option</code>, and <code>datalist</code> deliberately use native browser behavior.
+Structural landmarks, <code>script</code>, and metadata do not need cosmetic component
+APIs. <strong>Not every HTML element benefits from a CSS reset.</strong></p>
+<p>The core CSS adds these intentionally small presentation compositions:</p>
+<table>
+<thead>
+<tr>
+<th>CSS API</th>
+<th>Use case</th>
+<th>Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-avatar</code>, <code>--sm</code>, <code>--lg</code>, <code>.syn-avatar-stack</code></td>
+<td>User or organization identities</td>
+<td>Image or initials; decorative stack labels need a separate accessible group label</td>
+</tr>
+<tr>
+<td><code>.syn-chip</code></td>
+<td>Filter/category labels</td>
+<td>Static or native anchor/button; <code>data-syn-state=&quot;active&quot;</code> only changes visuals</td>
+</tr>
+<tr>
+<td><code>.syn-nav-tabs</code></td>
+<td>Section navigation</td>
+<td>Ordinary links with <code>aria-current=&quot;page&quot;</code>; <strong>not</strong> JavaScript tabs or tabpanels</td>
+</tr>
+<tr>
+<td><code>.syn-list-group</code>, <code>.syn-list-row</code></td>
+<td>Settings, destinations, item lists</td>
+<td>Native list semantics; rows may contain anchors; <code>aria-current=&quot;page&quot;</code> for current destination</td>
+</tr>
+<tr>
+<td><code>.syn-button-group</code></td>
+<td>Adjacent actions</td>
+<td>Flexbox composition of real links/buttons; no artificial event handling</td>
+</tr>
+<tr>
+<td><code>.syn-divider-label</code></td>
+<td>Labeled separator</td>
+<td>Decorative rules before/after actual text</td>
+</tr>
+<tr>
+<td><code>.syn-alert--success</code>, <code>.syn-alert--warning</code></td>
+<td>Notices</td>
+<td>Extend existing <code>.syn-alert</code>; always include readable status/warning text</td>
+</tr>
+</tbody>
+</table>
+<p>Try the <a href="../examples/common-ui.html">CSS-only common UI example</a> and the
+<a href="../examples/native-elements.html">existing native elements example</a>.</p>
+<pre><code class="language-html">&lt;nav class=&quot;syn-nav-tabs&quot; aria-label=&quot;Account sections&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/settings&quot; aria-current=&quot;page&quot;&gt;Settings&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href=&quot;/billing&quot;&gt;Billing&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;ul class=&quot;syn-list-group&quot; aria-label=&quot;Team members&quot;&gt;
+  &lt;li&gt;&lt;span class=&quot;syn-list-row&quot;&gt;&lt;span class=&quot;syn-avatar&quot; aria-hidden=&quot;true&quot;&gt;JD&lt;/span&gt;Jane Doe&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class=&quot;syn-alert syn-alert--warning&quot;&gt;Review changes before publishing.&lt;/p&gt;
+</code></pre>
+<p>Choose <code>aria-current=&quot;page&quot;</code> only for real navigation state; do not use
+<code>role=&quot;tab&quot;</code> without implementing the WAI-ARIA keyboard and panel behavior.
+Use <code>role=&quot;status&quot;</code> or <code>role=&quot;alert&quot;</code> only for genuinely dynamic
+announcements, not because a box has a particular color. More complex
+interactions (autocomplete, rich text editor, sortable tables, custom menus,
+toast lifecycles) belong to the host app, not a CSS runtime.</p>
 <h2 id="theme-tokens">Theme tokens</h2>
 <table>
 <thead>
@@ -396,6 +527,8 @@ are not included in the published immutable alpha.4 release.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#components">Components</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-composition-utilities-and-component-overrides">Optional composition utilities and component overrides</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#neutral-first-visual-styling">Neutral-first visual styling</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-html-elements-optional-semantic-mode">Native HTML elements (optional semantic mode)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#additional-common-ui-elements-and-semantic-html">Additional common UI elements and semantic HTML</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#theme-tokens">Theme tokens</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-charts-and-microvisualizations">Optional charts and microvisualizations</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance-contracts">Accessibility and performance contracts</a>

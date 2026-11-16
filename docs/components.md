@@ -112,6 +112,87 @@ Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table cont
 
 For large server-rendered tables, see the [enterprise tables guide](data-tables.html) and [static example](../examples/data-tables.html). Sorting and filtering remain application responsibilities.
 
+## Native HTML elements (optional semantic mode)
+
+Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-semantic` subtree of `.syn-root`. Load `syntyr.semantic.css` **after** `syntyr.core.css`. Without the semantic stylesheet and scope, ordinary HTML remains untouched.
+
+| Native elements | Included presentation |
+| --- | --- |
+| `ul`, `ol`, `menu`, `li`, `dl`, `dt`, `dd` | List spacing, preserved native markers, definition terms |
+| `h5`, `h6`, `small`, `abbr[title]`, `address` | Heading depth, readable captions, abbreviations, contact text |
+| `pre`, `code`, `kbd`, `samp`, `mark` | Scrollable code, keyboard hints, sample output, contrast-safe highlights |
+| `figure`, `figcaption`, `img`, `video`, `audio` | Captions and width-constrained media; intrinsic image/video proportions |
+| `table`, `caption`, `progress`, `meter`, `output` | Data captions and native browser indicators |
+| `input[type=file]`, `input[type=color]` | Native chooser controls with theme-aware surfaces |
+| `details`, `summary`, `dialog`, `[popover]` | Browser-owned disclosure, top-layer behavior and dismissal |
+
+The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
+
+For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html). The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
+
+```html
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
+<main class="syn-root syn-semantic">
+  <dl><dt>Availability</dt><dd>12 active screens</dd></dl>
+  <figure><img src="/assets/preview.svg" alt="Campaign preview">
+    <figcaption>Proof-of-posting image</figcaption>
+  </figure>
+  <label for="fill">Capacity</label>
+  <progress id="fill" value="12" max="20">12 of 20</progress>
+</main>
+```
+
+## Additional common UI elements and semantic HTML
+
+The optional `syntyr.semantic.css` now covers the presentation-relevant
+`hgroup`, `time`, `data`, `cite`, `dfn`, `var`, `q`, `ins`, `del`,
+`picture`, `iframe`, `canvas`, and `svg` elements, plus native
+`select[multiple]` and `textarea` without a `rows` attribute.
+These styles apply only to unclassed elements inside `.syn-semantic` or to
+elements with `data-syn-semantic`. Existing semantics, quotes, change
+markings, media aspect ratios, and browser controls remain intact.
+
+Elements like `bdi`, `bdo`, `ruby`, `rt`, `rp`, `wbr`, `template`,
+`slot`, `option`, and `datalist` deliberately use native browser behavior.
+Structural landmarks, `script`, and metadata do not need cosmetic component
+APIs. **Not every HTML element benefits from a CSS reset.**
+
+The core CSS adds these intentionally small presentation compositions:
+
+| CSS API | Use case | Behavior |
+| --- | --- | --- |
+| `.syn-avatar`, `--sm`, `--lg`, `.syn-avatar-stack` | User or organization identities | Image or initials; decorative stack labels need a separate accessible group label |
+| `.syn-chip` | Filter/category labels | Static or native anchor/button; `data-syn-state="active"` only changes visuals |
+| `.syn-nav-tabs` | Section navigation | Ordinary links with `aria-current="page"`; **not** JavaScript tabs or tabpanels |
+| `.syn-list-group`, `.syn-list-row` | Settings, destinations, item lists | Native list semantics; rows may contain anchors; `aria-current="page"` for current destination |
+| `.syn-button-group` | Adjacent actions | Flexbox composition of real links/buttons; no artificial event handling |
+| `.syn-divider-label` | Labeled separator | Decorative rules before/after actual text |
+| `.syn-alert--success`, `.syn-alert--warning` | Notices | Extend existing `.syn-alert`; always include readable status/warning text |
+
+Try the [CSS-only common UI example](../examples/common-ui.html) and the
+[existing native elements example](../examples/native-elements.html).
+
+```html
+<nav class="syn-nav-tabs" aria-label="Account sections">
+  <ul>
+    <li><a href="/settings" aria-current="page">Settings</a></li>
+    <li><a href="/billing">Billing</a></li>
+  </ul>
+</nav>
+<ul class="syn-list-group" aria-label="Team members">
+  <li><span class="syn-list-row"><span class="syn-avatar" aria-hidden="true">JD</span>Jane Doe</span></li>
+</ul>
+<p class="syn-alert syn-alert--warning">Review changes before publishing.</p>
+```
+
+Choose `aria-current="page"` only for real navigation state; do not use
+`role="tab"` without implementing the WAI-ARIA keyboard and panel behavior.
+Use `role="status"` or `role="alert"` only for genuinely dynamic
+announcements, not because a box has a particular color. More complex
+interactions (autocomplete, rich text editor, sortable tables, custom menus,
+toast lifecycles) belong to the host app, not a CSS runtime.
+
 ## Theme tokens
 
 | Token | Purpose |

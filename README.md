@@ -2,6 +2,8 @@
 
 **Experimental v0.3.0-alpha.5 (unreleased candidate)** — framework-neutral, low-dependency, CSS-first styling for modern SaaS apps, professional business websites and optional cinematic Grid/Noir designs.
 
+**New to Syntyr?** Start with the [2-minute, version-aware installation guide](docs/getting-started.md). It uses the published alpha.4 stylesheet and does not require npm, Node.js, or JavaScript.
+
 - **The `syn-` class, CSS token, and HTML data-attribute namespace is the public API.**
 - **0 JavaScript / 0 runtime dependencies / 0 network assets.** Works with server-rendered HTML, React, HTMX, Go templates, Astro, and other HTML renderers.
 - **Compositional layouts:** native container-query responsive telemetry, empty states and pricing layouts. State styles use ARIA when semantic and data attributes otherwise.
@@ -21,14 +23,18 @@
 - [Server-rendered validation states](examples/form-state-contracts.html) and [dependency-aware, collision-safe local registry planner](docs/blocks-guide.md) (unreleased alpha.5 candidate).
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
+- [Common HTML and UI example](examples/common-ui.html): navigation, avatars, chips, lists, notices and native form controls
+- [Native HTML elements demo](examples/native-elements.html): native forms, progress and overlays
 - [23 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Searchable, copyable component catalog](docs/catalog.html)
+- [Shared design principles, component-state matrix and native composition patterns](docs/design-principles.md) ([contrast audit](scripts/design_conformance.py))
 - [Canonical DESIGN.md contract](DESIGN.md): Google-compatible Studio tokens generated from CSS, component states, accessibility rules, and AI implementation guidance ([sync/check tool](scripts/sync_design_md.py)).
-- [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md)
+- [AI / coding agent quickstart](docs/ai-quickstart.md) and [agent integration guide](docs/agent-integration.md) (includes optional offline `init`/`check` CLI for portable consumer Skills and version-pinned HTML validation)
 - [LLM documentation index](llms.txt), [full public reference](llms-full.txt), and [validated curated component manifest](metadata/components.json)
 - [Optional local read-only MCP server](agent_mcp/README.md) (separate Python SDK, no CSS runtime dependency)
 - [Portable Syntyr consumer Agent Skill](agents/syntyr/SKILL.md) (manual opt-in, not automatically installed)
+- [Optional headless interactions](docs/headless-interactions.md): accessible menus, combobox and notification adapters (no mandatory JavaScript)
 - [Per-component CSS imports and native HTML patterns](docs/native-patterns.md), [static demo](examples/native-recipes.html)
 - [Copy-owned form recipes](docs/component-recipes.md), [live form compositions](https://syntyr-css.pages.dev/examples/form-composition.html), and [optional Radix styling adapter](docs/radix-integration.md)
 - [GitHub Pages mirror](https://dporkka.github.io/syntyr-css/)
@@ -53,7 +59,8 @@
 - [Optional interactive theme editor (documentation-only JavaScript)](docs/theme-editor.html)
 - [Interactive component playground — live prerelease preview](https://8cfcb0ce.syntyr-css.pages.dev/docs/playground.html) ([permanent site URL after merge](https://syntyr-css.pages.dev/docs/playground.html); [HTML source](docs/playground.html))
 - [Agent-readable composition recipes with validated slots, variants and stylesheet requirements](docs/editor-integration.md#agent-ready-composition-recipes)
-- [Editor autocomplete, full component contract and optional static HTML diagnostics](docs/editor-integration.md) (`metadata/syntyr-contract.json`, `scripts/syntyr_check.py`)
+- [Optional offline Syntyr CLI: discovery, safe installation, verification and diagnostics](docs/cli.md) (unreleased alpha.5 candidate)
+- [Editor autocomplete, full component contract and CSS doctor checks](docs/editor-integration.md) (`metadata/syntyr-contract.json`, `scripts/syntyr_check.py`)
 - [Tailwind v4 interoperability, local VS Code extension, and Figma token exports](docs/ecosystem-integrations.md) (opt-in alpha.5 source adapters)
 - [Runnable Tailwind v4, Astro and shadcn-token adoption projects](docs/adoption-starters.md) and [editable Figma component kit pilot](docs/figma-component-kit.md)
 - [Opt-in shadcn/ui semantic token bridge](docs/shadcn-integration.md), [official CLI-generated React/Radix example](examples/syntyr-shadcn-react/), [Chromium visual regression](docs/visual-regression.md), and [release readiness](docs/release-readiness-ecosystem.md)

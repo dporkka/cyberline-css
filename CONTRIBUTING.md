@@ -39,6 +39,7 @@ From the repository root, with Python 3 installed:
 ```sh
 python3 scripts/build.py
 python3 scripts/build.py --check
+python3 scripts/design_conformance.py
 python3 scripts/export_api_metadata.py --check
 python3 scripts/build_agent_docs.py
 python3 scripts/build_agent_docs.py --check

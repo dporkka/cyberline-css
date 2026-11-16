@@ -26,6 +26,14 @@
           "description": "Syntyr CSS class (components/typography.css)."
         },
         {
+          "name": "syn-alert--success",
+          "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
+          "name": "syn-alert--warning",
+          "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
           "name": "syn-app-card",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -64,6 +72,22 @@
         {
           "name": "syn-atmosphere",
           "description": "Syntyr CSS class (effects.css)."
+        },
+        {
+          "name": "syn-avatar",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-avatar--lg",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-avatar--sm",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-avatar-stack",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-badge",
@@ -108,6 +132,10 @@
         {
           "name": "syn-button--small",
           "description": "Syntyr CSS class (components/buttons.css)."
+        },
+        {
+          "name": "syn-button-group",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-caption",
@@ -160,6 +188,10 @@
         {
           "name": "syn-check",
           "description": "Syntyr CSS class (components/forms.css)."
+        },
+        {
+          "name": "syn-chip",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-code",
@@ -296,6 +328,10 @@
         {
           "name": "syn-display",
           "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
+          "name": "syn-divider-label",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-empty",
@@ -498,6 +534,14 @@
           "description": "Syntyr CSS class (components/typography.css)."
         },
         {
+          "name": "syn-list-group",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
+          "name": "syn-list-row",
+          "description": "Syntyr CSS class (components/patterns.css)."
+        },
+        {
           "name": "syn-logo",
           "description": "Syntyr CSS class (components/typography.css)."
         },
@@ -520,6 +564,10 @@
         {
           "name": "syn-nav",
           "description": "Syntyr CSS class (components/layout.css)."
+        },
+        {
+          "name": "syn-nav-tabs",
+          "description": "Syntyr CSS class (components/patterns.css)."
         },
         {
           "name": "syn-page",

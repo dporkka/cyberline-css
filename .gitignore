@@ -35,3 +35,9 @@ benchmarks/frameworks/generated/
 
 # Per-model AI output benchmark runs may contain private prompt/context details.
 benchmarks/agent-output/runs/
+
+# Optional JS adoption examples: avoid committing generated outputs.
+packages/react/dist/
+examples/react-vite/dist/
+examples/next-app-router/.next/
+*.tsbuildinfo

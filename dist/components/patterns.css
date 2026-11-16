@@ -90,6 +90,98 @@
     }
     &.syn-step[data-syn-state="error"]::before { border-color: var(--syn-danger); }
 
+    /* Portable composition primitives, rather than JavaScript widgets.
+       Auth, data, selection, and interaction are application responsibilities. */
+    &.syn-avatar {
+      display: inline-grid; place-items: center; vertical-align: middle;
+      inline-size: var(--syn-avatar-size, 2.5rem);
+      block-size: var(--syn-avatar-size, 2.5rem);
+      flex: none; overflow: hidden; border-radius: 50%;
+      border: 1px solid var(--syn-border-default);
+      background: var(--syn-surface-raised); color: var(--syn-text);
+      font: 650 .875rem/1 var(--syn-font-ui);
+    }
+    &.syn-avatar > :where(img, picture) { display: block; inline-size: 100%; block-size: 100%; }
+    &.syn-avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; }
+    &.syn-avatar--sm { --syn-avatar-size: 2rem; }
+    &.syn-avatar--lg { --syn-avatar-size: 3.5rem; }
+    &.syn-avatar-stack { display: inline-flex; align-items: center; padding-inline-end: .5rem; }
+    &.syn-avatar-stack > .syn-avatar + .syn-avatar { margin-inline-start: -.6rem; }
+    &.syn-avatar-stack > .syn-avatar { box-shadow: 0 0 0 2px var(--syn-bg); }
+
+    &.syn-chip {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: .35em; max-inline-size: 100%; padding: .3rem .7rem;
+      border: 1px solid var(--syn-border-default);
+      border-radius: 999px; background: var(--syn-surface-raised);
+      color: var(--syn-text); font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui);
+      overflow-wrap: anywhere; text-decoration: none;
+    }
+    &.syn-chip[data-syn-state="active"] {
+      border-color: var(--syn-accent);
+      background: var(--syn-accent-soft);
+    }
+    &.syn-chip:is(a, button) { min-block-size: var(--syn-control-height); }
+    &.syn-chip:is(a, button):where(:hover, :focus-visible) { border-color: var(--syn-border-hover); }
+
+    /* Navigation links, not an ARIA tab widget. aria-current=page is only for
+       the actual current destination, and does not imply JS-managed panels. */
+    &.syn-nav-tabs {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      column-gap: var(--syn-space-3); row-gap: .25rem;
+      border-block-end: 1px solid var(--syn-border-default);
+      min-inline-size: 0;
+    }
+    &.syn-nav-tabs > ul {
+      display: flex; flex-wrap: wrap; align-items: stretch;
+      column-gap: var(--syn-space-3); row-gap: .25rem;
+      margin: 0; padding: 0; list-style: none;
+    }
+    &.syn-nav-tabs :where(a) {
+      display: inline-flex; align-items: center; min-block-size: var(--syn-control-height);
+      padding: .4rem .15rem; border-block-end: 2px solid transparent;
+      color: var(--syn-text-subtle); text-decoration: none; overflow-wrap: anywhere;
+    }
+    &.syn-nav-tabs :where(a:hover) { color: var(--syn-text); }
+    &.syn-nav-tabs [aria-current="page"] {
+      color: var(--syn-text); border-block-end-color: var(--syn-accent); font-weight: 650;
+    }
+
+    &.syn-list-group {
+      padding: 0; margin: 0; list-style: none; min-inline-size: 0;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface);
+    }
+    &.syn-list-row {
+      display: flex; gap: var(--syn-space-2); align-items: center;
+      min-block-size: var(--syn-control-height);
+      min-inline-size: 0; padding: var(--syn-space-2);
+      color: var(--syn-text); text-decoration: none; overflow-wrap: anywhere;
+    }
+    &.syn-list-group > :where(li + li, .syn-list-row + .syn-list-row) { border-block-start: 1px solid var(--syn-border-default); }
+    &.syn-list-group > li > .syn-list-row { inline-size: 100%; }
+    &.syn-list-row > :where(:first-child) { min-inline-size: 0; }
+    &.syn-list-row[aria-current="page"] {
+      border-inline-start: 3px solid var(--syn-accent);
+      background: var(--syn-accent-soft); font-weight: 650;
+    }
+    &.syn-list-row:where(a, button):hover { background: var(--syn-surface-hover); }
+
+    &.syn-button-group {
+      display: inline-flex; flex-wrap: wrap; align-items: stretch;
+      gap: .375rem; max-inline-size: 100%;
+    }
+    &.syn-button-group > :where(.syn-button, button) { flex: 0 1 auto; }
+    &.syn-divider-label {
+      display: flex; align-items: center; gap: var(--syn-space-2);
+      color: var(--syn-text-subtle); font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui);
+      overflow-wrap: anywhere;
+    }
+    &.syn-divider-label::before, &.syn-divider-label::after {
+      content: ""; flex: 1 1 1rem; min-inline-size: .5rem;
+      border-block-start: 1px solid var(--syn-border-default);
+    }
+
     @container syn-region (min-width: 31rem) {
       &.syn-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
@@ -138,6 +230,8 @@
       &.syn-step[data-syn-state="error"]::before { border-style: dashed; }
 
       &.syn-stat, &.syn-empty, &.syn-price-card, &.syn-price-card[data-syn-featured] { border-color: CanvasText; }
+      &.syn-avatar, &.syn-chip, &.syn-list-group, &.syn-divider-label::before, &.syn-divider-label::after { border-color: CanvasText; }
+      &.syn-nav-tabs [aria-current="page"], &.syn-list-row[aria-current="page"] { border-color: Highlight; }
     }
   }
 }

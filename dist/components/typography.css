@@ -23,6 +23,8 @@
     &.syn-badge--accent { border-color: var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); }
     &.syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
     &.syn-alert--danger { border-inline-start-color: var(--syn-danger); }
+    &.syn-alert--success { border-inline-start-color: var(--syn-success); }
+    &.syn-alert--warning { border-inline-start-color: var(--syn-warning); }
     &.syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
     @media (forced-colors: active) { &.syn-badge, &.syn-alert { border-color: CanvasText; } }
   }

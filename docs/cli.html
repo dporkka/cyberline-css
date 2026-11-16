@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS never requires a CLI, Python, Node.js or application JavaScript. The developer-only CLI runs offline on Python 3.10+ and never executes…">
+  <meta name="syntyr-source-sha256" content="a5fb980c9cfd46b37274d7d1d975bdfa7e35ffeb145a456ed3295898e0659bc7">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Syntyr CLI (alpha.5 source candidate) — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/cli">
+  <link rel="alternate" type="text/markdown" href="cli.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Syntyr CLI (alpha.5 source candidate)</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="cli.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Syntyr CLI (alpha.5 source candidate)">
+<h1 id="optional-syntyr-cli-alpha5-source-candidate">Optional Syntyr CLI (alpha.5 source candidate)</h1>
+<p><strong>Syntyr CSS never requires a CLI, Python, Node.js or application JavaScript.</strong>
+The developer-only CLI runs offline on Python 3.10+ and never executes registry
+markup. It is distributed separately from the CSS ZIP.</p>
+<h2 id="run-from-the-source-tree">Run from the source tree</h2>
+<pre><code class="language-sh">python3 scripts/syntyr_cli.py version
+python3 scripts/syntyr_cli.py init --project /path/to/app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/app --format json /path/to/app/page.html
+python3 scripts/syntyr_cli.py list --category blocks
+python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app
+python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app --apply
+python3 scripts/syntyr_cli.py verify --project /path/to/app
+python3 scripts/syntyr_cli.py check --semantic --format json path/to/index.html
+python3 scripts/syntyr_cli.py check --semantic --fail-on warning path/to/index.html
+python3 scripts/syntyr_cli.py doctor --format json path/to/index.html
+python3 scripts/syntyr_cli.py doctor --fail-on warning path/to/index.html
+</code></pre>
+<p>The default add operation is a <strong>read-only preview</strong>. Installation requires
+explicit <code>--apply</code>. It creates assets only under the project's
+<code>syntyr/</code> directory and records SHA-256 hashes and installed items in
+<code>syntyr.lock.json</code>. Repeated installs of identical assets are safe.
+Modified or unexpected existing files are not overwritten. An installation
+failure rolls back only unchanged files created by that invocation.</p>
+<p><code>syntyr verify</code> compares installed bytes with the lockfile, returning
+exit code 0 when clean, 1 when content has drifted, or 2 for an invalid/
+missing lockfile or command error. Resolve drift manually before adding items.
+There is deliberately no force, upgrade, remote fetch, execute or delete command.
+Manual customization is supported, but doing so breaks strict managed-file
+verification until you intentionally reconcile the lockfile.</p>
+<p><code>syntyr init</code> is an <strong>optional offline consumer-agent setup</strong>, separate from
+<code>syntyr add</code>: it copies immutable published alpha.4 CSS, a portable
+<code>.agents/skills/syntyr/SKILL.md</code> with release-pinned selector data, and
+<code>syntyr.agent.json</code> into an existing project. This defaults to published
+<code>0.3.0-alpha.4</code>, not the CLI's unreleased alpha.5 source candidate. Override
+with <code>--release 0.3.0-alpha.5</code> only when deliberately testing the unreleased
+source CSS. Use <code>--agent claude</code> or <code>--agent cursor</code> for those opt-in skill
+locations. Existing differing files and symlinked output paths are refused;
+no application imports are edited automatically.</p>
+<p><code>syntyr check --project /path/to/app</code> verifies the pinned CSS file hashes and
+checks literal <code>.html</code> selectors/states against <strong>that project's release</strong>, not
+the CLI's candidate version. JSX/TSX/Vue/Svelte get <strong>advisory literal
+opening-tag checks</strong>, including possible unknown class diagnostics, but these
+files are <strong>always reported as incomplete</strong> because a full framework AST,
+computed classes, and runtime behavior are not validated. Project-mode JSON
+returns exit 0 on checked error-free HTML, 1 on errors, and 2 when coverage is
+incomplete or there are no HTML files. Run framework-aware lint, tests and
+browser accessibility checks separately.</p>
+<p><code>syntyr check</code> delegates to the existing static HTML validator when called
+without <code>--project</code>.
+It does not render templates, validate a running application or inspect
+JavaScript/bundler imports. Its diagnostics return 1 for errors, 0 for
+warnings-only or clean files, 2 for invalid inputs. Keep CSS and contract
+versions matched. The optional <code>syntyr doctor</code> command additionally detects
+literal duplicate/overlapping Syntyr CSS links and explicit mixed <code>/v/…/</code>
+release pins, using the generated distribution ownership metadata. It
+supports <code>--format json</code> and <code>--fail-on warning</code> for CI. It cannot infer
+bundler-injected CSS or detect version drift in unversioned local filenames.</p>
+<h2 id="portable-cli-zip">Portable CLI ZIP</h2>
+<pre><code class="language-sh">python3 scripts/package_cli.py /tmp/syntyr-cli.zip
+unzip /tmp/syntyr-cli.zip
+python3 syntyr-cli-0.3.0-alpha.5/scripts/syntyr_cli.py --help
+</code></pre>
+<p>The bundle includes the matching registry, Syntyr contract, version,
+pinned published CSS, current source candidate CSS, portable Skill, and Python
+scripts; it runs from any directory without a source checkout or internet access.
+The build fails if committed registry JSON differs from its canonical generator,
+or the validator contract version differs from <code>VERSION</code>.
+The ZIP is a <strong>source candidate</strong>, not a published release.</p>
+<p>All file writes must be reviewed in the dry-run plan. No automated cross-version
+upgrades are supported; installations from a different version are rejected.</p>
+<h2 id="limits">Limits</h2>
+<p>This is a local advisory tool, not a browser runtime dependency, a secure
+multi-user installation service, or a full HTML accessibility audit. Project
+directories are assumed to be controlled by the invoking developer; do not
+run the installer against directories being concurrently manipulated by
+untrusted processes.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#run-from-the-source-tree">Run from the source tree</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#portable-cli-zip">Portable CLI ZIP</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#limits">Limits</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="cli.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

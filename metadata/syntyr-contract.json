@@ -34,6 +34,184 @@
     "syntyr.utilities.css",
     "syntyr.viz.css"
   ],
+  "distribution_sources": {
+    "syntyr.core.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css"
+    ],
+    "syntyr.semantic.css": [
+      "semantic.css"
+    ],
+    "syntyr.server.css": [
+      "server.css"
+    ],
+    "syntyr.semantic-bundle.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css"
+    ],
+    "syntyr.recipes.css": [
+      "recipes.css"
+    ],
+    "syntyr.native-recipes.css": [
+      "native-recipes.css"
+    ],
+    "syntyr.effects.css": [
+      "effects.css"
+    ],
+    "syntyr.motion.css": [
+      "motion.css"
+    ],
+    "syntyr.geometry.css": [
+      "geometry.css"
+    ],
+    "syntyr.symbols.css": [
+      "symbols.css"
+    ],
+    "syntyr.viz.css": [
+      "viz.css"
+    ],
+    "syntyr.data-grid.css": [
+      "data-grid.css"
+    ],
+    "syntyr.utilities.css": [
+      "utilities.css"
+    ],
+    "syntyr.print.css": [
+      "print.css"
+    ],
+    "syntyr.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "effects.css"
+    ],
+    "syntyr.all.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css",
+      "recipes.css",
+      "native-recipes.css",
+      "geometry.css",
+      "symbols.css",
+      "effects.css",
+      "motion.css",
+      "viz.css",
+      "data-grid.css",
+      "utilities.css",
+      "print.css",
+      "server.css"
+    ],
+    "presets/minimal.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css"
+    ],
+    "presets/saas.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css",
+      "recipes.css",
+      "native-recipes.css",
+      "server.css",
+      "utilities.css"
+    ],
+    "presets/cinematic.css": [
+      "tokens.css",
+      "base.css",
+      "components/layout.css",
+      "components/typography.css",
+      "components/buttons.css",
+      "components/forms.css",
+      "components/form-composition.css",
+      "components/overlays.css",
+      "components/data.css",
+      "components/patterns.css",
+      "semantic.css",
+      "recipes.css",
+      "geometry.css",
+      "symbols.css",
+      "effects.css",
+      "motion.css"
+    ],
+    "components/tokens.css": [
+      "tokens.css"
+    ],
+    "components/base.css": [
+      "base.css"
+    ],
+    "components/layout.css": [
+      "components/layout.css"
+    ],
+    "components/typography.css": [
+      "components/typography.css"
+    ],
+    "components/buttons.css": [
+      "components/buttons.css"
+    ],
+    "components/forms.css": [
+      "components/forms.css"
+    ],
+    "components/form-composition.css": [
+      "components/form-composition.css"
+    ],
+    "components/overlays.css": [
+      "components/overlays.css"
+    ],
+    "components/data.css": [
+      "components/data.css"
+    ],
+    "components/patterns.css": [
+      "components/patterns.css"
+    ]
+  },
   "classes": [
     {
       "name": "syn-actions",
@@ -89,6 +267,36 @@
     },
     {
       "name": "syn-alert--danger",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--success",
+      "module": "components/typography.css",
+      "description": "Syntyr CSS class (components/typography.css).",
+      "stylesheets": [
+        "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-alert--warning",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
@@ -207,6 +415,66 @@
         "syntyr.all.css",
         "syntyr.css",
         "syntyr.effects.css"
+      ]
+    },
+    {
+      "name": "syn-avatar",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--lg",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar--sm",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-avatar-stack",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
       ]
     },
     {
@@ -371,6 +639,21 @@
       ]
     },
     {
+      "name": "syn-button-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-caption",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css).",
@@ -508,6 +791,21 @@
       "description": "Syntyr CSS class (components/forms.css).",
       "stylesheets": [
         "components/forms.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-chip",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -868,6 +1166,21 @@
       "description": "Syntyr CSS class (components/typography.css).",
       "stylesheets": [
         "components/typography.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-divider-label",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -1496,6 +1809,36 @@
       ]
     },
     {
+      "name": "syn-list-group",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-list-row",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-logo",
       "module": "components/typography.css",
       "description": "Syntyr CSS class (components/typography.css).",
@@ -1576,6 +1919,21 @@
       "description": "Syntyr CSS class (components/layout.css).",
       "stylesheets": [
         "components/layout.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-nav-tabs",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS class (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",
@@ -3230,6 +3588,21 @@
       "description": "Syntyr CSS property (tokens.css).",
       "stylesheets": [
         "components/tokens.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-avatar-size",
+      "module": "components/patterns.css",
+      "description": "Syntyr CSS property (components/patterns.css).",
+      "stylesheets": [
+        "components/patterns.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",

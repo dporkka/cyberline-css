@@ -14,6 +14,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-avatar-size",
+      "description": "Syntyr CSS property (components/patterns.css)."
+    },
+    {
       "name": "--syn-bg",
       "description": "Theme background."
     },

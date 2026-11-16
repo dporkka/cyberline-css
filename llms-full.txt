@@ -13,6 +13,130 @@ Relative links below are relative to each original source file, not this combine
 
 ---
 
+## Source: docs/getting-started.md
+
+Original: https://syntyr-css.pages.dev/docs/getting-started.md
+
+# Getting started with Syntyr CSS
+
+Build a useful page with **one stylesheet and semantic HTML**. Syntyr ships
+plain CSS: no Node.js, JavaScript runtime, provider, build plugin, or package
+manager is required in your application.
+
+> **Release boundary (November 2026):** The latest published release is
+> [v0.3.0-alpha.4](https://github.com/dporkka/syntyr-css/releases/tag/v0.3.0-alpha.4).
+> The repository's 0.3.0-alpha.5 source is an **unreleased candidate**.
+> The CSS examples below work with published alpha.4; the optional static
+> HTML checker described later is packaged only in the proposed alpha.5 ZIP.
+
+## 1. Copy the released CSS
+
+Download the **published alpha.4 ZIP**, extract it, and copy
+`dist/syntyr.core.css` into your site's public CSS directory, for example
+`public/css/syntyr.core.css`. The file is ready to use as-is.
+
+For a quick preview, you can use the
+[immutable version-pinned CDN asset](https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css).
+For production, self-hosting the pinned asset avoids an extra network origin.
+
+## 2. Paste a complete working page
+
+Save this as `index.html` in a site that serves the copied stylesheet at
+`/css/syntyr.core.css`:
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My first Syntyr page</title>
+  <link rel="stylesheet" href="/css/syntyr.core.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <main class="syn-shell" id="main">
+    <article class="syn-panel">
+      <h1 class="syn-heading">Project overview</h1>
+      <p>A page built with HTML and one CSS file.</p>
+      <a class="syn-button syn-button--primary" href="/projects">
+        View projects
+      </a>
+    </article>
+  </main>
+</body>
+</html>
+```
+
+Serve the directory with your existing application server. If you open this
+HTML directly as `file://`, replace the `/css/` URL with the actual
+relative path to the stylesheet. Replace the example `/projects` link with
+a real route in your application.
+
+Use `syn-root` around the part of the page you want Syntyr to style.
+Without that scope, component classes will not receive their Syntyr styles.
+Change `data-syn-theme` to `grid` or `noir` to use either of the
+other published alpha.4 themes.
+
+## 3. Choose the *minimum* CSS you need
+
+- **Default:** `syntyr.core.css` — tokens and explicit component classes.
+- **Optional semantic HTML:** load `syntyr.semantic.css` **after** core;
+  add `syn-semantic` to the scoped root to style ordinary HTML elements.
+- **Optional SaaS layouts:** load `syntyr.recipes.css` after core when using
+  documented recipes.
+- **Optional decorative effects:** use `syntyr.effects.css` only if needed.
+
+Do not combine `syntyr.all.css` with individual modules, or
+`syntyr.css` with core and effects. These bundles overlap.
+
+Read the [component reference](components.md), [recipe reference](recipes.md),
+and [framework integrations](framework-integrations.md) for HTML variants
+and host-application responsibilities. Syntyr styles controls; your app
+provides form handling, data access, authorization, and navigation.
+
+## 4. Validate markup (optional, alpha.5 ZIP candidate)
+
+After the alpha.5 archive is released, its extracted root will include
+`scripts/syntyr_check.py` and `metadata/syntyr-contract.json`.
+The checker requires **Python 3.10+ on the developer machine only**;
+it ships no JavaScript or build-time requirement to consumers.
+
+From the **extracted matching-version archive**, check your HTML file:
+
+```sh
+python3 scripts/syntyr_check.py /path/to/your/index.html
+python3 scripts/syntyr_check.py --format json /path/to/your/index.html
+```
+
+It reports misspelled `syn-*` classes, invalid literal state values,
+unscoped classes in complete documents, and missing optional CSS files when
+it can identify the installed stylesheets. For HTML fragments with no links,
+pass the actual modules using `--stylesheets syntyr.core.css`.
+Dynamic template expressions are skipped, not executed.
+
+**Do not run the candidate checker against published alpha.4 CSS** and assume
+its alpha.5 class inventory is accurate for alpha.4. Use matching-version
+metadata; this is a static HTML check, not an accessibility or runtime audit.
+See the [editor and validator guide](editor-integration.md).
+
+## 5. Optional package-manager projects
+
+`@syntyr/css` is prepared in the alpha.5 source, but it is **not yet published to npm**.
+Do not assume `npm install @syntyr/css` works today. If your application
+already uses a bundler, the source candidate supports a locally packed
+tarball; follow the [package-manager guide](package-managers.md).
+Applications that don't use a build tool can remain on copied CSS indefinitely.
+
+## Check before production
+
+Test real routes and submission behavior, keyboard focus, zoom/reflow,
+forced colors, and browser compatibility in your own application. Alpha
+releases are experimental and do not carry a v1 compatibility or accessibility
+conformance guarantee. [Release guidance](distribution.md) and
+[accessibility checklist](accessibility.md) explain the current boundaries.
+
+---
+
 ## Source: docs/ai-quickstart.md
 
 Original: https://syntyr-css.pages.dev/docs/ai-quickstart.md
@@ -128,6 +252,234 @@ The form must have a real server handler. Syntyr does not provide authentication
 5. Do not claim a static Syntyr example implements fetching, persistence, sorting, filtering or authentication.
 
 See [agent integration](agent-integration.md) for reusable prompt instructions.
+
+---
+
+## Source: docs/design-principles.md
+
+Original: https://syntyr-css.pages.dev/docs/design-principles.md
+
+# Design principles and conformance contract
+
+Status: **unreleased alpha.5 source guidance**. Syntyr is a scoped, CSS-first
+presentation system, not a JavaScript widget library. This guide distills
+practices shared by mature design systems (Material, Fluent, Carbon, Spectrum,
+Atlassian, Apple HIG and USWDS) into **portable rules** rather than borrowing
+any brand's visual assets or platform-specific components.
+
+**Priority order:** semantic meaning and accessibility > readable hierarchy and
+feedback > predictable composition > optional aesthetics. When those conflict,
+an ornamental effect or familiar-looking mockup must give way.
+
+## Universal defaults
+
+1. **Information hierarchy:** one clear page purpose, useful heading order,
+   one primary action per decision area and subdued secondary actions. Use
+   headings for structure, not to obtain a large font.
+2. **Consistent spacing:** begin with `--syn-space-1` through
+   `--syn-space-5`. Group related controls closely, separate different
+   content regions deliberately. There is no universally correct 8px grid.
+3. **Readable typography:** prefer `--syn-type-body`, `--syn-type-heading`,
+   `--syn-type-section`, `--syn-type-display` and the shared body leading.
+   Use legible text and avoid substituting tiny fonts for compact density.
+4. **Semantic HTML and familiar behavior:** actions use buttons; navigation
+   uses links; labeled inputs use native controls; tables have real headers.
+   Prefer `details`, `dialog` and `popover` when their native behavior fits.
+5. **Meaningful color roles:** use `--syn-bg`, `--syn-surface`, `--syn-text`,
+   `--syn-muted`, `--syn-accent`, `--syn-on-accent`, and named
+   success/warning/danger tokens. Color is never the only status cue.
+6. **Accessible interaction:** visible `:focus-visible`, contrast, keyboard
+   reachability, target size, label/description associations, readable error
+   text, narrow-screen reflow, 200%/400% zoom and reduced motion.
+   Target WCAG 2.2 AA in representative, *rendered* application flows.
+7. **Responsive context:** adapt layouts to available space; prefer intrinsic
+   layout and container queries for embedded regions. Never let dense tables
+   silently clip important data; make overflow regions keyboard reachable.
+8. **Feedback and recovery:** every mutation needs truthful pending, success
+   and error feedback from its host application; invalid fields should explain
+   correction and preserve input. CSS does not implement validation or alerts.
+9. **Progressive disclosure:** defer uncommon settings inside clearly named
+   native disclosures or separate screens. Do not hide essential actions.
+10. **Independent customization:** theme, density, geometry, typography and
+    intensity are separate axes. Customizations change semantic tokens; avoid
+    per-theme component forks and `!important` escalation.
+
+These are implementation principles, not proof that a particular page satisfies
+accessibility law. See [DESIGN.md](../DESIGN.md), [architecture](../ARCHITECTURE.md)
+and [the accessibility guide](accessibility.md).
+
+## Component state contract
+
+| Component family | Real semantics | Required presentation and verification |
+| --- | --- | --- |
+| Action buttons | `button type="button"` or `button type="submit"`; `a href` only for navigation | default, hover when meaningful, `:focus-visible`, pressed, true disabled; distinguish toggle `aria-pressed` from decoration |
+| Inputs and form groups | paired `label` + `id`, `fieldset`/`legend`, optional `aria-describedby` | default, focus, disabled, `:user-invalid` or synchronized `aria-invalid`, explicit error text |
+| Navigation | `nav`, real links, `aria-current` on current destination | visible keyboard focus, active destination, wrapping/overflow, short discernible names |
+| Data tables | `caption`, `th scope`, numeric cells when helpful | row/cell hierarchy, legible density, focusable overflow region, optional `aria-sort` only when sorting exists |
+| Native overlays | `details`/`summary`, `dialog`, or `popover` | open/closed, visible focus, Escape/dismissal according to browser API; host owns custom focus logic |
+| Feedback and status | meaningful text, optionally `role="status"`/`role="alert"` | not color-only; convey busy, success, warning and errors truthfully |
+| Loading | host-owned lifecycle and message; optional decorative `.syn-skeleton` | never use skeletons as the only status announcement; `aria-busy` does not disable a button |
+| Panels and layouts | `main`, `section`, headings, labels | stable reading order, logical spacing, mobile reflow and no accidental nesting of landmarks |
+
+A state that exists only visually is not a substitute for a corresponding native
+or accessible semantic state. Avoid fabricating `aria-selected`, `aria-busy`
+or `aria-disabled` to make a screenshot resemble a working application.
+See [components](components.md), [component authoring](component-authoring.md)
+and [form composition recipes](component-recipes.md).
+
+## Composition examples
+
+The following copy-owned patterns use **only `syntyr.core.css`**. The
+backend/application is responsible for actual operations, authorization,
+pending-state announcements, validation and persistence. Paths and records
+are illustrative, not implemented service endpoints.
+
+### 1. Responsive overview with sensible emphasis
+
+```html
+<main class="syn-root syn-page" data-syn-theme="studio"
+      data-syn-density="comfortable">
+  <header>
+    <h1>Campaign overview</h1>
+    <p class="syn-muted">Review active campaigns and recent changes.</p>
+    <a class="syn-button syn-button--primary" href="/campaigns/new">New campaign</a>
+  </header>
+  <section class="syn-region" aria-labelledby="overview-heading">
+    <h2 id="overview-heading">Current activity</h2>
+    <div class="syn-stats">
+      <article class="syn-stat">
+        <h3 class="syn-stat-label">Active campaigns</h3>
+        <p class="syn-stat-value">12</p>
+      </article>
+      <article class="syn-stat">
+        <h3 class="syn-stat-label">Pending reviews</h3>
+        <p class="syn-stat-value">3</p>
+      </article>
+    </div>
+  </section>
+</main>
+```
+
+Use `.syn-region` *outside* the responsive `.syn-stats` children so the
+container query measures the available panel width, not the viewport.
+Display real values from the application rather than assuming CSS can compute
+metrics.
+
+### 2. Native GET filter and accessible data table
+
+```html
+<section class="syn-root" data-syn-theme="studio" aria-labelledby="records-title">
+  <h2 id="records-title">Accounts</h2>
+  <form class="syn-form" method="get" action="/accounts">
+    <label class="syn-label" for="account-query">Account name</label>
+    <input class="syn-input" id="account-query" type="search" name="q">
+    <div class="syn-actions">
+      <button class="syn-button syn-button--primary" type="submit">Filter accounts</button>
+      <a class="syn-button" href="/accounts">Clear filter</a>
+    </div>
+  </form>
+  <div class="syn-table-wrap" role="region" aria-label="Accounts table"
+       tabindex="0">
+    <table class="syn-table">
+      <caption>Account directory</caption>
+      <thead>
+        <tr><th scope="col">Account</th><th scope="col">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Northwind</th><td>Active</td></tr>
+        <tr><th scope="row">Contoso</th><td>Review needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+```
+
+Avoid `role="grid"` unless the application implements grid keyboard
+interaction. If the backend filters the table, preserve the user's query and
+announce updated results appropriately. These CSS classes style the native
+elements but never sort, search or persist data.
+
+### 3. Labeled settings with progressive disclosure
+
+```html
+<main class="syn-root" data-syn-theme="studio">
+  <h1>Organization settings</h1>
+  <form class="syn-form" action="/settings" method="post">
+    <fieldset class="syn-fieldset">
+      <legend>Organization details</legend>
+      <div class="syn-field">
+        <label class="syn-label" for="org-name">Name</label>
+        <input class="syn-input" id="org-name" name="name" required
+               aria-describedby="org-hint">
+        <p class="syn-help" id="org-hint">Shown to your teammates.</p>
+      </div>
+      <details class="syn-details">
+        <summary>Advanced settings</summary>
+        <label class="syn-label" for="timezone">Time zone</label>
+        <select class="syn-select" id="timezone" name="timezone">
+          <option value="UTC">UTC</option>
+          <option value="America/Sao_Paulo">Brasília</option>
+        </select>
+      </details>
+    </fieldset>
+    <button class="syn-button syn-button--primary" type="submit">
+      Save settings
+    </button>
+  </form>
+</main>
+```
+
+A real POST handler must check CSRF, permissions and validity. On an error,
+rerender entered values, set `aria-invalid="true"` for invalid fields,
+associate the actual error text via `aria-describedby`, and provide a
+perceivable status. The demo deliberately does not fake saved-state feedback.
+
+For richer CRM, filter toolbar and enterprise layout compositions, reuse
+[existing recipes](recipes.md), [data-table guidance](data-tables.md)
+and [the static CRM example](../examples/crm.html). Do not create redundant
+CSS classes solely to implement these HTML patterns.
+
+## Deliberate non-defaults
+
+**Never universalize** Material-style elevation, glass effects, a specific
+border radius, an 8px-only grid, desktop-like density, animation, or a single
+navigation pattern. These are product/platform choices. Studio's quiet neutral
+presentation is the default; Grid, Noir, strong effects, geometry and
+additional density are opt-in. Style must never reduce semantic or accessibility
+quality. Respect `prefers-reduced-motion` and `forced-colors`.
+
+## Automated check and review protocol
+
+Run the source-level semantic palette check:
+
+```sh
+python3 scripts/design_conformance.py
+python3 scripts/design_conformance.py --format json
+python3 -m unittest discover -s tests -p 'test_design_conformance.py'
+```
+
+It evaluates **12 defined semantic foreground/background roles across seven
+built-in palettes (84 pair checks)** and fails closed for missing or
+nonliteral colors. Roles are explicit so design changes cannot silently skip a
+required pairing. This checks static source colors, including the primary
+button foreground, link/accent, statuses, visible focus/accent against surfaces,
+and strong borders. It is included in the standard Python test suite.
+
+## What automated checks do not prove
+
+The tool **does not validate rendered contrast** involving gradients,
+`color-mix()`, overlays, icon graphics, every hover/focus interaction,
+user-defined palettes, `light-dark()` computed values, nested theme paint
+compositing or transparent surfaces. Nor does it validate keyboard behavior,
+screen-reader announcements, zoom/resize, actual touch targets, server errors,
+or brand/legal accessibility certification.
+
+For release approval, separately run the browser/reflow/axe matrices and
+record genuine keyboard, screen-reader, 200%/400% browser zoom, real OS
+high-contrast and manual color-contrast evidence. Inconclusive axe nodes stay
+unresolved until checked on their *effective painted backgrounds*. See the
+[alpha.5 review log](accessibility-alpha5-review.md). Do not claim WCAG
+conformance from this palette report.
 
 ---
 
@@ -248,6 +600,87 @@ The implicit `.syn-root` palette is Studio (light and sans-serif). Explicit `dat
 Use `.syn-section-heading` between `.syn-heading` and `.syn-display`. Table content wraps by default for better readability in narrow regions, including long text. Apply `.syn-cell--nowrap` to identifiers or short labels that must stay on one line; `.syn-cell--numeric` also preserves no-wrap numeric alignment. `.syn-cell--wrap` remains available to limit a descriptive cell to 38ch. Keep genuinely wide tables inside `.syn-table-wrap` with an accessible caption; for keyboard scrolling where needed, make the wrapper focusable with `tabindex="0"`, an accessible label and a visible focus ring. Selected rows have a logical inline-start accent border in addition to their fill.
 
 For large server-rendered tables, see the [enterprise tables guide](data-tables.html) and [static example](../examples/data-tables.html). Sorting and filtering remain application responsibilities.
+
+## Native HTML elements (optional semantic mode)
+
+Syntyr styles common HTML primitives within `.syn-root.syn-semantic` or a `.syn-semantic` subtree of `.syn-root`. Load `syntyr.semantic.css` **after** `syntyr.core.css`. Without the semantic stylesheet and scope, ordinary HTML remains untouched.
+
+| Native elements | Included presentation |
+| --- | --- |
+| `ul`, `ol`, `menu`, `li`, `dl`, `dt`, `dd` | List spacing, preserved native markers, definition terms |
+| `h5`, `h6`, `small`, `abbr[title]`, `address` | Heading depth, readable captions, abbreviations, contact text |
+| `pre`, `code`, `kbd`, `samp`, `mark` | Scrollable code, keyboard hints, sample output, contrast-safe highlights |
+| `figure`, `figcaption`, `img`, `video`, `audio` | Captions and width-constrained media; intrinsic image/video proportions |
+| `table`, `caption`, `progress`, `meter`, `output` | Data captions and native browser indicators |
+| `input[type=file]`, `input[type=color]` | Native chooser controls with theme-aware surfaces |
+| `details`, `summary`, `dialog`, `[popover]` | Browser-owned disclosure, top-layer behavior and dismissal |
+
+The selectors style **unclassed elements only**, or elements explicitly marked `data-syn-semantic`. A classed element is left to its own application styles by default; no global element reset is added. Syntyr does not emulate native dialog or popover activation, file inputs, meters or input validation.
+
+For a copyable page covering the additions, see [native HTML element examples](../examples/native-elements.html). The `commandfor` / `command="show-modal"` dialog button is progressively enhanced, not a guarantee for browsers that lack HTML invoker commands.
+
+```html
+<link rel="stylesheet" href="syntyr.core.css">
+<link rel="stylesheet" href="syntyr.semantic.css">
+<main class="syn-root syn-semantic">
+  <dl><dt>Availability</dt><dd>12 active screens</dd></dl>
+  <figure><img src="/assets/preview.svg" alt="Campaign preview">
+    <figcaption>Proof-of-posting image</figcaption>
+  </figure>
+  <label for="fill">Capacity</label>
+  <progress id="fill" value="12" max="20">12 of 20</progress>
+</main>
+```
+
+## Additional common UI elements and semantic HTML
+
+The optional `syntyr.semantic.css` now covers the presentation-relevant
+`hgroup`, `time`, `data`, `cite`, `dfn`, `var`, `q`, `ins`, `del`,
+`picture`, `iframe`, `canvas`, and `svg` elements, plus native
+`select[multiple]` and `textarea` without a `rows` attribute.
+These styles apply only to unclassed elements inside `.syn-semantic` or to
+elements with `data-syn-semantic`. Existing semantics, quotes, change
+markings, media aspect ratios, and browser controls remain intact.
+
+Elements like `bdi`, `bdo`, `ruby`, `rt`, `rp`, `wbr`, `template`,
+`slot`, `option`, and `datalist` deliberately use native browser behavior.
+Structural landmarks, `script`, and metadata do not need cosmetic component
+APIs. **Not every HTML element benefits from a CSS reset.**
+
+The core CSS adds these intentionally small presentation compositions:
+
+| CSS API | Use case | Behavior |
+| --- | --- | --- |
+| `.syn-avatar`, `--sm`, `--lg`, `.syn-avatar-stack` | User or organization identities | Image or initials; decorative stack labels need a separate accessible group label |
+| `.syn-chip` | Filter/category labels | Static or native anchor/button; `data-syn-state="active"` only changes visuals |
+| `.syn-nav-tabs` | Section navigation | Ordinary links with `aria-current="page"`; **not** JavaScript tabs or tabpanels |
+| `.syn-list-group`, `.syn-list-row` | Settings, destinations, item lists | Native list semantics; rows may contain anchors; `aria-current="page"` for current destination |
+| `.syn-button-group` | Adjacent actions | Flexbox composition of real links/buttons; no artificial event handling |
+| `.syn-divider-label` | Labeled separator | Decorative rules before/after actual text |
+| `.syn-alert--success`, `.syn-alert--warning` | Notices | Extend existing `.syn-alert`; always include readable status/warning text |
+
+Try the [CSS-only common UI example](../examples/common-ui.html) and the
+[existing native elements example](../examples/native-elements.html).
+
+```html
+<nav class="syn-nav-tabs" aria-label="Account sections">
+  <ul>
+    <li><a href="/settings" aria-current="page">Settings</a></li>
+    <li><a href="/billing">Billing</a></li>
+  </ul>
+</nav>
+<ul class="syn-list-group" aria-label="Team members">
+  <li><span class="syn-list-row"><span class="syn-avatar" aria-hidden="true">JD</span>Jane Doe</span></li>
+</ul>
+<p class="syn-alert syn-alert--warning">Review changes before publishing.</p>
+```
+
+Choose `aria-current="page"` only for real navigation state; do not use
+`role="tab"` without implementing the WAI-ARIA keyboard and panel behavior.
+Use `role="status"` or `role="alert"` only for genuinely dynamic
+announcements, not because a box has a particular color. More complex
+interactions (autocomplete, rich text editor, sortable tables, custom menus,
+toast lifecycles) belong to the host app, not a CSS runtime.
 
 ## Theme tokens
 
@@ -1157,6 +1590,8 @@ Original: https://syntyr-css.pages.dev/docs/distribution.md
 
 # Syntyr CSS distribution
 
+**First time here?** Follow the [getting-started guide](getting-started.md) for one version-pinned stylesheet and a complete working page.
+
 Syntyr CSS is MIT-licensed. No NPM install, JavaScript runtime, fonts,
 icons, Sass compiler or CSS framework is required to use the distributed CSS.
 
@@ -1577,6 +2012,8 @@ library unless you explicitly want Syntyr semantic styling there. Prefer
 `.syn-button` for already-classed controls. The marker does **not** make the
 control stateful, disabled, or accessible by itself.
 
+For accessible advanced menus, comboboxes and toasts, see the [optional headless interaction guide](headless-interactions.md). All framework JavaScript remains application-owned.
+
 ## HTMX: progressive enhancement
 
 A complete example with a real stdlib Python HTTP server is at:
@@ -1607,6 +2044,8 @@ For best results:
 - Put `.syn-root` and `data-syn-theme` **outside** the swapped element.
 - Swap the narrowest stable target (normally `innerHTML` inside a results container).
 - Give labels and inputs stable IDs; preserve native form submission as a fallback.
+- If a control must survive a larger swap, consider `hx-preserve` with a stable
+  ID on both sides of the swap; prefer narrow targets first.
 - Use the framework's `hx-indicator` and `hx-disabled-elt` when appropriate;
   `aria-busy` does **not** block duplicate submissions by itself.
 - Do not create a permanent Syntyr HTMX runtime or register Syntyr lifecycle events.
@@ -1639,10 +2078,12 @@ The npm package is an unreleased alpha.5 candidate; self-host prebuilt
 files or a pinned release until that version is actually published.
 
 The bridge is **presentation-only**. It styles the cursor on Syntyr buttons
-during `data-loading`, `.htmx-request`, `.phx-click-loading`,
-`.phx-submit-loading`, `.phx-change-loading`, or
+during `data-loading`, `.htmx-request`, `.up-active`,
+`.phx-click-loading`, `.phx-submit-loading`, `.phx-change-loading`, or
 `[data-syn-state="loading"]`. It also supports `turbo-frame[busy]` and
-request classes on enclosing HTMX/LiveView forms. It never manages
+request classes on enclosing HTMX, Unpoly and LiveView forms.
+Datastar can explicitly bind `data-syn-state` to its own request-indicator
+signal; Syntyr does not inspect or create Datastar signals. It never manages
 `aria-busy`, disabled state, network requests, focus, announcements,
 morphing, DOM lifecycle, or retries. Native disabled buttons retain
 their disabled cursor; visual feedback does not block double submissions.
@@ -1705,7 +2146,10 @@ client runtime comes from the Laravel application.
 ## Rails Hotwire / Turbo Frames
 
 [Copyable Turbo form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/turbo.html)
-uses a normal GET form to update only a matching frame:
+uses a normal GET form to update only a matching frame. For a running
+server-backed fixture with a real Turbo 8.0.23 browser integration,
+see [examples/turbo.html](https://github.com/dporkka/syntyr-css/blob/main/examples/turbo.html)
+and [examples/hypertext_server.py](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py):
 
 ```html
 <section class="syn-root" data-syn-theme="studio">
@@ -1719,9 +2163,24 @@ uses a normal GET form to update only a matching frame:
 ```
 
 The server must return a matching `<turbo-frame id="campaign-results">`
-element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement.
+element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement. The
+optional CSS bridge styles enabled Syntyr buttons **inside** a busy frame;
+for a button outside that frame, bind an application-owned
+`data-syn-state="loading"` rather than expecting CSS to infer cross-frame
+request ownership.
+For the runnable example, start `python3 examples/hypertext_server.py` and
+open `http://127.0.0.1:8767/examples/turbo.html`. The server distinguishes
+`Turbo-Frame: customer-results` from native navigation, returns a matching
+frame for enhanced requests, returns complete HTML for native GET requests,
+and sets `Vary: Turbo-Frame` to avoid cross-representation caching issues.
+The Turbo browser dependency is pinned and demo-only; self-host the bundle
+in production. Syntyr never includes it.
+
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
-scoped. Forms with mutations still need application-owned authentication,
+scoped. Where Turbo must preserve a client-managed element, use
+`data-turbo-permanent` with a stable unique ID on both versions. Do not put
+an entire theme root inside a routinely replaced frame.
+Forms with mutations still need application-owned authentication,
 CSRF protection and server validation. This recipe does not ship Turbo.
 
 ## Go templ and other server template engines
@@ -1738,11 +2197,16 @@ classes, apply `aria-invalid` and `aria-describedby` from server
 validation, and keep static assets versioned. Choose framework-native
 partials/components and anti-CSRF mechanisms.
 
-**Verification scope:** the optional bridge and the copyable templates
-are statically tested with Python's standard library; the repository's
-existing HTMX demo has integration coverage. These examples are not a
-claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
-framework-owned end-to-end tests when you adopt a template in an app.
+**Verification scope:** the optional bridge and copyable templates have
+Python standard-library contract tests. HTMX has an existing opt-in browser
+suite; Datastar has an opt-in browser test using a pinned bundle.
+Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
+`tests/hypertext_browser.py` that cover request feedback, DOM replacement,
+theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
+and WebKit (WebKit on a compatible Playwright container). The demo servers
+also have request/response tests. This is **not** a claim that Phoenix,
+Laravel, Rails, or Go application runtime tests have run. Add framework-owned
+end-to-end tests when adopting templates.
 
 ## Lit / Web Components
 
@@ -1771,12 +2235,94 @@ Mount Alpine once in the host app. For `x-cloak`, define a tiny application
 rule `[x-cloak] { display: none !important; }` before Alpine initializes.
 Syntyr doesn't manage Alpine state.
 
-## Datastar
+## Datastar (signals + HTML/SSE morphing)
 
-Bind standard `aria-*`, `data-syn-state`, and class attributes to Datastar
-signals. Style the resulting HTML as ordinary DOM. Keep the Syntyr theme root
-outside morph targets, and let Datastar own request and signal behavior.
-No Syntyr Datastar plugin is needed.
+[Runnable Datastar example](https://github.com/dporkka/syntyr-css/blob/main/examples/datastar.html)
+and [stdlib HTTP server](https://github.com/dporkka/syntyr-css/blob/main/examples/datastar_server.py)
+demonstrate a real GET fallback and a Datastar SSE response:
+
+```sh
+python3 examples/datastar_server.py
+# open http://127.0.0.1:8766/examples/datastar.html
+```
+
+The demo opts into a **pinned Datastar v1.0.5** browser script. That is an
+application/demo dependency, not bundled or injected by Syntyr. Self-host the
+pinned script in production.
+
+```html
+<main class="syn-root" data-syn-theme="studio">
+  <form action="/customers/search" method="get"
+        data-indicator:_fetching
+        data-on:submit="!$_fetching && @get('/customers/search')"
+        data-attr:aria-busy="String($_fetching)">
+    <label class="syn-label" for="q">Customer</label>
+    <input id="q" name="q" class="syn-input" data-bind:q>
+    <button type="submit" class="syn-button"
+            data-attr:disabled="$_fetching"
+            data-attr:data-syn-state="$_fetching ? 'loading' : null">
+      Search
+    </button>
+    <output role="status" data-show="$_fetching" style="display: none">
+      Searching…
+    </output>
+  </form>
+  <section id="customer-results" aria-live="polite"></section>
+</main>
+```
+
+The framework owns `data-indicator`, `data-bind:q`, `data-on:submit`,
+disabled state, and the SSE morph. The server returns
+`event: datastar-patch-elements` with a matching `id="customer-results"`
+and escapes user content. Because Datastar GET requests send signal values
+inside a `datastar` query parameter, the sample endpoint reads that JSON for
+SSE requests and reads ordinary `q` for no-JavaScript GET requests.
+
+**Keep `.syn-root` and the form outside the morphed results section.**
+Syntyr's `data-syn-state` bridge is optional; the native disabled state and
+status message work independently of the progress cursor. Never rely on
+`aria-busy` or a CSS class alone to prevent duplicate mutations.
+
+Datastar expressions execute JavaScript. Do not interpolate untrusted data into
+`data-*` expressions, do not put secrets in signals, validate on the server,
+and adopt Datastar's documented nonce-based **CSP** mode when forbidding
+`unsafe-eval`. Syntyr requires neither `unsafe-eval` nor a nonce.
+Neither framework owns the other's initialization lifecycle.
+
+## Unpoly
+
+[Runnable Unpoly 3.15.0 demo](https://github.com/dporkka/syntyr-css/blob/main/examples/unpoly.html)
+shares the [local HTTP server](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py)
+with the Turbo demo. Run `python3 examples/hypertext_server.py` and open
+`http://127.0.0.1:8767/examples/unpoly.html`.
+The example pins the JS and CSS bundles; both belong to the demo application,
+not Syntyr. Self-host both in production.
+
+Unpoly adds `.up-active` to an initiating link or form and `.up-loading`
+to the targeted fragment. Syntyr's optional `syntyr.server.css` styles the
+progress cursor on an enabled `.syn-button.up-active` or the enabled
+submit button inside `form.up-active`, without hiding, dimming, or blocking
+the target. Unpoly owns response handling, loading feedback and morphing.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <form action="/customers" method="get" up-target="#customer-results">
+    <label class="syn-label" for="customer-query">Customer</label>
+    <input id="customer-query" class="syn-input" name="q">
+    <button class="syn-button" type="submit">Search</button>
+  </form>
+  <div id="customer-results" aria-live="polite"></div>
+</section>
+```
+
+The example server responds with an HTML document containing
+`#customer-results`; Unpoly extracts and replaces the matching fragment.
+Without JavaScript, a native GET responds with the same complete document.
+
+Retain a real `action`, `method` and stable target ID. Keep the Syntyr root
+outside any fragment Unpoly replaces; do not interpret `.up-loading` as a
+reason to suppress keyboard interaction or hide results. Syntyr does not
+include Unpoly or override its default CSS.
 
 ## React / Next.js
 
@@ -3016,6 +3562,47 @@ A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an 
 
 The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
 
+## Offline first-run agent setup (source checkout)
+
+An optional Python standard-library command installs a **portable consumer Skill**,
+release-pinned CSS, and a small verified selector reference into an existing app.
+It runs from a Syntyr source checkout and does **not** install any application
+runtime dependencies, connect to services, or publish a package:
+
+```sh
+python3 scripts/syntyr_cli.py init --project /path/to/my-app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/my-app --format json /path/to/my-app/page.html
+# The source-checkout helper remains available without the experimental CLI:
+python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
+```
+
+`init` defaults to the **published, immutable alpha.4 CSS** and writes
+`syntyr.agent.json`, versioned CSS files under `vendor/syntyr/<release>/`,
+and `.agents/skills/syntyr/SKILL.md` plus `references/api.json`. Rerunning is
+idempotent. Different existing files or symlinked output paths are rejected
+without overwriting project content. For tooling that expects another skill
+location, specify `--agent claude` or `--agent cursor`; `--agent codex` and
+`--agent generic` use the portable `.agents/skills/` path. Projects must still
+load the copied CSS in their own HTML/framework entrypoint: installation does
+**not** silently modify application code or guarantee CSS integration.
+
+Choose `--release 0.3.0-alpha.5` only when deliberately testing the
+**unreleased source candidate**. The generated `api.json` lists selectors
+actually present in the selected CSS files; source-only selectors cannot
+appear in an alpha.4 reference.
+
+`check` validates the installed CSS asset hashes and literal `.html` files
+against that project's pinned release, returning structured, source-located
+JSON diagnostics. Its exit codes are **0** for checked and error-free HTML,
+**1** for errors, and **2** for incomplete coverage (for example, JSX/TSX/Vue/Svelte
+or no HTML files). The first framework-aware layer reports static selector
+errors inside literal JSX/Vue/Svelte opening tags, but it deliberately leaves
+these files unverified: dynamic bindings and actual framework syntax require
+proper parsers and browser tests. It is not a React/Vue/Svelte parser or a
+browser accessibility test. Generated CSS assets are not proof that the app has actually imported
+them. The separate local MCP adapter remains available for smaller markup
+fragments and interactive catalog queries.
+
 ## Optional local MCP adapter
 
 An optional **read-only local MCP server** can now expose the checked-in
@@ -3127,6 +3714,38 @@ A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's `module` in the generated catalog and
 load the corresponding Syntyr CSS distribution.
 
+## Optional CSS dependency and version diagnostics
+
+Syntyr can also diagnose duplicate stylesheet links, overlapping distribution
+bundles (for example, `syntyr.core.css` loaded with
+`syntyr.semantic-bundle.css`), and conflicting explicit release pins:
+
+```sh
+python3 scripts/syntyr_check.py --doctor --semantic index.html
+python3 scripts/syntyr_check.py --doctor --format json index.html
+```
+
+The `--doctor` flag builds on the existing validator; it does not install or
+change CSS. It reads the generated `distribution_sources` from
+`metadata/syntyr-contract.json`, which comes from the canonical CSS build
+registry. Keep the checker, metadata, and stylesheet release versions together.
+Older contracts without this field are rejected instead of silently missing
+overlaps.
+
+An overlapping bundle, including a duplicated stylesheet, produces a
+**warning** (exit code 0 if no errors). Two different explicit
+`/v/<version>/` release pins produce an **error** (exit code 1), since
+mixing different Syntyr releases is unsafe. Generated diagnostics include
+filename, source position, severity, code and explanation. Normal validation
+without `--doctor` is unchanged.
+
+**Scope:** This is a static HTML check of Syntyr `<link rel="stylesheet">`
+references. It does not infer versions for unpinned local assets, parse CSS
+`@import` graphs, or inspect imports inside JS/TS build pipelines. When
+using bundlers, validate the final loaded stylesheets and run browser tests.
+Unknown host-application CSS is ignored. Duplicate warnings are advisory;
+releases still need actual cross-browser and accessibility verification.
+
 ## Optional static HTML diagnostics
 
 The generated `metadata/syntyr-contract.json` is Syntyr's machine-readable
@@ -3136,6 +3755,8 @@ theme/state values, and CSS distribution filenames. The contract is generated
 by `python3 scripts/export_api_metadata.py` and checked by `--check`. Do
 not edit it directly. The existing `metadata/components.json` remains a
 curated subset and is not a complete list of classes.
+
+The unreleased alpha.5 release ZIP candidate now includes both `scripts/syntyr_check.py` and its matching `metadata/syntyr-contract.json`, so the extracted archive can run the optional checker without a source checkout. The published alpha.4 ZIP does not include these tools.
 
 To validate static HTML during development (Python 3.10+, standard library only):
 
@@ -3193,7 +3814,8 @@ duplicate static IDs, missing form labels, unmatched `label for` and
 complete documents). It advises when an ordinary table row uses
 `aria-selected` instead of `data-syn-state`, or when a headed data table
 lacks a caption or other accessible name. Errors produce exit code 1; advisory
-warnings are included in text/JSON output but do not fail the command.
+warnings are included in text/JSON output but do not fail the command unless
+`--fail-on warning` is explicitly supplied for strict CI.
 The mode is **off by default** to preserve existing integrations.
 
 This is not an HTML conformance parser, a WCAG audit, or a template renderer.
@@ -3208,8 +3830,9 @@ query parameters). Without a known Syntyr stylesheet, module-presence checks
 are skipped, but root-scope checks still run for complete documents. Explicit
 `--stylesheets` overrides stylesheet-link discovery.
 
-Exit code 0 means no diagnostics, 1 means findings, and 2 means invalid
-arguments or unreadable files. JSON diagnostics contain `file`, `line`,
+Exit code 0 means no errors (including warnings-only), 1 means one or more
+errors, and 2 means invalid arguments or unreadable files. Explicit
+`--fail-on warning` makes warnings exit 1 as well. JSON diagnostics contain `file`, `line`,
 `column`, `severity`, `code` and `message` fields. Input `-` reads HTML
 from standard input and identifies findings with `file: "<stdin>"`; JSON stays
 a top-level diagnostics array for backward compatibility. Agent-friendly
@@ -3229,3 +3852,102 @@ JSX/TSX, HEEx, Blade, and Nulang template adapters would need separate
 language-aware parsing. Semantic accessibility and actual loaded CSS still
 need browser and keyboard checks. No script or generated manifest is shipped
 to the browser by this integration.
+
+---
+
+## Source: docs/cli.md
+
+Original: https://syntyr-css.pages.dev/docs/cli.md
+
+# Optional Syntyr CLI (alpha.5 source candidate)
+
+**Syntyr CSS never requires a CLI, Python, Node.js or application JavaScript.**
+The developer-only CLI runs offline on Python 3.10+ and never executes registry
+markup. It is distributed separately from the CSS ZIP.
+
+## Run from the source tree
+
+```sh
+python3 scripts/syntyr_cli.py version
+python3 scripts/syntyr_cli.py init --project /path/to/app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/app --format json /path/to/app/page.html
+python3 scripts/syntyr_cli.py list --category blocks
+python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app
+python3 scripts/syntyr_cli.py add resource-workspace --project /path/to/app --apply
+python3 scripts/syntyr_cli.py verify --project /path/to/app
+python3 scripts/syntyr_cli.py check --semantic --format json path/to/index.html
+python3 scripts/syntyr_cli.py check --semantic --fail-on warning path/to/index.html
+python3 scripts/syntyr_cli.py doctor --format json path/to/index.html
+python3 scripts/syntyr_cli.py doctor --fail-on warning path/to/index.html
+```
+
+The default add operation is a **read-only preview**. Installation requires
+explicit `--apply`. It creates assets only under the project's
+`syntyr/` directory and records SHA-256 hashes and installed items in
+`syntyr.lock.json`. Repeated installs of identical assets are safe.
+Modified or unexpected existing files are not overwritten. An installation
+failure rolls back only unchanged files created by that invocation.
+
+`syntyr verify` compares installed bytes with the lockfile, returning
+exit code 0 when clean, 1 when content has drifted, or 2 for an invalid/
+missing lockfile or command error. Resolve drift manually before adding items.
+There is deliberately no force, upgrade, remote fetch, execute or delete command.
+Manual customization is supported, but doing so breaks strict managed-file
+verification until you intentionally reconcile the lockfile.
+
+`syntyr init` is an **optional offline consumer-agent setup**, separate from
+`syntyr add`: it copies immutable published alpha.4 CSS, a portable
+`.agents/skills/syntyr/SKILL.md` with release-pinned selector data, and
+`syntyr.agent.json` into an existing project. This defaults to published
+`0.3.0-alpha.4`, not the CLI's unreleased alpha.5 source candidate. Override
+with `--release 0.3.0-alpha.5` only when deliberately testing the unreleased
+source CSS. Use `--agent claude` or `--agent cursor` for those opt-in skill
+locations. Existing differing files and symlinked output paths are refused;
+no application imports are edited automatically.
+
+`syntyr check --project /path/to/app` verifies the pinned CSS file hashes and
+checks literal `.html` selectors/states against **that project's release**, not
+the CLI's candidate version. JSX/TSX/Vue/Svelte get **advisory literal
+opening-tag checks**, including possible unknown class diagnostics, but these
+files are **always reported as incomplete** because a full framework AST,
+computed classes, and runtime behavior are not validated. Project-mode JSON
+returns exit 0 on checked error-free HTML, 1 on errors, and 2 when coverage is
+incomplete or there are no HTML files. Run framework-aware lint, tests and
+browser accessibility checks separately.
+
+`syntyr check` delegates to the existing static HTML validator when called
+without `--project`.
+It does not render templates, validate a running application or inspect
+JavaScript/bundler imports. Its diagnostics return 1 for errors, 0 for
+warnings-only or clean files, 2 for invalid inputs. Keep CSS and contract
+versions matched. The optional `syntyr doctor` command additionally detects
+literal duplicate/overlapping Syntyr CSS links and explicit mixed `/v/…/`
+release pins, using the generated distribution ownership metadata. It
+supports `--format json` and `--fail-on warning` for CI. It cannot infer
+bundler-injected CSS or detect version drift in unversioned local filenames.
+
+## Portable CLI ZIP
+
+```sh
+python3 scripts/package_cli.py /tmp/syntyr-cli.zip
+unzip /tmp/syntyr-cli.zip
+python3 syntyr-cli-0.3.0-alpha.5/scripts/syntyr_cli.py --help
+```
+
+The bundle includes the matching registry, Syntyr contract, version,
+pinned published CSS, current source candidate CSS, portable Skill, and Python
+scripts; it runs from any directory without a source checkout or internet access.
+The build fails if committed registry JSON differs from its canonical generator,
+or the validator contract version differs from `VERSION`.
+The ZIP is a **source candidate**, not a published release.
+
+All file writes must be reviewed in the dry-run plan. No automated cross-version
+upgrades are supported; installations from a different version are rejected.
+
+## Limits
+
+This is a local advisory tool, not a browser runtime dependency, a secure
+multi-user installation service, or a full HTML accessibility audit. Project
+directories are assumed to be controlled by the invoking developer; do not
+run the installer against directories being concurrently manipulated by
+untrusted processes.

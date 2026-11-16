@@ -34,6 +34,8 @@ library unless you explicitly want Syntyr semantic styling there. Prefer
 `.syn-button` for already-classed controls. The marker does **not** make the
 control stateful, disabled, or accessible by itself.
 
+For accessible advanced menus, comboboxes and toasts, see the [optional headless interaction guide](headless-interactions.md). All framework JavaScript remains application-owned.
+
 ## HTMX: progressive enhancement
 
 A complete example with a real stdlib Python HTTP server is at:
@@ -64,6 +66,8 @@ For best results:
 - Put `.syn-root` and `data-syn-theme` **outside** the swapped element.
 - Swap the narrowest stable target (normally `innerHTML` inside a results container).
 - Give labels and inputs stable IDs; preserve native form submission as a fallback.
+- If a control must survive a larger swap, consider `hx-preserve` with a stable
+  ID on both sides of the swap; prefer narrow targets first.
 - Use the framework's `hx-indicator` and `hx-disabled-elt` when appropriate;
   `aria-busy` does **not** block duplicate submissions by itself.
 - Do not create a permanent Syntyr HTMX runtime or register Syntyr lifecycle events.
@@ -96,10 +100,12 @@ The npm package is an unreleased alpha.5 candidate; self-host prebuilt
 files or a pinned release until that version is actually published.
 
 The bridge is **presentation-only**. It styles the cursor on Syntyr buttons
-during `data-loading`, `.htmx-request`, `.phx-click-loading`,
-`.phx-submit-loading`, `.phx-change-loading`, or
+during `data-loading`, `.htmx-request`, `.up-active`,
+`.phx-click-loading`, `.phx-submit-loading`, `.phx-change-loading`, or
 `[data-syn-state="loading"]`. It also supports `turbo-frame[busy]` and
-request classes on enclosing HTMX/LiveView forms. It never manages
+request classes on enclosing HTMX, Unpoly and LiveView forms.
+Datastar can explicitly bind `data-syn-state` to its own request-indicator
+signal; Syntyr does not inspect or create Datastar signals. It never manages
 `aria-busy`, disabled state, network requests, focus, announcements,
 morphing, DOM lifecycle, or retries. Native disabled buttons retain
 their disabled cursor; visual feedback does not block double submissions.
@@ -162,7 +168,10 @@ client runtime comes from the Laravel application.
 ## Rails Hotwire / Turbo Frames
 
 [Copyable Turbo form](https://github.com/dporkka/syntyr-css/blob/main/examples/server-rendered/turbo.html)
-uses a normal GET form to update only a matching frame:
+uses a normal GET form to update only a matching frame. For a running
+server-backed fixture with a real Turbo 8.0.23 browser integration,
+see [examples/turbo.html](https://github.com/dporkka/syntyr-css/blob/main/examples/turbo.html)
+and [examples/hypertext_server.py](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py):
 
 ```html
 <section class="syn-root" data-syn-theme="studio">
@@ -176,9 +185,24 @@ uses a normal GET form to update only a matching frame:
 ```
 
 The server must return a matching `<turbo-frame id="campaign-results">`
-element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement.
+element. Turbo toggles `turbo-frame[busy]` while it fetches a replacement. The
+optional CSS bridge styles enabled Syntyr buttons **inside** a busy frame;
+for a button outside that frame, bind an application-owned
+`data-syn-state="loading"` rather than expecting CSS to infer cross-frame
+request ownership.
+For the runnable example, start `python3 examples/hypertext_server.py` and
+open `http://127.0.0.1:8767/examples/turbo.html`. The server distinguishes
+`Turbo-Frame: customer-results` from native navigation, returns a matching
+frame for enhanced requests, returns complete HTML for native GET requests,
+and sets `Vary: Turbo-Frame` to avoid cross-representation caching issues.
+The Turbo browser dependency is pinned and demo-only; self-host the bundle
+in production. Syntyr never includes it.
+
 Turbo Streams and full-page visits must keep the Syntyr root appropriately
-scoped. Forms with mutations still need application-owned authentication,
+scoped. Where Turbo must preserve a client-managed element, use
+`data-turbo-permanent` with a stable unique ID on both versions. Do not put
+an entire theme root inside a routinely replaced frame.
+Forms with mutations still need application-owned authentication,
 CSRF protection and server validation. This recipe does not ship Turbo.
 
 ## Go templ and other server template engines
@@ -195,11 +219,16 @@ classes, apply `aria-invalid` and `aria-describedby` from server
 validation, and keep static assets versioned. Choose framework-native
 partials/components and anti-CSRF mechanisms.
 
-**Verification scope:** the optional bridge and the copyable templates
-are statically tested with Python's standard library; the repository's
-existing HTMX demo has integration coverage. These examples are not a
-claim that Phoenix, Laravel, Rails, or Go runtime tests have run. Add
-framework-owned end-to-end tests when you adopt a template in an app.
+**Verification scope:** the optional bridge and copyable templates have
+Python standard-library contract tests. HTMX has an existing opt-in browser
+suite; Datastar has an opt-in browser test using a pinned bundle.
+Unpoly 3.15.0 and Turbo 8.0.23 have real, opt-in browser tests in
+`tests/hypertext_browser.py` that cover request feedback, DOM replacement,
+theme-root survival, and no-JavaScript form fallback in Chromium, Firefox
+and WebKit (WebKit on a compatible Playwright container). The demo servers
+also have request/response tests. This is **not** a claim that Phoenix,
+Laravel, Rails, or Go application runtime tests have run. Add framework-owned
+end-to-end tests when adopting templates.
 
 ## Lit / Web Components
 
@@ -228,12 +257,94 @@ Mount Alpine once in the host app. For `x-cloak`, define a tiny application
 rule `[x-cloak] { display: none !important; }` before Alpine initializes.
 Syntyr doesn't manage Alpine state.
 
-## Datastar
+## Datastar (signals + HTML/SSE morphing)
 
-Bind standard `aria-*`, `data-syn-state`, and class attributes to Datastar
-signals. Style the resulting HTML as ordinary DOM. Keep the Syntyr theme root
-outside morph targets, and let Datastar own request and signal behavior.
-No Syntyr Datastar plugin is needed.
+[Runnable Datastar example](https://github.com/dporkka/syntyr-css/blob/main/examples/datastar.html)
+and [stdlib HTTP server](https://github.com/dporkka/syntyr-css/blob/main/examples/datastar_server.py)
+demonstrate a real GET fallback and a Datastar SSE response:
+
+```sh
+python3 examples/datastar_server.py
+# open http://127.0.0.1:8766/examples/datastar.html
+```
+
+The demo opts into a **pinned Datastar v1.0.5** browser script. That is an
+application/demo dependency, not bundled or injected by Syntyr. Self-host the
+pinned script in production.
+
+```html
+<main class="syn-root" data-syn-theme="studio">
+  <form action="/customers/search" method="get"
+        data-indicator:_fetching
+        data-on:submit="!$_fetching && @get('/customers/search')"
+        data-attr:aria-busy="String($_fetching)">
+    <label class="syn-label" for="q">Customer</label>
+    <input id="q" name="q" class="syn-input" data-bind:q>
+    <button type="submit" class="syn-button"
+            data-attr:disabled="$_fetching"
+            data-attr:data-syn-state="$_fetching ? 'loading' : null">
+      Search
+    </button>
+    <output role="status" data-show="$_fetching" style="display: none">
+      Searching…
+    </output>
+  </form>
+  <section id="customer-results" aria-live="polite"></section>
+</main>
+```
+
+The framework owns `data-indicator`, `data-bind:q`, `data-on:submit`,
+disabled state, and the SSE morph. The server returns
+`event: datastar-patch-elements` with a matching `id="customer-results"`
+and escapes user content. Because Datastar GET requests send signal values
+inside a `datastar` query parameter, the sample endpoint reads that JSON for
+SSE requests and reads ordinary `q` for no-JavaScript GET requests.
+
+**Keep `.syn-root` and the form outside the morphed results section.**
+Syntyr's `data-syn-state` bridge is optional; the native disabled state and
+status message work independently of the progress cursor. Never rely on
+`aria-busy` or a CSS class alone to prevent duplicate mutations.
+
+Datastar expressions execute JavaScript. Do not interpolate untrusted data into
+`data-*` expressions, do not put secrets in signals, validate on the server,
+and adopt Datastar's documented nonce-based **CSP** mode when forbidding
+`unsafe-eval`. Syntyr requires neither `unsafe-eval` nor a nonce.
+Neither framework owns the other's initialization lifecycle.
+
+## Unpoly
+
+[Runnable Unpoly 3.15.0 demo](https://github.com/dporkka/syntyr-css/blob/main/examples/unpoly.html)
+shares the [local HTTP server](https://github.com/dporkka/syntyr-css/blob/main/examples/hypertext_server.py)
+with the Turbo demo. Run `python3 examples/hypertext_server.py` and open
+`http://127.0.0.1:8767/examples/unpoly.html`.
+The example pins the JS and CSS bundles; both belong to the demo application,
+not Syntyr. Self-host both in production.
+
+Unpoly adds `.up-active` to an initiating link or form and `.up-loading`
+to the targeted fragment. Syntyr's optional `syntyr.server.css` styles the
+progress cursor on an enabled `.syn-button.up-active` or the enabled
+submit button inside `form.up-active`, without hiding, dimming, or blocking
+the target. Unpoly owns response handling, loading feedback and morphing.
+
+```html
+<section class="syn-root" data-syn-theme="studio">
+  <form action="/customers" method="get" up-target="#customer-results">
+    <label class="syn-label" for="customer-query">Customer</label>
+    <input id="customer-query" class="syn-input" name="q">
+    <button class="syn-button" type="submit">Search</button>
+  </form>
+  <div id="customer-results" aria-live="polite"></div>
+</section>
+```
+
+The example server responds with an HTML document containing
+`#customer-results`; Unpoly extracts and replaces the matching fragment.
+Without JavaScript, a native GET responds with the same complete document.
+
+Retain a real `action`, `method` and stable target ID. Keep the Syntyr root
+outside any fragment Unpoly replaces; do not interpret `.up-loading` as a
+reason to suppress keyboard interaction or hide results. Syntyr does not
+include Unpoly or override its default CSS.
 
 ## React / Next.js
 

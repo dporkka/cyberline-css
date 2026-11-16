@@ -19,6 +19,47 @@ A consumer may copy [`agents/syntyr/SKILL.md`](../agents/syntyr/SKILL.md) as an 
 
 The repository's root `AGENTS.md` guides agents contributing to Syntyr itself. It does **not** automatically become instructions in a separate application repository.
 
+## Offline first-run agent setup (source checkout)
+
+An optional Python standard-library command installs a **portable consumer Skill**,
+release-pinned CSS, and a small verified selector reference into an existing app.
+It runs from a Syntyr source checkout and does **not** install any application
+runtime dependencies, connect to services, or publish a package:
+
+```sh
+python3 scripts/syntyr_cli.py init --project /path/to/my-app --format json
+python3 scripts/syntyr_cli.py check --project /path/to/my-app --format json /path/to/my-app/page.html
+# The source-checkout helper remains available without the experimental CLI:
+python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
+```
+
+`init` defaults to the **published, immutable alpha.4 CSS** and writes
+`syntyr.agent.json`, versioned CSS files under `vendor/syntyr/<release>/`,
+and `.agents/skills/syntyr/SKILL.md` plus `references/api.json`. Rerunning is
+idempotent. Different existing files or symlinked output paths are rejected
+without overwriting project content. For tooling that expects another skill
+location, specify `--agent claude` or `--agent cursor`; `--agent codex` and
+`--agent generic` use the portable `.agents/skills/` path. Projects must still
+load the copied CSS in their own HTML/framework entrypoint: installation does
+**not** silently modify application code or guarantee CSS integration.
+
+Choose `--release 0.3.0-alpha.5` only when deliberately testing the
+**unreleased source candidate**. The generated `api.json` lists selectors
+actually present in the selected CSS files; source-only selectors cannot
+appear in an alpha.4 reference.
+
+`check` validates the installed CSS asset hashes and literal `.html` files
+against that project's pinned release, returning structured, source-located
+JSON diagnostics. Its exit codes are **0** for checked and error-free HTML,
+**1** for errors, and **2** for incomplete coverage (for example, JSX/TSX/Vue/Svelte
+or no HTML files). The first framework-aware layer reports static selector
+errors inside literal JSX/Vue/Svelte opening tags, but it deliberately leaves
+these files unverified: dynamic bindings and actual framework syntax require
+proper parsers and browser tests. It is not a React/Vue/Svelte parser or a
+browser accessibility test. Generated CSS assets are not proof that the app has actually imported
+them. The separate local MCP adapter remains available for smaller markup
+fragments and interactive catalog queries.
+
 ## Optional local MCP adapter
 
 An optional **read-only local MCP server** can now expose the checked-in

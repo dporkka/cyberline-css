@@ -10,9 +10,11 @@ For browser readers, use the [human-readable HTML documentation directory](https
 
 ## Start here
 
+- [Getting started with Syntyr CSS](https://syntyr-css.pages.dev/docs/getting-started.md): One version-pinned CSS file, semantic HTML, and optional diagnostics; distinguishes published alpha.4 from candidate alpha.5.
 - [Canonical DESIGN.md contract](https://syntyr-css.pages.dev/DESIGN.md): Agent-readable design rationale and Studio token snapshot generated from source CSS; other themes remain in CSS.
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
+- [Agreed design principles and conformance](https://syntyr-css.pages.dev/docs/design-principles.md): Hierarchy, semantic components, states, native HTML recipes, and tested palette roles.
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Real classes, tokens, scopes, semantic modes and candidate-only table wrapping migration (use .syn-cell--nowrap for identifiers).
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.
 - [Consumer agent skill](https://syntyr-css.pages.dev/agents/syntyr/SKILL.md): Portable, opt-in instructions.
