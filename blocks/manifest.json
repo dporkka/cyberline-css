@@ -290,6 +290,179 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "site-header",
+      "category": "Websites",
+      "title": "Responsive website header",
+      "description": "Brand navigation with a primary call to action using native links.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "header",
+        "navigation",
+        "website"
+      ]
+    },
+    {
+      "id": "site-footer",
+      "category": "Websites",
+      "title": "Multi-column website footer",
+      "description": "Semantic footer navigation with contact details and legal links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "footer",
+        "navigation",
+        "company"
+      ]
+    },
+    {
+      "id": "article-grid",
+      "category": "Websites",
+      "title": "Featured article grid",
+      "description": "Editorial cards with machine-readable dates and readable links.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "blog",
+        "editorial",
+        "posts"
+      ]
+    },
+    {
+      "id": "article-detail",
+      "category": "Websites",
+      "title": "Editorial article detail",
+      "description": "Readable long-form post anatomy with date, author and related reading.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "article",
+        "blog",
+        "reading"
+      ]
+    },
+    {
+      "id": "service-overview",
+      "category": "Websites",
+      "title": "Service overview",
+      "description": "A business services section with concise benefits and direct next steps.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "services",
+        "business",
+        "cards"
+      ]
+    },
+    {
+      "id": "process-steps",
+      "category": "Websites",
+      "title": "Service delivery process",
+      "description": "Ordered project milestones with clear outcomes.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "process",
+        "steps",
+        "services"
+      ]
+    },
+    {
+      "id": "portfolio-grid",
+      "category": "Websites",
+      "title": "Portfolio project grid",
+      "description": "Project summaries with descriptive destinations, no required image assets.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "portfolio",
+        "projects",
+        "work"
+      ]
+    },
+    {
+      "id": "case-study",
+      "category": "Websites",
+      "title": "Case study spotlight",
+      "description": "An evidence-first outcome summary with clearly identified placeholder quotation.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "case-study",
+        "results",
+        "proof"
+      ]
+    },
+    {
+      "id": "comparison-matrix",
+      "category": "Websites",
+      "title": "Feature comparison matrix",
+      "description": "A native comparison table with explicit columns and descriptive row labels.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "comparison",
+        "features",
+        "table"
+      ]
+    },
+    {
+      "id": "integration-directory",
+      "category": "Websites",
+      "title": "Integration directory",
+      "description": "A simple integration listing with descriptive links and no third-party logo assets.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "integrations",
+        "directory",
+        "partners"
+      ]
+    },
+    {
+      "id": "commerce-collection",
+      "category": "Commerce",
+      "title": "Product collection cards",
+      "description": "Responsive storefront merchandising cards with explicit example prices.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "ecommerce",
+        "catalog",
+        "products"
+      ]
+    },
+    {
+      "id": "newsletter-signup",
+      "category": "Websites",
+      "title": "Editorial newsletter form",
+      "description": "A native labeled email form ready for an application-owned subscription endpoint.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "newsletter",
+        "forms",
+        "publishing"
+      ]
     }
   ]
 }

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="WordPress CSS component library without a JavaScript framework: Syntyr can style selected Gutenberg Custom HTML blocks, child-theme templates or custom…">
-  <meta name="syntyr-source-sha256" content="c11a556ee11157d4330ab5e37b98829f09906ed16ab48636c70fd71bfd5e1bbb">
+  <meta name="syntyr-source-sha256" content="1db680ece18fb5e2ea6f81d92626e5dcaabc4c8adce351acdb1b91cc0cd08119">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr for WordPress | CSS Components &amp; Setup</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/wordpress">
@@ -62,12 +62,29 @@
 <p>Check the public, published URL rather than relying only on an editor preview. Confirm that the Syntyr stylesheet returns HTTP 200 with a CSS content type, that a button inside <code>.syn-root</code> has the desired theme, and that unrelated host navigation, product cards and forms remain unchanged. Test keyboard focus, accessible names, narrow screens around 320px, reduced motion and the platform's own responsive layouts. If an iframe is involved, test its height, keyboard navigation, sandbox attributes and HTTPS/CSP restrictions.</p>
 <p><strong>Release compatibility:</strong> The immutable <strong>alpha.4</strong> stylesheet <code>syntyr.core.css</code> is published. The <strong>alpha.5</strong> <code>syntyr.embed.css</code> bundle is a candidate build designed for existing themes; it is not part of the alpha.4 release. Build the candidate from the source repository and self-host a version-pinned copy for testing. Never load both bundles together, and verify theme-specific overrides before production rollout. Syntyr is a stylesheet, not an official integration or plug-in from the site platform.</p>
 <p>Explore the <a href="site-builders.html">platform integration overview</a>, <a href="distribution.html">Syntyr distribution and release guide</a>, or <a href="../examples/platform-embed.html">live host-theme example</a>.</p>
+<h2 id="optional-gutenberg-native-patterns-experimental-source-adapter">Optional Gutenberg-native patterns (experimental source adapter)</h2>
+<p>For editor-friendly native blocks instead of Custom HTML, copy the file
+integrations/wordpress/syntyr-patterns.php and the adjacent patterns directory
+into a site-specific plugin directory named syntyr-patterns, then activate it.</p>
+<p>This registers three patterns under Syntyr Sections: services overview,
+latest articles (using the built-in dynamic Latest Posts block), and a contact
+call to action. These are WordPress-native serialized core blocks. The native
+Syntyr snippets in the gallery remain framework-neutral and are not editable
+Gutenberg blocks merely by inserting them into Custom HTML.</p>
+<p>Styles are independent: install the pinned alpha.5 candidate syntyr.embed.css
+in the child theme using syntyr-enqueue.php. Its hooks cover the public site
+and block editor. The plugin does not bundle or alter Syntyr core CSS. Real
+WordPress validation, editor fidelity and frontend theme collisions must be
+tested before using these in production. Change the example copy and routes.</p>
+<p>This is not a published WordPress.org plugin and is not a verified integration
+with WordPress, WooCommerce or any particular hosting provider.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#why-use-syntyr-on-wordpress">Why use Syntyr on WordPress?</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#how-to-install-syntyr-in-a-wordpress-theme">How to install Syntyr in a WordPress theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#limitations-and-wordpress-specific-considerations">Limitations and WordPress-specific considerations</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#verify-the-result-before-publishing">Verify the result before publishing</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-gutenberg-native-patterns-experimental-source-adapter">Optional Gutenberg-native patterns (experimental source adapter)</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="wordpress.md">Markdown source</a></nav>

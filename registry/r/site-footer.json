@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "site-footer",
+  "type": "registry:item",
+  "title": "Multi-column website footer",
+  "description": "Semantic footer navigation with contact details and legal links.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/site-footer.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/site-footer.html",
+      "content": "<footer class=\"syn-root syn-region syn-panel\" data-syn-theme=\"studio\">\n  <div class=\"syn-grid\">\n    <div><strong class=\"syn-heading\">NORTHLINE</strong><p class=\"syn-muted\">Digital experiences built with purpose.</p><a href=\"mailto:hello@example.org\">hello@example.org</a></div>\n    <nav aria-label=\"Company\"><h3>Company</h3><ul><li><a href=\"/about\">About</a></li><li><a href=\"/work\">Our work</a></li><li><a href=\"/contact\">Contact</a></li></ul></nav>\n    <nav aria-label=\"Resources\"><h3>Resources</h3><ul><li><a href=\"/journal\">Journal</a></li><li><a href=\"/guides\">Guides</a></li><li><a href=\"/support\">Support</a></li></ul></nav>\n  </div>\n  <p class=\"syn-caption\">Example company · <a href=\"/privacy\">Privacy</a> · <a href=\"/terms\">Terms</a></p>\n</footer>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

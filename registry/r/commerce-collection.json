@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "commerce-collection",
+  "type": "registry:item",
+  "title": "Product collection cards",
+  "description": "Responsive storefront merchandising cards with explicit example prices.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/commerce-collection.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/commerce-collection.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-products-title\">\n  <header class=\"syn-page-header\"><div><p class=\"syn-eyebrow\">THE COLLECTION</p><h2 id=\"syn-products-title\" class=\"syn-heading\">Everyday essentials</h2></div><a href=\"/shop\">View full catalog</a></header>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><span class=\"syn-badge\">Featured</span><h3>Canvas tote</h3><p>Durable, simple and ready for daily use.</p><p><strong>$24</strong> <span class=\"syn-caption\">Example price</span></p><a href=\"/products/canvas-tote\">View tote details</a></article>\n    <article class=\"syn-panel\"><span class=\"syn-badge\">New</span><h3>Desk notebook</h3><p>Room for ideas, plans and important details.</p><p><strong>$12</strong> <span class=\"syn-caption\">Example price</span></p><a href=\"/products/desk-notebook\">View notebook details</a></article>\n  </div>\n  <p class=\"syn-caption\">Static product presentation, not an implemented cart, stock check or checkout.</p>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

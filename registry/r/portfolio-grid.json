@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "portfolio-grid",
+  "type": "registry:item",
+  "title": "Portfolio project grid",
+  "description": "Project summaries with descriptive destinations, no required image assets.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json",
+    "https://syntyr-css.pages.dev/registry/r/recipes.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/portfolio-grid.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/portfolio-grid.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-portfolio-title\">\n  <header class=\"syn-page-header\"><div><p class=\"syn-eyebrow\">SELECTED WORK</p><h2 id=\"syn-portfolio-title\" class=\"syn-heading\">Projects with purpose</h2></div><a href=\"/work\">All work</a></header>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><p class=\"syn-badge\">Brand and website</p><h3>Atlas Studio</h3><p>A clear service experience built around what clients need to know.</p><a href=\"/work/atlas\">View Atlas project</a></article>\n    <article class=\"syn-panel\"><p class=\"syn-badge\">Product design</p><h3>Harbor Dashboard</h3><p>A focused reporting workspace for a distributed team.</p><a href=\"/work/harbor\">View Harbor project</a></article>\n  </div>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

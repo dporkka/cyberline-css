@@ -36,3 +36,24 @@ Check the public, published URL rather than relying only on an editor preview. C
 **Release compatibility:** The immutable **alpha.4** stylesheet `syntyr.core.css` is published. The **alpha.5** `syntyr.embed.css` bundle is a candidate build designed for existing themes; it is not part of the alpha.4 release. Build the candidate from the source repository and self-host a version-pinned copy for testing. Never load both bundles together, and verify theme-specific overrides before production rollout. Syntyr is a stylesheet, not an official integration or plug-in from the site platform.
 
 Explore the [platform integration overview](site-builders.md), [Syntyr distribution and release guide](distribution.md), or [live host-theme example](../examples/platform-embed.html).
+
+## Optional Gutenberg-native patterns (experimental source adapter)
+
+For editor-friendly native blocks instead of Custom HTML, copy the file
+integrations/wordpress/syntyr-patterns.php and the adjacent patterns directory
+into a site-specific plugin directory named syntyr-patterns, then activate it.
+
+This registers three patterns under Syntyr Sections: services overview,
+latest articles (using the built-in dynamic Latest Posts block), and a contact
+call to action. These are WordPress-native serialized core blocks. The native
+Syntyr snippets in the gallery remain framework-neutral and are not editable
+Gutenberg blocks merely by inserting them into Custom HTML.
+
+Styles are independent: install the pinned alpha.5 candidate syntyr.embed.css
+in the child theme using syntyr-enqueue.php. Its hooks cover the public site
+and block editor. The plugin does not bundle or alter Syntyr core CSS. Real
+WordPress validation, editor fidelity and frontend theme collisions must be
+tested before using these in production. Change the example copy and routes.
+
+This is not a published WordPress.org plugin and is not a verified integration
+with WordPress, WooCommerce or any particular hosting provider.

@@ -2,11 +2,11 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 20 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 32 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 20 copy-owned HTML compositions cover marketing, application and technical use
+The 32 copy-owned HTML compositions cover marketing, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
@@ -107,7 +107,7 @@ copied into the public project. The separate private Console Kit is unaffected.
 ## Experimental shadcn universal-item registry
 
 The source candidate can generate a **copy-owned, framework-independent**
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 32 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.
@@ -136,3 +136,18 @@ never reads private Console Kit assets or executes downloaded code. No dynamic
 service, telemetry, npm dependency, or customer license is introduced.
 Published alpha.4 assets remain immutable; registry payloads declare their
 source-candidate Syntyr version and must not be confused with a tagged release.
+
+## Website section patterns — WordPress-inspired, framework-neutral
+
+The twelve additional free layouts cover site navigation and footer, editorial cards and article anatomy,
+services and ordered processes, portfolios, case studies, comparison tables, integration directories,
+catalog merchandising, and newsletter signup. They compose existing CSS tokens, layout
+primitives and native HTML; no new CSS module or required JavaScript is introduced.
+
+Snippet HTML is not the serialized block format used by the WordPress block editor.
+For WordPress, use the optional three-pattern Gutenberg integration described in
+the WordPress guide (wordpress.md). The native patterns use editable core WordPress blocks.
+
+Replace sample names, links, dates, prices and endorsements. Do not publish unverified claims.
+Before enabling the newsletter POST form, implement secure consent handling, CSRF protection,
+unsubscribe processing and privacy disclosures. Ecommerce samples are presentation only.

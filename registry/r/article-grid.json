@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "article-grid",
+  "type": "registry:item",
+  "title": "Featured article grid",
+  "description": "Editorial cards with machine-readable dates and readable links.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json",
+    "https://syntyr-css.pages.dev/registry/r/recipes.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/article-grid.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/article-grid.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-articles-title\">\n  <header class=\"syn-page-header\"><div><p class=\"syn-eyebrow\">THE JOURNAL</p><h2 id=\"syn-articles-title\" class=\"syn-heading\">Ideas worth exploring</h2></div><a href=\"/journal\">All articles</a></header>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><p class=\"syn-caption\"><time datetime=\"2026-10-20\">Oct 20, 2026</time> · Design</p><h3><a href=\"/journal/designing-for-clarity\">Designing for clarity</a></h3><p>Small decisions that make complex websites easier to navigate.</p><a href=\"/journal/designing-for-clarity\">Read article</a></article>\n    <article class=\"syn-panel\"><p class=\"syn-caption\"><time datetime=\"2026-10-05\">Oct 5, 2026</time> · Engineering</p><h3><a href=\"/journal/responsive-by-default\">Responsive by default</a></h3><p>Practical patterns for flexible page sections.</p><a href=\"/journal/responsive-by-default\">Read article</a></article>\n  </div>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

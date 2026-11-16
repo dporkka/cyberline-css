@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "article-detail",
+  "type": "registry:item",
+  "title": "Editorial article detail",
+  "description": "Readable long-form post anatomy with date, author and related reading.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/article-detail.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/article-detail.html",
+      "content": "<article class=\"syn-root syn-region syn-panel syn-prose\" data-syn-theme=\"studio\" aria-labelledby=\"syn-article-detail-title\">\n  <header><p class=\"syn-eyebrow\">FIELD NOTES</p><h2 id=\"syn-article-detail-title\" class=\"syn-heading\">Build a website that explains itself</h2><p class=\"syn-caption\">By Editorial Team · <time datetime=\"2026-10-21\">October 21, 2026</time> · 4 minute read</p></header>\n  <p class=\"syn-lede\">A helpful website answers visitors' questions before they need to ask.</p>\n  <section aria-labelledby=\"syn-article-section\"><h3 id=\"syn-article-section\">Lead with the essentials</h3><p>Use meaningful headings, a clear first paragraph and descriptive calls to action. Keep supporting details close to the questions they answer.</p></section>\n  <footer><p class=\"syn-caption\">Example editorial content</p><a href=\"/journal\">Back to the journal</a></footer>\n</article>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}
