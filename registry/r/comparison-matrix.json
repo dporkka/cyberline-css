@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "comparison-matrix",
+  "type": "registry:item",
+  "title": "Feature comparison",
+  "description": "Accessible semantic feature table for product plans.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/comparison-matrix.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/comparison-matrix.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-comparison-heading\">\n  <h2 class=\"syn-heading\" id=\"syn-comparison-heading\">Choose the right plan</h2>\n  <div class=\"syn-table-wrap\">\n    <table class=\"syn-table\">\n      <caption>Illustrative feature comparison, not a current commercial offer</caption>\n      <thead><tr><th scope=\"col\">Capability</th><th scope=\"col\">Starter</th><th scope=\"col\">Team</th><th scope=\"col\">Enterprise</th></tr></thead>\n      <tbody>\n        <tr><th scope=\"row\">Projects</th><td>3</td><td>Unlimited</td><td>Unlimited</td></tr>\n        <tr><th scope=\"row\">Team seats</th><td>1</td><td>10</td><td>Custom</td></tr>\n        <tr><th scope=\"row\">Audit history</th><td>—</td><td>30 days</td><td>Custom retention</td></tr>\n        <tr><th scope=\"row\">Support</th><td>Community</td><td>Email</td><td>Dedicated</td></tr>\n      </tbody>\n    </table>\n  </div>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

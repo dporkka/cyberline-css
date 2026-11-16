@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "integrations-directory",
+  "type": "registry:item",
+  "title": "Integration directory",
+  "description": "Reusable integration cards with descriptive links.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/integrations-directory.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/integrations-directory.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-integrations-heading\">\n  <h2 class=\"syn-heading\" id=\"syn-integrations-heading\">Connect your tools</h2>\n  <p class=\"syn-muted\">Illustrative catalog. Availability and permissions depend on your product implementation.</p>\n  <div class=\"syn-grid\">\n    <article class=\"syn-panel\"><h3 class=\"syn-heading\">Calendar</h3><p>Synchronize scheduled work with your existing team calendar.</p><a href=\"/integrations/calendar\">Integration details</a></article>\n    <article class=\"syn-panel\"><h3 class=\"syn-heading\">Payments</h3><p>Reconcile invoices through an authorized billing provider.</p><a href=\"/integrations/payments\">Integration details</a></article>\n    <article class=\"syn-panel\"><h3 class=\"syn-heading\">Messaging</h3><p>Route approved notifications through your communications platform.</p><a href=\"/integrations/messaging\">Integration details</a></article>\n  </div>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

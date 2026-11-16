@@ -56,7 +56,7 @@ stylesheets.
 - **Modular:** separate core, semantic and decorative effects files; includes convenience bundles.
 - **Real navigation and loading states:** semantic breadcrumbs, touch-friendly page links, and static accessible skeleton placeholders.
 - **No installation:** copy prebuilt CSS. Python 3 is used only by maintainers to regenerate it.
-- **Opt-in universal registry (alpha.5 source):** 20 free copy-owned HTML blocks plus 8 CSS modules in shadcn-compatible static JSON; no consumer runtime dependency. See [blocks guide](docs/blocks-guide.md).
+- **Opt-in universal registry (alpha.5 source):** 30 free copy-owned HTML blocks plus 8 CSS modules in shadcn-compatible static JSON; no consumer runtime dependency. See [blocks guide](docs/blocks-guide.md).
 
 ## Live gallery and installation
 
@@ -65,7 +65,7 @@ stylesheets.
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
 - [Common HTML and UI example](examples/common-ui.html): navigation links, avatars, chips, list groups, notices and native form controls; no JavaScript
 - [Native HTML elements demo](examples/native-elements.html): lists, code, media, forms, progress, and native overlays with optional semantic CSS
-- [20 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
+- [30 copy-owned blocks, 12 CSS textures, 6 typography directions, and 24 SVG icons](https://syntyr-css.pages.dev/docs/blocks.html) ([authoring guide](docs/blocks-guide.md))
 - [Practical installation, integration and performance guides](https://syntyr-css.pages.dev/docs/guides.html)
 - [Searchable, copyable component catalog](docs/catalog.html)
 - [Shared design principles, component-state matrix and native composition patterns](docs/design-principles.md) ([dependency-free 84-pair contrast audit](scripts/design_conformance.py)).
@@ -95,6 +95,7 @@ stylesheets.
 - [WordPress, Wix, Shopify, Webflow, Framer and CMS/site-builder installation](docs/site-builders.md) (13 platform-specific SEO guides, unlayered alpha.5 embed CSS, WordPress/Shopify source examples, and host-theme isolation fixture).
 - [Framework integrations: LiveView, Livewire, Hotwire/Turbo, HTMX, Go templ and frontend stacks](docs/framework-integrations.md)
 - [Mobile integration: React Native / Expo native tokens, plus Flutter, SwiftUI, Compose and Ionic](docs/mobile-frameworks.md) (opt-in alpha.5 source adapter; no native CSS runtime)
+- [Optional native Copy, Toast, Image Comparison and Rating Web Components](docs/web-component-utilities.md) — framework-independent MIT recipes; no CSS core runtime.
 - [Runnable Expo SDK 58 native test fixture](examples/expo-native-smoke/README.md) (native component tests, Android/iOS Metro exports; native simulator/device verification still required)
 - [JSX and TSX with React, Preact and Solid: copy-owned recipes and verified builds](docs/jsx-tsx-integration.md)
 - [Verified Node.js, React/Vite and Next.js App Router adoption fixtures](docs/node-react-next-integration.md) (experimental, unpublished React wrappers)

@@ -290,6 +290,146 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "site-header",
+      "category": "Marketing",
+      "title": "Responsive website header",
+      "description": "Primary navigation with a clear action and link-based mobile fallback.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "header",
+        "navigation",
+        "responsive"
+      ]
+    },
+    {
+      "id": "site-footer",
+      "category": "Marketing",
+      "title": "Multicolumn site footer",
+      "description": "Product, resource and policy navigation with legal attribution.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "footer",
+        "legal",
+        "navigation"
+      ]
+    },
+    {
+      "id": "auth-sign-in",
+      "category": "Applications",
+      "title": "Sign-in form",
+      "description": "Native authentication form with accessible labels and recovery link.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "login",
+        "form"
+      ]
+    },
+    {
+      "id": "auth-recovery",
+      "category": "Applications",
+      "title": "Account recovery",
+      "description": "Email recovery request presentation with security integration notes.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "recovery",
+        "password"
+      ]
+    },
+    {
+      "id": "blog-article",
+      "category": "Marketing",
+      "title": "Editorial article",
+      "description": "Semantic long-form article with metadata, sections and tags.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "blog",
+        "article",
+        "editorial"
+      ]
+    },
+    {
+      "id": "docs-layout",
+      "category": "Technical",
+      "title": "Documentation page",
+      "description": "Documentation navigation, breadcrumb and article content.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "documentation",
+        "sidebar",
+        "technical"
+      ]
+    },
+    {
+      "id": "comparison-matrix",
+      "category": "Marketing",
+      "title": "Feature comparison",
+      "description": "Accessible semantic feature table for product plans.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "comparison",
+        "pricing",
+        "table"
+      ]
+    },
+    {
+      "id": "integrations-directory",
+      "category": "Applications",
+      "title": "Integration directory",
+      "description": "Reusable integration cards with descriptive links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "integrations",
+        "directory",
+        "cards"
+      ]
+    },
+    {
+      "id": "error-recovery",
+      "category": "Applications",
+      "title": "Error recovery view",
+      "description": "Actionable error state without fake success or client-side retry.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "error",
+        "recovery",
+        "status"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "category": "Applications",
+      "title": "Empty collection state",
+      "description": "Clear primary action and filter recovery guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "empty",
+        "no-results",
+        "onboarding"
+      ]
     }
   ]
 }

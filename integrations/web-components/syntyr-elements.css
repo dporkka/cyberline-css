@@ -1,0 +1,25 @@
+/* Optional presentation for native Custom Elements. Not part of Syntyr core. */
+.syn-root syn-copy-button { display: inline-flex; flex-direction: column; gap: .5rem; }
+.syn-root syn-toast-region { display: block; min-height: 1.6em; color: var(--syn-text); }
+.syn-root syn-image-compare { display: block; min-width: 0; }
+.syn-root syn-image-compare .syn-compare-media { display: grid; gap: .75rem; }
+.syn-root syn-image-compare .syn-compare-media img { display: block; width: 100%; max-width: 100%; height: auto; }
+.syn-root syn-image-compare[data-syn-enhanced] .syn-compare-media {
+  position: relative; display: block; aspect-ratio: 5 / 3; overflow: hidden;
+}
+.syn-root syn-image-compare[data-syn-enhanced] .syn-compare-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+}
+.syn-root syn-image-compare[data-syn-enhanced] [data-syn-compare-after] {
+  clip-path: inset(0 0 0 var(--syn-compare-percent, 50%));
+}
+.syn-root syn-image-compare label { display: grid; gap: .5rem; margin-block: 1rem; }
+.syn-root syn-image-compare input[type="range"] { width: 100%; accent-color: var(--syn-accent); }
+.syn-root syn-rating-input { display: block; }
+.syn-root syn-rating-input fieldset { display: flex; flex-wrap: wrap; gap: .75rem; }
+.syn-root syn-rating-input label { display: inline-flex; gap: .3rem; align-items: center; min-height: 2.75rem; }
+.syn-root syn-rating-input input { accent-color: var(--syn-accent); }
+.syn-root syn-rating-input output { display: block; margin-block-start: .5rem; }
+@media (forced-colors: active) {
+  .syn-root syn-image-compare .syn-compare-media { outline: 1px solid CanvasText; }
+}

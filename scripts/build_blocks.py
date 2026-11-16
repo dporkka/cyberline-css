@@ -41,6 +41,7 @@ TYPOGRAPHY = (
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
     cards = []
+    count = len(blocks)
     for block in blocks:
         ident = block["id"]
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
@@ -97,7 +98,7 @@ def build() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="{count} original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -117,7 +118,7 @@ def build() -> str:
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">{count} production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -139,7 +140,7 @@ def build() -> str:
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">{count} blocks available.</p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">{''.join(cards)}
       </div>

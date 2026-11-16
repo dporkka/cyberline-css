@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blog-article",
+  "type": "registry:item",
+  "title": "Editorial article",
+  "description": "Semantic long-form article with metadata, sections and tags.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/blog-article.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/blog-article.html",
+      "content": "<article class=\"syn-root syn-shell\" data-syn-theme=\"studio\" aria-labelledby=\"syn-article-heading\">\n  <header>\n    <p class=\"syn-eyebrow\">Engineering / Guide</p>\n    <h2 class=\"syn-title\" id=\"syn-article-heading\">Building durable interfaces</h2>\n    <p class=\"syn-caption\">By Morgan Lee · <time datetime=\"2026-11-16\">16 November 2026</time> · 4 minute read</p>\n    <p class=\"syn-lede\">Practical decisions for readable, adaptable product interfaces.</p>\n  </header>\n  <div class=\"syn-stack\">\n    <section aria-labelledby=\"syn-article-intro\"><h3 id=\"syn-article-intro\">Begin with semantics</h3><p>Start with meaningful HTML before adding presentation and behavior. Native controls carry built-in platform affordances.</p></section>\n    <section aria-labelledby=\"syn-article-pattern\"><h3 id=\"syn-article-pattern\">Choose reusable patterns</h3><p>Use shared design tokens and small compositions rather than one-off variants.</p></section>\n    <blockquote><p>Design is a continuous maintenance decision.</p></blockquote>\n  </div>\n  <footer><p class=\"syn-caption\">Tags: <a href=\"/blog/tags/html\">HTML</a>, <a href=\"/blog/tags/accessibility\">Accessibility</a></p><a href=\"/blog\">All articles</a></footer>\n</article>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

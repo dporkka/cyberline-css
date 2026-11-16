@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syntyr native Custom Elements — optional utilities</title>
+<link rel="stylesheet" href="../../dist/syntyr.core.css">
+<link rel="stylesheet" href="../../integrations/web-components/syntyr-elements.css">
+<script type="module">
+  import { registerSyntyrElements } from "../../integrations/web-components/syntyr-elements.mjs";
+  registerSyntyrElements();
+</script>
+</head><body class="syn-root syn-shell" data-syn-theme="studio"><main>
+<h1 class="syn-title">Optional native Custom Elements</h1>
+<p class="syn-muted">This page is a standalone demo: without JavaScript, the copy button stays disabled while range, rating and both comparison images remain accessible. None require React, Lit or network services.</p>
+<section class="syn-panel" aria-labelledby="copy-title">
+  <h2 id="copy-title" class="syn-heading">Copy code</h2>
+  <pre id="syn-copy-sample"><code>curl --version</code></pre>
+  <syn-copy-button for="syn-copy-sample"><button type="button" class="syn-button" disabled>Copy example</button><output data-syn-copy-status role="status" aria-live="polite"></output></syn-copy-button>
+  <syn-toast-region><p data-syn-toast-message role="status" aria-live="polite"></p></syn-toast-region>
+</section>
+<section class="syn-panel" aria-labelledby="compare-title">
+  <h2 id="compare-title" class="syn-heading">Before / after</h2>
+  <syn-image-compare>
+    <div class="syn-compare-media">
+      <img data-syn-compare-before alt="Light gray interface with muted blue panels" src="assets/example-before.svg" width="500" height="300">
+      <img data-syn-compare-after alt="Dark teal interface with aqua panels" src="assets/example-after.svg" width="500" height="300">
+    </div>
+    <label for="syn-compare-control">Show before and after split
+      <input id="syn-compare-control" type="range" min="0" max="100" value="50">
+    </label>
+  </syn-image-compare>
+</section>
+<section class="syn-panel" aria-labelledby="rating-title">
+  <h2 id="rating-title" class="syn-heading">Rating form</h2>
+  <form action="/reviews" method="get">
+    <syn-rating-input><fieldset class="syn-fieldset"><legend>Rate this example</legend>
+      <label><input type="radio" name="rating" value="1">1 star</label>
+      <label><input type="radio" name="rating" value="2">2 stars</label>
+      <label><input type="radio" name="rating" value="3" checked>3 stars</label>
+      <label><input type="radio" name="rating" value="4">4 stars</label>
+      <label><input type="radio" name="rating" value="5">5 stars</label>
+    </fieldset><output role="status"></output></syn-rating-input>
+    <p class="syn-help">The native radio group submits without this enhancement; an actual server must validate and store ratings.</p>
+    <button type="submit" class="syn-button">Submit sample rating</button>
+  </form>
+</section>
+<p><a href="../../docs/web-component-utilities.html">Integration guide</a></p>
+</main></body></html>

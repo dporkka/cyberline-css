@@ -24,9 +24,9 @@ class InspectHTML(HTMLParser):
 
 
 class BlocksAssetsTests(unittest.TestCase):
-    def test_twenty_independent_copy_owned_blocks(self):
+    def test_thirty_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 20)
+        self.assertEqual(len(blocks), 30)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -50,6 +50,24 @@ class BlocksAssetsTests(unittest.TestCase):
                 self.assertIn("</", source)
                 self.assertNotIn("syntyr.all.css", source)
 
+    def test_new_core_compositions_cover_missing_website_and_application_flows(self):
+        blocks = {item["id"]: item for item in __import__("json").loads(MANIFEST.read_text())["blocks"]}
+        expected = {
+            "site-header", "site-footer", "auth-sign-in", "auth-recovery",
+            "blog-article", "docs-layout", "comparison-matrix",
+            "integrations-directory", "error-recovery", "empty-state",
+        }
+        self.assertTrue(expected.issubset(blocks))
+        for ident in expected:
+            snippet = (ROOT / "blocks/snippets" / (ident + ".html")).read_text()
+            self.assertNotIn("<script", snippet)
+            self.assertNotIn("role=\"button\"", snippet)
+            self.assertIn('class="syn-root', snippet)
+        self.assertIn('type="email"', (ROOT / "blocks/snippets/auth-recovery.html").read_text())
+        self.assertIn("<article", (ROOT / "blocks/snippets/blog-article.html").read_text())
+        self.assertIn('scope="col"', (ROOT / "blocks/snippets/comparison-matrix.html").read_text())
+        self.assertIn('aria-current="page"', (ROOT / "blocks/snippets/docs-layout.html").read_text())
+
     def test_gallery_is_generated_and_progressively_enhanced(self):
         result = subprocess.run(
             [sys.executable, "scripts/build_blocks.py", "--check"],
@@ -60,8 +78,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 20)
-        self.assertEqual(len(set(ids)), 20)
+        self.assertEqual(len(ids), 30)
+        self.assertEqual(len(set(ids)), 30)
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -77,8 +95,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 20)
-        self.assertEqual(len(set(copy_labels)), 20)
+        self.assertEqual(len(copy_labels), 30)
+        self.assertEqual(len(set(copy_labels)), 30)
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)

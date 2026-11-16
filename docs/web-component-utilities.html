@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: experimental MIT integration recipes; not part of syntyr.core.css , not a component runtime. The live source example runs without npm or a framework.">
+  <meta name="syntyr-source-sha256" content="6dd7fa5c8d8bac7b52de53e465cca2caece0df0499c7955b336d6d88fb3689b2">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional native Custom Elements: copy, toast, image compare and rating — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/web-component-utilities">
+  <link rel="alternate" type="text/markdown" href="web-component-utilities.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional native Custom Elements: copy, toast, image compare and rating</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="web-component-utilities.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional native Custom Elements: copy, toast, image compare and rating">
+<h1 id="optional-native-custom-elements-copy-toast-image-compare-and-rating">Optional native Custom Elements: copy, toast, image compare and rating</h1>
+<p><strong>Status:</strong> experimental MIT integration recipes; not part of <code>syntyr.core.css</code>, not a component runtime.
+The <a href="../examples/web-components/utilities.html">live source example</a> runs without npm or a framework.</p>
+<p>Import the optional local CSS after your pinned Syntyr core, and register only when the page needs behavior:</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr-elements.css&quot;&gt;
+&lt;script type=&quot;module&quot;&gt;
+  import { registerSyntyrElements } from &quot;./syntyr-elements.mjs&quot;;
+  registerSyntyrElements();
+&lt;/script&gt;
+</code></pre>
+<ul>
+<li><code>&lt;syn-copy-button for=&quot;source-id&quot;&gt;</code>: requires a real button (initially disabled), secure-context clipboard access and an element ID. Reports success/failure in a status element and optionally a toast region. It cannot copy inaccessible documents or bypass clipboard permission.</li>
+<li><code>&lt;syn-toast-region&gt;</code>: a modest <code>announce(message)</code> interface that writes safe text into an existing native live region. No automatic dismissal, persistence or notification queue.</li>
+<li><code>&lt;syn-image-compare&gt;</code>: two descriptive local images plus a labeled native <code>input[type=range]</code>. Without JavaScript, both images remain visible instead of masquerading as a functional comparison slider.</li>
+<li><code>&lt;syn-rating-input&gt;</code>: preserves native <code>fieldset</code> radio buttons and form submission; enhancement only updates a text description and emits <code>syn-rating-change</code>. Server-side validation is always required.</li>
+</ul>
+<p>Use semantic HTML, event listeners owned by the host app, and local assets. No global selectors outside <code>.syn-root</code>, remote fonts, dependencies, polyfills, or external assets are introduced. Test on Safari, Firefox, Chromium, mobile screen readers, at 400% zoom and with forced colors before production reuse.</p>
+<p><strong>Verification:</strong> <code>node --test tests/web_components_utilities.test.mjs</code> and the existing native Web Components browser fixture. This integration does not change Syntyr core CSS byte output.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="web-component-utilities.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>
