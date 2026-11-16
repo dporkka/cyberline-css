@@ -2,16 +2,16 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 20 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 24 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 20 copy-owned HTML compositions cover marketing, application and technical use
-cases. Each contains its own Syntyr root, uses accessible native markup and requires
+The 24 copy-owned HTML compositions cover marketing, publishing, navigation,
+application and technical use cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all twenty-four static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
@@ -107,7 +107,7 @@ copied into the public project. The separate private Console Kit is unaffected.
 ## Experimental shadcn universal-item registry
 
 The source candidate can generate a **copy-owned, framework-independent**
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 24 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.
@@ -136,3 +136,34 @@ never reads private Console Kit assets or executes downloaded code. No dynamic
 service, telemetry, npm dependency, or customer license is introduced.
 Published alpha.4 assets remain immutable; registry payloads declare their
 source-candidate Syntyr version and must not be confused with a tagged release.
+
+## Content collection, publishing, and navigation compositions
+
+Four original blocks borrow the *use cases*, not the Elementor implementation:
+content collection, editorial article, website header/footer, and native mega menu.
+All four are **MIT copy-owned HTML** and depend only on the existing Syntyr
+`core` and optional `recipes` stylesheets. No new Syntyr CSS selector, runtime,
+license tier, vendor dependency, or bundled image is added.
+
+- **Content collection:** The GET form, query, and topic select submit to
+  `/journal`. The host endpoint must validate inputs and render filtered, paged
+  articles. The static cards and pagination demonstrate presentation only.
+  Preserve query/category parameters in real pagination URLs; always build
+  links from validated, escaped values. Do not imply live JavaScript filtering.
+- **Editorial article:** Use the existing `syn-prose` and `syn-sidecar` classes
+  for reading content, linked on-page contents, author attribution, and related
+  links. Substitute real editorial content and authors; the example author is
+  fictional. Place a single page-level `h1` in standalone article templates;
+  snippets use `h2` because the gallery already has a page heading.
+- **Website header and footer:** Reuse `syn-header`, `syn-nav`, `syn-inline`,
+  `syn-stack`, and native navigation landmarks. Replace sample paths and brand.
+  Header links wrap as space narrows; no invisible or JS-only hamburger controls.
+- **Mega menu:** A native `details` disclosure and ordinary links, **not**
+  a custom ARIA `menu` widget. It is shown open in the gallery so its content
+  is visible without any script. For an actual site, close it initially if
+  appropriate, and keep the trigger as a real `summary`. Test keyboard
+  activation, zoom, long translations, and viewport overflow.
+
+Use these as framework-neutral *composition examples*, not WordPress plugins
+or theme-builder replacements. Bind dynamic content in the host framework
+(PHP, Liquid, Go templates, React, etc.) with proper escaping and authorization.

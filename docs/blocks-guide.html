@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="a1efa213a518e7cde0636345b5e51a240a3b006793a41264bccf70e2b29e0aa2">
+  <meta name="syntyr-source-sha256" content="d2e5280059837e7235b08c65d3abeb393bd921face7a718a0845b0d6a8fb4a31">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -36,13 +36,13 @@
         <article class="docs-prose" aria-label="Syntyr Blocks &amp; Assets — integration guide">
 <h1 id="syntyr-blocks-assets-integration-guide">Syntyr Blocks &amp; Assets — integration guide</h1>
 <p><strong>Status:</strong> Experimental alpha.5 source gallery, not an immutable release or published npm package.</p>
-<p><a href="blocks.html">Browse 20 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
+<p><a href="blocks.html">Browse 24 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
 <h2 id="contract">Contract</h2>
-<p>The 20 copy-owned HTML compositions cover marketing, application and technical use
-cases. Each contains its own Syntyr root, uses accessible native markup and requires
+<p>The 24 copy-owned HTML compositions cover marketing, publishing, navigation,
+application and technical use cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.</p>
 <p>The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all twenty-four static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.</p>
 <h2 id="native-html-and-framework-integration">Native HTML and framework integration</h2>
@@ -115,7 +115,7 @@ No premium Tailwind, commercial UI kit or third-party icon artwork has been
 copied into the public project. The separate private Console Kit is unaffected.</p>
 <h2 id="experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</h2>
 <p>The source candidate can generate a <strong>copy-owned, framework-independent</strong>
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 24 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.</p>
@@ -140,6 +140,35 @@ never reads private Console Kit assets or executes downloaded code. No dynamic
 service, telemetry, npm dependency, or customer license is introduced.
 Published alpha.4 assets remain immutable; registry payloads declare their
 source-candidate Syntyr version and must not be confused with a tagged release.</p>
+<h2 id="content-collection-publishing-and-navigation-compositions">Content collection, publishing, and navigation compositions</h2>
+<p>Four original blocks borrow the <em>use cases</em>, not the Elementor implementation:
+content collection, editorial article, website header/footer, and native mega menu.
+All four are <strong>MIT copy-owned HTML</strong> and depend only on the existing Syntyr
+<code>core</code> and optional <code>recipes</code> stylesheets. No new Syntyr CSS selector, runtime,
+license tier, vendor dependency, or bundled image is added.</p>
+<ul>
+<li><strong>Content collection:</strong> The GET form, query, and topic select submit to
+<code>/journal</code>. The host endpoint must validate inputs and render filtered, paged
+articles. The static cards and pagination demonstrate presentation only.
+Preserve query/category parameters in real pagination URLs; always build
+links from validated, escaped values. Do not imply live JavaScript filtering.</li>
+<li><strong>Editorial article:</strong> Use the existing <code>syn-prose</code> and <code>syn-sidecar</code> classes
+for reading content, linked on-page contents, author attribution, and related
+links. Substitute real editorial content and authors; the example author is
+fictional. Place a single page-level <code>h1</code> in standalone article templates;
+snippets use <code>h2</code> because the gallery already has a page heading.</li>
+<li><strong>Website header and footer:</strong> Reuse <code>syn-header</code>, <code>syn-nav</code>, <code>syn-inline</code>,
+<code>syn-stack</code>, and native navigation landmarks. Replace sample paths and brand.
+Header links wrap as space narrows; no invisible or JS-only hamburger controls.</li>
+<li><strong>Mega menu:</strong> A native <code>details</code> disclosure and ordinary links, <strong>not</strong>
+a custom ARIA <code>menu</code> widget. It is shown open in the gallery so its content
+is visible without any script. For an actual site, close it initially if
+appropriate, and keep the trigger as a real <code>summary</code>. Test keyboard
+activation, zoom, long translations, and viewport overflow.</li>
+</ul>
+<p>Use these as framework-neutral <em>composition examples</em>, not WordPress plugins
+or theme-builder replacements. Bind dynamic content in the host framework
+(PHP, Liquid, Go templates, React, etc.) with proper escaping and authorization.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
@@ -149,6 +178,7 @@ source-candidate Syntyr version and must not be confused with a tagged release.<
 <a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-fidelity-and-licensing">Accessibility, fidelity and licensing</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#content-collection-publishing-and-navigation-compositions">Content collection, publishing, and navigation compositions</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="blocks-guide.md">Markdown source</a></nav>

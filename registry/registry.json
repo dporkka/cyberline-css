@@ -612,6 +612,98 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "content-collection",
+      "type": "registry:item",
+      "title": "Filterable content collection",
+      "description": "Loop-style article cards with real GET search, taxonomy selection and pagination.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/content-collection.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/content-collection.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "editorial-article",
+      "type": "registry:item",
+      "title": "Article with table of contents",
+      "description": "Long-form article, linked section index, author information and related reads.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/editorial-article.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/editorial-article.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "site-header-footer",
+      "type": "registry:item",
+      "title": "Responsive header and footer",
+      "description": "Complete site navigation shell using semantic landmarks and existing layouts.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/site-header-footer.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/site-header-footer.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "mega-navigation",
+      "type": "registry:item",
+      "title": "Native expandable mega menu",
+      "description": "Keyboard-friendly disclosure with grouped destination links and no menu runtime.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/mega-navigation.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/mega-navigation.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }

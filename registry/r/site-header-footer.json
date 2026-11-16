@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "site-header-footer",
+  "type": "registry:item",
+  "title": "Responsive header and footer",
+  "description": "Complete site navigation shell using semantic landmarks and existing layouts.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json",
+    "https://syntyr-css.pages.dev/registry/r/recipes.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/site-header-footer.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/site-header-footer.html",
+      "content": "<section class=\"syn-root syn-region syn-stack\" data-syn-theme=\"studio\" aria-label=\"Example website shell\">\n  <header class=\"syn-header\">\n    <a class=\"syn-logo\" href=\"/\">NORTH / STUDIO</a>\n    <nav class=\"syn-nav\" aria-label=\"Primary navigation\">\n      <a href=\"/features\">Features</a>\n      <a href=\"/pricing\">Pricing</a>\n      <a href=\"/journal\">Journal</a>\n    </nav>\n    <a class=\"syn-button syn-button--primary\" href=\"/contact\">Contact us</a>\n  </header>\n  <section class=\"syn-site-hero\" aria-labelledby=\"syn-shell-message\">\n    <p class=\"syn-eyebrow\">SIMPLE BY DESIGN</p>\n    <h2 class=\"syn-site-heading\" id=\"syn-shell-message\">A website worth returning to.</h2>\n    <p class=\"syn-lede\">Accessible navigation and clear calls to action without a navigation runtime.</p>\n  </section>\n  <footer class=\"syn-stack\">\n    <div class=\"syn-inline\" style=\"--syn-inline-justify:space-between\">\n      <strong>NORTH / STUDIO</strong>\n      <nav class=\"syn-inline\" aria-label=\"Footer navigation\">\n        <a href=\"/about\">About</a><a href=\"/privacy\">Privacy</a><a href=\"/contact\">Contact</a>\n      </nav>\n    </div>\n    <small class=\"syn-caption\">Example studio. Replace all placeholder routes and copy.</small>\n  </footer>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}

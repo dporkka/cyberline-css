@@ -40,6 +40,12 @@ TYPOGRAPHY = (
 
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
+    count = len(blocks)
+    categories = list(dict.fromkeys(block["category"] for block in blocks))
+    category_options = "\n".join(
+        f'<option value="{escape(category, quote=True)}">{escape(category)}</option>'
+        for category in categories
+    )
     cards = []
     for block in blocks:
         ident = block["id"]
@@ -97,7 +103,7 @@ def build() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="{count} original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -117,7 +123,7 @@ def build() -> str:
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">{count} production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -129,8 +135,7 @@ def build() -> str:
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            {category_options}</select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -139,7 +144,7 @@ def build() -> str:
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">{count} blocks available.</p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">{''.join(cards)}
       </div>

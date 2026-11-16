@@ -9,6 +9,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / "blocks/manifest.json"
+BLOCK_COUNT = len(json.loads(MANIFEST.read_text())["blocks"])
 ALLOWED = {"core", "recipes", "geometry", "symbols", "viz", "motion", "effects", "utilities"}
 
 
@@ -24,9 +25,9 @@ class InspectHTML(HTMLParser):
 
 
 class BlocksAssetsTests(unittest.TestCase):
-    def test_twenty_independent_copy_owned_blocks(self):
+    def test_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 20)
+        self.assertGreaterEqual(len(blocks), 24)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -60,8 +61,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 20)
-        self.assertEqual(len(set(ids)), 20)
+        self.assertEqual(len(ids), BLOCK_COUNT)
+        self.assertEqual(len(set(ids)), BLOCK_COUNT)
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -77,8 +78,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 20)
-        self.assertEqual(len(set(copy_labels)), 20)
+        self.assertEqual(len(copy_labels), BLOCK_COUNT)
+        self.assertEqual(len(set(copy_labels)), BLOCK_COUNT)
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)

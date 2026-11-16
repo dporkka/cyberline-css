@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="24 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -23,7 +23,7 @@
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">24 production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -35,8 +35,11 @@
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            <option value="Marketing">Marketing</option>
+<option value="Applications">Applications</option>
+<option value="Technical">Technical</option>
+<option value="Publishing">Publishing</option>
+<option value="Navigation">Navigation</option></select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -45,7 +48,7 @@
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">24 blocks available.</p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">
       <article class="blocks-card syn-panel" data-block-id="hero-product"
@@ -781,6 +784,366 @@
         </details>
         <button type="button" class="syn-button blocks-copy" data-block-copy
                 aria-label="Copy HTML for Release notes" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="content-collection"
+               data-block-category="Publishing"
+               data-block-keywords="Filterable content collection Loop-style article cards with real GET search, taxonomy selection and pagination. loop grid archive blog category filters"
+               aria-labelledby="block-title-content-collection">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Publishing</p>
+            <h2 class="syn-heading" id="block-title-content-collection">Filterable content collection</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Loop-style article cards with real GET search, taxonomy selection and pagination.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region syn-stack" data-syn-theme="studio" aria-labelledby="syn-collection-heading">
+  <header class="syn-stack">
+    <p class="syn-eyebrow">THE JOURNAL</p>
+    <h2 class="syn-section-heading" id="syn-collection-heading">Ideas for practical teams</h2>
+    <p class="syn-muted">A reusable archive: the host server supplies matching items and pagination.</p>
+  </header>
+  <form class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles">
+    <div class="syn-filter-field syn-filter-field--query">
+      <label class="syn-label" for="syn-collection-search">Search articles</label>
+      <input class="syn-input" id="syn-collection-search" type="search" name="q" placeholder="Search the journal">
+    </div>
+    <div class="syn-filter-field">
+      <label class="syn-label" for="syn-collection-category">Topic</label>
+      <select class="syn-select" id="syn-collection-category" name="category">
+        <option value="">All topics</option>
+        <option value="engineering">Engineering</option>
+        <option value="design">Design</option>
+      </select>
+    </div>
+    <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Find articles</button></div>
+  </form>
+  <div class="syn-feature-grid">
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Engineering</span>
+      <h3 class="syn-heading"><a href="/journal/accessible-forms">Forms that work for everyone</a></h3>
+      <p class="syn-muted">Why native controls are a strong foundation for production forms.</p>
+      <p class="syn-caption"><time datetime="2026-10-19">October 19, 2026</time> · 5 min read</p>
+    </article>
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Design</span>
+      <h3 class="syn-heading"><a href="/journal/clear-layouts">Make dense pages easier to scan</a></h3>
+      <p class="syn-muted">Build responsive hierarchy using existing layout primitives.</p>
+      <p class="syn-caption"><time datetime="2026-10-26">October 26, 2026</time> · 4 min read</p>
+    </article>
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Engineering</span>
+      <h3 class="syn-heading"><a href="/journal/steady-components">Components built to last</a></h3>
+      <p class="syn-muted">A practical approach to stable tokens and low-maintenance HTML.</p>
+      <p class="syn-caption"><time datetime="2026-11-02">November 2, 2026</time> · 7 min read</p>
+    </article>
+  </div>
+  <nav class="syn-pagination" aria-label="Pagination">
+    <a class="syn-page-link" href="/journal?page=1" aria-current="page">1</a>
+    <a class="syn-page-link" href="/journal?page=2">2</a>
+    <a class="syn-page-link" href="/journal?page=2" aria-label="Next page">Next</a>
+  </nav>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Filterable content collection</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region syn-stack&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-collection-heading&quot;&gt;
+  &lt;header class=&quot;syn-stack&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;THE JOURNAL&lt;/p&gt;
+    &lt;h2 class=&quot;syn-section-heading&quot; id=&quot;syn-collection-heading&quot;&gt;Ideas for practical teams&lt;/h2&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;A reusable archive: the host server supplies matching items and pagination.&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;form class=&quot;syn-filter-bar&quot; method=&quot;get&quot; action=&quot;/journal&quot; role=&quot;search&quot; aria-label=&quot;Filter articles&quot;&gt;
+    &lt;div class=&quot;syn-filter-field syn-filter-field--query&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-collection-search&quot;&gt;Search articles&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-collection-search&quot; type=&quot;search&quot; name=&quot;q&quot; placeholder=&quot;Search the journal&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-collection-category&quot;&gt;Topic&lt;/label&gt;
+      &lt;select class=&quot;syn-select&quot; id=&quot;syn-collection-category&quot; name=&quot;category&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;All topics&lt;/option&gt;
+        &lt;option value=&quot;engineering&quot;&gt;Engineering&lt;/option&gt;
+        &lt;option value=&quot;design&quot;&gt;Design&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-actions&quot;&gt;&lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Find articles&lt;/button&gt;&lt;/div&gt;
+  &lt;/form&gt;
+  &lt;div class=&quot;syn-feature-grid&quot;&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Engineering&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/accessible-forms&quot;&gt;Forms that work for everyone&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Why native controls are a strong foundation for production forms.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-10-19&quot;&gt;October 19, 2026&lt;/time&gt; · 5 min read&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Design&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/clear-layouts&quot;&gt;Make dense pages easier to scan&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Build responsive hierarchy using existing layout primitives.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-10-26&quot;&gt;October 26, 2026&lt;/time&gt; · 4 min read&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Engineering&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/steady-components&quot;&gt;Components built to last&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;A practical approach to stable tokens and low-maintenance HTML.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-11-02&quot;&gt;November 2, 2026&lt;/time&gt; · 7 min read&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+  &lt;nav class=&quot;syn-pagination&quot; aria-label=&quot;Pagination&quot;&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=1&quot; aria-current=&quot;page&quot;&gt;1&lt;/a&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=2&quot;&gt;2&lt;/a&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=2&quot; aria-label=&quot;Next page&quot;&gt;Next&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Filterable content collection" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="editorial-article"
+               data-block-category="Publishing"
+               data-block-keywords="Article with table of contents Long-form article, linked section index, author information and related reads. article author table of contents related posts"
+               aria-labelledby="block-title-editorial-article">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Publishing</p>
+            <h2 class="syn-heading" id="block-title-editorial-article">Article with table of contents</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Long-form article, linked section index, author information and related reads.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-editorial-title">
+  <nav class="syn-breadcrumbs" aria-label="Article breadcrumb">
+    <ol><li><a href="/journal">Journal</a></li><li aria-current="page">Design systems</li></ol>
+  </nav>
+  <article class="syn-stack">
+    <header class="syn-stack">
+      <p class="syn-eyebrow">GUIDE / DESIGN SYSTEMS</p>
+      <h2 class="syn-section-heading" id="syn-editorial-title">Build interfaces that age well</h2>
+      <p class="syn-lede">A practical guide to flexible components, clear constraints, and native HTML.</p>
+      <p class="syn-caption"><time datetime="2026-11-09">November 9, 2026</time> · 6 min read</p>
+    </header>
+    <div class="syn-sidecar">
+      <div class="syn-prose">
+        <p>Durable interfaces begin with straightforward HTML and reusable styling conventions.</p>
+        <h3 id="syn-editorial-foundation">Start with the platform</h3>
+        <p>Use links to navigate, buttons to act, and native form controls to collect input.</p>
+        <h3 id="syn-editorial-compose">Compose before extending</h3>
+        <p>Combine existing layout and typography primitives before introducing a new variant.</p>
+      </div>
+      <aside class="syn-panel">
+        <nav aria-label="On this page">
+          <p class="syn-caption">ON THIS PAGE</p>
+          <ol class="syn-stack">
+            <li><a href="#syn-editorial-foundation">Start with the platform</a></li>
+            <li><a href="#syn-editorial-compose">Compose before extending</a></li>
+          </ol>
+        </nav>
+      </aside>
+    </div>
+    <aside class="syn-panel syn-inline" aria-label="About the author">
+      <span class="syn-avatar" aria-hidden="true">SK</span>
+      <div><strong>Sam Kim</strong><p class="syn-muted">Editor, The Journal · Example author biography</p></div>
+    </aside>
+    <section class="syn-stack" aria-label="Related articles">
+      <h3 class="syn-heading">Keep exploring</h3>
+      <div class="syn-feature-grid">
+        <article class="syn-feature-card"><h4><a href="/journal/accessible-forms">Accessible forms</a></h4><p>Practical native controls.</p></article>
+        <article class="syn-feature-card"><h4><a href="/journal/clear-layouts">Clearer layouts</a></h4><p>Responsive hierarchy.</p></article>
+      </div>
+    </section>
+  </article>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Article with table of contents</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-editorial-title&quot;&gt;
+  &lt;nav class=&quot;syn-breadcrumbs&quot; aria-label=&quot;Article breadcrumb&quot;&gt;
+    &lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/journal&quot;&gt;Journal&lt;/a&gt;&lt;/li&gt;&lt;li aria-current=&quot;page&quot;&gt;Design systems&lt;/li&gt;&lt;/ol&gt;
+  &lt;/nav&gt;
+  &lt;article class=&quot;syn-stack&quot;&gt;
+    &lt;header class=&quot;syn-stack&quot;&gt;
+      &lt;p class=&quot;syn-eyebrow&quot;&gt;GUIDE / DESIGN SYSTEMS&lt;/p&gt;
+      &lt;h2 class=&quot;syn-section-heading&quot; id=&quot;syn-editorial-title&quot;&gt;Build interfaces that age well&lt;/h2&gt;
+      &lt;p class=&quot;syn-lede&quot;&gt;A practical guide to flexible components, clear constraints, and native HTML.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-11-09&quot;&gt;November 9, 2026&lt;/time&gt; · 6 min read&lt;/p&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;syn-sidecar&quot;&gt;
+      &lt;div class=&quot;syn-prose&quot;&gt;
+        &lt;p&gt;Durable interfaces begin with straightforward HTML and reusable styling conventions.&lt;/p&gt;
+        &lt;h3 id=&quot;syn-editorial-foundation&quot;&gt;Start with the platform&lt;/h3&gt;
+        &lt;p&gt;Use links to navigate, buttons to act, and native form controls to collect input.&lt;/p&gt;
+        &lt;h3 id=&quot;syn-editorial-compose&quot;&gt;Compose before extending&lt;/h3&gt;
+        &lt;p&gt;Combine existing layout and typography primitives before introducing a new variant.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;aside class=&quot;syn-panel&quot;&gt;
+        &lt;nav aria-label=&quot;On this page&quot;&gt;
+          &lt;p class=&quot;syn-caption&quot;&gt;ON THIS PAGE&lt;/p&gt;
+          &lt;ol class=&quot;syn-stack&quot;&gt;
+            &lt;li&gt;&lt;a href=&quot;#syn-editorial-foundation&quot;&gt;Start with the platform&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href=&quot;#syn-editorial-compose&quot;&gt;Compose before extending&lt;/a&gt;&lt;/li&gt;
+          &lt;/ol&gt;
+        &lt;/nav&gt;
+      &lt;/aside&gt;
+    &lt;/div&gt;
+    &lt;aside class=&quot;syn-panel syn-inline&quot; aria-label=&quot;About the author&quot;&gt;
+      &lt;span class=&quot;syn-avatar&quot; aria-hidden=&quot;true&quot;&gt;SK&lt;/span&gt;
+      &lt;div&gt;&lt;strong&gt;Sam Kim&lt;/strong&gt;&lt;p class=&quot;syn-muted&quot;&gt;Editor, The Journal · Example author biography&lt;/p&gt;&lt;/div&gt;
+    &lt;/aside&gt;
+    &lt;section class=&quot;syn-stack&quot; aria-label=&quot;Related articles&quot;&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;Keep exploring&lt;/h3&gt;
+      &lt;div class=&quot;syn-feature-grid&quot;&gt;
+        &lt;article class=&quot;syn-feature-card&quot;&gt;&lt;h4&gt;&lt;a href=&quot;/journal/accessible-forms&quot;&gt;Accessible forms&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Practical native controls.&lt;/p&gt;&lt;/article&gt;
+        &lt;article class=&quot;syn-feature-card&quot;&gt;&lt;h4&gt;&lt;a href=&quot;/journal/clear-layouts&quot;&gt;Clearer layouts&lt;/a&gt;&lt;/h4&gt;&lt;p&gt;Responsive hierarchy.&lt;/p&gt;&lt;/article&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+  &lt;/article&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Article with table of contents" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="site-header-footer"
+               data-block-category="Navigation"
+               data-block-keywords="Responsive header and footer Complete site navigation shell using semantic landmarks and existing layouts. header footer navigation responsive"
+               aria-labelledby="block-title-site-header-footer">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Navigation</p>
+            <h2 class="syn-heading" id="block-title-site-header-footer">Responsive header and footer</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Complete site navigation shell using semantic landmarks and existing layouts.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region syn-stack" data-syn-theme="studio" aria-label="Example website shell">
+  <header class="syn-header">
+    <a class="syn-logo" href="/">NORTH / STUDIO</a>
+    <nav class="syn-nav" aria-label="Primary navigation">
+      <a href="/features">Features</a>
+      <a href="/pricing">Pricing</a>
+      <a href="/journal">Journal</a>
+    </nav>
+    <a class="syn-button syn-button--primary" href="/contact">Contact us</a>
+  </header>
+  <section class="syn-site-hero" aria-labelledby="syn-shell-message">
+    <p class="syn-eyebrow">SIMPLE BY DESIGN</p>
+    <h2 class="syn-site-heading" id="syn-shell-message">A website worth returning to.</h2>
+    <p class="syn-lede">Accessible navigation and clear calls to action without a navigation runtime.</p>
+  </section>
+  <footer class="syn-stack">
+    <div class="syn-inline" style="--syn-inline-justify:space-between">
+      <strong>NORTH / STUDIO</strong>
+      <nav class="syn-inline" aria-label="Footer navigation">
+        <a href="/about">About</a><a href="/privacy">Privacy</a><a href="/contact">Contact</a>
+      </nav>
+    </div>
+    <small class="syn-caption">Example studio. Replace all placeholder routes and copy.</small>
+  </footer>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Responsive header and footer</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region syn-stack&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Example website shell&quot;&gt;
+  &lt;header class=&quot;syn-header&quot;&gt;
+    &lt;a class=&quot;syn-logo&quot; href=&quot;/&quot;&gt;NORTH / STUDIO&lt;/a&gt;
+    &lt;nav class=&quot;syn-nav&quot; aria-label=&quot;Primary navigation&quot;&gt;
+      &lt;a href=&quot;/features&quot;&gt;Features&lt;/a&gt;
+      &lt;a href=&quot;/pricing&quot;&gt;Pricing&lt;/a&gt;
+      &lt;a href=&quot;/journal&quot;&gt;Journal&lt;/a&gt;
+    &lt;/nav&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/contact&quot;&gt;Contact us&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;section class=&quot;syn-site-hero&quot; aria-labelledby=&quot;syn-shell-message&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;SIMPLE BY DESIGN&lt;/p&gt;
+    &lt;h2 class=&quot;syn-site-heading&quot; id=&quot;syn-shell-message&quot;&gt;A website worth returning to.&lt;/h2&gt;
+    &lt;p class=&quot;syn-lede&quot;&gt;Accessible navigation and clear calls to action without a navigation runtime.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;footer class=&quot;syn-stack&quot;&gt;
+    &lt;div class=&quot;syn-inline&quot; style=&quot;--syn-inline-justify:space-between&quot;&gt;
+      &lt;strong&gt;NORTH / STUDIO&lt;/strong&gt;
+      &lt;nav class=&quot;syn-inline&quot; aria-label=&quot;Footer navigation&quot;&gt;
+        &lt;a href=&quot;/about&quot;&gt;About&lt;/a&gt;&lt;a href=&quot;/privacy&quot;&gt;Privacy&lt;/a&gt;&lt;a href=&quot;/contact&quot;&gt;Contact&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+    &lt;small class=&quot;syn-caption&quot;&gt;Example studio. Replace all placeholder routes and copy.&lt;/small&gt;
+  &lt;/footer&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Responsive header and footer" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="mega-navigation"
+               data-block-category="Navigation"
+               data-block-keywords="Native expandable mega menu Keyboard-friendly disclosure with grouped destination links and no menu runtime. mega menu navigation disclosure site"
+               aria-labelledby="block-title-mega-navigation">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Navigation</p>
+            <h2 class="syn-heading" id="block-title-mega-navigation">Native expandable mega menu</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Keyboard-friendly disclosure with grouped destination links and no menu runtime.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-label="Expandable website navigation example">
+  <nav aria-label="Products and resources" class="syn-stack">
+    <div class="syn-inline" style="--syn-inline-justify:space-between">
+      <a class="syn-logo" href="/">NORTH / STUDIO</a>
+      <a class="syn-button syn-button--outline" href="/contact">Get in touch</a>
+    </div>
+    <details class="syn-details" open>
+      <summary>Explore our solutions</summary>
+      <div class="syn-stack">
+        <p class="syn-muted">Browse product areas or jump straight to a guide.</p>
+        <div class="syn-feature-grid">
+          <section class="syn-feature-card">
+            <h2 class="syn-heading">Products</h2>
+            <ul class="syn-stack">
+              <li><a href="/products/analytics">Analytics platform</a></li>
+              <li><a href="/products/automation">Workflow automation</a></li>
+            </ul>
+          </section>
+          <section class="syn-feature-card">
+            <h2 class="syn-heading">Resources</h2>
+            <ul class="syn-stack">
+              <li><a href="/docs">Documentation</a></li>
+              <li><a href="/journal">Journal</a></li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </details>
+  </nav>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Native expandable mega menu</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Expandable website navigation example&quot;&gt;
+  &lt;nav aria-label=&quot;Products and resources&quot; class=&quot;syn-stack&quot;&gt;
+    &lt;div class=&quot;syn-inline&quot; style=&quot;--syn-inline-justify:space-between&quot;&gt;
+      &lt;a class=&quot;syn-logo&quot; href=&quot;/&quot;&gt;NORTH / STUDIO&lt;/a&gt;
+      &lt;a class=&quot;syn-button syn-button--outline&quot; href=&quot;/contact&quot;&gt;Get in touch&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;details class=&quot;syn-details&quot; open&gt;
+      &lt;summary&gt;Explore our solutions&lt;/summary&gt;
+      &lt;div class=&quot;syn-stack&quot;&gt;
+        &lt;p class=&quot;syn-muted&quot;&gt;Browse product areas or jump straight to a guide.&lt;/p&gt;
+        &lt;div class=&quot;syn-feature-grid&quot;&gt;
+          &lt;section class=&quot;syn-feature-card&quot;&gt;
+            &lt;h2 class=&quot;syn-heading&quot;&gt;Products&lt;/h2&gt;
+            &lt;ul class=&quot;syn-stack&quot;&gt;
+              &lt;li&gt;&lt;a href=&quot;/products/analytics&quot;&gt;Analytics platform&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;/products/automation&quot;&gt;Workflow automation&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/section&gt;
+          &lt;section class=&quot;syn-feature-card&quot;&gt;
+            &lt;h2 class=&quot;syn-heading&quot;&gt;Resources&lt;/h2&gt;
+            &lt;ul class=&quot;syn-stack&quot;&gt;
+              &lt;li&gt;&lt;a href=&quot;/docs&quot;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+              &lt;li&gt;&lt;a href=&quot;/journal&quot;&gt;Journal&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/section&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/details&gt;
+  &lt;/nav&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Native expandable mega menu" hidden>Copy HTML</button>
       </article>
       </div>
     </section>

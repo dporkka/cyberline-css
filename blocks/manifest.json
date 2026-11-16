@@ -290,6 +290,71 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "content-collection",
+      "category": "Publishing",
+      "title": "Filterable content collection",
+      "description": "Loop-style article cards with real GET search, taxonomy selection and pagination.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "loop grid",
+        "archive",
+        "blog",
+        "category",
+        "filters"
+      ]
+    },
+    {
+      "id": "editorial-article",
+      "category": "Publishing",
+      "title": "Article with table of contents",
+      "description": "Long-form article, linked section index, author information and related reads.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "article",
+        "author",
+        "table of contents",
+        "related posts"
+      ]
+    },
+    {
+      "id": "site-header-footer",
+      "category": "Navigation",
+      "title": "Responsive header and footer",
+      "description": "Complete site navigation shell using semantic landmarks and existing layouts.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "header",
+        "footer",
+        "navigation",
+        "responsive"
+      ]
+    },
+    {
+      "id": "mega-navigation",
+      "category": "Navigation",
+      "title": "Native expandable mega menu",
+      "description": "Keyboard-friendly disclosure with grouped destination links and no menu runtime.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "mega menu",
+        "navigation",
+        "disclosure",
+        "site"
+      ]
     }
   ]
 }

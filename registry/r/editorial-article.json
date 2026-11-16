@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "editorial-article",
+  "type": "registry:item",
+  "title": "Article with table of contents",
+  "description": "Long-form article, linked section index, author information and related reads.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://syntyr-css.pages.dev/registry/r/core.json",
+    "https://syntyr-css.pages.dev/registry/r/recipes.json"
+  ],
+  "files": [
+    {
+      "path": "blocks/snippets/editorial-article.html",
+      "type": "registry:file",
+      "target": "~/syntyr/blocks/editorial-article.html",
+      "content": "<section class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-editorial-title\">\n  <nav class=\"syn-breadcrumbs\" aria-label=\"Article breadcrumb\">\n    <ol><li><a href=\"/journal\">Journal</a></li><li aria-current=\"page\">Design systems</li></ol>\n  </nav>\n  <article class=\"syn-stack\">\n    <header class=\"syn-stack\">\n      <p class=\"syn-eyebrow\">GUIDE / DESIGN SYSTEMS</p>\n      <h2 class=\"syn-section-heading\" id=\"syn-editorial-title\">Build interfaces that age well</h2>\n      <p class=\"syn-lede\">A practical guide to flexible components, clear constraints, and native HTML.</p>\n      <p class=\"syn-caption\"><time datetime=\"2026-11-09\">November 9, 2026</time> · 6 min read</p>\n    </header>\n    <div class=\"syn-sidecar\">\n      <div class=\"syn-prose\">\n        <p>Durable interfaces begin with straightforward HTML and reusable styling conventions.</p>\n        <h3 id=\"syn-editorial-foundation\">Start with the platform</h3>\n        <p>Use links to navigate, buttons to act, and native form controls to collect input.</p>\n        <h3 id=\"syn-editorial-compose\">Compose before extending</h3>\n        <p>Combine existing layout and typography primitives before introducing a new variant.</p>\n      </div>\n      <aside class=\"syn-panel\">\n        <nav aria-label=\"On this page\">\n          <p class=\"syn-caption\">ON THIS PAGE</p>\n          <ol class=\"syn-stack\">\n            <li><a href=\"#syn-editorial-foundation\">Start with the platform</a></li>\n            <li><a href=\"#syn-editorial-compose\">Compose before extending</a></li>\n          </ol>\n        </nav>\n      </aside>\n    </div>\n    <aside class=\"syn-panel syn-inline\" aria-label=\"About the author\">\n      <span class=\"syn-avatar\" aria-hidden=\"true\">SK</span>\n      <div><strong>Sam Kim</strong><p class=\"syn-muted\">Editor, The Journal · Example author biography</p></div>\n    </aside>\n    <section class=\"syn-stack\" aria-label=\"Related articles\">\n      <h3 class=\"syn-heading\">Keep exploring</h3>\n      <div class=\"syn-feature-grid\">\n        <article class=\"syn-feature-card\"><h4><a href=\"/journal/accessible-forms\">Accessible forms</a></h4><p>Practical native controls.</p></article>\n        <article class=\"syn-feature-card\"><h4><a href=\"/journal/clear-layouts\">Clearer layouts</a></h4><p>Responsive hierarchy.</p></article>\n      </div>\n    </section>\n  </article>\n</section>\n"
+    },
+    {
+      "path": "LICENSE",
+      "type": "registry:file",
+      "target": "~/syntyr/LICENSE",
+      "content": "MIT License\n\nCopyright (c) 2026 Syntyr CSS contributors\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+    }
+  ],
+  "meta": {
+    "syntyrVersion": "0.3.0-alpha.5",
+    "source": "MIT source candidate",
+    "runtimeJavaScript": false
+  },
+  "docs": "Experimental source-candidate asset. Review exact version, HTML routes, keyboard behavior and integration before production use."
+}
