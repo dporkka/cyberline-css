@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
-  <meta name="syntyr-source-sha256" content="a1efa213a518e7cde0636345b5e51a240a3b006793a41264bccf70e2b29e0aa2">
+  <meta name="syntyr-source-sha256" content="9f63d4ec7799e83b3b4c4c155698424bca4519f14c6a45f4fd442a58a9001439">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
@@ -36,13 +36,13 @@
         <article class="docs-prose" aria-label="Syntyr Blocks &amp; Assets — integration guide">
 <h1 id="syntyr-blocks-assets-integration-guide">Syntyr Blocks &amp; Assets — integration guide</h1>
 <p><strong>Status:</strong> Experimental alpha.5 source gallery, not an immutable release or published npm package.</p>
-<p><a href="blocks.html">Browse 20 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
+<p><a href="blocks.html">Browse 40 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
 <h2 id="contract">Contract</h2>
-<p>The 20 copy-owned HTML compositions cover marketing, application and technical use
+<p>The 40 copy-owned HTML compositions cover marketing, editorial, services, portfolio, commerce, navigation, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.</p>
 <p>The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all forty static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.</p>
 <h2 id="native-html-and-framework-integration">Native HTML and framework integration</h2>
@@ -115,7 +115,7 @@ No premium Tailwind, commercial UI kit or third-party icon artwork has been
 copied into the public project. The separate private Console Kit is unaffected.</p>
 <h2 id="experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</h2>
 <p>The source candidate can generate a <strong>copy-owned, framework-independent</strong>
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 40 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.</p>
@@ -140,6 +140,40 @@ never reads private Console Kit assets or executes downloaded code. No dynamic
 service, telemetry, npm dependency, or customer license is introduced.
 Published alpha.4 assets remain immutable; registry payloads declare their
 source-candidate Syntyr version and must not be confused with a tagged release.</p>
+<h2 id="wordpress-inspired-website-section-collection-alpha5-candidate">WordPress-inspired website section collection (alpha.5 candidate)</h2>
+<p>Twenty additional MIT site sections cover headers, footers, editorial publishing,
+service-business pages, project portfolios, comparisons, integration directories,
+newsletter/contact forms, and product collection showcases. All are standalone
+copy-owned HTML files in blocks/snippets and use the same manifest and generated
+gallery as the original twenty. Filter the gallery by Navigation, Editorial,
+Services, Portfolio or Commerce.</p>
+<p>These are HTML design references, not native Gutenberg editor blocks, a
+WordPress plugin, a WooCommerce checkout, or live site integrations. For theme
+integration, follow the WordPress guide, prefer the isolated alpha.5
+syntyr.embed.css candidate inside existing themes, and verify on an
+actual published page. Routes such as /services, /journal, and
+/products are placeholders, not routes supplied by Syntyr.</p>
+<p>Form snippets intentionally have native POST actions but no backend. Before
+publishing, implement server validation, authorization where applicable,
+CSRF/anti-spam protection, privacy policy and opt-in confirmation. Do not
+claim a form is operational merely because it renders and submits.</p>
+<p>The new section families add no new CSS API, premium source, runtime scripts,
+bundled imagery, third-party assets, remote fonts or framework dependencies.
+Free MIT blocks and commercial website-kit compositions stay separate.</p>
+<h2 id="four-complete-free-website-starter-pages">Four complete free website starter pages</h2>
+<p>The following alpha.5 reference pages are generated from the same reviewed
+MIT block snippets, rather than duplicating their markup in a second template
+system:</p>
+<ul>
+<li><a href="../examples/site-starter-business.html">Business homepage</a></li>
+<li><a href="../examples/site-starter-journal.html">Editorial index</a></li>
+<li><a href="../examples/site-starter-article.html">Article detail</a></li>
+<li><a href="../examples/site-starter-services.html">Service business</a></li>
+</ul>
+<p>Run python3 scripts/build_site_starters.py to regenerate, or add --check
+to verify reproducibility. The generator uses only the Python standard
+library and adds no runtime dependency. These demonstrators are intentionally
+noindexed, contain fictional information and have placeholder host URLs.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
@@ -149,6 +183,8 @@ source-candidate Syntyr version and must not be confused with a tagged release.<
 <a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-fidelity-and-licensing">Accessibility, fidelity and licensing</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#wordpress-inspired-website-section-collection-alpha5-candidate">WordPress-inspired website section collection (alpha.5 candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#four-complete-free-website-starter-pages">Four complete free website starter pages</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="blocks-guide.md">Markdown source</a></nav>

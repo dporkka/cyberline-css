@@ -32,6 +32,8 @@ SITE_URL = "https://syntyr-css.pages.dev"
 NOINDEX_HTML = frozenset({
     "404.html", "examples/crm.html", "examples/saas.html", "examples/pricing.html", "examples/preset-preview.html",
     "examples/resource-workspace.html",
+    "examples/site-starter-business.html", "examples/site-starter-journal.html",
+    "examples/site-starter-article.html", "examples/site-starter-services.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -298,6 +300,8 @@ def source_files() -> dict[str, bytes]:
         "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "crm.html", "resource-workspace.html", "saas-workflows.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html", "data-grid.html", "animation.html",
+        "site-starter-business.html", "site-starter-journal.html",
+        "site-starter-article.html", "site-starter-services.html",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.

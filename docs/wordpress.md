@@ -23,6 +23,32 @@ WordPress themes already manage headers, content templates and plugins. A `syn-r
 </section>
 ```
 
+## Optional, editable WordPress block patterns (source candidate)
+
+For users who prefer native Gutenberg editing to Custom HTML blocks, four
+original WordPress block-theme pattern references are provided under
+[integrations/wordpress/patterns](https://github.com/dporkka/syntyr-css/tree/main/integrations/wordpress/patterns):
+site header, service cards, journal cards and product collection.
+
+1. In a local staging installation, create the patterns folder in a child
+   block theme and copy the four PHP pattern files there.
+2. Enqueue the pinned, locally built alpha.5 syntyr.embed.css with the
+   existing integrations/wordpress/syntyr-enqueue.php example. To see
+   matching styles inside the WordPress editor, also enqueue the sheet in the
+   block-editor asset context after testing it against your theme's styles.
+3. Open the WordPress editor and insert patterns under their Syntyr names.
+   Modify text and links as native Group, Columns, Heading, Paragraph and
+   Button blocks. These are deliberately not Custom HTML blocks.
+4. Review every link, layout, editor behavior and front-end result against
+   your installed WordPress version and active theme before production.
+
+These are source references, not a plugin or tested WordPress.org release.
+They do not register new block types, replace the theme's global styles,
+implement commerce transactions or dynamically query WordPress posts. The
+product showcase is presentation only; use WooCommerce's supported blocks
+for live inventory, pricing, cart and checkout behavior. The sample site
+header should be adapted to your theme's template part and navigation.
+
 ## Limitations and WordPress-specific considerations
 
 The Gutenberg Custom HTML block **does not enqueue** a CSS file; its job is to render markup. Editing permission matters: WordPress can remove HTML that a role lacks permission to add. Managed WordPress.com plans may not allow editing PHP theme files. Additional CSS or a custom block stylesheet can be alternatives, but do not paste a complete core distribution into a post. Avoid applying `syn-root` or optional semantic mode to the entire WordPress `body` because it would affect unrelated plugin widgets and theme elements.

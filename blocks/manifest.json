@@ -290,6 +290,287 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "site-header",
+      "category": "Navigation",
+      "title": "Responsive site header",
+      "description": "A compact brand, navigation and call-to-action header with native links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "header",
+        "navigation",
+        "website"
+      ]
+    },
+    {
+      "id": "site-footer",
+      "category": "Navigation",
+      "title": "Multi-column site footer",
+      "description": "A reusable footer with separate navigation groups and business information.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "footer",
+        "links",
+        "website"
+      ]
+    },
+    {
+      "id": "article-featured",
+      "category": "Editorial",
+      "title": "Featured editorial story",
+      "description": "A prominent lead article with an accessible summary and a real reading link.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "blog",
+        "featured",
+        "editorial"
+      ]
+    },
+    {
+      "id": "article-grid",
+      "category": "Editorial",
+      "title": "Article and news grid",
+      "description": "A responsive collection of dated articles with titles and excerpts.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "blog",
+        "news",
+        "posts",
+        "cards"
+      ]
+    },
+    {
+      "id": "article-detail",
+      "category": "Editorial",
+      "title": "Long-form article layout",
+      "description": "A semantic article header, readable paragraphs and related links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "article",
+        "blog",
+        "reading"
+      ]
+    },
+    {
+      "id": "author-profile",
+      "category": "Editorial",
+      "title": "Author bio card",
+      "description": "A concise author introduction with a clearly labeled profile link.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "author",
+        "bio",
+        "profile"
+      ]
+    },
+    {
+      "id": "services-grid",
+      "category": "Services",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "agency",
+        "services",
+        "business"
+      ]
+    },
+    {
+      "id": "process-steps",
+      "category": "Services",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "process",
+        "steps",
+        "workflow"
+      ]
+    },
+    {
+      "id": "portfolio-grid",
+      "category": "Portfolio",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "portfolio",
+        "projects",
+        "work"
+      ]
+    },
+    {
+      "id": "case-study-preview",
+      "category": "Portfolio",
+      "title": "Case-study teaser",
+      "description": "A project outcome summary with challenges, solution and next action.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "case-study",
+        "portfolio",
+        "results"
+      ]
+    },
+    {
+      "id": "comparison-table",
+      "category": "Marketing",
+      "title": "Features comparison table",
+      "description": "A semantic comparison matrix that can scroll within narrow containers.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "comparison",
+        "features",
+        "matrix"
+      ]
+    },
+    {
+      "id": "integrations-grid",
+      "category": "Marketing",
+      "title": "Integration directory grid",
+      "description": "A grid of documented integration entry points and benefits.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "integrations",
+        "directory",
+        "apps"
+      ]
+    },
+    {
+      "id": "logo-wall",
+      "category": "Marketing",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "logos",
+        "partners",
+        "trust"
+      ]
+    },
+    {
+      "id": "product-collection",
+      "category": "Commerce",
+      "title": "Product collection cards",
+      "description": "Product catalog cards with explicit price and detail links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "ecommerce",
+        "products",
+        "catalog"
+      ]
+    },
+    {
+      "id": "category-showcase",
+      "category": "Commerce",
+      "title": "Shop category highlights",
+      "description": "A merchandise category section with links instead of fabricated checkout controls.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "shop",
+        "categories",
+        "merchandising"
+      ]
+    },
+    {
+      "id": "newsletter-signup",
+      "category": "Marketing",
+      "title": "Newsletter signup panel",
+      "description": "An accessible subscription form with a native server-backed fallback.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "newsletter",
+        "email",
+        "lead"
+      ]
+    },
+    {
+      "id": "contact-quote",
+      "category": "Services",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "contact",
+        "lead",
+        "inquiry"
+      ]
+    },
+    {
+      "id": "service-areas",
+      "category": "Services",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "locations",
+        "local",
+        "services"
+      ]
+    },
+    {
+      "id": "team-grid",
+      "category": "Services",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "team",
+        "people",
+        "about"
+      ]
+    },
+    {
+      "id": "announcement-banner",
+      "category": "Marketing",
+      "title": "Site announcement strip",
+      "description": "A lightweight product or event announcement with a contextual destination.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "announcement",
+        "promotion",
+        "notice"
+      ]
     }
   ]
 }

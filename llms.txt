@@ -35,6 +35,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [Public API stability](https://syntyr-css.pages.dev/docs/api-stability.md): Compatibility and release boundary.
 - [Optional native animation companion](https://syntyr-css.pages.dev/docs/animation.md): Opt-in Web Animations API, stagger and viewport reveal helpers with reduced-motion support; **unreleased alpha.5**, never required by CSS core.
 - [Composition recipes](https://syntyr-css.pages.dev/docs/recipes.md): Working responsive layouts and states.
+- [Free Blocks and Assets guide](https://syntyr-css.pages.dev/docs/blocks-guide.md): Unreleased alpha.5 candidate with 40 copy-owned MIT sections and four static site starter pages; no required JavaScript or production backend.
 - [Opt-in data-grid presentation](https://syntyr-css.pages.dev/docs/data-grid.md): Styling for host-owned data-grid behavior, ARIA states, and density (unreleased alpha.5 candidate).
 - [Machine-readable composition recipe contracts](https://syntyr-css.pages.dev/docs/editor-integration.md): Validated component slots, variant values, stylesheet modules, and required application-owned behavior for AI agents and editors (unreleased alpha.5 source candidate).
 - [Collection workspace and form-recovery example](https://syntyr-css.pages.dev/examples/resource-workspace.html): Native GET filtering, tabular records and linked field errors; server actions and validation require integration (alpha.5 candidate).

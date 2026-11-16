@@ -612,6 +612,446 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "site-header",
+      "type": "registry:item",
+      "title": "Responsive site header",
+      "description": "A compact brand, navigation and call-to-action header with native links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/site-header.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/site-header.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "site-footer",
+      "type": "registry:item",
+      "title": "Multi-column site footer",
+      "description": "A reusable footer with separate navigation groups and business information.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/site-footer.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/site-footer.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "article-featured",
+      "type": "registry:item",
+      "title": "Featured editorial story",
+      "description": "A prominent lead article with an accessible summary and a real reading link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-featured.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-featured.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "article-grid",
+      "type": "registry:item",
+      "title": "Article and news grid",
+      "description": "A responsive collection of dated articles with titles and excerpts.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "article-detail",
+      "type": "registry:item",
+      "title": "Long-form article layout",
+      "description": "A semantic article header, readable paragraphs and related links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-detail.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-detail.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "author-profile",
+      "type": "registry:item",
+      "title": "Author bio card",
+      "description": "A concise author introduction with a clearly labeled profile link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/author-profile.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/author-profile.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "services-grid",
+      "type": "registry:item",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/services-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/services-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "process-steps",
+      "type": "registry:item",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/process-steps.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/process-steps.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "portfolio-grid",
+      "type": "registry:item",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/portfolio-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/portfolio-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "case-study-preview",
+      "type": "registry:item",
+      "title": "Case-study teaser",
+      "description": "A project outcome summary with challenges, solution and next action.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/case-study-preview.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/case-study-preview.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "comparison-table",
+      "type": "registry:item",
+      "title": "Features comparison table",
+      "description": "A semantic comparison matrix that can scroll within narrow containers.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/comparison-table.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/comparison-table.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "integrations-grid",
+      "type": "registry:item",
+      "title": "Integration directory grid",
+      "description": "A grid of documented integration entry points and benefits.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/integrations-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/integrations-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "logo-wall",
+      "type": "registry:item",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/logo-wall.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/logo-wall.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "product-collection",
+      "type": "registry:item",
+      "title": "Product collection cards",
+      "description": "Product catalog cards with explicit price and detail links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/product-collection.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/product-collection.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "category-showcase",
+      "type": "registry:item",
+      "title": "Shop category highlights",
+      "description": "A merchandise category section with links instead of fabricated checkout controls.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/category-showcase.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/category-showcase.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "newsletter-signup",
+      "type": "registry:item",
+      "title": "Newsletter signup panel",
+      "description": "An accessible subscription form with a native server-backed fallback.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/newsletter-signup.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/newsletter-signup.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "contact-quote",
+      "type": "registry:item",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/contact-quote.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/contact-quote.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "service-areas",
+      "type": "registry:item",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/service-areas.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/service-areas.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "team-grid",
+      "type": "registry:item",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/team-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/team-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "announcement-banner",
+      "type": "registry:item",
+      "title": "Site announcement strip",
+      "description": "A lightweight product or event announcement with a contextual destination.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/announcement-banner.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/announcement-banner.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }

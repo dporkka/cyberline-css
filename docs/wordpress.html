@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="WordPress CSS component library without a JavaScript framework: Syntyr can style selected Gutenberg Custom HTML blocks, child-theme templates or custom…">
-  <meta name="syntyr-source-sha256" content="c11a556ee11157d4330ab5e37b98829f09906ed16ab48636c70fd71bfd5e1bbb">
+  <meta name="syntyr-source-sha256" content="830510341ed9b39087fdfb59193381cc3abd06a7dc382dae4f16732511af62e3">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr for WordPress | CSS Components &amp; Setup</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/wordpress">
@@ -55,6 +55,30 @@
   &lt;/div&gt;
 &lt;/section&gt;
 </code></pre>
+<h2 id="optional-editable-wordpress-block-patterns-source-candidate">Optional, editable WordPress block patterns (source candidate)</h2>
+<p>For users who prefer native Gutenberg editing to Custom HTML blocks, four
+original WordPress block-theme pattern references are provided under
+<a href="https://github.com/dporkka/syntyr-css/tree/main/integrations/wordpress/patterns">integrations/wordpress/patterns</a>:
+site header, service cards, journal cards and product collection.</p>
+<ol>
+<li>In a local staging installation, create the patterns folder in a child
+block theme and copy the four PHP pattern files there.</li>
+<li>Enqueue the pinned, locally built alpha.5 syntyr.embed.css with the
+existing integrations/wordpress/syntyr-enqueue.php example. To see
+matching styles inside the WordPress editor, also enqueue the sheet in the
+block-editor asset context after testing it against your theme's styles.</li>
+<li>Open the WordPress editor and insert patterns under their Syntyr names.
+Modify text and links as native Group, Columns, Heading, Paragraph and
+Button blocks. These are deliberately not Custom HTML blocks.</li>
+<li>Review every link, layout, editor behavior and front-end result against
+your installed WordPress version and active theme before production.</li>
+</ol>
+<p>These are source references, not a plugin or tested WordPress.org release.
+They do not register new block types, replace the theme's global styles,
+implement commerce transactions or dynamically query WordPress posts. The
+product showcase is presentation only; use WooCommerce's supported blocks
+for live inventory, pricing, cart and checkout behavior. The sample site
+header should be adapted to your theme's template part and navigation.</p>
 <h2 id="limitations-and-wordpress-specific-considerations">Limitations and WordPress-specific considerations</h2>
 <p>The Gutenberg Custom HTML block <strong>does not enqueue</strong> a CSS file; its job is to render markup. Editing permission matters: WordPress can remove HTML that a role lacks permission to add. Managed WordPress.com plans may not allow editing PHP theme files. Additional CSS or a custom block stylesheet can be alternatives, but do not paste a complete core distribution into a post. Avoid applying <code>syn-root</code> or optional semantic mode to the entire WordPress <code>body</code> because it would affect unrelated plugin widgets and theme elements.</p>
 <p><strong>WordPress reference:</strong> <a href="https://wordpress.org/documentation/article/custom-html/">Custom HTML block documentation</a>.</p>
@@ -66,6 +90,7 @@
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#why-use-syntyr-on-wordpress">Why use Syntyr on WordPress?</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#how-to-install-syntyr-in-a-wordpress-theme">How to install Syntyr in a WordPress theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-editable-wordpress-block-patterns-source-candidate">Optional, editable WordPress block patterns (source candidate)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#limitations-and-wordpress-specific-considerations">Limitations and WordPress-specific considerations</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#verify-the-result-before-publishing">Verify the result before publishing</a>
         </nav></aside>
