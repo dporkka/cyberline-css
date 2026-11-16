@@ -66,4 +66,64 @@
       }
     });
   }
+
+  // The SVG explorer is a progressive enhancement: previews and native source
+  // disclosure remain usable when scripting or clipboard access is unavailable.
+  const iconsControls = document.getElementById("icons-controls");
+  const iconsSearch = document.getElementById("icons-search");
+  const iconsSize = document.getElementById("icons-size");
+  const iconsTheme = document.getElementById("icons-theme");
+  const iconsResults = document.getElementById("icons-results");
+  const iconsGrid = document.getElementById("blocks-icons-grid");
+  const iconsSection = document.querySelector(".blocks-icons-section");
+  const icons = Array.from(document.querySelectorAll("[data-icon-id]"));
+  if (iconsControls && iconsSearch && iconsSize && iconsTheme &&
+      iconsResults && iconsGrid && iconsSection && icons.length) {
+    const entries = icons.map(card => ({
+      card,
+      words: (card.dataset.iconKeywords || "").toLocaleLowerCase(),
+      source: card.querySelector("details code"),
+      copy: card.querySelector("[data-icon-copy]")
+    }));
+    function filterIcons() {
+      const terms = iconsSearch.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      for (const item of entries) {
+        const show = terms.every(term => item.words.includes(term));
+        item.card.hidden = !show;
+        if (show) visible++;
+      }
+      iconsResults.textContent = "Showing " + visible + " of " + entries.length + " icons.";
+    }
+    iconsControls.hidden = false;
+    iconsSearch.addEventListener("input", filterIcons);
+    iconsSize.addEventListener("change", () => {
+      iconsGrid.style.setProperty("--syn-gallery-icon-size", iconsSize.value);
+    });
+    iconsTheme.addEventListener("change", () => {
+      iconsSection.setAttribute("data-syn-theme", iconsTheme.value);
+    });
+    for (const item of entries) {
+      if (!item.copy || !item.source) continue;
+      item.copy.hidden = false;
+      item.copy.addEventListener("click", async () => {
+        const value = item.source.textContent.trim();
+        try {
+          if (!navigator.clipboard?.writeText) throw new Error("Clipboard unavailable");
+          await navigator.clipboard.writeText(value);
+          iconsResults.textContent = "SVG copied.";
+        } catch {
+          const details = item.source.closest("details");
+          if (details) details.open = true;
+          const range = document.createRange();
+          range.selectNodeContents(item.source);
+          const selection = window.getSelection();
+          selection?.removeAllRanges();
+          selection?.addRange(range);
+          iconsResults.textContent = "SVG source selected. Press Ctrl+C or Cmd+C to copy.";
+        }
+      });
+    }
+    filterIcons();
+  }
 })();

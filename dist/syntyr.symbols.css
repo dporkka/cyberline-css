@@ -10,7 +10,6 @@
     block-size: var(--syn-icon-size, 1.25em);
     flex: none;
     vertical-align: -.15em;
-    color: inherit;
   }
   :where(.syn-root .syn-icon > svg, .syn-root.syn-icon > svg) {
     display: block;

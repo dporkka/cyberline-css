@@ -9,6 +9,8 @@ from html import escape
 import json
 from pathlib import Path
 import sys
+import re
+import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs/blocks.html"
@@ -36,6 +38,52 @@ TYPOGRAPHY = (
     ("reading", "Reading serif", "Georgia, serif", "Long-form product narratives"),
     ("compact", "Compact system", "system-ui, sans-serif", "Dense dashboards, still legible"),
 )
+
+
+
+def validate_icons(icons):
+    """Reject unsafe/unexpected SVG fragments before they enter copyable HTML."""
+    if not isinstance(icons, list):
+        raise ValueError("Expected icons array")
+    allowed = {
+        "path": {"d"},
+        "circle": {"cx", "cy", "r"},
+        "rect": {"x", "y", "width", "height", "rx", "ry"},
+        "ellipse": {"cx", "cy", "rx", "ry"},
+    }
+    seen = set()
+    for icon in icons:
+        if not isinstance(icon, dict) or set(icon) != {"id", "label", "body"}:
+            raise ValueError("Invalid icon entry")
+        ident, label, body = icon["id"], icon["label"], icon["body"]
+        if not (isinstance(ident, str) and re.fullmatch(r"[a-z][a-z0-9-]+", ident)
+                and isinstance(label, str) and 0 < len(label) <= 64
+                and isinstance(body, str) and body.strip() and ident not in seen):
+            raise ValueError("Invalid or duplicate icon identity")
+        seen.add(ident)
+        if "<!" in body or "<?" in body:
+            raise ValueError(f"Invalid markup in {ident}")
+        try:
+            root = ET.fromstring(f"<svg>{body}</svg>")
+        except ET.ParseError as exc:
+            raise ValueError(f"Invalid XML in {ident}") from exc
+        if not list(root) or root.text and root.text.strip():
+            raise ValueError(f"Empty/invalid SVG in {ident}")
+        for shape in root.iter():
+            if shape is root:
+                continue
+            tag = shape.tag
+            if tag not in allowed or set(shape.attrib) - allowed[tag]:
+                raise ValueError(f"Forbidden SVG element or attribute in {ident}: {tag}")
+            if tag == "path":
+                if not re.fullmatch(r"[MmLlHhVvCcSsQqTtAaZz0-9\s,\.\-+]+", shape.get("d", "")):
+                    raise ValueError(f"Invalid path geometry in {ident}")
+            else:
+                for value in shape.attrib.values():
+                    if not re.fullmatch(r"-?(?:\d+(?:\.\d*)?|\.\d+)", value):
+                        raise ValueError(f"Invalid numeric SVG attribute in {ident}")
+            if shape.text and shape.text.strip() or shape.tail and shape.tail.strip():
+                raise ValueError(f"Unexpected SVG text in {ident}")
 
 
 def build() -> str:
@@ -68,6 +116,7 @@ def build() -> str:
                 aria-label="Copy HTML for {escape(block['title'], quote=True)}" hidden>Copy HTML</button>
       </article>""")
     icons = json.loads((ROOT / "blocks/icons.json").read_text(encoding="utf-8"))["icons"]
+    validate_icons(icons)
     icon_cards = []
     for icon in icons:
         ident, label = escape(icon["id"]), escape(icon["label"])
@@ -77,9 +126,10 @@ def build() -> str:
                'aria-hidden="true" focusable="false">'
                + icon["body"] + '</svg>')
         icon_cards.append(f"""
-        <div class="blocks-icon-card" data-icon-id="{ident}">
+        <div class="blocks-icon-card" data-icon-id="{ident}" data-icon-keywords="{escape(icon['id'] + ' ' + icon['label'], quote=True)}">
           <div class="blocks-icon-preview">{svg}<strong>{label}</strong></div>
           <details><summary data-icon-source>SVG source for {escape(icon['label'])}</summary><pre><code>{escape(svg)}</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for {escape(icon['label'], quote=True)}" hidden>Copy SVG</button>
         </div>""")
     asset_cards = []
     for ident, title in ASSETS:
@@ -97,7 +147,7 @@ def build() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and {len(icons)} SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -153,13 +203,30 @@ def build() -> str:
       <div class="blocks-assets-grid">{''.join(asset_cards)}
       </div>
     </section>
-    <section class="docs-section" aria-labelledby="blocks-icons-heading">
+    <section class="docs-section blocks-icons-section" aria-labelledby="blocks-icons-heading" data-syn-theme="studio">
       <p class="syn-eyebrow">INLINE SVG / NO ICON FONT</p>
-      <h2 id="blocks-icons-heading" class="syn-title">24 original SVG icon examples</h2>
+      <h2 id="blocks-icons-heading" class="syn-title">{len(icons)} original SVG icon examples</h2>
       <p class="syn-muted">Small, copyable SVGs that inherit theme color and work with the existing
       Syntyr symbol-sizing contract. These are examples, not a bundled icon dependency.
       When icons are used alone as controls, add accessible names.</p>
-      <div class="blocks-icons-grid">{''.join(icon_cards)}</div>
+      <div id="icons-controls" class="blocks-controls" hidden>
+        <div><label class="syn-label" for="icons-search">Search icons</label>
+          <input class="syn-input" type="search" id="icons-search" placeholder="Try edit, calendar, search…"></div>
+        <div><label class="syn-label" for="icons-size">Preview icon size</label>
+          <select class="syn-select" id="icons-size">
+            <option value="1rem">16 px</option><option value="1.25rem">20 px</option>
+            <option value="1.5rem" selected>24 px</option><option value="2rem">32 px</option>
+          </select></div>
+        <div><label class="syn-label" for="icons-theme">Preview theme</label>
+          <select class="syn-select" id="icons-theme">
+            <option value="studio">Studio</option><option value="grid">Grid</option>
+            <option value="noir">Noir</option><option value="industrial">Industrial</option>
+            <option value="terminal">Terminal</option><option value="corporate">Corporate</option>
+            <option value="minimal">Minimal</option>
+          </select></div>
+      </div>
+      <p id="icons-results" class="syn-caption" role="status" aria-live="polite">{len(icons)} icons available.</p>
+      <div class="blocks-icons-grid" id="blocks-icons-grid">{''.join(icon_cards)}</div>
     </section>
     <section class="docs-section" aria-labelledby="blocks-type-heading">
       <p class="syn-eyebrow">FONT-AGNOSTIC / NO REMOTE FONTS</p>

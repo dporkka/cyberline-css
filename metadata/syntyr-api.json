@@ -147,6 +147,11 @@
       "description": "Syntyr CSS class (components/buttons.css)."
     },
     {
+      "name": "syn-button--icon",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css)."
+    },
+    {
       "name": "syn-button--outline",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css)."

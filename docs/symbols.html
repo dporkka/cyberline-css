@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr styles user-supplied icons and text; it does not ship icon glyphs, an icon font, emoji assets, a JavaScript icon runtime, or an ASCII-art…">
-  <meta name="syntyr-source-sha256" content="d6b88b0deac2e582f5e90f8860ee8d95d8002d371838bc417f3a80133b29eaca">
+  <meta name="syntyr-source-sha256" content="bdf52b37ac51182055f81d324d973905db63f67463214877bb7b5548bf6fc94c">
   <meta name="theme-color" content="#f5f7fb">
   <title>Icons, Unicode, and ASCII art (optional) — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/symbols">
@@ -123,12 +123,28 @@ terminals that cannot render it.</li>
 <p>See the <a href="../examples/symbols.html">standalone gallery</a>, the existing
 <a href="geometry-terminal.html">terminal and geometry guide</a>, and the
 <a href="distribution.html">CSS distribution notes</a>.</p>
+<h3 id="icon-only-button-geometry">Icon-only button geometry</h3>
+<p>Use <code>syn-button syn-button--icon</code> for square, labeled icon-only controls.
+Its default minimum dimension is 2.75rem (44 CSS pixels), even in compact
+density; applications can override <code>--syn-icon-button-size</code> for their own
+touch-target requirements. This class belongs to core, and does not require
+the symbols stylesheet.</p>
+<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button syn-button--icon&quot; aria-label=&quot;Edit account&quot;&gt;
+  &lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot;
+       stroke=&quot;currentColor&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;
+    &lt;path d=&quot;M4 19h4L19 8l-4-4L4 15v4Z&quot;/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+</code></pre>
+<p>Icon artwork, stroke, fill and explicit SVG color remain owned by the consumer.
+The optional symbol stylesheet does not override SVG <code>color</code> anymore.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-svg-icons-no-mandatory-icon-pack">1. SVG icons (no mandatory icon pack)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#2-unicode-as-actual-text">2. Unicode as actual text</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#3-ascii-and-unicode-box-drawing-art">3. ASCII and Unicode box-drawing art</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-fallback-rules">Accessibility and fallback rules</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#icon-only-button-geometry">Icon-only button geometry</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="symbols.md">Markdown source</a></nav>

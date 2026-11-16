@@ -106,3 +106,23 @@ content with `::before` or `::after`.
 See the [standalone gallery](../examples/symbols.html), the existing
 [terminal and geometry guide](geometry-terminal.md), and the
 [CSS distribution notes](distribution.md).
+
+### Icon-only button geometry
+
+Use `syn-button syn-button--icon` for square, labeled icon-only controls.
+Its default minimum dimension is 2.75rem (44 CSS pixels), even in compact
+density; applications can override `--syn-icon-button-size` for their own
+touch-target requirements. This class belongs to core, and does not require
+the symbols stylesheet.
+
+```html
+<button type="button" class="syn-button syn-button--icon" aria-label="Edit account">
+  <svg class="syn-icon" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" aria-hidden="true" focusable="false">
+    <path d="M4 19h4L19 8l-4-4L4 15v4Z"/>
+  </svg>
+</button>
+```
+
+Icon artwork, stroke, fill and explicit SVG color remain owned by the consumer.
+The optional symbol stylesheet does not override SVG `color` anymore.

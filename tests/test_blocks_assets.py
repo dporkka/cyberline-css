@@ -105,10 +105,10 @@ class BlocksAssetsTests(unittest.TestCase):
             css, r"\.syn-root \.syn-block-asset--radar>span\s*\{\s*color:var\(--syn-text\)"
         )
 
-    def test_twenty_four_original_svg_icon_examples(self):
+    def test_thirty_six_original_svg_icon_examples(self):
         icons = json.loads((ROOT / "blocks/icons.json").read_text(encoding="utf-8"))["icons"]
-        self.assertEqual(len(icons), 24)
-        self.assertEqual(len({icon["id"] for icon in icons}), 24)
+        self.assertEqual(len(icons), 36)
+        self.assertEqual(len({icon["id"] for icon in icons}), 36)
         for icon in icons:
             with self.subTest(icon=icon["id"]):
                 self.assertRegex(icon["id"], r"^[a-z][a-z0-9-]+$")
@@ -121,7 +121,7 @@ class BlocksAssetsTests(unittest.TestCase):
         parser = InspectHTML()
         parser.feed(page)
         previews = [a for a in parser.attributes if "data-icon-id" in a]
-        self.assertEqual(len(previews), 24)
+        self.assertEqual(len(previews), 36)
         self.assertIn('id="blocks-icons-heading"', page)
         self.assertIn('aria-hidden="true"', page)
 

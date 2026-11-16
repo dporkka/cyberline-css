@@ -416,6 +416,21 @@
       ]
     },
     {
+      "name": "syn-button--icon",
+      "module": "components/buttons.css",
+      "description": "Syntyr CSS class (components/buttons.css).",
+      "stylesheets": [
+        "components/buttons.css",
+        "presets/cinematic.css",
+        "presets/minimal.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.core.css",
+        "syntyr.css",
+        "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
       "name": "syn-button--outline",
       "module": "components/buttons.css",
       "description": "Syntyr CSS class (components/buttons.css).",

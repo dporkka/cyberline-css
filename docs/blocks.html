@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 36 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -829,108 +829,209 @@
         </div>
       </div>
     </section>
-    <section class="docs-section" aria-labelledby="blocks-icons-heading">
+    <section class="docs-section blocks-icons-section" aria-labelledby="blocks-icons-heading" data-syn-theme="studio">
       <p class="syn-eyebrow">INLINE SVG / NO ICON FONT</p>
-      <h2 id="blocks-icons-heading" class="syn-title">24 original SVG icon examples</h2>
+      <h2 id="blocks-icons-heading" class="syn-title">36 original SVG icon examples</h2>
       <p class="syn-muted">Small, copyable SVGs that inherit theme color and work with the existing
       Syntyr symbol-sizing contract. These are examples, not a bundled icon dependency.
       When icons are used alone as controls, add accessible names.</p>
-      <div class="blocks-icons-grid">
-        <div class="blocks-icon-card" data-icon-id="search">
+      <div id="icons-controls" class="blocks-controls" hidden>
+        <div><label class="syn-label" for="icons-search">Search icons</label>
+          <input class="syn-input" type="search" id="icons-search" placeholder="Try edit, calendar, search…"></div>
+        <div><label class="syn-label" for="icons-size">Preview icon size</label>
+          <select class="syn-select" id="icons-size">
+            <option value="1rem">16 px</option><option value="1.25rem">20 px</option>
+            <option value="1.5rem" selected>24 px</option><option value="2rem">32 px</option>
+          </select></div>
+        <div><label class="syn-label" for="icons-theme">Preview theme</label>
+          <select class="syn-select" id="icons-theme">
+            <option value="studio">Studio</option><option value="grid">Grid</option>
+            <option value="noir">Noir</option><option value="industrial">Industrial</option>
+            <option value="terminal">Terminal</option><option value="corporate">Corporate</option>
+            <option value="minimal">Minimal</option>
+          </select></div>
+      </div>
+      <p id="icons-results" class="syn-caption" role="status" aria-live="polite">36 icons available.</p>
+      <div class="blocks-icons-grid" id="blocks-icons-grid">
+        <div class="blocks-icon-card" data-icon-id="search" data-icon-keywords="search Search">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.6" cy="10.6" r="6.6"/><path d="m16 16 4.5 4.5"/></svg><strong>Search</strong></div>
           <details><summary data-icon-source>SVG source for Search</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;10.6&quot; cy=&quot;10.6&quot; r=&quot;6.6&quot;/&gt;&lt;path d=&quot;m16 16 4.5 4.5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Search" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="close">
+        <div class="blocks-icon-card" data-icon-id="close" data-icon-keywords="close Close">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5 19 19M19 5 5 19"/></svg><strong>Close</strong></div>
           <details><summary data-icon-source>SVG source for Close</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M5 5 19 19M19 5 5 19&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Close" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="chevron-right">
+        <div class="blocks-icon-card" data-icon-id="chevron-right" data-icon-keywords="chevron-right Next">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7"/></svg><strong>Next</strong></div>
           <details><summary data-icon-source>SVG source for Next</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m9 5 7 7-7 7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Next" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="chevron-left">
+        <div class="blocks-icon-card" data-icon-id="chevron-left" data-icon-keywords="chevron-left Previous">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m15 5-7 7 7 7"/></svg><strong>Previous</strong></div>
           <details><summary data-icon-source>SVG source for Previous</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m15 5-7 7 7 7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Previous" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="check">
+        <div class="blocks-icon-card" data-icon-id="check" data-icon-keywords="check Confirm">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m4.5 12.5 5 5 10-11"/></svg><strong>Confirm</strong></div>
           <details><summary data-icon-source>SVG source for Confirm</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m4.5 12.5 5 5 10-11&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Confirm" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="warning">
+        <div class="blocks-icon-card" data-icon-id="warning" data-icon-keywords="warning Warning">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3 22 20H2L12 3Z"/><path d="M12 9v5m0 3v.2"/></svg><strong>Warning</strong></div>
           <details><summary data-icon-source>SVG source for Warning</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 3 22 20H2L12 3Z&quot;/&gt;&lt;path d=&quot;M12 9v5m0 3v.2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Warning" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="info">
+        <div class="blocks-icon-card" data-icon-id="info" data-icon-keywords="info Information">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v6m0-10v.5"/></svg><strong>Information</strong></div>
           <details><summary data-icon-source>SVG source for Information</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9.5&quot;/&gt;&lt;path d=&quot;M12 11v6m0-10v.5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Information" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="settings">
+        <div class="blocks-icon-card" data-icon-id="settings" data-icon-keywords="settings Settings">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="3"/><path d="M10 2h4l.6 2.4 2 .9 2.1-1.2 2.8 2.8-1.2 2.1.9 2L23 11v3l-2.4.6-.9 2 1.2 2.1-2.8 2.8-2.1-1.2-2 .9L14 23h-4l-.6-2.4-2-.9-2.1 1.2-2.8-2.8 1.2-2.1-.9-2L1 14v-3l2.4-.6.9-2-1.2-2.1 2.8-2.8 2.1 1.2 2-.9L10 2Z"/></svg><strong>Settings</strong></div>
           <details><summary data-icon-source>SVG source for Settings</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;3&quot;/&gt;&lt;path d=&quot;M10 2h4l.6 2.4 2 .9 2.1-1.2 2.8 2.8-1.2 2.1.9 2L23 11v3l-2.4.6-.9 2 1.2 2.1-2.8 2.8-2.1-1.2-2 .9L14 23h-4l-.6-2.4-2-.9-2.1 1.2-2.8-2.8 1.2-2.1-.9-2L1 14v-3l2.4-.6.9-2-1.2-2.1 2.8-2.8 2.1 1.2 2-.9L10 2Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Settings" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="notification">
+        <div class="blocks-icon-card" data-icon-id="notification" data-icon-keywords="notification Notifications">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 17h14l-2-2V10c0-3.2-2-5.5-5-5.5S7 6.8 7 10v5l-2 2Zm5 3h4"/></svg><strong>Notifications</strong></div>
           <details><summary data-icon-source>SVG source for Notifications</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M5 17h14l-2-2V10c0-3.2-2-5.5-5-5.5S7 6.8 7 10v5l-2 2Zm5 3h4&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Notifications" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="person">
+        <div class="blocks-icon-card" data-icon-id="person" data-icon-keywords="person Account">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="3.7"/><path d="M4.5 21v-2.2c0-3 3.4-5 7.5-5s7.5 2 7.5 5V21"/></svg><strong>Account</strong></div>
           <details><summary data-icon-source>SVG source for Account</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;8&quot; r=&quot;3.7&quot;/&gt;&lt;path d=&quot;M4.5 21v-2.2c0-3 3.4-5 7.5-5s7.5 2 7.5 5V21&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Account" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="team">
+        <div class="blocks-icon-card" data-icon-id="team" data-icon-keywords="team Team">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2.5 20v-1c0-3 2.3-5.2 5.5-5.2s5.5 2.2 5.5 5.2v1m1-5.5c3.8-.2 6.6 1.5 6.6 4.5v1"/></svg><strong>Team</strong></div>
           <details><summary data-icon-source>SVG source for Team</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;8&quot; cy=&quot;9&quot; r=&quot;3&quot;/&gt;&lt;circle cx=&quot;17&quot; cy=&quot;10&quot; r=&quot;2.5&quot;/&gt;&lt;path d=&quot;M2.5 20v-1c0-3 2.3-5.2 5.5-5.2s5.5 2.2 5.5 5.2v1m1-5.5c3.8-.2 6.6 1.5 6.6 4.5v1&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Team" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="calendar">
+        <div class="blocks-icon-card" data-icon-id="calendar" data-icon-keywords="calendar Calendar">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6m10-6v6M3 10h18M8 14h3m2 0h3"/></svg><strong>Calendar</strong></div>
           <details><summary data-icon-source>SVG source for Calendar</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;3&quot; y=&quot;5&quot; width=&quot;18&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M7 2v6m10-6v6M3 10h18M8 14h3m2 0h3&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Calendar" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="clock">
+        <div class="blocks-icon-card" data-icon-id="clock" data-icon-keywords="clock Time">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.5V12l4.2 2.8"/></svg><strong>Time</strong></div>
           <details><summary data-icon-source>SVG source for Time</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;9.5&quot;/&gt;&lt;path d=&quot;M12 6.5V12l4.2 2.8&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Time" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="external-link">
+        <div class="blocks-icon-card" data-icon-id="external-link" data-icon-keywords="external-link Open external">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7"/><path d="M12 12 21 3M15 3h6v6"/></svg><strong>Open external</strong></div>
           <details><summary data-icon-source>SVG source for Open external</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7&quot;/&gt;&lt;path d=&quot;M12 12 21 3M15 3h6v6&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Open external" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="download">
+        <div class="blocks-icon-card" data-icon-id="download" data-icon-keywords="download Download">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 3v13m-5-5 5 5 5-5M4 19v2h16v-2"/></svg><strong>Download</strong></div>
           <details><summary data-icon-source>SVG source for Download</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 3v13m-5-5 5 5 5-5M4 19v2h16v-2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Download" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="upload">
+        <div class="blocks-icon-card" data-icon-id="upload" data-icon-keywords="upload Upload">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V3m-5 5 5-5 5 5M4 19v2h16v-2"/></svg><strong>Upload</strong></div>
           <details><summary data-icon-source>SVG source for Upload</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 16V3m-5 5 5-5 5 5M4 19v2h16v-2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Upload" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="terminal">
+        <div class="blocks-icon-card" data-icon-id="terminal" data-icon-keywords="terminal Terminal">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 4 3-4 3m6 0h6"/></svg><strong>Terminal</strong></div>
           <details><summary data-icon-source>SVG source for Terminal</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;2.5&quot; y=&quot;4&quot; width=&quot;19&quot; height=&quot;16&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;m6 9 4 3-4 3m6 0h6&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Terminal" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="shield">
+        <div class="blocks-icon-card" data-icon-id="shield" data-icon-keywords="shield Protection">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.5 20 6v5.5c0 5-3.5 8.4-8 10-4.5-1.6-8-5-8-10V6l8-3.5Z"/><path d="m8 12 2.5 2.5 5-5"/></svg><strong>Protection</strong></div>
           <details><summary data-icon-source>SVG source for Protection</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 2.5 20 6v5.5c0 5-3.5 8.4-8 10-4.5-1.6-8-5-8-10V6l8-3.5Z&quot;/&gt;&lt;path d=&quot;m8 12 2.5 2.5 5-5&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Protection" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="lock">
+        <div class="blocks-icon-card" data-icon-id="lock" data-icon-keywords="lock Private">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="10.5" width="14" height="11" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7m-4 5v2"/></svg><strong>Private</strong></div>
           <details><summary data-icon-source>SVG source for Private</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;5&quot; y=&quot;10.5&quot; width=&quot;14&quot; height=&quot;11&quot; rx=&quot;2&quot;/&gt;&lt;path d=&quot;M8 10.5V7.8a4 4 0 0 1 8 0v2.7m-4 5v2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Private" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="database">
+        <div class="blocks-icon-card" data-icon-id="database" data-icon-keywords="database Database">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="8.5" ry="3"/><path d="M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3"/></svg><strong>Database</strong></div>
           <details><summary data-icon-source>SVG source for Database</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;ellipse cx=&quot;12&quot; cy=&quot;5&quot; rx=&quot;8.5&quot; ry=&quot;3&quot;/&gt;&lt;path d=&quot;M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Database" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="bar-chart">
+        <div class="blocks-icon-card" data-icon-id="bar-chart" data-icon-keywords="bar-chart Bar chart">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M5.5 18v-6h3v6m4 0V5h3v13m4 0v-9h3v9"/></svg><strong>Bar chart</strong></div>
           <details><summary data-icon-source>SVG source for Bar chart</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 21h18M5.5 18v-6h3v6m4 0V5h3v13m4 0v-9h3v9&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Bar chart" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="line-chart">
+        <div class="blocks-icon-card" data-icon-id="line-chart" data-icon-keywords="line-chart Trend">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 21h18M3 21V3m3 13 5-5 4 2 5-8"/></svg><strong>Trend</strong></div>
           <details><summary data-icon-source>SVG source for Trend</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 21h18M3 21V3m3 13 5-5 4 2 5-8&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Trend" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="filter">
+        <div class="blocks-icon-card" data-icon-id="filter" data-icon-keywords="filter Filter">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 4h18l-7 8v7l-4 2v-9L3 4Z"/></svg><strong>Filter</strong></div>
           <details><summary data-icon-source>SVG source for Filter</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M3 4h18l-7 8v7l-4 2v-9L3 4Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Filter" hidden>Copy SVG</button>
         </div>
-        <div class="blocks-icon-card" data-icon-id="spark">
+        <div class="blocks-icon-card" data-icon-id="spark" data-icon-keywords="spark Highlight">
           <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2 14.2 9.8 22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z"/></svg><strong>Highlight</strong></div>
           <details><summary data-icon-source>SVG source for Highlight</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 2 14.2 9.8 22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Highlight" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="plus" data-icon-keywords="plus Add">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v16M4 12h16"/></svg><strong>Add</strong></div>
+          <details><summary data-icon-source>SVG source for Add</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M12 4v16M4 12h16&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Add" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="minus" data-icon-keywords="minus Remove">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16"/></svg><strong>Remove</strong></div>
+          <details><summary data-icon-source>SVG source for Remove</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4 12h16&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Remove" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="edit" data-icon-keywords="edit Edit">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5h4l11-11-4-4-11 11v4Zm9-13 4 4M4 5h7"/></svg><strong>Edit</strong></div>
+          <details><summary data-icon-source>SVG source for Edit</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4 19.5h4l11-11-4-4-11 11v4Zm9-13 4 4M4 5h7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Edit" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="delete" data-icon-keywords="delete Delete">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.5 6.5h15M9 6.5V4h6v2.5M6.5 6.5l.8 14h9.4l.8-14M10 10v7m4-7v7"/></svg><strong>Delete</strong></div>
+          <details><summary data-icon-source>SVG source for Delete</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4.5 6.5h15M9 6.5V4h6v2.5M6.5 6.5l.8 14h9.4l.8-14M10 10v7m4-7v7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Delete" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="menu" data-icon-keywords="menu Menu">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h16"/></svg><strong>Menu</strong></div>
+          <details><summary data-icon-source>SVG source for Menu</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4 6h16M4 12h16M4 18h16&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Menu" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="chevron-down" data-icon-keywords="chevron-down Expand">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 9 7 7 7-7"/></svg><strong>Expand</strong></div>
+          <details><summary data-icon-source>SVG source for Expand</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;m5 9 7 7 7-7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Expand" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="copy" data-icon-keywords="copy Copy">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="8" y="8" width="12" height="12" rx="1.5"/><path d="M16 8V4.5A1.5 1.5 0 0 0 14.5 3h-10A1.5 1.5 0 0 0 3 4.5v10A1.5 1.5 0 0 0 4.5 16H8"/></svg><strong>Copy</strong></div>
+          <details><summary data-icon-source>SVG source for Copy</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;rect x=&quot;8&quot; y=&quot;8&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;1.5&quot;/&gt;&lt;path d=&quot;M16 8V4.5A1.5 1.5 0 0 0 14.5 3h-10A1.5 1.5 0 0 0 3 4.5v10A1.5 1.5 0 0 0 4.5 16H8&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Copy" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="refresh" data-icon-keywords="refresh Refresh">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 7v5h-5M4 17v-5h5M5.8 9a7 7 0 0 1 12.8-1.8L20 12M4 12l1.4 4.8A7 7 0 0 0 18.2 15"/></svg><strong>Refresh</strong></div>
+          <details><summary data-icon-source>SVG source for Refresh</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M20 7v5h-5M4 17v-5h5M5.8 9a7 7 0 0 1 12.8-1.8L20 12M4 12l1.4 4.8A7 7 0 0 0 18.2 15&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Refresh" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="eye" data-icon-keywords="eye Show">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="2.7"/></svg><strong>Show</strong></div>
+          <details><summary data-icon-source>SVG source for Show</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12Z&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;2.7&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Show" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="eye-off" data-icon-keywords="eye-off Hide">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.1 8.2C2.8 9.5 2 12 2 12s3.6 6 10 6c1.8 0 3.4-.5 4.8-1.3M8.8 6.5A11 11 0 0 1 12 6c6.4 0 10 6 10 6a14 14 0 0 1-2 2.6M3 3l18 18M10.2 10.2a2.7 2.7 0 0 0 3.6 3.6"/></svg><strong>Hide</strong></div>
+          <details><summary data-icon-source>SVG source for Hide</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M4.1 8.2C2.8 9.5 2 12 2 12s3.6 6 10 6c1.8 0 3.4-.5 4.8-1.3M8.8 6.5A11 11 0 0 1 12 6c6.4 0 10 6 10 6a14 14 0 0 1-2 2.6M3 3l18 18M10.2 10.2a2.7 2.7 0 0 0 3.6 3.6&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Hide" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="more" data-icon-keywords="more More actions">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg><strong>More actions</strong></div>
+          <details><summary data-icon-source>SVG source for More actions</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;circle cx=&quot;5&quot; cy=&quot;12&quot; r=&quot;1.2&quot;/&gt;&lt;circle cx=&quot;12&quot; cy=&quot;12&quot; r=&quot;1.2&quot;/&gt;&lt;circle cx=&quot;19&quot; cy=&quot;12&quot; r=&quot;1.2&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for More actions" hidden>Copy SVG</button>
+        </div>
+        <div class="blocks-icon-card" data-icon-id="sort" data-icon-keywords="sort Sort">
+          <div class="blocks-icon-preview"><svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 4v16m0-16-4 4m4-4 4 4m6 12V4m0 16-4-4m4 4 4-4"/></svg><strong>Sort</strong></div>
+          <details><summary data-icon-source>SVG source for Sort</summary><pre><code>&lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.7&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; aria-hidden=&quot;true&quot; focusable=&quot;false&quot;&gt;&lt;path d=&quot;M7 4v16m0-16-4 4m4-4 4 4m6 12V4m0 16-4-4m4 4 4-4&quot;/&gt;&lt;/svg&gt;</code></pre></details>
+          <button type="button" class="syn-button syn-button--small blocks-icon-copy" data-icon-copy aria-label="Copy SVG for Sort" hidden>Copy SVG</button>
         </div></div>
     </section>
     <section class="docs-section" aria-labelledby="blocks-type-heading">

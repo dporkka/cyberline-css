@@ -70,7 +70,7 @@ def progressive_checks(browser, engine, screenshots):
     page = context.new_page()
     page.goto(GALLERY)
     require(page.locator("[data-block-id]").count() == 20, "No-JS: blocks missing")
-    require(page.locator("[data-icon-id]").count() == 24, "No-JS: SVG icons missing")
+    require(page.locator("[data-icon-id]").count() == 36, "No-JS: SVG icons missing")
     require(page.locator(".syn-block-asset").count() == 12, "No-JS: CSS assets missing")
     require(page.locator("#blocks-controls").is_hidden(), "No-JS: controls should be hidden")
     details = page.locator(".blocks-details").first
@@ -113,6 +113,18 @@ def progressive_checks(browser, engine, screenshots):
         page.set_viewport_size({"width": 390, "height": 844})
         page.screenshot(path=str(screenshots / f"blocks-{engine}-mobile.png"))
         page.set_viewport_size({"width": 1280, "height": 900})
+    require(page.get_by_role("searchbox", name="Search icons").count() == 1, "Icon search missing")
+    page.locator("#icons-search").fill("delete")
+    require(page.locator("[data-icon-id]:visible").count() == 1, "Icon filter wrong")
+    page.locator("#icons-search").fill("")
+    page.locator("#icons-size").select_option("2rem")
+    require(page.locator("#blocks-icons-grid").evaluate(
+        'el => el.style.getPropertyValue("--syn-gallery-icon-size")') == "2rem", "Icon size not applied")
+    page.locator("#icons-theme").select_option("noir")
+    require(page.locator(".blocks-icons-section").get_attribute("data-syn-theme") == "noir",
+            "Icon theme not applied")
+    require(page.get_by_role("button", name="Copy SVG for Search").count() == 1,
+            "Accessible SVG copy button missing")
     page.locator("[data-block-copy]").first.click()
     page.wait_for_function(
         "() => /copied|selected/i.test(document.querySelector('#blocks-results').textContent)",
