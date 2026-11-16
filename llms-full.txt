@@ -2597,6 +2597,37 @@ Restyle. If your application already uses a CSS-to-native system, feed it the
 token values explicitly; don't assume Syntyr selectors, pseudo-classes or
 browser layout features will be compiled correctly.
 
+## Auditing web CSS for React Native migration
+
+Use the **opt-in, dependency-free portability report** before reusing any
+web CSS declarations in a React Native screen:
+
+```sh
+python3 scripts/audit_mobile_css.py src/components/buttons.css
+python3 scripts/audit_mobile_css.py src/components/buttons.css --format json
+python3 scripts/audit_mobile_css.py path/to/portable.css --strict
+python3 -m unittest discover -s tests -p test_mobile_css_audit.py -v
+```
+
+The checker reports a source line, declaration, classification and reason.
+`portable` means a property and literal value have a straightforward native
+style mapping, **not** that the CSS selector or stylesheet can run in a native
+renderer. `adapt` indicates values or rules that require native conversion,
+including CSS `rem`, `var()`, `color-mix()`, conditional `@media` rules,
+logical properties and design tokens. `web-only` indicates browser layout,
+animations, pseudo-elements, etc. `unknown` is conservatively **not** treated
+as supported. Use `--format json` for agents/CI and `--strict` to exit nonzero
+when any declaration is not `portable`.
+
+This tool is **not a CSS-to-native compiler** or a standards-complete CSS parser.
+It does not validate selector semantics, inheritance, specific React Native
+versions, runtime accessibility, layout parity, or actual iOS/Android rendering.
+It is a triage aid for manually adapting styles. Browser CSS stays the
+source for web, while `metadata/mobile/syntyr.tokens.json` and the small
+`integrations/react-native/styles.ts` remain the explicit native contract.
+Avoid requiring this audit on the web package build: Syntyr CSS is
+intentionally allowed to use powerful browser-only features.
+
 ## Flutter
 
 Declare the copied JSON under `flutter/assets/syntyr.tokens.json` in

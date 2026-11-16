@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: opt-in source adapter (alpha.5 candidate), not published as a native package. Syntyr&#x27;s web CSS does not execute in the native iOS or Android…">
-  <meta name="syntyr-source-sha256" content="ac9ce973272c02642a68c5a91a05dd403e47e3535c47725956a9d533897ec2e0">
+  <meta name="syntyr-source-sha256" content="f3d3d4f6b6d6db54e96f3acd397f4a51df6c31f4a3e3988c49e1c81c29b972a1">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr on mobile: React Native, Expo, Flutter, SwiftUI and Compose — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/mobile-frameworks">
@@ -149,6 +149,31 @@ native components. Syntyr does not require NativeWind, Uniwind, Tamagui or
 Restyle. If your application already uses a CSS-to-native system, feed it the
 token values explicitly; don't assume Syntyr selectors, pseudo-classes or
 browser layout features will be compiled correctly.</p>
+<h2 id="auditing-web-css-for-react-native-migration">Auditing web CSS for React Native migration</h2>
+<p>Use the <strong>opt-in, dependency-free portability report</strong> before reusing any
+web CSS declarations in a React Native screen:</p>
+<pre><code class="language-sh">python3 scripts/audit_mobile_css.py src/components/buttons.css
+python3 scripts/audit_mobile_css.py src/components/buttons.css --format json
+python3 scripts/audit_mobile_css.py path/to/portable.css --strict
+python3 -m unittest discover -s tests -p test_mobile_css_audit.py -v
+</code></pre>
+<p>The checker reports a source line, declaration, classification and reason.
+<code>portable</code> means a property and literal value have a straightforward native
+style mapping, <strong>not</strong> that the CSS selector or stylesheet can run in a native
+renderer. <code>adapt</code> indicates values or rules that require native conversion,
+including CSS <code>rem</code>, <code>var()</code>, <code>color-mix()</code>, conditional <code>@media</code> rules,
+logical properties and design tokens. <code>web-only</code> indicates browser layout,
+animations, pseudo-elements, etc. <code>unknown</code> is conservatively <strong>not</strong> treated
+as supported. Use <code>--format json</code> for agents/CI and <code>--strict</code> to exit nonzero
+when any declaration is not <code>portable</code>.</p>
+<p>This tool is <strong>not a CSS-to-native compiler</strong> or a standards-complete CSS parser.
+It does not validate selector semantics, inheritance, specific React Native
+versions, runtime accessibility, layout parity, or actual iOS/Android rendering.
+It is a triage aid for manually adapting styles. Browser CSS stays the
+source for web, while <code>metadata/mobile/syntyr.tokens.json</code> and the small
+<code>integrations/react-native/styles.ts</code> remain the explicit native contract.
+Avoid requiring this audit on the web package build: Syntyr CSS is
+intentionally allowed to use powerful browser-only features.</p>
 <h2 id="flutter">Flutter</h2>
 <p>Declare the copied JSON under <code>flutter/assets/syntyr.tokens.json</code> in
 <code>pubspec.yaml</code>:</p>
@@ -247,6 +272,7 @@ before claiming full platform certification.</li>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#exact-token-contract">Exact token contract</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#react-native-expo-copy-owned-no-adapter-dependency">React Native / Expo: copy-owned, no adapter dependency</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#auditing-web-css-for-react-native-migration">Auditing web CSS for React Native migration</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#flutter">Flutter</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#swiftui">SwiftUI</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#android-jetpack-compose">Android Jetpack Compose</a>
