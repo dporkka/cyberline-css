@@ -34,6 +34,8 @@ FILES = (
     "docs/radix-integration.md",
     "docs/framework-integrations.md",
     "docs/headless-interactions.md",
+    "docs/interaction-recipes.md",
+    "metadata/interaction-recipes.json",
     "integrations/headless/interactions.css",
     "docs/native-browser-apis.md",
     "docs/theme-customization.md",

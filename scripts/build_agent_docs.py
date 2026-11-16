@@ -24,6 +24,7 @@ SOURCES = (
     "docs/api-stability.md",
     "docs/framework-integrations.md",
     "docs/native-browser-apis.md",
+    "docs/interaction-recipes.md",
     "docs/theme-customization.md",
     "docs/visual-intensity.md",
     "docs/visual-composition.md",
