@@ -46,6 +46,9 @@ CLASS_DOCS = {
     "syn-semantic": "Opt-in styling of native HTML elements.",
     "syn-u-flex": "Opt-in flexbox layout utility.",
     "syn-u-w-full": "Opt-in full-width utility.",
+    "syn-u-text-safe": "Prevent unbroken text from overflowing narrow containers.",
+    "syn-u-text-balance": "Native balanced heading wraps when supported.",
+    "syn-u-text-pretty": "Native improved paragraph wrapping when supported.",
 }
 TOKEN_DOCS = {
     "--syn-accent": "Theme accent color; also check --syn-on-accent contrast.",

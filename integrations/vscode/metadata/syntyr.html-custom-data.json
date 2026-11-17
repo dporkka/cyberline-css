@@ -1134,8 +1134,20 @@
           "description": "Syntyr CSS class (utilities.css)."
         },
         {
+          "name": "syn-u-text-balance",
+          "description": "Native balanced heading wraps when supported."
+        },
+        {
           "name": "syn-u-text-center",
           "description": "Syntyr CSS class (utilities.css)."
+        },
+        {
+          "name": "syn-u-text-pretty",
+          "description": "Native improved paragraph wrapping when supported."
+        },
+        {
+          "name": "syn-u-text-safe",
+          "description": "Prevent unbroken text from overflowing narrow containers."
         },
         {
           "name": "syn-u-w-full",

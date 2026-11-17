@@ -172,3 +172,59 @@
   });
   updateGeometry();
 })();
+
+
+// Documentation-only: actual browser text bounds (never shipped in CSS bundles).
+(() => {
+  "use strict";
+  const byId = id => document.getElementById(id);
+  const text = byId("type-lab-text");
+  const width = byId("type-lab-width");
+  const style = byId("type-lab-style");
+  const wrap = byId("type-lab-wrap");
+  const preview = byId("type-lab-preview");
+  const report = byId("type-lab-report");
+  const stage = byId("type-lab-stage");
+  const themes = byId("playground-theme");
+  const classes = {title: "syn-title", heading: "syn-heading", body: "syn-body"};
+  const wraps = {safe: "syn-u-text-safe", balance: "syn-u-text-balance", pretty: "syn-u-text-pretty"};
+  let pending = false;
+
+  function measure() {
+    pending = false;
+    const range = document.createRange();
+    range.selectNodeContents(preview);
+    const lineTops = new Set(Array.from(range.getClientRects(), rect => Math.round(rect.top * 2) / 2));
+    const lineCount = preview.textContent ? lineTops.size : 0;
+    const actualWidth = Math.round(preview.getBoundingClientRect().width);
+    const actualHeight = Math.round(preview.getBoundingClientRect().height);
+    const overflow = preview.scrollWidth > preview.clientWidth + 1 ||
+      preview.scrollHeight > preview.clientHeight + 1;
+    report.textContent = `${lineCount} visual line${lineCount === 1 ? "" : "s"} · ${actualWidth}px content box · ${actualHeight}px element height · ${overflow ? "Overflow detected" : "No element overflow detected"}.`;
+  }
+
+  function update() {
+    const desired = Math.max(160, Math.min(640, Number(width.value) || 320));
+    byId("type-lab-width-value").textContent = `${desired}px`;
+    preview.style.setProperty("--lab-width", `${desired}px`);
+    preview.className = `${classes[style.value] || classes.heading} ${wraps[wrap.value] || wraps.safe}`;
+    preview.textContent = text.value;
+    stage.dataset.synTheme = themes.value;
+    report.textContent = "Measuring browser text…";
+    if (!pending) {
+      pending = true;
+      requestAnimationFrame(measure);
+    }
+  }
+
+  for (const control of [text, width, style, wrap, themes]) {
+    control.addEventListener("input", update);
+    control.addEventListener("change", update);
+  }
+  // Width can change independently of the slider (zoom, responsive layout).
+  if (typeof ResizeObserver === "function") new ResizeObserver(() => {
+    if (!pending) { pending = true; requestAnimationFrame(measure); }
+  }).observe(stage);
+  document.fonts?.ready.then(() => requestAnimationFrame(measure));
+  update();
+})();

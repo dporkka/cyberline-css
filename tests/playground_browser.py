@@ -31,6 +31,19 @@ def verify(browser, viewport):
     page.locator("#playground-markup").fill('<div id="safe">Edited HTML</div><script>parent.document.body.dataset.injected="yes"</script>')
     frame.locator("#safe").wait_for()
     assert page.locator("body").get_attribute("data-injected") is None, "sandbox permitted parent script injection"
+    page.locator("#type-lab-text").fill("Multilingual العربية 漢字 " + "WWW-VERY-LONG-IDENTIFIER-" * 4)
+    page.locator("#type-lab-width").evaluate("e => { e.value = '160'; e.dispatchEvent(new Event('input', {bubbles: true})); }")
+    page.locator("#type-lab-wrap").select_option("safe")
+    page.wait_for_function("""() => {
+        const el = document.querySelector('#type-lab-preview');
+        const actual = Math.round(el.getBoundingClientRect().width);
+        return document.querySelector('#type-lab-report').textContent.includes(actual + 'px content box');
+    }""")
+    assert page.locator("#type-lab-preview").get_attribute("class") == "syn-heading syn-u-text-safe"
+    assert not page.locator("#type-lab-preview").evaluate("e => e.scrollWidth > e.clientWidth + 1"), "safe text wrapped outside the sample"
+    page.locator("#type-lab-style").select_option("body")
+    page.locator("#type-lab-wrap").select_option("pretty")
+    assert page.locator("#type-lab-preview").get_attribute("class") == "syn-body syn-u-text-pretty"
     assert page.locator("body").evaluate("e => e.scrollWidth <= window.innerWidth + 1"), "playground overflows"
     assert not page_errors, page_errors
     context.close()
