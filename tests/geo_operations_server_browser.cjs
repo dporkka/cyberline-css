@@ -55,6 +55,7 @@ async function verify(engine, name, base) {
     assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Junction'}).count(),1);
     await page.getByRole('link', {name:'Select East Vista'}).click();
     assert(page.url().includes('selected=EV-035'));
+    await page.locator('#selection').getByRole('heading', {name:'East Vista'}).waitFor();
     assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Vista'}).count(),1);
     assert.equal(await page.locator('.syn-geo-marker[aria-current="location"]').count(),1);
 
@@ -66,10 +67,17 @@ async function verify(engine, name, base) {
     assert(page.url().includes('status=available') && page.url().includes('type=static'));
     assert.equal(await page.locator('.syn-geo-marker').count(), 2);
     assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Junction'}).count(), 1);
-    await page.getByRole('link', {name:'Find East Vista on the schematic map'}).click();
-    assert(page.url().endsWith('#map-marker-EV-035'), 'record must navigate to a keyboard-focusable marker');
-    await page.getByRole('link', {name:'Select East Vista'}).click();
+    await page.getByRole('link', {name:'Find East Vista on the schematic map'}).focus();
+    await page.keyboard.press('Enter');
+    assert(page.url().endsWith('#map-marker-EV-035'), 'record keyboard activation must navigate to the marker');
+    assert.equal(await page.evaluate(() => document.activeElement?.id), 'map-marker-EV-035', 'fragment navigation must focus the named marker');
+    await page.getByRole('link', {name:'Select East Vista'}).focus();
+    await Promise.all([
+      page.waitForURL(url => url.searchParams.get('selected') === 'EV-035'),
+      page.keyboard.press('Enter'),
+    ]);
     assert(page.url().includes('district=East+district') && page.url().includes('selected=EV-035'));
+    await page.locator('#selection').getByRole('heading', {name:'East Vista'}).waitFor();
     assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Vista'}).count(), 1);
     await page.getByRole('combobox', {name:'District'}).selectOption('North district');
     await page.getByRole('button', {name: 'Apply filters'}).click();
