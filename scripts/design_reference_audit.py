@@ -121,8 +121,12 @@ def audit_page(markup: str, parent: Path) -> dict[str, int]:
     assets.feed(markup)
     syntyr = []
     custom = []
-    for href in dict.fromkeys(assets.stylesheets):
+    seen_stylesheets: set[Path] = set()
+    for href in assets.stylesheets:
         file = _local_file(href, parent)
+        if file in seen_stylesheets:
+            continue
+        seen_stylesheets.add(file)
         data = file.read_bytes()
         reject_imports(data.decode("utf-8"), str(file))
         group = syntyr if file.is_relative_to(ROOT / "dist") else custom

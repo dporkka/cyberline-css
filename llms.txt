@@ -14,6 +14,7 @@ For browser readers, use the [human-readable HTML documentation directory](https
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
 - [Curated web design resources and Syntyr research priorities](https://syntyr-css.pages.dev/docs/design-resources.html): Standalone HTML page with 82 curated directories, tools, design systems and libraries, descriptions, links and Syntyr research priorities.
+- [Syntyr vs Tailwind vs plain CSS decision guide](https://syntyr-css.pages.dev/docs/tailwind-alternative.html): Source-aware comparison of HTML-first styling, explicit reasons to keep Tailwind or native CSS, and free adoption examples (alpha.5 source preview).
 - [Agreed design principles and conformance](https://syntyr-css.pages.dev/docs/design-principles.md): Hierarchy, semantic components, states, native HTML recipes, and tested palette roles.
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Canonical low-entropy standard component inventory, native HTML controls (including range/file/color, datalist/optgroup and named disclosure examples), CSS classes, semantic-mode boundaries and candidate-only table wrapping migration.
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.

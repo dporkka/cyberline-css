@@ -184,6 +184,19 @@ class DesignReferenceBenchmarkTest(unittest.TestCase):
         harmless = '<style>/* @import url("ignore.css"); */ .x { content:"@import"; }</style>'
         self.assertEqual(audit_page(harmless, BASE)["external_stylesheets"], 0)
 
+    def test_audit_deduplicates_stylesheet_path_aliases(self):
+        from scripts.design_reference_audit import audit_page
+        single = audit_page('<link rel="stylesheet" href="benchmark.css">', BASE)
+        aliased = audit_page(
+            '<link rel="stylesheet" href="benchmark.css">'
+            '<link rel="stylesheet" href="./benchmark.css">',
+            BASE
+        )
+        for field in ("custom_css_bytes", "custom_css_gzip_bytes",
+                      "custom_css_total_bytes", "custom_css_total_gzip_bytes",
+                      "custom_token_overrides"):
+            self.assertEqual(aliased[field], single[field], field)
+
     def test_audit_rejects_remote_stylesheet_or_missing_stylesheet(self):
         from scripts.design_reference_audit import audit_page
         with self.assertRaisesRegex(ValueError, "external stylesheet"):
