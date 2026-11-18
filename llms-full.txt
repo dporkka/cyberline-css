@@ -5459,7 +5459,19 @@ Geo deliberately stays in its own CSS module rather than bloating core. Use it f
 
 ## Optional real-MapLibre browser smoke (maintainers)
 
-The repository also includes an intentionally **unpublished, developer-only** MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a **synthetic offline map style** with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× **root text-size stress**, which is not a substitute for browser-level zoom testing or screen reader review.
+The repository also includes an intentionally **unpublished, developer-only** MapLibre integration fixture and browser harness. It loads locally installed MapLibre, Playwright and esbuild from a separate host application and bundles them for a temporary localhost page with a **synthetic offline map style**, no external tiles, credentials or real asset data. It is not the Syntyr runtime.
+
+The [fixture HTML](https://github.com/dporkka/syntyr-css/blob/main/tests/fixtures/geo-maplibre.html) and [application-owned wiring](https://github.com/dporkka/syntyr-css/blob/main/tests/fixtures/geo-maplibre-app.js) demonstrate the complete **map ↔ list ↔ inspector** contract with three fictional longitude/latitude points:
+
+1. The native list links navigate to a real, focusable details section. MapLibre-owned marker **buttons** expose accessible names; Enter and Space select the same record.
+2. The host app updates exactly one selected record in the list, selected-marker ring, inspector and polite status announcement. List selection calls MapLibre `map.jumpTo({center: ...})`, using real `LngLat` positions and the renderer's projection, not `--syn-geo-x` or CSS percentage coordinates.
+3. Native status and search controls update both the list and actual MapLibre markers. A hidden/unknown record cannot be selected through the example UI; no-results states clear the inspector and selected markers. Returning to a broader filter keeps the current selection **if it remains visible**.
+4. The fixture starts with filters and zoom **disabled** until the app wires their behavior. Without JavaScript, the authored list, initial details and explicit `noscript` explanation remain readable; the list only becomes clickable once the application has wired selection, so it never links inactive sites to unrelated details.
+5. Browser checks validate real geographic marker projection, zoom, marker/list keyboard activation, selection and empty-state consistency, 44px targets, mobile container reflow, overlay pointer events, 2×/4× root-font stress, forced colors and reduced motion.
+
+**Authorization boundary:** this is *not* a security implementation. The three fictional points are embedded in test-only JavaScript and are all visible to anyone with the fixture. Client-side filtering and rejecting unknown UI selections do **not** provide authentication, tenant isolation, feature authorization or data privacy. A real OOH/map application must deliver only server-authorized records, enforce per-record and per-tenant permissions at each API or tile endpoint, and verify selection/detail requests server-side. Never load sensitive cross-tenant assets and hope CSS, map layers, or browser filtering hide them. Do not use this synthetic test as evidence that real tenant isolation is working.
+
+**Host-owned design decision:** the fixture uses safe `textContent` updates instead of interpolating record names into `innerHTML`, `map.jumpTo` instead of simulated CSS marker placement, and ordinary browser focus/fragment navigation instead of a custom focus trap. Other applications can use React, HTMX, or plain JavaScript for this orchestration; Syntyr only supplies the optional geospatial presentation styles.
 
 ~~~sh
 SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \

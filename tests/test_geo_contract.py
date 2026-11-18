@@ -146,17 +146,37 @@ class GeoContract(unittest.TestCase):
         fixture = (ROOT / "tests/fixtures/geo-maplibre.html").read_text()
         from scripts.build_cloudflare_site import source_files
         from scripts.package_release import FILES
-        self.assertIn("new maplibregl.Map", harness)
-        self.assertIn("new maplibregl.Marker", harness)
-        self.assertIn("map.zoomIn", harness)
-        self.assertIn("delete marker.dataset.inspected", harness,
-                      "Keyboard assertion must not reuse pointer activation state")
+        app = (ROOT / "tests/fixtures/geo-maplibre-app.js").read_text()
+        self.assertIn("maplibregl.Map", app)
+        self.assertIn("maplibregl.Marker", app)
+        self.assertIn(".setLngLat(", app, "Coordinates belong to MapLibre, not CSS percentages")
+        self.assertIn("map.jumpTo(", app, "The renderer must own camera selection")
+        self.assertIn("map.zoomIn", app)
+        self.assertIn("filterSites()", app, "Map and data list must share filtering")
+        self.assertIn("marker.remove()", app)
+        self.assertIn('marker.getElement().dataset.synSelected = "false"', app)
+        self.assertIn("aria-current", app)
+        self.assertIn("site-selection-announcement", fixture)
+        self.assertIn('role="status"', fixture)
+        self.assertIn('id="site-status"', fixture)
+        self.assertIn('id="site-details"', fixture)
+        self.assertIn("No matching sites", app)
+        self.assertNotIn("innerHTML", app, "Untrusted labels must use textContent")
+        self.assertIn("server must provide only", app, "Client filters cannot assert tenant authorization")
+        self.assertIn("getSelected", harness)
+        self.assertIn("marker.getLngLat()", harness, "Browser must verify actual projection")
+        self.assertIn('page.keyboard.press("Enter")', harness)
+        self.assertIn("Space", harness)
+        self.assertIn("forcedColors", harness)
         self.assertIn("let browser;", harness, "Browser launch must be cleanup-protected")
-        self.assertIn("cooperativeGestures", harness)
         self.assertIn("SYNTYR_VENDOR_NODE_MODULES", harness)
         self.assertIn("syntyr.geo.css", fixture)
-        self.assertNotIn("tests/fixtures/geo-maplibre.html", source_files())
-        self.assertNotIn("tests/geo_maplibre_browser.mjs", FILES)
+        for reference in ("tests/fixtures/geo-maplibre.html",
+                          "tests/fixtures/geo-maplibre-app.js",
+                          "tests/geo_maplibre_browser.mjs"):
+            with self.subTest(reference=reference):
+                self.assertNotIn(reference, source_files())
+                self.assertNotIn(reference, FILES)
 
     def test_guide_and_discovery_make_renderer_boundary_explicit(self):
         guide = (ROOT / "docs/geo.md").read_text()
