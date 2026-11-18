@@ -61,6 +61,7 @@ stylesheets.
 ## Live gallery and installation
 
 - [Live website on Cloudflare](https://syntyr-css.pages.dev/)
+- [Tailwind alternative decision guide](docs/tailwind-alternative.html): honest tradeoffs against Tailwind v4 and plain CSS, free SaaS demos, and HTML-first adoption guidance.
 - [Server-rendered validation states](examples/form-state-contracts.html) and [dependency-aware, collision-safe local registry planner](docs/blocks-guide.md) (unreleased alpha.5 candidate).
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
 - [Design resources directory](https://syntyr-css.pages.dev/docs/design-resources.html): curated galleries, design systems, accessibility, typography, motion and Syntyr study priorities.

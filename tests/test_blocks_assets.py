@@ -26,7 +26,7 @@ class InspectHTML(HTMLParser):
 class BlocksAssetsTests(unittest.TestCase):
     def test_all_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 31)
+        self.assertEqual(len(blocks), 50)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -58,12 +58,59 @@ class BlocksAssetsTests(unittest.TestCase):
             "comparison-table", "integrations-grid", "newsletter-signup",
             "announcement-banner",
         }
-        self.assertEqual(len(blocks), 31)
+        self.assertEqual(len(blocks), 50)
         for ident in new_blocks:
             with self.subTest(ident=ident):
                 self.assertIn(ident, by_id)
                 self.assertIn(by_id[ident]["category"], {"Marketing", "Applications"})
                 self.assertEqual(by_id[ident]["modules"], ["core"])
+
+    def test_seven_original_marketing_sections_extend_without_replacing_existing_blocks(self):
+        # Preserve all 31 existing canonical blocks, including the three
+        # application workflows that #248 would otherwise have removed.
+        original = set("""hero-product,hero-security,feature-grid,feature-checklist,pricing-trio,testimonial,faq,cta-band,metric-overview,activity-feed,data-table,filter-toolbar,settings-form,team-directory,billing-summary,onboarding-steps,terminal-session,incident-notice,telemetry-status,release-notes,resource-workspace,crm-workspace,billing-workspace,auth-sign-in,auth-recovery,error-recovery,empty-state,comparison-table,integrations-grid,newsletter-signup,announcement-banner""".split(","))
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
+        old = original
+        current = {b["id"] for b in manifest}
+        sections = {"logo-wall", "process-steps", "services-grid", "service-areas",
+                    "portfolio-grid", "team-grid", "contact-quote"}
+        self.assertEqual(len(manifest), 50)
+        self.assertTrue(sections <= current - old)
+        self.assertTrue(old <= current, "New blocks must not replace existing blocks")
+        for ident in sections:
+            source = (ROOT / "blocks/snippets" / f"{ident}.html").read_text()
+            parser = InspectHTML()
+            parser.feed(source)
+            self.assertIn("h2", parser.tags)
+            self.assertTrue(any("syn-root" in a.get("class", "").split()
+                                for a in parser.attributes))
+            self.assertNotIn("script", parser.tags)
+        contact = (ROOT / "blocks/snippets/contact-quote.html").read_text()
+        self.assertIn('type="email"', contact)
+        self.assertIn('method="post"', contact)
+
+    def test_gallery_filter_categories_match_manifest_categories(self):
+        manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
+        gallery = (ROOT / "docs/blocks.html").read_text()
+        class Categories(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.in_filter = False
+                self.values = []
+            def handle_starttag(self, tag, attrs):
+                a = dict(attrs)
+                if tag == "select" and a.get("id") == "blocks-category":
+                    self.in_filter = True
+                if tag == "option" and self.in_filter and a.get("value") != "all":
+                    self.values.append(a.get("value"))
+            def handle_endtag(self, tag):
+                if tag == "select":
+                    self.in_filter = False
+        parsed = Categories()
+        parsed.feed(gallery)
+        self.assertEqual(set(parsed.values), {b["category"] for b in manifest})
+        self.assertEqual(len(parsed.values), len(set(parsed.values)))
+        self.assertTrue({"Services", "Portfolio"} <= set(parsed.values))
 
     def test_form_previews_are_disabled_without_modifying_copyable_snippets(self):
         from html import unescape
@@ -211,8 +258,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 31)
-        self.assertEqual(len(set(ids)), 31)
+        self.assertEqual(len(ids), len(json.loads(MANIFEST.read_text())["blocks"]))
+        self.assertEqual(len(set(ids)), len(ids))
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -228,8 +275,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 31)
-        self.assertEqual(len(set(copy_labels)), 31)
+        self.assertEqual(len(copy_labels), len(json.loads(MANIFEST.read_text())["blocks"]))
+        self.assertEqual(len(set(copy_labels)), len(copy_labels))
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)
