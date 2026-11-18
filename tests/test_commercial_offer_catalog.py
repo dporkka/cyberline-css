@@ -58,12 +58,26 @@ class CommercialOfferCatalogTests(unittest.TestCase):
                     re.S,
                 )
                 self.assertIsNotNone(card)
-                self.assertIn(f'{screens} screen types', card.group(1))
-                self.assertIn(f'{variants} static variants', card.group(1))
+                self.assertRegex(card.group(1), rf'(?<![0-9]){screens} screen types\b')
+                self.assertRegex(card.group(1), rf'(?<![0-9]){variants} static variants\b')
         self.assertIn('Additional Pro application screen types</th><td>—</td><td>—</td><td>13</td><td>13</td>', self.html)
         self.assertIn('November 18, 2026', self.html)
         self.assertNotIn('prototype_screen_types', products['agency'])
         self.assertNotIn('prototype_screen_types', products['core'])
+
+    def test_counts_with_extra_leading_digit_are_rejected(self):
+        # An expected "25 screen types" must not match "125 screen types".
+        original = 'to 25 screen types and 75 static variants'
+        self.assertIn(original, self.html)
+        class MutatedCatalog(CommercialOfferCatalogTests):
+            def setUp(self):
+                super().setUp()
+                self.html = self.html.replace(original, 'to 125 screen types and 75 static variants', 1)
+
+        mutated = MutatedCatalog('test_private_prototype_inventory_is_consistent_with_product_cards')
+        result = unittest.TestResult()
+        mutated.run(result)  # subTest collects failures in the result, not as exceptions.
+        self.assertTrue(result.failures, 'A prefixed count must invalidate the card')
 
     def test_studio_offer_describes_three_merged_website_kits(self):
         studio = next(p for p in self.catalog['products'] if p['id'] == 'studio')
