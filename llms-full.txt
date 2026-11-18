@@ -1436,7 +1436,7 @@ The optional recipes stylesheet contains `.syn-collection-toolbar`, `.syn-collec
 
 The example is illustrative, **not a configured server**. Avoid relying on color alone to convey status. Test with a keyboard, screen reader, 320 CSS-pixel viewport, text zoom and forced-colors mode.
 
-For a **runnable, zero-JavaScript reference**, see the [Go resource workbench](https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench). It composes the existing filter, table, bulk-action and inspector classes with real server-side GET filtering, status filters, sorting, column and theme settings, record links and read-only bulk-selection previews. Unlike the static markup, the Go example actually constrains result sets. An empty checked selection never means all matching records: selecting the full matching set is an explicit separate link. The example has no writes, accounts, tenant isolation or durable authorization; production apps must supply those behaviors.
+For a **runnable, zero-JavaScript reference**, see the [Go resource workbench](https://github.com/dporkka/syntyr-css/tree/main/examples/go-resource-workbench). It composes the existing filter, table, bulk-action and inspector classes with real server-side GET filtering, status filters, sorting, column and theme settings, record links and read-only bulk-selection previews, and real previous/next pagination with preserved view state. Checked-row previews are limited to records on the current server-rendered page, whereas an explicit matching-scope preview spans all filtered pages. Unlike the static markup, the Go example actually constrains result sets. An empty checked selection never means all matching records: selecting the full matching set is an explicit separate link. The example has no writes, accounts, tenant isolation or durable authorization; production apps must supply those behaviors.
 
 ## Native query filters and record review (alpha.5 source candidate)
 
@@ -5376,7 +5376,21 @@ python3 examples/geo_operations_server.py --port 8765
 
 Open `http://127.0.0.1:8765/`. It composes the existing `syntyr.core.css`, `syntyr.recipes.css` and `syntyr.geo.css` files into a responsive inventory search, accessible results/inspector, and fictional map schematic. Map coordinates are **illustrative pixel percentages**, not geographic coordinates. The Python file is a **source-only reference** and is not included in the distributable release ZIP. The server binds to localhost and contains fictional in-memory records; it has no credentials, accounts, tenant isolation, authorization, persistence or booking capability. Never expose this sample on a public interface as a production service.
 
-Maintainers can optionally verify Chromium/Firefox native GET interaction, 320px reflow, enlarged text, RTL markers and forced colors with `node tests/geo_operations_server_browser.cjs` after installing Playwright **outside** the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.
+### District drill-down and selection: interaction contract
+
+The optional server example uses **real, browser-native GET navigation** for a small fictional district facet. The new `district` select and district links share search, status and format filters. District counts are computed after those other filters but before choosing a district, so the number on each link represents the results it would show. There is no JavaScript filtering or hidden application state.
+
+| User action | Native UI and URL state | What the server must guarantee |
+| --- | --- | --- |
+| Apply filters | Labeled `search` input and `select` controls, `method="get"` | Filter the **list and the schematic markers** from the same result set, recompute summary/counts and prevent stale selected records |
+| Browse a district | Named `nav` of ordinary links with one `aria-current="page"` | Retain search, status and format; reset selection before choosing the first visible item |
+| Select a map marker or an asset | Link with preserved filters and `selected=ID#selection` | Inspect only an asset that belongs to the currently filtered district; never reveal an out-of-scope record |
+| Find a map marker from a record | `#map-marker-ID` points to a real named anchor | Preserve a keyboard-reachable target even with JavaScript disabled; do **not** pretend to center a real map camera |
+| No matching records | Plain-text status with no markers or inspector | Clear stale selection and display an actionable filter-reset path |
+
+This contract is **read-only demonstration behavior**, not tenant authorization. The district names and percentages are fictional, not geographic boundaries. A production application must validate parameters and permissions at the data-access layer, rather than treating filtered HTML or the marker list as an access-control boundary. Do not use the diagram's percentage coordinates to simulate real GIS geography.
+
+Maintainers can optionally verify Chromium/Firefox native GET interaction, district navigation, 320px reflow, enlarged text, RTL markers and forced colors with `node tests/geo_operations_server_browser.cjs` after installing Playwright **outside** the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.
 
 ## The boundary: cartographic behavior is an application concern
 
@@ -5445,7 +5459,19 @@ Geo deliberately stays in its own CSS module rather than bloating core. Use it f
 
 ## Optional real-MapLibre browser smoke (maintainers)
 
-The repository also includes an intentionally **unpublished, developer-only** MapLibre smoke harness. It loads a locally installed MapLibre, Playwright and esbuild from a separate host application, bundles them only for the temporary browser page, and supplies a **synthetic offline map style** with no third-party tiles or credentials. This verifies the renderer, a MapLibre-managed DOM marker, pointer activation, keyboard activation, zoom control wiring, overlay click-through, named container reflow and 44 px targets. It also checks 2× and 4× **root text-size stress**, which is not a substitute for browser-level zoom testing or screen reader review.
+The repository also includes an intentionally **unpublished, developer-only** MapLibre integration fixture and browser harness. It loads locally installed MapLibre, Playwright and esbuild from a separate host application and bundles them for a temporary localhost page with a **synthetic offline map style**, no external tiles, credentials or real asset data. It is not the Syntyr runtime.
+
+The [fixture HTML](https://github.com/dporkka/syntyr-css/blob/main/tests/fixtures/geo-maplibre.html) and [application-owned wiring](https://github.com/dporkka/syntyr-css/blob/main/tests/fixtures/geo-maplibre-app.js) demonstrate the complete **map ↔ list ↔ inspector** contract with three fictional longitude/latitude points:
+
+1. The native list links navigate to a real, focusable details section. MapLibre-owned marker **buttons** expose accessible names; Enter and Space select the same record.
+2. The host app updates exactly one selected record in the list, selected-marker ring, inspector and polite status announcement. List selection calls MapLibre `map.jumpTo({center: ...})`, using real `LngLat` positions and the renderer's projection, not `--syn-geo-x` or CSS percentage coordinates.
+3. Native status and search controls update both the list and actual MapLibre markers. A hidden/unknown record cannot be selected through the example UI; no-results states clear the inspector and selected markers. Returning to a broader filter keeps the current selection **if it remains visible**.
+4. The fixture starts with filters and zoom **disabled** until the app wires their behavior. Without JavaScript, the authored list, initial details and explicit `noscript` explanation remain readable; the list only becomes clickable once the application has wired selection, so it never links inactive sites to unrelated details.
+5. Browser checks validate real geographic marker projection, zoom, marker/list keyboard activation, selection and empty-state consistency, 44px targets, mobile container reflow, overlay pointer events, 2×/4× root-font stress, forced colors and reduced motion.
+
+**Authorization boundary:** this is *not* a security implementation. The three fictional points are embedded in test-only JavaScript and are all visible to anyone with the fixture. Client-side filtering and rejecting unknown UI selections do **not** provide authentication, tenant isolation, feature authorization or data privacy. A real OOH/map application must deliver only server-authorized records, enforce per-record and per-tenant permissions at each API or tile endpoint, and verify selection/detail requests server-side. Never load sensitive cross-tenant assets and hope CSS, map layers, or browser filtering hide them. Do not use this synthetic test as evidence that real tenant isolation is working.
+
+**Host-owned design decision:** the fixture uses safe `textContent` updates instead of interpolating record names into `innerHTML`, `map.jumpTo` instead of simulated CSS marker placement, and ordinary browser focus/fragment navigation instead of a custom focus trap. Other applications can use React, HTMX, or plain JavaScript for this orchestration; Syntyr only supplies the optional geospatial presentation styles.
 
 ~~~sh
 SYNTYR_VENDOR_NODE_MODULES=/path/to/installed/node_modules \

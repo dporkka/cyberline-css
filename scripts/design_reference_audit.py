@@ -44,6 +44,15 @@ onwaiting onwheel
 # Ignore CSS comments and quoted strings, then count actual declaration names.
 CSS_NON_CODE = re.compile(r'''/\*.*?\*/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*' ''', re.DOTALL | re.VERBOSE)
 TOKEN_DECLARATION = re.compile(r"(?:^|[;{])\s*(--syn-[\w-]+)\s*:", re.MULTILINE)
+CSS_IMPORT_DIRECTIVE = re.compile(r"(?<![\w-])@import\b", re.IGNORECASE)
+
+
+def reject_imports(css: str, source: str) -> None:
+    """Fail closed instead of reporting incomplete totals for imported CSS."""
+    code = CSS_NON_CODE.sub("", css)
+    if CSS_IMPORT_DIRECTIVE.search(code):
+        raise ValueError(f"CSS @import is not supported in offline audit: {source}")
+
 
 
 def token_declarations(css_sources: list[str]) -> set[str]:
@@ -72,7 +81,7 @@ class Assets(HTMLParser):
                 self.inline_event_handler_bytes += len(value.encode("utf-8"))
         if attrs.get("style"):
             self.inline_styles.append(attrs["style"])
-        if tag == "link" and "stylesheet" in (attrs.get("rel") or "").split():
+        if tag == "link" and "stylesheet" in {token.lower() for token in (attrs.get("rel") or "").split()}:
             self.stylesheets.append(attrs.get("href") or "")
         if tag == "script":
             self.scripts.append(attrs.get("src"))
@@ -115,10 +124,13 @@ def audit_page(markup: str, parent: Path) -> dict[str, int]:
     for href in dict.fromkeys(assets.stylesheets):
         file = _local_file(href, parent)
         data = file.read_bytes()
+        reject_imports(data.decode("utf-8"), str(file))
         group = syntyr if file.is_relative_to(ROOT / "dist") else custom
         group.append(data)
     bytes_syntyr = sum(map(len, syntyr))
     bytes_custom = sum(map(len, custom))
+    for css in assets.inline_styles:
+        reject_imports(css, "inline style")
     inline_css = "\n".join(assets.inline_styles).encode("utf-8")
     bytes_inline_css = sum(len(css.encode("utf-8")) for css in assets.inline_styles)
     gzip_inline_css = len(gzip.compress(inline_css, mtime=0)) if inline_css else 0

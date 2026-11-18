@@ -66,6 +66,20 @@ async function run(browserType, name, base) {
     assert(await page.getByText("1 selected.").count()>0);
     await page.close();
 
+    const paged=await browser.newPage({viewport:{width:390,height:844},javaScriptEnabled:false});
+    await paged.goto(base+"/resources?theme=grid&sort=name&columns_present=1&columns=owner");
+    await paged.getByRole("link",{name:"Next"}).click();
+    assert(paged.url().includes("page=2"),"server must navigate to the actual second page");
+    assert(paged.url().includes("theme=grid") && paged.url().includes("columns=owner"),"page links must preserve view preferences");
+    assert.equal(await paged.getByRole("row").count(),4,"pagination must render only three rows plus header");
+    assert.equal(await paged.getByRole("link",{name:/Transit Hub/}).count(),1);
+    assert.equal(await paged.getByRole("link",{name:/Airport Loop/}).count(),0);
+    await paged.getByRole("checkbox",{name:/Select RS-442/}).check();
+    await paged.getByRole("button",{name:"Preview checked"}).click();
+    assert(paged.url().includes("page=2") && paged.url().includes("ids=RS-442"),"checked preview must retain visible-page context");
+    assert(await paged.getByText("1 selected.").count()>0);
+    await paged.close();
+
     const zoom=await browser.newPage({viewport:{width:320,height:740},javaScriptEnabled:false});
     await zoom.goto(base+"/resources?theme=studio");
     await zoom.evaluate(()=>document.documentElement.style.fontSize="64px");
@@ -84,7 +98,7 @@ async function run(browserType, name, base) {
     });
     assert.notEqual(visible.display,"none");
     await forced.close();
-    console.log("PASS",name,"320/390/1280, native GET filtering, inspector, bulk preview, 400% text, forced-colors, no-JS");
+    console.log("PASS",name,"320/390/1280, native GET filtering, pagination, inspector, bulk preview, 400% text, forced-colors, no-JS");
   } finally { await browser.close(); }
 }
 async function main(){

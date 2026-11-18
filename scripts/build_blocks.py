@@ -136,6 +136,12 @@ def preview_markup(source: str) -> str:
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
     count = len(blocks)
+    # New categories must be discoverable without hardcoded UI options.
+    categories = list(dict.fromkeys(block["category"] for block in blocks))
+    category_options = "".join(
+        f'<option value="{escape(category, quote=True)}">{escape(category)}</option>'
+        for category in categories
+    )
     cards = []
     for block in blocks:
         ident = block["id"]
@@ -228,8 +234,7 @@ def build() -> str:
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            {category_options}</select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>

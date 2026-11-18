@@ -627,5 +627,82 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "kind": "block",
     "category": "Marketing",
     "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-logo-wall",
+    "title": "Partner logo text wall",
+    "module": "syntyr.core.css",
+    "description": "A compact text-only partner strip with no unlicensed logos.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-partners\">\n  \u003ch2 id=\"syn-partners\" class=\"syn-heading\">Compatible with your tools\u003c/h2>\n  \u003cp class=\"syn-muted\">Example technology categories, not customer endorsements.\u003c/p>\n  \u003cul class=\"syn-grid\">\n    \u003cli class=\"syn-panel\">\u003cstrong>SQL databases\u003c/strong>\u003c/li>\n    \u003cli class=\"syn-panel\">\u003cstrong>Static generators\u003c/strong>\u003c/li>\n    \u003cli class=\"syn-panel\">\u003cstrong>Web components\u003c/strong>\u003c/li>\n  \u003c/ul>\n\u003c/section>",
+    "keywords": "Partner logo text wall A compact text-only partner strip with no unlicensed logos. logos partners trust",
+    "kind": "block",
+    "category": "Marketing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-process-steps",
+    "title": "How it works steps",
+    "module": "syntyr.core.css",
+    "description": "An ordered and accessible sequence for explaining a service.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-process\">\n  \u003ch2 id=\"syn-process\" class=\"syn-heading\">A straightforward process\u003c/h2>\n  \u003col class=\"syn-grid\">\n    \u003cli class=\"syn-panel\">\u003ch3>Discover\u003c/h3>\u003cp>Understand the people, context and constraints.\u003c/p>\u003c/li>\n    \u003cli class=\"syn-panel\">\u003ch3>Design\u003c/h3>\u003cp>Validate the important flows with realistic content.\u003c/p>\u003c/li>\n    \u003cli class=\"syn-panel\">\u003ch3>Deliver\u003c/h3>\u003cp>Ship, document and prepare for ongoing maintenance.\u003c/p>\u003c/li>\n  \u003c/ol>\n\u003c/section>",
+    "keywords": "How it works steps An ordered and accessible sequence for explaining a service. process steps workflow",
+    "kind": "block",
+    "category": "Services",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-services-grid",
+    "title": "Service offerings grid",
+    "module": "syntyr.core.css",
+    "description": "A services section with clear descriptions and destination links.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-services\">\n  \u003cp class=\"syn-eyebrow\">WHAT WE DO\u003c/p>\u003ch2 id=\"syn-services\" class=\"syn-heading\">Services built around your goals\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003ch3>Website design\u003c/h3>\u003cp>Clear, responsive pages for growing teams.\u003c/p>\u003ca href=\"/services/design\">Explore design services\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>Product development\u003c/h3>\u003cp>Reliable tools designed for everyday workflows.\u003c/p>\u003ca href=\"/services/development\">Explore development\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>Ongoing care\u003c/h3>\u003cp>Maintenance, performance and accessibility reviews.\u003c/p>\u003ca href=\"/services/maintenance\">Explore ongoing care\u003c/a>\u003c/article>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Service offerings grid A services section with clear descriptions and destination links. agency services business",
+    "kind": "block",
+    "category": "Services",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-service-areas",
+    "title": "Service coverage cards",
+    "module": "syntyr.core.css",
+    "description": "A service-area section suitable for local and regional businesses.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-coverage\">\n  \u003ch2 id=\"syn-coverage\" class=\"syn-heading\">Where we work\u003c/h2>\n  \u003cp class=\"syn-lede\">Remote collaboration with optional on-site project sessions.\u003c/p>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003ch3>Local teams\u003c/h3>\u003cp>On-site workshops and coordination by arrangement.\u003c/p>\u003ca href=\"/contact/local\">Request local availability\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>Remote teams\u003c/h3>\u003cp>Structured online reviews, delivery and documentation.\u003c/p>\u003ca href=\"/contact/remote\">Plan a remote project\u003c/a>\u003c/article>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Service coverage cards A service-area section suitable for local and regional businesses. locations local services",
+    "kind": "block",
+    "category": "Services",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-portfolio-grid",
+    "title": "Selected work grid",
+    "module": "syntyr.core.css",
+    "description": "An accessible project gallery without fragile image dependencies.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-portfolio\">\n  \u003ch2 id=\"syn-portfolio\" class=\"syn-heading\">Selected projects\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">WEB APP\u003c/p>\u003ch3>Field operations portal\u003c/h3>\u003cp>Planning and reporting in one practical workspace.\u003c/p>\u003ca href=\"/work/field-portal\">View project details\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">WEBSITE\u003c/p>\u003ch3>Independent publisher\u003c/h3>\u003cp>A durable editorial system built for reading.\u003c/p>\u003ca href=\"/work/publisher\">View publishing project\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">COMMERCE\u003c/p>\u003ch3>Specialty storefront\u003c/h3>\u003cp>Products presented with clarity and accessible browsing.\u003c/p>\u003ca href=\"/work/storefront\">View storefront project\u003c/a>\u003c/article>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Selected work grid An accessible project gallery without fragile image dependencies. portfolio projects work",
+    "kind": "block",
+    "category": "Portfolio",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-team-grid",
+    "title": "Team introduction cards",
+    "module": "syntyr.core.css",
+    "description": "A team directory section without invented portraits or credentials.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-team\">\n  \u003ch2 id=\"syn-team\" class=\"syn-heading\">Meet the team\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003ch3>Design\u003c/h3>\u003cp>Research, content design and accessible interaction patterns.\u003c/p>\u003ca href=\"/team/design\">About the design team\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003ch3>Engineering\u003c/h3>\u003cp>Development, integration and long-term site operations.\u003c/p>\u003ca href=\"/team/engineering\">About the engineering team\u003c/a>\u003c/article>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Role-based sample content; add actual people only with permission.\u003c/p>\n\u003c/section>",
+    "keywords": "Team introduction cards A team directory section without invented portraits or credentials. team people about",
+    "kind": "block",
+    "category": "Services",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-contact-quote",
+    "title": "Project inquiry form",
+    "module": "syntyr.core.css",
+    "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-inquiry\">\n  \u003ch2 id=\"syn-inquiry\" class=\"syn-heading\">Tell us about your project\u003c/h2>\n  \u003cform class=\"syn-panel syn-form\" action=\"/contact/request\" method=\"post\">\n    \u003cdiv class=\"syn-field\">\u003clabel class=\"syn-label\" for=\"syn-inquiry-name\">Your name\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-inquiry-name\" name=\"name\" autocomplete=\"name\" required>\u003c/div>\n    \u003cdiv class=\"syn-field\">\u003clabel class=\"syn-label\" for=\"syn-inquiry-email\">Email address\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-inquiry-email\" name=\"email\" type=\"email\" autocomplete=\"email\" required>\u003c/div>\n    \u003cdiv class=\"syn-field\">\u003clabel class=\"syn-label\" for=\"syn-inquiry-details\">Project details\u003c/label>\n      \u003ctextarea class=\"syn-input\" id=\"syn-inquiry-details\" name=\"details\" rows=\"3\" required>\u003c/textarea>\u003c/div>\n    \u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Request a conversation\u003c/button>\n  \u003c/form>\n  \u003cp class=\"syn-caption\">Sample form only. Add consent, anti-spam, CSRF and server validation in your application.\u003c/p>\n\u003c/section>",
+    "keywords": "Project inquiry form A labeled contact form with appropriate native inputs and privacy guidance. contact lead inquiry",
+    "kind": "block",
+    "category": "Services",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
   }
 ];

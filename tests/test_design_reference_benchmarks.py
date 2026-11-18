@@ -156,6 +156,34 @@ class DesignReferenceBenchmarkTest(unittest.TestCase):
         self.assertEqual(linked["custom_css_total_bytes"], linked["custom_css_bytes"] + linked["inline_css_bytes"])
         self.assertEqual(linked["custom_css_total_gzip_bytes"], linked["custom_css_gzip_bytes"] + linked["inline_css_gzip_bytes"])
 
+    def test_mixed_case_stylesheet_rel_is_counted(self):
+        from scripts.design_reference_audit import audit_page
+        lower = audit_page('<link rel="stylesheet" href="benchmark.css">', BASE)
+        mixed = audit_page('<link rel="preload StyleSheet" href="benchmark.css">', BASE)
+        for field in ("custom_css_bytes", "custom_css_gzip_bytes",
+                      "custom_token_overrides", "external_stylesheets", "missing_stylesheets"):
+            self.assertEqual(lower[field], mixed[field], field)
+        self.assertGreater(mixed["custom_css_bytes"], 0)
+
+    def test_imported_stylesheets_are_rejected_not_silently_unmeasured(self):
+        from scripts.design_reference_audit import audit_page
+        import tempfile
+        # External AND local imports change the measured transfer graph.
+        for css in ('@import url("https://example.org/theme.css");',
+                    '@IMPORT "extra.css";', '@import url(extra.css) screen;'):
+            with self.subTest(css=css):
+                with self.assertRaisesRegex(ValueError, "CSS @import"):
+                    audit_page(f'<style>{css}</style>', BASE)
+                with tempfile.TemporaryDirectory(dir=BASE) as tmp:
+                    path = Path(tmp) / "import.css"
+                    path.write_text(css, encoding="utf-8")
+                    with self.assertRaisesRegex(ValueError, "CSS @import"):
+                        audit_page(f'<link rel="stylesheet" href="{path.relative_to(BASE)}">', BASE)
+
+        # Tokens in comments/quoted content are not functional at-rules.
+        harmless = '<style>/* @import url("ignore.css"); */ .x { content:"@import"; }</style>'
+        self.assertEqual(audit_page(harmless, BASE)["external_stylesheets"], 0)
+
     def test_audit_rejects_remote_stylesheet_or_missing_stylesheet(self):
         from scripts.design_reference_audit import audit_page
         with self.assertRaisesRegex(ValueError, "external stylesheet"):

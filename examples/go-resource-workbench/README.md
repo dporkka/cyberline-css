@@ -28,16 +28,17 @@ The test compiles and runs the Go app on localhost, allocates a temporary binary
 ## Working behaviors
 
 - Native GET search over resource name, ID, owner and region; status filtering; explicit name or updated-date sort.
+- Three-row, server-owned pagination with bounded page numbers, preserved sort/theme/column options, current-page announcement and native previous/next links. Changing filters starts at page one.
 - Column visibility controls (Owner and Region) stored in URL query parameters; resource ID, status and update date remain visible.
 - Studio, Grid and Noir tokens selected via a GET control, preserved in inspector and selection-preview links.
 - Per-resource detail links that retain current search, column and theme preferences; an inspector never shows a record excluded by the current filter.
-- Checked-row bulk **preview** via a native GET form; the server validates IDs, removes duplicates and intersects the choices with the current filters.
-- Explicit "Preview all matching" link using server-filtered results. It does **not** infer select-all from an empty checkbox form.
+- Checked-row bulk **preview** via a native GET form; the server validates IDs, removes duplicates and intersects choices with **the visible filtered page**. It cannot submit hidden rows from another page.
+- Explicit "Preview all matching" link spanning **all filtered pages**, not just the current page. It does **not** infer select-all from an empty checkbox form.
 - Empty-results and empty-selection screens. Input validation, output escaping, method checks and no-store response headers.
 
 This is a self-contained example, not a new Syntyr CSS component or a full backend. No authentication, tenant isolation, CRUD writes, audit persistence, pagination, virtualization, export or database connections are included. **Do not deploy it as a live multi-tenant business application.** Integrating real data requires server-side tenant/RBAC checks, stable query scope, per-record authorization, CSRF protection for mutations, transaction semantics and audit logs.
 
-The `/preview` endpoint only describes a proposed selection. It never changes records. Large paginated selections need a server-owned query snapshot or select-all-except contract; unchecked IDs on unloaded pages cannot be inferred from checkboxes.
+Pagination limits each rendered table to three records (to exercise the example); this is not a recommendation for production page size. A request for an invalid or out-of-range page fails with HTTP 400 instead of silently changing selection scope. The `/preview` endpoint only describes a proposed selection. It never changes records. Large paginated selections need a server-owned query snapshot or select-all-except contract; unchecked IDs on unloaded pages cannot be inferred from checkboxes.
 
 ## Composition map
 

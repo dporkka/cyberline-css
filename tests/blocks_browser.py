@@ -163,8 +163,14 @@ def progressive_checks(browser, engine, screenshots):
     page.locator("#blocks-search").fill("no-results-can-match-XYZ")
     require(page.locator("#blocks-empty").is_visible(), "JS: empty state missing")
     page.locator("#blocks-search").fill("")
-    page.locator("#blocks-category").select_option("Technical")
-    require(page.locator("[data-block-id]:visible").count() == 4, "JS: category filter wrong")
+    category_counts = {}
+    for entry in json.loads((ROOT / "blocks/manifest.json").read_text())["blocks"]:
+        key = entry["category"]
+        category_counts[key] = category_counts.get(key, 0) + 1
+    for selected, expected in category_counts.items():
+        page.locator("#blocks-category").select_option(selected)
+        require(page.locator("[data-block-id]:visible").count() == expected,
+                f"JS: category filter {selected} expected {expected}")
     page.locator("#blocks-category").select_option("all")
     page.locator("#blocks-theme").select_option("noir")
     require(page.locator('.blocks-preview > .syn-root[data-syn-theme="noir"]').count() == BLOCK_COUNT,
