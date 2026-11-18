@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="46 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="50 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -23,7 +23,7 @@
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">46 production-shaped blocks.</h1>
+      <h1 class="syn-title">50 production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -35,7 +35,7 @@
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option><option value="Technical">Technical</option><option value="Services">Services</option><option value="Portfolio">Portfolio</option><option value="Editorial">Editorial</option><option value="Navigation">Navigation</option></select></div>
+            <option value="Marketing">Marketing</option><option value="Applications">Applications</option><option value="Technical">Technical</option><option value="Services">Services</option><option value="Portfolio">Portfolio</option><option value="Editorial">Editorial</option><option value="Navigation">Navigation</option><option value="Publishing">Publishing</option><option value="Commerce">Commerce</option></select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -44,7 +44,7 @@
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">46 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">50 blocks available.</p>
       <p id="blocks-feedback" class="syn-caption" role="status" aria-live="polite" aria-atomic="true"></p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">
@@ -2075,6 +2075,240 @@
         </details>
         <button type="button" class="syn-button blocks-copy" data-block-copy
                 aria-label="Copy HTML for Native expandable mega menu" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="docs-layout"
+               data-block-category="Technical"
+               data-block-keywords="Documentation page Documentation navigation, breadcrumb and article content. documentation sidebar technical"
+               aria-labelledby="block-title-docs-layout">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Technical</p>
+            <h2 class="syn-heading" id="block-title-docs-layout">Documentation page</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Documentation navigation, breadcrumb and article content.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-shell" data-syn-theme="studio" aria-labelledby="syn-docs-heading">
+  <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a>Docs</a></li><li aria-current="page">Getting started</li></ol></nav>
+  <div class="syn-sidecar">
+    <nav class="syn-panel" aria-label="Documentation sections"><h2 class="syn-heading">Guides</h2>
+      <ul class="syn-list-group">
+        <li><a class="syn-list-row" aria-current="page">Getting started</a></li>
+        <li><a class="syn-list-row">Components</a></li>
+        <li><a class="syn-list-row">Themes</a></li>
+      </ul>
+    </nav>
+    <article><h2 class="syn-title" id="syn-docs-heading">Getting started</h2>
+      <p>Import the version-pinned stylesheet and wrap your application in a Syntyr root.</p>
+      <pre class="syn-code"><code>&lt;main class="syn-root"&gt;Hello world&lt;/main&gt;</code></pre>
+      <h3 id="syn-docs-next">Next steps</h3><p>Explore composable components and semantic forms.</p>
+      <a>Browse components</a>
+    </article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Documentation page</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-shell&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-docs-heading&quot;&gt;
+  &lt;nav class=&quot;syn-breadcrumbs&quot; aria-label=&quot;Breadcrumb&quot;&gt;&lt;ol&gt;&lt;li&gt;&lt;a href=&quot;/docs&quot;&gt;Docs&lt;/a&gt;&lt;/li&gt;&lt;li aria-current=&quot;page&quot;&gt;Getting started&lt;/li&gt;&lt;/ol&gt;&lt;/nav&gt;
+  &lt;div class=&quot;syn-sidecar&quot;&gt;
+    &lt;nav class=&quot;syn-panel&quot; aria-label=&quot;Documentation sections&quot;&gt;&lt;h2 class=&quot;syn-heading&quot;&gt;Guides&lt;/h2&gt;
+      &lt;ul class=&quot;syn-list-group&quot;&gt;
+        &lt;li&gt;&lt;a class=&quot;syn-list-row&quot; href=&quot;/docs/start&quot; aria-current=&quot;page&quot;&gt;Getting started&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class=&quot;syn-list-row&quot; href=&quot;/docs/components&quot;&gt;Components&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class=&quot;syn-list-row&quot; href=&quot;/docs/themes&quot;&gt;Themes&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+    &lt;article&gt;&lt;h2 class=&quot;syn-title&quot; id=&quot;syn-docs-heading&quot;&gt;Getting started&lt;/h2&gt;
+      &lt;p&gt;Import the version-pinned stylesheet and wrap your application in a Syntyr root.&lt;/p&gt;
+      &lt;pre class=&quot;syn-code&quot;&gt;&lt;code&gt;&amp;lt;main class=&quot;syn-root&quot;&amp;gt;Hello world&amp;lt;/main&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+      &lt;h3 id=&quot;syn-docs-next&quot;&gt;Next steps&lt;/h3&gt;&lt;p&gt;Explore composable components and semantic forms.&lt;/p&gt;
+      &lt;a href=&quot;/docs/components&quot;&gt;Browse components&lt;/a&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Documentation page" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="content-collection"
+               data-block-category="Publishing"
+               data-block-keywords="Filterable content collection Loop-style article cards with real GET search, taxonomy selection and pagination. loop grid archive blog category filters"
+               aria-labelledby="block-title-content-collection">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Publishing</p>
+            <h2 class="syn-heading" id="block-title-content-collection">Filterable content collection</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Loop-style article cards with real GET search, taxonomy selection and pagination.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region syn-stack" data-syn-theme="studio" aria-labelledby="syn-collection-heading">
+  <header class="syn-stack">
+    <p class="syn-eyebrow">THE JOURNAL</p>
+    <h2 class="syn-section-heading" id="syn-collection-heading">Ideas for practical teams</h2>
+    <p class="syn-muted">A reusable archive: the host server supplies matching items and pagination.</p>
+  </header>
+  <form class="syn-filter-bar" method="get" action="/journal" role="search" aria-label="Filter articles"><fieldset class="blocks-preview-disabled" disabled>
+    <div class="syn-filter-field syn-filter-field--query">
+      <label class="syn-label" for="syn-collection-search">Search articles</label>
+      <input class="syn-input" id="syn-collection-search" type="search" name="q" placeholder="Search the journal">
+    </div>
+    <div class="syn-filter-field">
+      <label class="syn-label" for="syn-collection-category">Topic</label>
+      <select class="syn-select" id="syn-collection-category" name="category">
+        <option value="">All topics</option>
+        <option value="engineering">Engineering</option>
+        <option value="design">Design</option>
+      </select>
+    </div>
+    <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Find articles</button></div>
+  </fieldset></form>
+  <div class="syn-feature-grid">
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Engineering</span>
+      <h3 class="syn-heading"><a>Forms that work for everyone</a></h3>
+      <p class="syn-muted">Why native controls are a strong foundation for production forms.</p>
+      <p class="syn-caption"><time datetime="2026-10-19">October 19, 2026</time> · 5 min read</p>
+    </article>
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Design</span>
+      <h3 class="syn-heading"><a>Make dense pages easier to scan</a></h3>
+      <p class="syn-muted">Build responsive hierarchy using existing layout primitives.</p>
+      <p class="syn-caption"><time datetime="2026-10-26">October 26, 2026</time> · 4 min read</p>
+    </article>
+    <article class="syn-feature-card syn-stack">
+      <span class="syn-badge">Engineering</span>
+      <h3 class="syn-heading"><a>Components built to last</a></h3>
+      <p class="syn-muted">A practical approach to stable tokens and low-maintenance HTML.</p>
+      <p class="syn-caption"><time datetime="2026-11-02">November 2, 2026</time> · 7 min read</p>
+    </article>
+  </div>
+  <nav class="syn-pagination" aria-label="Pagination">
+    <a class="syn-page-link" aria-current="page">1</a>
+    <a class="syn-page-link">2</a>
+    <a class="syn-page-link" aria-label="Next page">Next</a>
+  </nav>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Filterable content collection</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region syn-stack&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-collection-heading&quot;&gt;
+  &lt;header class=&quot;syn-stack&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;THE JOURNAL&lt;/p&gt;
+    &lt;h2 class=&quot;syn-section-heading&quot; id=&quot;syn-collection-heading&quot;&gt;Ideas for practical teams&lt;/h2&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;A reusable archive: the host server supplies matching items and pagination.&lt;/p&gt;
+  &lt;/header&gt;
+  &lt;form class=&quot;syn-filter-bar&quot; method=&quot;get&quot; action=&quot;/journal&quot; role=&quot;search&quot; aria-label=&quot;Filter articles&quot;&gt;
+    &lt;div class=&quot;syn-filter-field syn-filter-field--query&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-collection-search&quot;&gt;Search articles&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-collection-search&quot; type=&quot;search&quot; name=&quot;q&quot; placeholder=&quot;Search the journal&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-collection-category&quot;&gt;Topic&lt;/label&gt;
+      &lt;select class=&quot;syn-select&quot; id=&quot;syn-collection-category&quot; name=&quot;category&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;All topics&lt;/option&gt;
+        &lt;option value=&quot;engineering&quot;&gt;Engineering&lt;/option&gt;
+        &lt;option value=&quot;design&quot;&gt;Design&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-actions&quot;&gt;&lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Find articles&lt;/button&gt;&lt;/div&gt;
+  &lt;/form&gt;
+  &lt;div class=&quot;syn-feature-grid&quot;&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Engineering&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/accessible-forms&quot;&gt;Forms that work for everyone&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Why native controls are a strong foundation for production forms.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-10-19&quot;&gt;October 19, 2026&lt;/time&gt; · 5 min read&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Design&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/clear-layouts&quot;&gt;Make dense pages easier to scan&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Build responsive hierarchy using existing layout primitives.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-10-26&quot;&gt;October 26, 2026&lt;/time&gt; · 4 min read&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-feature-card syn-stack&quot;&gt;
+      &lt;span class=&quot;syn-badge&quot;&gt;Engineering&lt;/span&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;&lt;a href=&quot;/journal/steady-components&quot;&gt;Components built to last&lt;/a&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;A practical approach to stable tokens and low-maintenance HTML.&lt;/p&gt;
+      &lt;p class=&quot;syn-caption&quot;&gt;&lt;time datetime=&quot;2026-11-02&quot;&gt;November 2, 2026&lt;/time&gt; · 7 min read&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+  &lt;nav class=&quot;syn-pagination&quot; aria-label=&quot;Pagination&quot;&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=1&quot; aria-current=&quot;page&quot;&gt;1&lt;/a&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=2&quot;&gt;2&lt;/a&gt;
+    &lt;a class=&quot;syn-page-link&quot; href=&quot;/journal?page=2&quot; aria-label=&quot;Next page&quot;&gt;Next&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Filterable content collection" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="product-collection"
+               data-block-category="Commerce"
+               data-block-keywords="Product collection cards Product catalog cards with explicit price and detail links. ecommerce products catalog"
+               aria-labelledby="block-title-product-collection">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Commerce</p>
+            <h2 class="syn-heading" id="block-title-product-collection">Product collection cards</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Product catalog cards with explicit price and detail links.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-collection">
+  <h2 id="syn-collection" class="syn-heading">Featured collection</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><p class="syn-eyebrow">EVERYDAY</p><h3>Desk notebook</h3><p>Plain-paper notebook for planning.</p><p><strong>$18.00</strong></p><a>View notebook</a></article>
+    <article class="syn-panel"><p class="syn-eyebrow">ESSENTIAL</p><h3>Canvas case</h3><p>A compact case for small essentials.</p><p><strong>$24.00</strong></p><a>View canvas case</a></article>
+    <article class="syn-panel"><p class="syn-eyebrow">WORKSPACE</p><h3>Daily planner</h3><p>A simple structure for each day.</p><p><strong>$21.00</strong></p><a>View planner</a></article>
+  </div>
+  <p class="syn-caption">Fictional products and prices; no checkout behavior is provided.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Product collection cards</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-collection&quot;&gt;
+  &lt;h2 id=&quot;syn-collection&quot; class=&quot;syn-heading&quot;&gt;Featured collection&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;EVERYDAY&lt;/p&gt;&lt;h3&gt;Desk notebook&lt;/h3&gt;&lt;p&gt;Plain-paper notebook for planning.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;$18.00&lt;/strong&gt;&lt;/p&gt;&lt;a href=&quot;/products/notebook&quot;&gt;View notebook&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;ESSENTIAL&lt;/p&gt;&lt;h3&gt;Canvas case&lt;/h3&gt;&lt;p&gt;A compact case for small essentials.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;$24.00&lt;/strong&gt;&lt;/p&gt;&lt;a href=&quot;/products/canvas-case&quot;&gt;View canvas case&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;WORKSPACE&lt;/p&gt;&lt;h3&gt;Daily planner&lt;/h3&gt;&lt;p&gt;A simple structure for each day.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;$21.00&lt;/strong&gt;&lt;/p&gt;&lt;a href=&quot;/products/planner&quot;&gt;View planner&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Fictional products and prices; no checkout behavior is provided.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Product collection cards" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="category-showcase"
+               data-block-category="Commerce"
+               data-block-keywords="Shop category highlights A merchandise category section with links instead of fabricated checkout controls. shop categories merchandising"
+               aria-labelledby="block-title-category-showcase">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Commerce</p>
+            <h2 class="syn-heading" id="block-title-category-showcase">Shop category highlights</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A merchandise category section with links instead of fabricated checkout controls.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-shop-categories">
+  <h2 id="syn-shop-categories" class="syn-heading">Explore the collection</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><p class="syn-eyebrow">01</p><h3>Writing tools</h3><p>Useful objects for capturing ideas.</p><a>Browse writing tools</a></article>
+    <article class="syn-panel"><p class="syn-eyebrow">02</p><h3>Desk essentials</h3><p>Simple products for daily work.</p><a>Browse desk essentials</a></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Shop category highlights</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-shop-categories&quot;&gt;
+  &lt;h2 id=&quot;syn-shop-categories&quot; class=&quot;syn-heading&quot;&gt;Explore the collection&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;01&lt;/p&gt;&lt;h3&gt;Writing tools&lt;/h3&gt;&lt;p&gt;Useful objects for capturing ideas.&lt;/p&gt;&lt;a href=&quot;/shop/writing&quot;&gt;Browse writing tools&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;02&lt;/p&gt;&lt;h3&gt;Desk essentials&lt;/h3&gt;&lt;p&gt;Simple products for daily work.&lt;/p&gt;&lt;a href=&quot;/shop/desk&quot;&gt;Browse desk essentials&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Shop category highlights" hidden>Copy HTML</button>
       </article>
       </div>
     </section>
