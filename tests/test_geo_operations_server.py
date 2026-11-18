@@ -130,5 +130,63 @@ class GeoOperationsServerTests(unittest.TestCase):
             ctx.exception.close()
 
 
+class DistrictDrilldownTests(unittest.TestCase):
+    """Native GET facets keep map/list/inspector scope aligned."""
+
+    def test_district_scope_filters_the_data_not_only_the_visible_list(self):
+        east = app.filter_assets(district="East district")
+        self.assertEqual({asset.code for asset in east}, {"ES-024", "EV-035"})
+        self.assertEqual(app.filter_assets(query="east", status="booked", kind="static", district="East district"), [])
+        page = app.render_dashboard("district=East+district&selected=EV-035")
+        self.assertIn('name="district"', page)
+        self.assertIn('<option value="East district" selected>', page)
+        self.assertIn('aria-label="Browse districts"', page)
+        self.assertIn("East district (2)", page)
+        self.assertIn("East Vista", page)
+        self.assertNotIn("Central Loop", page)
+        self.assertEqual(page.count('class="syn-geo-marker"'), 2)
+        self.assertIn('SELECTED / EV-035', page)
+        self.assertIn('district=East+district', page)
+
+    def test_district_navigation_counts_follow_other_active_filters(self):
+        page = app.render_dashboard("status=available&type=static&district=North+district")
+        self.assertIn("All districts (3)", page)
+        self.assertIn("East district (2)", page)
+        self.assertIn("North district (1)", page)
+        self.assertIn("Central district (0)", page)
+        self.assertIn('aria-current="page"', page)
+        self.assertIn('status=available', page)
+        self.assertIn('type=static', page)
+        self.assertNotIn('selected=ES-024', page)
+        self.assertIn("North Ridge", page)
+        self.assertNotIn("East Junction", page)
+
+    def test_hidden_or_invalid_selected_asset_cannot_escape_district(self):
+        page = app.render_dashboard("district=Central+district&selected=EV-035")
+        self.assertIn('SELECTED / CL-108', page)
+        self.assertNotIn('SELECTED / EV-035', page)
+        self.assertNotIn('selected=EV-035', page)
+        fallback = app.render_dashboard("district=not-real&selected=EV-035")
+        self.assertIn("All districts (6)", fallback)
+        self.assertNotIn('district=not-real', fallback)
+
+    def test_record_and_marker_navigation_is_bidirectional_without_js(self):
+        page = app.render_dashboard("district=East+district&selected=EV-035")
+        self.assertIn('id="map-marker-ES-024"', page)
+        self.assertIn('id="map-marker-EV-035"', page)
+        self.assertIn('href="#map-marker-ES-024"', page)
+        self.assertIn('href="#map-marker-EV-035"', page)
+        self.assertIn('selected=ES-024#selection', page)
+        self.assertEqual(page.count('aria-current="location"'), 1)
+        self.assertNotIn('<script', page.lower())
+
+    def test_district_zero_results_produces_no_stale_marker_or_inspector(self):
+        page = app.render_dashboard("district=North+district&status=booked&selected=NR-405")
+        self.assertIn('No assets match your filters', page)
+        self.assertNotIn('id="selection"', page)
+        self.assertNotIn('class="syn-geo-marker"', page)
+        self.assertNotIn('data-syn-selected="true"', page)
+
+
 if __name__ == "__main__":
     unittest.main()
