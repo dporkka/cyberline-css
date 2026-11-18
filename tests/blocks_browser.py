@@ -90,6 +90,22 @@ def progressive_checks(browser, engine, screenshots):
     details.locator("summary").focus()
     page.keyboard.press("Enter")
     require(details.get_attribute("open") is not None, "No-JS: keyboard disclosure failed")
+    header = page.locator('[data-block-id="site-header"] .blocks-preview > .syn-header')
+    require(header.count() == 1, f"{engine}: site header preview missing")
+    display = header.evaluate("e => getComputedStyle(e).display")
+    require(display == "flex", f"{engine}: gallery site-header preview must preserve native flex, got {display}")
+    wrap = header.evaluate("e => getComputedStyle(e).flexWrap")
+    require(wrap == "wrap", f"{engine}: gallery header must keep mobile flex wrap, got {wrap}")
+    mega = page.locator('[data-block-id="mega-navigation"] .blocks-preview details.syn-details')
+    require(mega.count() == 1, f"{engine}: native mega-navigation disclosure missing")
+    require(mega.get_attribute("open") is not None, f"{engine}: mega-navigation should start open")
+    mega.locator("summary").focus()
+    page.keyboard.press("Enter")
+    require(mega.get_attribute("open") is None,
+            f"{engine}: mega-navigation cannot close via keyboard without JS")
+    page.keyboard.press("Enter")
+    require(mega.get_attribute("open") is not None,
+            f"{engine}: mega-navigation cannot reopen via keyboard without JS")
     block_ax = page.locator('[data-block-id="hero-product"]').aria_snapshot()
     icon_ax = page.locator('[data-icon-id="search"]').aria_snapshot()
     require("View HTML source for Product launch hero" in block_ax,
@@ -199,6 +215,34 @@ class QuietStaticHandler(SimpleHTTPRequestHandler):
         pass
 
 
+def documentation_sidecar_check(browser, engine):
+    """A documentation example must give the article, not its nav, the main track."""
+    context = browser.new_context(viewport={"width": 1280, "height": 900})
+    page = context.new_page()
+    try:
+        page.goto(GALLERY)
+        # Show the entire block card at desktop width to exercise the intended
+        # two-column sidecar rather than the gallery's multi-card grid.
+        page.add_style_tag(content=".blocks-grid {grid-template-columns:minmax(0,1fr) !important;}")
+        region = page.locator('[data-block-id="docs-layout"] .blocks-preview .syn-sidecar')
+        metrics = region.evaluate("""root => {
+            const article = root.querySelector(':scope > article');
+            const navigation = root.querySelector(':scope > nav');
+            return {
+                first: root.firstElementChild?.tagName,
+                article: article?.getBoundingClientRect().width ?? 0,
+                aside: navigation?.getBoundingClientRect().width ?? 0,
+                layout: getComputedStyle(root).display,
+            };
+        }""")
+        require(metrics["first"] == "ARTICLE" and metrics["layout"] == "flex",
+                f"{engine}: documentation main-first sidecar contract broken: {metrics}")
+        require(metrics["article"] > metrics["aside"] * 1.5,
+                f"{engine}: documentation article squeezed narrower than navigation: {metrics}")
+    finally:
+        context.close()
+
+
 def playground_preview_check(browser, engine):
     """Preview destinations are inert while editor and copy preserve real href."""
     context = browser.new_context(viewport={"width": 800, "height": 700})
@@ -300,6 +344,12 @@ def main():
             except Exception as exc:
                 failures.append(f"{engine} progressive: {exc}")
                 item["progressive"] = "fail"
+            try:
+                documentation_sidecar_check(browser, engine)
+                item["docs_sidecar"] = "pass"
+            except Exception as exc:
+                failures.append(f"{engine} documentation layout: {exc}")
+                item["docs_sidecar"] = "fail"
             try:
                 playground_preview_check(browser, engine)
                 item["playground_navigation"] = "pass"

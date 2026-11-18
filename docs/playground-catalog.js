@@ -759,5 +759,82 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "kind": "block",
     "category": "Portfolio",
     "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-site-header",
+    "title": "Responsive site header",
+    "module": "syntyr.core.css",
+    "description": "A compact brand, navigation and call-to-action header with native links.",
+    "html": "\u003cheader class=\"syn-root syn-header syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site header\">\n  \u003ca class=\"syn-logo syn-list-row\" href=\"/home\">Northstar Studio\u003c/a>\n  \u003cnav class=\"syn-nav\" aria-label=\"Primary navigation\">\n    \u003ca class=\"syn-list-row\" href=\"/services\">Services\u003c/a>\u003ca class=\"syn-list-row\" href=\"/work\">Work\u003c/a>\u003ca class=\"syn-list-row\" href=\"/journal\">Journal\u003c/a>\n  \u003c/nav>\n  \u003ca class=\"syn-button syn-button--primary\" href=\"/contact\">Start a project\u003c/a>\n\u003c/header>",
+    "keywords": "Responsive site header A compact brand, navigation and call-to-action header with native links. header navigation website",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-site-footer",
+    "title": "Multi-column site footer",
+    "module": "syntyr.core.css",
+    "description": "A reusable footer with separate navigation groups and business information.",
+    "html": "\u003cfooter class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site footer\">\n  \u003cdiv class=\"syn-grid\">\n    \u003csection class=\"syn-panel\" aria-labelledby=\"syn-footer-brand\">\n      \u003ch2 class=\"syn-heading\" id=\"syn-footer-brand\">Northstar Studio\u003c/h2>\n      \u003cp class=\"syn-muted\">Independent design and engineering for useful websites.\u003c/p>\n    \u003c/section>\n    \u003cnav class=\"syn-panel\" aria-label=\"Explore\">\n      \u003cstrong>Explore\u003c/strong>\n      \u003cul>\u003cli>\u003ca class=\"syn-list-row\" href=\"/services\">Services\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/work\">Selected work\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/journal\">Journal\u003c/a>\u003c/li>\u003c/ul>\n    \u003c/nav>\n    \u003cnav class=\"syn-panel\" aria-label=\"Information\">\n      \u003cstrong>Information\u003c/strong>\n      \u003cul>\u003cli>\u003ca class=\"syn-list-row\" href=\"/contact\">Contact\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/privacy\">Privacy\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/accessibility\">Accessibility\u003c/a>\u003c/li>\u003c/ul>\n    \u003c/nav>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Example footer. Replace brand details and links before publishing.\u003c/p>\n\u003c/footer>",
+    "keywords": "Multi-column site footer A reusable footer with separate navigation groups and business information. footer links website",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-mega-navigation",
+    "title": "Native expandable mega menu",
+    "module": "syntyr.core.css + syntyr.recipes.css",
+    "description": "Keyboard-friendly disclosure with grouped destination links and no menu runtime.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-label=\"Expandable website navigation example\">\n  \u003cnav aria-label=\"Products and resources\" class=\"syn-stack\">\n    \u003cdiv class=\"syn-inline\" style=\"--syn-inline-justify:space-between\">\n      \u003ca class=\"syn-logo\" href=\"/\">NORTH / STUDIO\u003c/a>\n      \u003ca class=\"syn-button syn-button--outline\" href=\"/contact\">Get in touch\u003c/a>\n    \u003c/div>\n    \u003cdetails class=\"syn-details\" open>\n      \u003csummary>Explore our solutions\u003c/summary>\n      \u003cdiv class=\"syn-stack\">\n        \u003cp class=\"syn-muted\">Browse product areas or jump straight to a guide.\u003c/p>\n        \u003cdiv class=\"syn-feature-grid\">\n          \u003csection class=\"syn-feature-card\">\n            \u003ch2 class=\"syn-heading\">Products\u003c/h2>\n            \u003cul class=\"syn-stack\">\n              \u003cli>\u003ca href=\"/products/analytics\">Analytics platform\u003c/a>\u003c/li>\n              \u003cli>\u003ca href=\"/products/automation\">Workflow automation\u003c/a>\u003c/li>\n            \u003c/ul>\n          \u003c/section>\n          \u003csection class=\"syn-feature-card\">\n            \u003ch2 class=\"syn-heading\">Resources\u003c/h2>\n            \u003cul class=\"syn-stack\">\n              \u003cli>\u003ca href=\"/docs\">Documentation\u003c/a>\u003c/li>\n              \u003cli>\u003ca href=\"/journal\">Journal\u003c/a>\u003c/li>\n            \u003c/ul>\n          \u003c/section>\n        \u003c/div>\n      \u003c/div>\n    \u003c/details>\n  \u003c/nav>\n\u003c/section>",
+    "keywords": "Native expandable mega menu Keyboard-friendly disclosure with grouped destination links and no menu runtime. mega menu navigation disclosure site",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-docs-layout",
+    "title": "Documentation page",
+    "module": "syntyr.core.css",
+    "description": "Documentation navigation, breadcrumb and article content.",
+    "html": "\u003csection class=\"syn-root syn-shell\" data-syn-theme=\"studio\" aria-labelledby=\"syn-docs-heading\">\n  \u003cnav class=\"syn-breadcrumbs\" aria-label=\"Breadcrumb\">\u003col>\u003cli>\u003ca href=\"/docs\">Docs\u003c/a>\u003c/li>\u003cli aria-current=\"page\">Getting started\u003c/li>\u003c/ol>\u003c/nav>\n  \u003cdiv class=\"syn-sidecar\">\n    \u003carticle>\u003ch2 class=\"syn-title\" id=\"syn-docs-heading\">Getting started\u003c/h2>\n      \u003cp>Import the version-pinned stylesheet and wrap your application in a Syntyr root.\u003c/p>\n      \u003cpre class=\"syn-code\">\u003ccode>&lt;main class=\"syn-root\"&gt;Hello world&lt;/main&gt;\u003c/code>\u003c/pre>\n      \u003ch3 id=\"syn-docs-next\">Next steps\u003c/h3>\u003cp>Explore composable components and semantic forms.\u003c/p>\n      \u003ca href=\"/docs/components\">Browse components\u003c/a>\n    \u003c/article>\n    \u003cnav class=\"syn-panel\" aria-label=\"Documentation sections\">\u003ch2 class=\"syn-heading\">Guides\u003c/h2>\n      \u003cul class=\"syn-list-group\">\n        \u003cli>\u003ca class=\"syn-list-row\" href=\"/docs/start\" aria-current=\"page\">Getting started\u003c/a>\u003c/li>\n        \u003cli>\u003ca class=\"syn-list-row\" href=\"/docs/components\">Components\u003c/a>\u003c/li>\n        \u003cli>\u003ca class=\"syn-list-row\" href=\"/docs/themes\">Themes\u003c/a>\u003c/li>\n      \u003c/ul>\n    \u003c/nav>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Documentation page Documentation navigation, breadcrumb and article content. documentation sidebar technical",
+    "kind": "block",
+    "category": "Technical",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-content-collection",
+    "title": "Filterable content collection",
+    "module": "syntyr.core.css + syntyr.recipes.css",
+    "description": "Loop-style article cards with real GET search, taxonomy selection and pagination.",
+    "html": "\u003csection class=\"syn-root syn-region syn-stack\" data-syn-theme=\"studio\" aria-labelledby=\"syn-collection-heading\">\n  \u003cheader class=\"syn-stack\">\n    \u003cp class=\"syn-eyebrow\">THE JOURNAL\u003c/p>\n    \u003ch2 class=\"syn-section-heading\" id=\"syn-collection-heading\">Ideas for practical teams\u003c/h2>\n    \u003cp class=\"syn-muted\">A reusable archive: the host server supplies matching items and pagination.\u003c/p>\n  \u003c/header>\n  \u003cform class=\"syn-filter-bar\" method=\"get\" action=\"/journal\" role=\"search\" aria-label=\"Filter articles\">\n    \u003cdiv class=\"syn-filter-field syn-filter-field--query\">\n      \u003clabel class=\"syn-label\" for=\"syn-collection-search\">Search articles\u003c/label>\n      \u003cinput class=\"syn-input\" id=\"syn-collection-search\" type=\"search\" name=\"q\" placeholder=\"Search the journal\">\n    \u003c/div>\n    \u003cdiv class=\"syn-filter-field\">\n      \u003clabel class=\"syn-label\" for=\"syn-collection-category\">Topic\u003c/label>\n      \u003cselect class=\"syn-select\" id=\"syn-collection-category\" name=\"category\">\n        \u003coption value=\"\">All topics\u003c/option>\n        \u003coption value=\"engineering\">Engineering\u003c/option>\n        \u003coption value=\"design\">Design\u003c/option>\n      \u003c/select>\n    \u003c/div>\n    \u003cdiv class=\"syn-filter-actions\">\u003cbutton class=\"syn-button syn-button--primary\" type=\"submit\">Find articles\u003c/button>\u003c/div>\n  \u003c/form>\n  \u003cdiv class=\"syn-feature-grid\">\n    \u003carticle class=\"syn-feature-card syn-stack\">\n      \u003cspan class=\"syn-badge\">Engineering\u003c/span>\n      \u003ch3 class=\"syn-heading\">\u003ca href=\"/journal/accessible-forms\">Forms that work for everyone\u003c/a>\u003c/h3>\n      \u003cp class=\"syn-muted\">Why native controls are a strong foundation for production forms.\u003c/p>\n      \u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-10-19\">October 19, 2026\u003c/time> \u00b7 5 min read\u003c/p>\n    \u003c/article>\n    \u003carticle class=\"syn-feature-card syn-stack\">\n      \u003cspan class=\"syn-badge\">Design\u003c/span>\n      \u003ch3 class=\"syn-heading\">\u003ca href=\"/journal/clear-layouts\">Make dense pages easier to scan\u003c/a>\u003c/h3>\n      \u003cp class=\"syn-muted\">Build responsive hierarchy using existing layout primitives.\u003c/p>\n      \u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-10-26\">October 26, 2026\u003c/time> \u00b7 4 min read\u003c/p>\n    \u003c/article>\n    \u003carticle class=\"syn-feature-card syn-stack\">\n      \u003cspan class=\"syn-badge\">Engineering\u003c/span>\n      \u003ch3 class=\"syn-heading\">\u003ca href=\"/journal/steady-components\">Components built to last\u003c/a>\u003c/h3>\n      \u003cp class=\"syn-muted\">A practical approach to stable tokens and low-maintenance HTML.\u003c/p>\n      \u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-11-02\">November 2, 2026\u003c/time> \u00b7 7 min read\u003c/p>\n    \u003c/article>\n  \u003c/div>\n  \u003cnav class=\"syn-pagination\" aria-label=\"Pagination\">\n    \u003ca class=\"syn-page-link\" href=\"/journal?page=1\" aria-current=\"page\">1\u003c/a>\n    \u003ca class=\"syn-page-link\" href=\"/journal?page=2\">2\u003c/a>\n    \u003ca class=\"syn-page-link\" href=\"/journal?page=2\" aria-label=\"Next page\">Next\u003c/a>\n  \u003c/nav>\n\u003c/section>",
+    "keywords": "Filterable content collection Loop-style article cards with real GET search, taxonomy selection and pagination. loop grid archive blog category filters",
+    "kind": "block",
+    "category": "Publishing",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-product-collection",
+    "title": "Product collection cards",
+    "module": "syntyr.core.css",
+    "description": "Product catalog cards with explicit price and detail links.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-collection\">\n  \u003ch2 id=\"syn-collection\" class=\"syn-heading\">Featured collection\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">EVERYDAY\u003c/p>\u003ch3>Desk notebook\u003c/h3>\u003cp>Plain-paper notebook for planning.\u003c/p>\u003cp>\u003cstrong>$18.00\u003c/strong>\u003c/p>\u003ca href=\"/products/notebook\">View notebook\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">ESSENTIAL\u003c/p>\u003ch3>Canvas case\u003c/h3>\u003cp>A compact case for small essentials.\u003c/p>\u003cp>\u003cstrong>$24.00\u003c/strong>\u003c/p>\u003ca href=\"/products/canvas-case\">View canvas case\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">WORKSPACE\u003c/p>\u003ch3>Daily planner\u003c/h3>\u003cp>A simple structure for each day.\u003c/p>\u003cp>\u003cstrong>$21.00\u003c/strong>\u003c/p>\u003ca href=\"/products/planner\">View planner\u003c/a>\u003c/article>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Fictional products and prices; no checkout behavior is provided.\u003c/p>\n\u003c/section>",
+    "keywords": "Product collection cards Product catalog cards with explicit price and detail links. ecommerce products catalog",
+    "kind": "block",
+    "category": "Commerce",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-category-showcase",
+    "title": "Shop category highlights",
+    "module": "syntyr.core.css",
+    "description": "A merchandise category section with links instead of fabricated checkout controls.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-shop-categories\">\n  \u003ch2 id=\"syn-shop-categories\" class=\"syn-heading\">Explore the collection\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">01\u003c/p>\u003ch3>Writing tools\u003c/h3>\u003cp>Useful objects for capturing ideas.\u003c/p>\u003ca href=\"/shop/writing\">Browse writing tools\u003c/a>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">02\u003c/p>\u003ch3>Desk essentials\u003c/h3>\u003cp>Simple products for daily work.\u003c/p>\u003ca href=\"/shop/desk\">Browse desk essentials\u003c/a>\u003c/article>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Shop category highlights A merchandise category section with links instead of fabricated checkout controls. shop categories merchandising",
+    "kind": "block",
+    "category": "Commerce",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
   }
 ];
