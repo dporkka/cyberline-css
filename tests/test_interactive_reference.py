@@ -31,6 +31,23 @@ class InteractiveReferenceTests(unittest.TestCase):
             self.assertTrue(entry["module"].startswith("syntyr."))
             self.assertTrue(entry["description"])
 
+    def test_generated_catalog_includes_real_semantic_and_utility_dependencies(self):
+        from scripts.build_playground_catalog import generate
+        source = generate()
+        entries = json.loads(source.removeprefix(
+            "window.SYNTYR_PLAYGROUND_CATALOG = "
+        ).removesuffix(";\n"))
+        meter = next(item for item in entries if item["title"] == "Meter and output")
+        self.assertIn("syntyr.semantic.css", meter["module"])
+        self.assertIn("syntyr.core.css", meter["module"])
+        controller = (ROOT / "docs/playground.js").read_text(encoding="utf-8")
+        for starter in ("actions", "form"):
+            self.assertIn(
+                f'{starter}: "syntyr.core.css + syntyr.utilities.css"',
+                controller,
+                "Built-in utility styles must not rely on syntyr.all.css",
+            )
+
     def test_playground_exposes_search_preview_and_safe_editing(self):
         html = (ROOT / "docs/playground.html").read_text()
         script = (ROOT / "docs/playground.js").read_text()

@@ -59,6 +59,16 @@
     ? window.SYNTYR_PLAYGROUND_CATALOG : [];
   const catalogMap = new Map(catalog.map(item => [item.id, item]));
   const snippet = window.SYNTYR_PLAYGROUND_SNIPPET;
+  const starterModules = {
+    metrics: "syntyr.core.css",
+    actions: "syntyr.core.css + syntyr.utilities.css",
+    form: "syntyr.core.css + syntyr.utilities.css",
+    cards: "syntyr.core.css"
+  };
+  function selectedModule() {
+    return catalogMap.get(example.value)?.module ||
+      starterModules[example.value] || "syntyr.core.css";
+  }
   const starterGuide = {
     metrics: "Responsive statistics using a named container and semantic values.",
     actions: "A native button toolbar; connect actions in your application.",
@@ -98,7 +108,7 @@
     return snippet.configuredSnippet({
       theme: theme.value,
       tokens: tokens(),
-      module: catalogMap.get(example.value)?.module || "syntyr.core.css",
+      module: selectedModule(),
       markup: themedMarkup()
     });
   }
@@ -127,7 +137,7 @@
     const shell = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data: ${localStyleOrigin}; base-uri 'none'; form-action 'none'">
-${snippet.previewStylesheets(catalogMap.get(example.value)?.module || "syntyr.core.css")}
+${snippet.previewStylesheets(selectedModule())}
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
 </head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${previewSafeMarkup()}</body></html>`;
     preview.srcdoc = shell;
@@ -175,9 +185,9 @@ ${snippet.previewStylesheets(catalogMap.get(example.value)?.module || "syntyr.co
     markup.value = item ? item.html : (examples[example.value] || examples.metrics);
     markup.dispatchEvent(new Event("syntyr:load-example"));
     byId("playground-reference-title").textContent = item ? item.title : "Starter example";
-    byId("playground-reference-module").textContent = item ? item.module : "syntyr.core.css";
+    byId("playground-reference-module").textContent = selectedModule();
     byId("playground-required-stylesheets").textContent = snippet.requiredStylesheets(
-      item?.module || "syntyr.core.css"
+      selectedModule()
     ).join(" + ");
     byId("playground-reference-description").textContent = item ? item.description : starterGuide[example.value];
     byId("playground-reference-guidance").textContent = item ? item.guidance :

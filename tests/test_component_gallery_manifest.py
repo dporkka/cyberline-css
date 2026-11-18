@@ -49,6 +49,15 @@ class GalleryManifestTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_semantic_catalog_badge_preserves_primary_module_and_declares_dependencies(self):
+        from scripts.build_component_gallery import build_manifest
+        manifest = build_manifest()
+        meter = next(item for item in manifest["examples"]
+                     if item["title"] == "Meter and output")
+        self.assertEqual(meter["module"], "syntyr.core.css")
+        self.assertEqual(meter["required_stylesheets"],
+                         ["syntyr.core.css", "syntyr.semantic.css"])
+
     def test_gallery_is_discoverable_in_both_distributions_and_npm(self):
         from scripts.build_cloudflare_site import source_files
         from scripts.package_release import FILES
