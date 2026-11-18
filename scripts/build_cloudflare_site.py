@@ -41,6 +41,8 @@ NOINDEX_HTML = frozenset({
     "examples/permission-matrix.html",
     "examples/query-review.html",
     "examples/command-launcher.html",
+    "examples/design-benchmarks/marketing.html", "examples/design-benchmarks/crm.html",
+    "examples/design-benchmarks/documentation.html",
 })
 CANONICAL_LINK = re.compile(r'<link\s+rel="canonical"[^>]*>', re.IGNORECASE)
 ROBOTS_META = re.compile(r'<meta\s+name="robots"[^>]*>', re.IGNORECASE)
@@ -274,7 +276,7 @@ PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md", "design-principles.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "nulang-cloud-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
-    "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
+    "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "design-reference-matrix.md", "premium-compositions.md", "visual-composition.md",
     "console-kit.html", "component-recipes.md", "design-research-linear-resend.md", "premium-compositions.md", "visual-composition.md",
     "faq.md", "compare.md", "compare-tailwind.md", "compare-bootstrap.md", "compare-shadcn.md",
     "compare-daisyui.md", "compare-pico.md", "compare-native-css.md",
@@ -347,6 +349,8 @@ def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool =
         "rust-axum/README.md", "resources.html", "data-tables.html", "saas.html", "preset-preview.html", "saas-workflows.html", "enterprise-compositions.html", "permission-matrix.html", "permission-matrix.css", "crm.html", "resource-workspace.html", "native-workflows.html", "file-lifecycle.html", "resizable-workspace.html", "operation-revisions.html", "saas-workflows.css", "workflow-operations.html", "workflow-operations.css", "premium-compositions.html",
         "terminal.html", "themes.html", "vertigo-admin.html", "vertigo-resource-workflow.html", "vertigo-resource-workflow.css", "symbols.html",
         "viz.html", "geo.html", "data-grid.html", "animation.html", "copy.html",
+        "design-benchmarks/marketing.html", "design-benchmarks/crm.html",
+        "design-benchmarks/documentation.html", "design-benchmarks/benchmark.css",
     )
     # Import the canonical distribution registry rather than maintaining
     # a second list that can silently omit new CSS entrypoints.
