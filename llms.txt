@@ -6,13 +6,14 @@ The **published immutable release** is v0.3.0-alpha.4 (Grid, Noir, Studio). The 
 
 ## Choose the right representation
 
-For browser readers, use the [human-readable HTML documentation directory](https://syntyr-css.pages.dev/docs/reference.html) and [practical HTML guides](https://syntyr-css.pages.dev/docs/guides.html). For retrieval by coding agents, the links below point to public Markdown source files with the same guide content. Markdown is served directly; no user-agent spoofing, browser rendering, or JavaScript is necessary.
+For browser readers, use the [human-readable HTML documentation directory](https://syntyr-css.pages.dev/docs/reference.html) and [practical HTML guides](https://syntyr-css.pages.dev/docs/guides.html). For retrieval by coding agents, most technical-guide links below point to public Markdown sources with the same guide content. The design resources directory is a standalone HTML page. All are served directly without user-agent spoofing or a JavaScript requirement.
 
 ## Start here
 
 - [Canonical DESIGN.md contract](https://syntyr-css.pages.dev/DESIGN.md): Agent-readable design rationale and Studio token snapshot generated from source CSS; other themes remain in CSS.
 - [AI quickstart](https://syntyr-css.pages.dev/docs/ai-quickstart.md): Version-aware CSS installation and valid HTML examples.
 - [Complete curated reference](https://syntyr-css.pages.dev/llms-full.txt): Concatenated public technical guides, generated from source.
+- [Curated web design resources and Syntyr research priorities](https://syntyr-css.pages.dev/docs/design-resources.html): Standalone HTML page with 82 curated directories, tools, design systems and libraries, descriptions, links and Syntyr research priorities.
 - [Agreed design principles and conformance](https://syntyr-css.pages.dev/docs/design-principles.md): Hierarchy, semantic components, states, native HTML recipes, and tested palette roles.
 - [Component reference](https://syntyr-css.pages.dev/docs/components.md): Canonical low-entropy standard component inventory, native HTML controls (including range/file/color, datalist/optgroup and named disclosure examples), CSS classes, semantic-mode boundaries and candidate-only table wrapping migration.
 - [Component manifest](https://syntyr-css.pages.dev/metadata/components.json): Curated, validated selectors with their required CSS modules.

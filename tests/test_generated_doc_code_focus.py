@@ -3,7 +3,11 @@ from html.parser import HTMLParser
 from pathlib import Path
 import unittest
 
-from scripts.build_doc_pages import GUIDES
+from scripts.build_cloudflare_site import PUBLIC_DOCS
+
+# The hosting build has no Markdown authoring dependency. This test reads
+# generated HTML only, so the public-doc allowlist is the correct source.
+GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 
 ROOT = Path(__file__).resolve().parents[1]
 

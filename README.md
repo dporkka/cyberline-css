@@ -63,6 +63,7 @@ stylesheets.
 - [Live website on Cloudflare](https://syntyr-css.pages.dev/)
 - [Server-rendered validation states](examples/form-state-contracts.html) and [dependency-aware, collision-safe local registry planner](docs/blocks-guide.md) (unreleased alpha.5 candidate).
 - [Native enterprise data table example](examples/data-tables.html) and [accessible table guide](docs/data-tables.html)
+- [Design resources directory](https://syntyr-css.pages.dev/docs/design-resources.html): curated galleries, design systems, accessibility, typography, motion and Syntyr study priorities.
 - [Component gallery](https://syntyr-css.pages.dev/docs/)
 - [Common HTML and UI example](examples/common-ui.html): navigation links, avatars, chips, list groups, notices and native form controls; no JavaScript
 - [Native HTML elements demo](examples/native-elements.html): lists, code, media, forms, progress, and native overlays with optional semantic CSS
