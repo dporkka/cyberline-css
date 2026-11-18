@@ -23,8 +23,8 @@ class NavigationSectionsTests(unittest.TestCase):
     def test_three_distinct_blocks_extend_editorial_and_existing_workflows(self):
         blocks = json.loads((ROOT / 'blocks/manifest.json').read_text())['blocks']
         ids = [item['id'] for item in blocks]
-        self.assertEqual(len(ids), 46)
-        self.assertEqual(len(set(ids)), 46)
+        self.assertEqual(len(ids), 50)
+        self.assertEqual(len(set(ids)), len(ids))
         self.assertTrue(IDS <= set(ids))
         self.assertTrue({'site-header', 'site-footer', 'mega-navigation',
                          'article-detail', 'case-study-preview', 'contact-quote',

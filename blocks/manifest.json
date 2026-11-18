@@ -666,6 +666,65 @@
         "disclosure",
         "site"
       ]
+    },
+    {
+      "id": "docs-layout",
+      "category": "Technical",
+      "title": "Documentation page",
+      "description": "Documentation navigation, breadcrumb and article content.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "documentation",
+        "sidebar",
+        "technical"
+      ]
+    },
+    {
+      "id": "content-collection",
+      "category": "Publishing",
+      "title": "Filterable content collection",
+      "description": "Loop-style article cards with real GET search, taxonomy selection and pagination.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "loop grid",
+        "archive",
+        "blog",
+        "category",
+        "filters"
+      ]
+    },
+    {
+      "id": "product-collection",
+      "category": "Commerce",
+      "title": "Product collection cards",
+      "description": "Product catalog cards with explicit price and detail links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "ecommerce",
+        "products",
+        "catalog"
+      ]
+    },
+    {
+      "id": "category-showcase",
+      "category": "Commerce",
+      "title": "Shop category highlights",
+      "description": "A merchandise category section with links instead of fabricated checkout controls.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "shop",
+        "categories",
+        "merchandising"
+      ]
     }
   ]
 }

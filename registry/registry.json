@@ -1208,6 +1208,95 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "docs-layout",
+      "type": "registry:item",
+      "title": "Documentation page",
+      "description": "Documentation navigation, breadcrumb and article content.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/docs-layout.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/docs-layout.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "content-collection",
+      "type": "registry:item",
+      "title": "Filterable content collection",
+      "description": "Loop-style article cards with real GET search, taxonomy selection and pagination.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/content-collection.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/content-collection.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "product-collection",
+      "type": "registry:item",
+      "title": "Product collection cards",
+      "description": "Product catalog cards with explicit price and detail links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/product-collection.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/product-collection.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "category-showcase",
+      "type": "registry:item",
+      "title": "Shop category highlights",
+      "description": "A merchandise category section with links instead of fabricated checkout controls.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/category-showcase.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/category-showcase.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }
