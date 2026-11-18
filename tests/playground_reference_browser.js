@@ -42,7 +42,9 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       assert.equal(await page.locator('#playground-editor-mount').getAttribute('data-editor'), 'codemirror6');
 
       await page.locator('#playground-search').fill('breadcrumb');
-      assert.ok((await page.locator('#playground-search-status').innerText()).includes('1 of'));
+      const searchText = await page.locator('#playground-search-status').innerText();
+      const counts = /^(\d+) of (\d+) examples match\./.exec(searchText);
+      assert.ok(counts && Number(counts[1]) >= 1, 'Breadcrumb search must find a result: ' + searchText);
       await page.locator('#playground-example').selectOption('catalog-breadcrumbs-title');
       await frame.locator('.syn-breadcrumbs').first().waitFor();
       assert.ok((await page.locator('#playground-reference-description').innerText()).length > 5);
