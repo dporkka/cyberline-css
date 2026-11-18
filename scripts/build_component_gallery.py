@@ -100,7 +100,6 @@ def build_manifest() -> dict:
         parser.feed(raw_html)
         if not parser.elements:
             raise ValueError(f"Empty catalog example: {identifier}")
-        css = (ROOT / "dist" / css_module).read_text(encoding="utf-8")
         core_css = (ROOT / "dist/syntyr.core.css").read_text(encoding="utf-8")
         optional_css = {
             name: (ROOT / "dist" / name).read_text(encoding="utf-8")
@@ -113,8 +112,9 @@ def build_manifest() -> dict:
         ]
         for cls in sorted(parser.classes):
             selector = r'\.' + re.escape(cls) + r'(?![\w-])'
-            loaded = [core_css, css] + [
-                optional_css[name] for name in required_modules if name in optional_css
+            loaded = [core_css] + [
+                (ROOT / "dist" / name).read_text(encoding="utf-8")
+                for name in required_modules if name != "syntyr.core.css"
             ]
             if not any(re.search(selector, stylesheet) for stylesheet in loaded):
                 for optional, stylesheet in optional_css.items():
