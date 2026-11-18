@@ -57,7 +57,10 @@ class DesignResourcePageTests(unittest.TestCase):
         self.assertTrue(all(card["descriptions"] == 1 and len(card["links"]) == 1 for card in parser.cards))
         priorities = re.findall(r'<li class="resource-priority">.*?</li>', html, re.DOTALL)
         self.assertEqual(len(priorities), 8)
-        self.assertTrue(all(len(re.findall(r'<a href="https://', block)) == 2 for block in priorities))
+        for block in priorities:
+            reference_urls = re.findall(r'<a href="([^"]+)"', block)
+            self.assertEqual(len(reference_urls), 2)
+            self.assertTrue(all(urlsplit(url).scheme == "https" and urlsplit(url).hostname for url in reference_urls))
         self.assertEqual(len(set(parser.resource_links)), len(parser.resource_links))
         self.assertGreaterEqual(len(parser.category_links), 8)
         self.assertTrue(all(link.startswith("#") and link[1:] in parser.ids for link in parser.category_links))
