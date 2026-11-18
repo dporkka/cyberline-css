@@ -289,3 +289,62 @@ The two effects are independent of the optional JavaScript animation
 companion and do not add timers, DOM cloning, inaccessible character
 splitting, or component variants. They are **alpha.5 source-candidate APIs**
 until included in a published Syntyr version.
+
+## Five state-change recipes for application interfaces
+
+The following are **unreleased alpha.5 source** capabilities. Load
+`syntyr.motion.css` **only** where you want the opt-in effects.
+They never introduce runtime dependencies, hide content ahead of hydration,
+or override `prefers-reduced-motion: reduce`.
+
+1. **Inserted records:** `data-syn-motion="insert"` on a newly rendered
+   card or list item yields a short one-shot entrance. Apply only when the
+   item is actually inserted, not to all existing records at initial load.
+2. **Notices/toasts:** `data-syn-motion="notice"` on an element inserted
+   into a live region creates a short one-shot horizontal entrance.
+   Convey the message in text and `role="status"`; do not rely on motion.
+3. **Saved confirmation:** add `data-syn-motion="saved"` when the server
+   confirms success. A short decorative outline pulse is shown, with no
+   essential status in the animation itself. Update actual text too.
+4. **Native expansion:** add `data-syn-motion="expand"` to a native
+   `details` element. Modern browsers with `::details-content` and
+   `interpolate-size` transition the expanded region; others open
+   instantly with the same semantics and keyboard access.
+5. **Sorted/filtered collections:** wrap a DOM update in optional
+   `withViewTransition(update)` from `@syntyr/css/animate`.
+   Assign unique CSS `view-transition-name` values to stable keyed rows
+   (avoid duplicates during transitions). When unavailable or under
+   reduced motion, the update runs immediately without animation.
+
+```html
+<section class="syn-root">
+  <div class="syn-panel" data-syn-motion="insert">New customer record</div>
+  <p role="status" data-syn-motion="notice">Invoice sent successfully.</p>
+  <button data-syn-motion="saved" type="button">Saved</button>
+  <details data-syn-motion="expand">
+    <summary>Invoice details</summary>
+    <p>Expanded content remains accessible without motion.</p>
+  </details>
+</section>
+```
+
+```js
+import { withViewTransition } from '@syntyr/css/animate';
+
+const list = document.querySelector('#records');
+withViewTransition(() => {
+  list.prepend(list.lastElementChild);
+});
+```
+
+The View Transitions helper returns the native `ViewTransition` object when
+supported and `null` when the update is immediate. Handle asynchronous DOM
+updates in your own application; the immediate fallback does not await a
+Promise returned by the callback. The helper does not attach listeners or
+instrument the DOM.
+
+Try the [five motion recipes](../examples/motion-interactions.html).
+For reusable Lottie and dotLottie assets, see the separate
+[optional player integration](dotlottie.md). Complex scrubbing, spring
+physics, and state-machine animation belong in external engines, not
+Syntyr's core.

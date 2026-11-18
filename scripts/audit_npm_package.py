@@ -37,6 +37,8 @@ def expected_files(root: Path) -> dict[str, Path]:
         "dist/syntyr.animate.d.mts",
         "dist/syntyr.copy.mjs",
         "dist/syntyr.copy.d.mts",
+        "dist/syntyr.dotlottie.mjs",
+        "dist/syntyr.dotlottie.d.mts",
     ) + tuple("dist/" + name for name in all_distributions())
     return {"package/" + name: root / name for name in paths}
 

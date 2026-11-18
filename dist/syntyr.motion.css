@@ -237,4 +237,61 @@
       text-decoration-color: CanvasText;
     }
   }
+  /* State-change motion. Adding a matching attribute triggers the finite effect.
+     Unsupported engines and reduced-motion users retain fully visible content. */
+  @keyframes syn-micro-insert {
+    from { opacity: 0; translate: 0 .55rem; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-micro-notice {
+    from { opacity: 0; translate: .65rem 0; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes syn-micro-saved {
+    0%, 100% { opacity: 0; }
+    35% { opacity: .8; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where(.syn-root[data-syn-motion="insert"], .syn-root [data-syn-motion="insert"]) {
+      animation: syn-micro-insert var(--syn-motion-duration, 220ms)
+        var(--syn-ease-out, ease-out) both;
+    }
+    :where(.syn-root[data-syn-motion="notice"], .syn-root [data-syn-motion="notice"]) {
+      animation: syn-micro-notice var(--syn-motion-duration, 220ms)
+        var(--syn-ease-out, ease-out) both;
+    }
+    @media (forced-colors: none) {
+      :where(.syn-root[data-syn-motion="saved"], .syn-root [data-syn-motion="saved"]) {
+        position: relative;
+        isolation: isolate;
+      }
+      :where(.syn-root[data-syn-motion="saved"], .syn-root [data-syn-motion="saved"])::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        outline: 2px solid var(--syn-accent);
+        outline-offset: -2px;
+        pointer-events: none;
+        opacity: 0;
+        animation: syn-micro-saved 600ms ease-out both;
+      }
+    }
+    /* Discrete native details content has a static fallback on unsupported engines. */
+    @supports (interpolate-size: allow-keywords) and (transition-behavior: allow-discrete) {
+      :where(.syn-root[data-syn-motion="expand"], .syn-root [data-syn-motion="expand"]) {
+        interpolate-size: allow-keywords;
+      }
+      :where(.syn-root[data-syn-motion="expand"], .syn-root [data-syn-motion="expand"])::details-content {
+        block-size: 0;
+        overflow: clip;
+        transition: block-size var(--syn-motion-duration, 220ms) var(--syn-ease-out, ease-out),
+          content-visibility var(--syn-motion-duration, 220ms) allow-discrete;
+      }
+      :where(.syn-root[data-syn-motion="expand"], .syn-root [data-syn-motion="expand"])[open]::details-content {
+        block-size: auto;
+      }
+    }
+  }
+
 }

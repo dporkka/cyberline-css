@@ -129,3 +129,20 @@ export function observeReveals(root = globalThis.document) {
   for (const element of targets) observer.observe(element);
   return () => observer.disconnect();
 }
+
+/**
+ * Animate a DOM update with the native View Transitions API when available.
+ * Without support (or under reduced motion), update is performed immediately.
+ * The caller owns its DOM update; Syntyr never instruments or observes it.
+ * @param {() => void | Promise<void>} update
+ * @param {Document} [root=document]
+ * @returns {ViewTransition|null}
+ */
+export function withViewTransition(update, root = globalThis.document) {
+  if (typeof update !== 'function') throw new TypeError('Expected an update callback');
+  if (reducedMotion() || typeof root?.startViewTransition !== 'function') {
+    update();
+    return null;
+  }
+  return root.startViewTransition(update);
+}

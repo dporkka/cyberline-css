@@ -45,6 +45,10 @@ class NpmDistributionContract(unittest.TestCase):
             'types': './dist/syntyr.copy.d.mts',
             'default': './dist/syntyr.copy.mjs',
         }
+        expected['./dotlottie'] = {
+            'types': './dist/syntyr.dotlottie.d.mts',
+            'default': './dist/syntyr.dotlottie.mjs',
+        }
         self.assertEqual({key: value for key, value in self.package['exports'].items() if key != '.'}, expected)
         for exported in expected.values():
             for relative in exported.values() if isinstance(exported, dict) else (exported,):

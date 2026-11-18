@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr does not ship a renderer, animation asset, WASM runtime or mandatory JavaScript dependency. This recipe integrates the independently installed…">
+  <meta name="syntyr-source-sha256" content="f73b3a03e7e01aadf6621589bd0986256e3790d12b6ae797eae2c2fc9d5bc51c">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional dotLottie player integration — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/dotlottie">
+  <link rel="alternate" type="text/markdown" href="dotlottie.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional dotLottie player integration</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="dotlottie.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional dotLottie player integration">
+<h1 id="optional-dotlottie-player-integration">Optional dotLottie player integration</h1>
+<p>Syntyr does <strong>not</strong> ship a renderer, animation asset, WASM runtime or mandatory
+JavaScript dependency. This recipe integrates the independently installed
+<code>@lottiefiles/dotlottie-wc</code> Web Component with a static poster and accessible
+user-triggered playback. Use it with <code>.lottie</code> or Lottie JSON files that you
+own or have permission to redistribute.</p>
+<h2 id="installation">Installation</h2>
+<p>Install and pin the external renderer separately:</p>
+<pre tabindex="0"><code class="language-sh">npm install --save-exact @lottiefiles/dotlottie-wc
+</code></pre>
+<p>Bundle it through your application tooling. If you use a strict CSP or want
+offline operation, <strong>self-host</strong> the player's matching
+<code>@lottiefiles/dotlottie-web/dist/dotlottie-player.wasm</code> and call
+<code>setWasmUrl('/assets/dotlottie-player.wasm')</code> <strong>before the first animation
+loads</strong>. A self-hosted JavaScript module does not by itself guarantee that
+the player will avoid external network requests. See the upstream
+<a href="https://github.com/LottieFiles/dotlottie-web/tree/main/packages/wc">Web Component README</a>
+for WASM and worker requirements; pin and audit both packages together.</p>
+<h2 id="copy-owned-html">Copy-owned HTML</h2>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; aria-labelledby=&quot;preview-heading&quot;&gt;
+  &lt;h2 id=&quot;preview-heading&quot;&gt;Task complete&lt;/h2&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;div class=&quot;preview-stage&quot;&gt;
+      &lt;!-- Static content remains visible with no JavaScript or network. --&gt;
+      &lt;p id=&quot;success-poster&quot;&gt;Success: your changes were saved.&lt;/p&gt;
+      &lt;!-- The host owns this asset and the external player. Never autoplay. --&gt;
+      &lt;div id=&quot;success-animation-slot&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-cluster&quot;&gt;
+      &lt;button class=&quot;syn-button&quot; id=&quot;preview-play&quot; type=&quot;button&quot; disabled&gt;Play preview&lt;/button&gt;
+      &lt;button class=&quot;syn-button&quot; id=&quot;preview-pause&quot; type=&quot;button&quot; disabled&gt;Pause preview&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p id=&quot;preview-status&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;
+      Static success preview available.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Give the preview stage a fixed or aspect-ratio-constrained size in your own CSS
+and style <code>dotlottie-wc</code> as a block of that same size. Set
+<code>dotlottie-wc[hidden] { display: none; }</code> so loading the player cannot cover
+the static poster. Use a meaningful static poster for functional information.
+For purely decorative animation, avoid duplicated screen-reader descriptions.</p>
+<h2 id="application-module">Application module</h2>
+<pre tabindex="0"><code class="language-js">import { setWasmUrl } from '@lottiefiles/dotlottie-wc';
+import { connectDotLottie } from '@syntyr/css/dotlottie';
+
+setWasmUrl('/assets/dotlottie-player.wasm');
+
+// Create and attach the element only after configuring the WASM URL.
+// This avoids an upgrade/load race when the player module registers the tag.
+const element = document.createElement('dotlottie-wc');
+element.hidden = true;
+element.src = '/animations/success.lottie';
+const disconnect = connectDotLottie(
+  element,
+  {
+    poster: document.querySelector('#success-poster'),
+    playButton: document.querySelector('#preview-play'),
+    pauseButton: document.querySelector('#preview-pause'),
+    status: document.querySelector('#preview-status'),
+  },
+);
+
+document.querySelector('#success-animation-slot').append(element);
+
+// Call disconnect() before unmounting this region, such as in React cleanup.
+</code></pre>
+<p>For a no-bundler setup, self-host the version-pinned player module and Syntyr's
+<code>dist/syntyr.dotlottie.mjs</code>, then replace the import paths above with those
+local paths. The only third-party runtime comes from your independently chosen
+player; importing <code>@syntyr/css</code> or <code>syntyr.core.css</code> never loads it.</p>
+<p>The connector starts in static-poster mode. It does not autoplay, even if the
+host accidentally supplied an <code>autoplay</code> attribute. Load errors preserve the
+static poster; Play and Pause are disabled until the player is ready. A change
+to <code>prefers-reduced-motion: reduce</code> stops active playback and restores the
+poster. A user who explicitly selects <strong>Play</strong> can still request playback.
+The host remains responsible for treating the animation as decorative or
+supplying an equivalent accessible result using semantic text and ARIA.</p>
+<p>Do not embed a remote animation asset or an unpinned player CDN into the
+Syntyr core distribution. Player code and artwork have <strong>separate licenses</strong>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#installation">Installation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#copy-owned-html">Copy-owned HTML</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#application-module">Application module</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="dotlottie.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

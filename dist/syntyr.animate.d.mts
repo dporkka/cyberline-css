@@ -32,3 +32,9 @@ export declare function stagger(
 ): Array<Animation | null>;
 
 export declare function observeReveals(root?: Document | Element | null): () => void;
+
+/** Optional native View Transitions wrapper; returns null for immediate updates. */
+export declare function withViewTransition(
+  update: () => void | Promise<void>,
+  root?: Document,
+): ViewTransition | null;

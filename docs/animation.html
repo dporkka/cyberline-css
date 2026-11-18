@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="syntyr.animate.mjs is an opt-in, dependency-free ES module for application-triggered motion. It delegates timing and compositing to the native Web…">
-  <meta name="syntyr-source-sha256" content="385d3fd354ba976509175a6ccb3465b449fe326f0a04b9e7e77c66f77c8fb371">
+  <meta name="syntyr-source-sha256" content="421543bfc2d3b9bdb4e510ed452261862f5f22e084a81ab4964da962bcf0eafc">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Syntyr animation library — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/animation">
@@ -290,6 +290,58 @@ combination's contrast.</p>
 companion and do not add timers, DOM cloning, inaccessible character
 splitting, or component variants. They are <strong>alpha.5 source-candidate APIs</strong>
 until included in a published Syntyr version.</p>
+<h2 id="five-state-change-recipes-for-application-interfaces">Five state-change recipes for application interfaces</h2>
+<p>The following are <strong>unreleased alpha.5 source</strong> capabilities. Load
+<code>syntyr.motion.css</code> <strong>only</strong> where you want the opt-in effects.
+They never introduce runtime dependencies, hide content ahead of hydration,
+or override <code>prefers-reduced-motion: reduce</code>.</p>
+<ol>
+<li><strong>Inserted records:</strong> <code>data-syn-motion=&quot;insert&quot;</code> on a newly rendered
+card or list item yields a short one-shot entrance. Apply only when the
+item is actually inserted, not to all existing records at initial load.</li>
+<li><strong>Notices/toasts:</strong> <code>data-syn-motion=&quot;notice&quot;</code> on an element inserted
+into a live region creates a short one-shot horizontal entrance.
+Convey the message in text and <code>role=&quot;status&quot;</code>; do not rely on motion.</li>
+<li><strong>Saved confirmation:</strong> add <code>data-syn-motion=&quot;saved&quot;</code> when the server
+confirms success. A short decorative outline pulse is shown, with no
+essential status in the animation itself. Update actual text too.</li>
+<li><strong>Native expansion:</strong> add <code>data-syn-motion=&quot;expand&quot;</code> to a native
+<code>details</code> element. Modern browsers with <code>::details-content</code> and
+<code>interpolate-size</code> transition the expanded region; others open
+instantly with the same semantics and keyboard access.</li>
+<li><strong>Sorted/filtered collections:</strong> wrap a DOM update in optional
+<code>withViewTransition(update)</code> from <code>@syntyr/css/animate</code>.
+Assign unique CSS <code>view-transition-name</code> values to stable keyed rows
+(avoid duplicates during transitions). When unavailable or under
+reduced motion, the update runs immediately without animation.</li>
+</ol>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot; data-syn-motion=&quot;insert&quot;&gt;New customer record&lt;/div&gt;
+  &lt;p role=&quot;status&quot; data-syn-motion=&quot;notice&quot;&gt;Invoice sent successfully.&lt;/p&gt;
+  &lt;button data-syn-motion=&quot;saved&quot; type=&quot;button&quot;&gt;Saved&lt;/button&gt;
+  &lt;details data-syn-motion=&quot;expand&quot;&gt;
+    &lt;summary&gt;Invoice details&lt;/summary&gt;
+    &lt;p&gt;Expanded content remains accessible without motion.&lt;/p&gt;
+  &lt;/details&gt;
+&lt;/section&gt;
+</code></pre>
+<pre tabindex="0"><code class="language-js">import { withViewTransition } from '@syntyr/css/animate';
+
+const list = document.querySelector('#records');
+withViewTransition(() =&gt; {
+  list.prepend(list.lastElementChild);
+});
+</code></pre>
+<p>The View Transitions helper returns the native <code>ViewTransition</code> object when
+supported and <code>null</code> when the update is immediate. Handle asynchronous DOM
+updates in your own application; the immediate fallback does not await a
+Promise returned by the callback. The helper does not attach listeners or
+instrument the DOM.</p>
+<p>Try the <a href="../examples/motion-interactions.html">five motion recipes</a>.
+For reusable Lottie and dotLottie assets, see the separate
+<a href="dotlottie.html">optional player integration</a>. Complex scrubbing, spring
+physics, and state-machine animation belong in external engines, not
+Syntyr's core.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#install-and-invoke">Install and invoke</a>
@@ -302,6 +354,7 @@ until included in a published Syntyr version.</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#media-hover-zoom-and-existing-hover-lift">Media hover zoom and existing hover lift</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#animated-gradient-wash-composable-css">Animated gradient wash (composable CSS)</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#text-accents-no-splitting-or-javascript">Text accents (no splitting or JavaScript)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#five-state-change-recipes-for-application-interfaces">Five state-change recipes for application interfaces</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="animation.md">Markdown source</a></nav>

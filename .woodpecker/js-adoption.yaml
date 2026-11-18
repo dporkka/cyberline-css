@@ -30,6 +30,7 @@ steps:
             - scripts/test_js_adoption.py
             - tests/test_node_react_next_adoption.py
             - tests/animate.test.mjs
+            - tests/dotlottie.test.mjs
             - tests/copy.test.mjs
             - .woodpecker/js-adoption.yaml
           on_empty: true
@@ -37,6 +38,7 @@ steps:
     commands:
       - node --version && npm --version
       - node --test tests/animate.test.mjs tests/copy.test.mjs
+      - node --test tests/dotlottie.test.mjs
       - npm install --prefix packages/react --no-audit --no-fund
       - npm test --prefix packages/react
       - npm install --prefix examples/react-vite --no-audit --no-fund

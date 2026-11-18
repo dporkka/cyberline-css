@@ -92,6 +92,8 @@ stylesheets.
 - [Optional email UI components and semantic HTML demo](docs/email-components.md): signup, inbox, composition, preferences and verification with no runtime JS
 - [Animated gradient wash and text accents](docs/animation.md#animated-gradient-wash-composable-css): optional CSS-only drift, underline and headline glint that respect motion preferences.
 - [CSS-only block effects](docs/animation.md#website-block-effects-css-only): opt-in parallax backgrounds, scroll fades/slides/zoom, and hover image zoom with reduced-motion fallbacks.
+- [Optional dotLottie Web Component integration](docs/dotlottie.md): external player, static fallback, explicit play/pause, reduced-motion handling; no bundled renderer.
+- [Five SaaS micro-interaction recipes](docs/animation.md#five-state-change-recipes-for-application-interfaces): inserts, notices, saved, native expansion and list reordering.
 - [Optional native animation companion](docs/animation.md) ([interactive example](examples/animation.html)): Web Animations API, stagger and viewport reveals, no animation dependency or change to the CSS-only default
 - [Migrating from Pico.css: differences and practical steps](docs/from-pico.md)
 - [Optional CSS-only npm package (unpublished alpha.5 candidate)](docs/package-managers.md)

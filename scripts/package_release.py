@@ -24,6 +24,7 @@ FILES = (
     "docs/distribution.md",
     "docs/api-stability.md",
     "docs/animation.md",
+    "docs/dotlottie.md",
     "docs/clipboard.md",
     "docs/ai-quickstart.md",
     "docs/agent-integration.md",
@@ -43,6 +44,8 @@ FILES = (
     "examples/resizable-workspace.html",
     "examples/resizable-workspace.mjs",
     "examples/animation.html",
+    "examples/motion-interactions.html",
+    "examples/motion-interactions.mjs",
     "examples/animation-demo.mjs",  # One local CSS file per named preset.
     "examples/copy.html",
     "examples/copy-demo.mjs",

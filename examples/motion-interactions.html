@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Five optional Syntyr motion recipes for SaaS application state changes.">
+  <title>Syntyr — SaaS micro-interactions</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.motion.css">
+  <script type="module" src="./motion-interactions.mjs"></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="../index.html">SYNTYR</a>
+      <nav class="syn-nav" aria-label="Example navigation">
+        <a href="../docs/animation.html">MOTION GUIDE</a>
+        <a href="../docs/index.html">DOCUMENTATION</a>
+      </nav>
+    </header>
+    <main class="syn-stack">
+      <section class="syn-stage" aria-labelledby="title">
+        <p class="syn-eyebrow">CSS-FIRST / NATIVE MOTION</p>
+        <h1 class="syn-title" id="title">State changes that make sense.</h1>
+        <p class="syn-lede">Five independent examples. JavaScript is only used for app state updates and an optional native View Transition. All content remains usable with motion disabled.</p>
+      </section>
+      <section class="syn-stage" aria-labelledby="records-heading">
+        <h2 class="syn-heading" id="records-heading">Insert and reorder records</h2>
+        <div class="syn-cluster">
+          <button class="syn-button syn-button--primary" id="add-record" type="button">Add a record</button>
+          <button class="syn-button" id="reorder-records" type="button">Reverse order</button>
+        </div>
+        <div class="syn-stack" id="record-list">
+          <article class="syn-panel" style="view-transition-name: syn-record-one"><strong>Campaign A</strong> — pending artwork</article>
+          <article class="syn-panel" style="view-transition-name: syn-record-two"><strong>Campaign B</strong> — ready to publish</article>
+        </div>
+      </section>
+      <section class="syn-stage" aria-labelledby="feedback-heading">
+        <h2 class="syn-heading" id="feedback-heading">Notices and confirmation</h2>
+        <div class="syn-cluster">
+          <button class="syn-button" id="send-notice" type="button">Show notification</button>
+          <button class="syn-button syn-button--primary" id="save-record" type="button">Save changes</button>
+        </div>
+        <div id="notice-container" aria-live="polite" aria-atomic="true"></div>
+      </section>
+      <section class="syn-stage" aria-labelledby="expand-heading">
+        <h2 class="syn-heading" id="expand-heading">Native disclosure</h2>
+        <details class="syn-panel" data-syn-motion="expand">
+          <summary>Invoice details</summary>
+          <p>The native disclosure works with keyboards and without JavaScript. Supported browsers provide a short content expansion transition.</p>
+        </details>
+      </section>
+      <p role="status" id="motion-message" aria-live="polite">Select an example to begin.</p>
+    </main>
+  </div>
+</body>
+</html>

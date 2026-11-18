@@ -75,6 +75,8 @@ class NpmTarballAuditTests(unittest.TestCase):
             "package/dist/syntyr.animate.d.mts",
             "package/dist/syntyr.copy.mjs",
             "package/dist/syntyr.copy.d.mts",
+            "package/dist/syntyr.dotlottie.mjs",
+            "package/dist/syntyr.dotlottie.d.mts",
         ):
             self.assertIn(path, package_files)
 

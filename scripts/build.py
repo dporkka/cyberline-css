@@ -162,6 +162,7 @@ def javascript_distributions():
     return {
         'syntyr.animate.mjs': 'animate.mjs', 'syntyr.animate.d.mts': 'animate.d.mts',
         'syntyr.copy.mjs': 'copy.mjs', 'syntyr.copy.d.mts': 'copy.d.mts',
+        'syntyr.dotlottie.mjs': 'dotlottie.mjs', 'syntyr.dotlottie.d.mts': 'dotlottie.d.mts',
     }
 
 

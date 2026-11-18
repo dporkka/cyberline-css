@@ -1,6 +1,6 @@
 import test, { afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { animate, stagger, observeReveals } from '../src/animate.mjs';
+import { animate, stagger, observeReveals, withViewTransition } from '../src/animate.mjs';
 
 const previous = {
   matchMedia: globalThis.matchMedia,
@@ -134,7 +134,7 @@ test('observer fallback avoids hiding content when JS features or motion are una
 
 test('package subpath exposes only the optional native animation module', async () => {
   const api = await import('@syntyr/css/animate');
-  assert.deepEqual(Object.keys(api).sort(), ['animate', 'observeReveals', 'stagger']);
+  assert.deepEqual(Object.keys(api).sort(), ['animate', 'observeReveals', 'stagger', 'withViewTransition']);
 });
 
 
@@ -201,4 +201,32 @@ test('two observers racing for the same element still animate it once', () => {
   assert.equal(calls.length, 1);
   stopOne();
   stopTwo();
+});
+
+
+test('withViewTransition performs updates synchronously without API or under reduced motion', () => {
+  globalThis.matchMedia = () => ({ matches: false });
+  let count = 0;
+  assert.equal(withViewTransition(() => count++, {}), null);
+  assert.equal(count, 1);
+  globalThis.matchMedia = () => ({ matches: true });
+  assert.equal(withViewTransition(() => count++, {
+    startViewTransition() { throw Error('reduced motion must not animate'); },
+  }), null);
+  assert.equal(count, 2);
+});
+
+test('withViewTransition uses native API when present and preserves its result', () => {
+  globalThis.matchMedia = () => ({ matches: false });
+  const transition = { finished: Promise.resolve() };
+  let count = 0;
+  const root = {
+    startViewTransition(update) {
+      update();
+      return transition;
+    },
+  };
+  assert.equal(withViewTransition(() => count++, root), transition);
+  assert.equal(count, 1);
+  assert.throws(() => withViewTransition(null, root), /update callback/);
 });
