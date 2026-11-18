@@ -114,6 +114,30 @@ Interpret performance results only after checking the gate outcome,
 screenshot appearance, browser-version provenance and at least 10 repeated
 trials. Zero automated axe findings do not certify WCAG conformance.
 
+## Dependency security boundary and advisory monitoring (November 2026)
+
+The optional development and benchmark compiler dependencies in
+`benchmarks/frameworks/package-lock.json` are isolated development tools and
+are not runtime dependencies of `@syntyr/css`.
+
+**Advisory status & residual risk:** [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf) /
+[CVE-2026-112366](https://nvd.nist.gov/vuln/detail/CVE-2026-112366) originally reported
+a ReDoS in `picomatch` (`<= 4.0.7`), pulled transitively by `@tailwindcss/cli`, `@unocss/cli`,
+`tinyglobby`, and `@parcel/watcher`. GitHub withdrew the advisory on **November 18, 2026**.
+However, withdrawal alone does not validate processing arbitrary or untrusted glob patterns;
+the original affected-version report remains documented for upstream provenance.
+
+**Bounded exposure:**
+- The benchmark compiler runs strictly on controlled local repository HTML/CSS inputs.
+- It is never executed against untrusted user-supplied glob patterns or in a privileged network context.
+- Withdrawal is not treated as a license for unvalidated glob parsing.
+- Production Syntyr CSS runtime has zero npm dependencies and is unaffected.
+
+**Monitoring plan:**
+- Track upstream `picomatch`, `@tailwindcss/cli`, and `unocss` releases and advisory state beyond passive waiting.
+- Avoid forcing breaking downgrades or unverified transitive replacements that compromise lockfile integrity or parity compiler output.
+- Re-run `npm audit` and benchmark visual/size parity tests as ecosystem dependencies publish updates.
+
 ## Repeatable source checks
 
 ~~~sh

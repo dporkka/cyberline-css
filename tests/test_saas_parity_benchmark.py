@@ -179,6 +179,37 @@ class SaaSParityContract(unittest.TestCase):
         self.assertEqual(tool.visual_deviations(actual, reference="plain",
                                                  tolerance=.05)[0]["issue"], "missing anchor")
 
+    def test_framework_benchmark_lockfile_picomatch_advisory_bounded_to_devtools(self):
+        """GHSA-fc5q-39xc-vjpf / CVE-2026-112366 originally reported picomatch <= 4.0.7 ReDoS
+        (withdrawn by GitHub on November 18, 2026).
+
+        Assert benchmarks/frameworks is private dev-only tooling, does not leak
+        into root package.json or production CSS, and has picomatch pinned to 4.0.7.
+        """
+        bench_dir = ROOT / "benchmarks/frameworks"
+        pkg = json.loads((bench_dir / "package.json").read_text())
+        self.assertTrue(pkg.get("private"), "Framework benchmark package must remain private")
+        self.assertIn("dev-only benchmark compilers", pkg.get("description", ""))
+
+        # Verify no benchmark dependencies leak into root package.json
+        root_pkg = json.loads((ROOT / "package.json").read_text())
+        for key in ("dependencies", "devDependencies", "peerDependencies", "optionalDependencies"):
+            self.assertNotIn("picomatch", root_pkg.get(key, {}))
+            for dep in pkg.get("devDependencies", {}):
+                self.assertNotIn(dep, root_pkg.get(key, {}))
+
+        # Lockfile integrity: verify picomatch instances are dev-only and pinned to upstream 4.0.7
+        lock = json.loads((bench_dir / "package-lock.json").read_text())
+        picomatch_versions = []
+        for name, meta in lock.get("packages", {}).items():
+            if name.endswith("node_modules/picomatch"):
+                picomatch_versions.append((name, meta.get("version"), meta.get("dev", False)))
+
+        self.assertTrue(picomatch_versions, "picomatch should be tracked in benchmark lockfile")
+        for name, version, is_dev in picomatch_versions:
+            self.assertTrue(is_dev, f"{name} must be marked as dev dependency")
+            self.assertEqual(version, "4.0.7", f"picomatch must be pinned to 4.0.7 (latest upstream), got {version}")
+
 
 if __name__ == "__main__":
     unittest.main()
