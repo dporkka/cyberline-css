@@ -47,13 +47,18 @@ ASSETS = (
 )
 
 
-def filter_assets(query: str = "", status: str = "all", kind: str = "all") -> list[Asset]:
+DISTRICTS = tuple(sorted({a.district for a in ASSETS}))
+
+
+def filter_assets(query: str = "", status: str = "all", kind: str = "all",
+                  district: str = "all") -> list[Asset]:
     needle = query.strip().casefold()
     return [
         asset for asset in ASSETS
         if (not needle or needle in f"{asset.name} {asset.district} {asset.code}".casefold())
         and (status == "all" or asset.status == status)
         and (kind == "all" or asset.kind == kind)
+        and (district == "all" or asset.district == district)
     ]
 
 
@@ -61,9 +66,16 @@ def _option(value: str, text: str, active: str) -> str:
     return f'<option value="{value}"{" selected" if value == active else ""}>{escape(text)}</option>'
 
 
-def _query_link(query: str, status: str, kind: str, selected: str) -> str:
+def _query_link(query: str, status: str, kind: str, district: str, selected: str) -> str:
     return "/?" + escape(urlencode({"query": query, "status": status,
-                                     "type": kind, "selected": selected}), quote=True) + "#selection"
+                                     "type": kind, "district": district,
+                                     "selected": selected}), quote=True) + "#selection"
+
+
+def _district_link(query: str, status: str, kind: str, district: str) -> str:
+    # Facet changes clear the selection; the server then picks a visible record.
+    return "/?" + escape(urlencode({"query": query, "status": status,
+                                     "type": kind, "district": district}), quote=True) + "#results"
 
 
 def render_dashboard(query_string: str) -> str:
@@ -79,7 +91,17 @@ def render_dashboard(query_string: str) -> str:
     query = first("query").strip()
     status = first("status") if first("status") in ("all", *STATUS) else "all"
     kind = first("type") if first("type") in ("all", *FORMATS) else "all"
-    rows = filter_assets(query, status, kind)
+    district = first("district") if first("district") in ("all", *DISTRICTS) else "all"
+    rows = filter_assets(query, status, kind, district)
+    other_filters = filter_assets(query, status, kind)
+    district_links = []
+    for value, label in (("all", "All districts"), *((name, name) for name in DISTRICTS)):
+        count = len(other_filters) if value == "all" else sum(a.district == value for a in other_filters)
+        current = ' aria-current="page"' if district == value else ""
+        district_links.append(
+            f'<li><a href="{_district_link(query, status, kind, value)}"{current}>'
+            f'{escape(label)} ({count})</a></li>'
+        )
     requested = first("selected")
     chosen = next((row for row in rows if row.code == requested), rows[0] if rows else None)
     available = sum(row.status == "available" for row in rows)
@@ -91,9 +113,9 @@ def render_dashboard(query_string: str) -> str:
         mark = ' data-syn-selected="true"' if selected else ""
         current = ' aria-current="location"' if selected else ""
         label, variant = STATUS[asset.status]
-        link = _query_link(query, status, kind, asset.code)
+        link = _query_link(query, status, kind, district, asset.code)
         markers.append(
-            f'<a class="syn-geo-marker" style="--syn-geo-x:{asset.x}%; --syn-geo-y:{asset.y}%"'
+            f'<a class="syn-geo-marker" id="map-marker-{escape(asset.code)}" style="--syn-geo-x:{asset.x}%; --syn-geo-y:{asset.y}%"'
             f' href="{link}"{mark}{current} aria-label="Select {escape(asset.name)}"></a>'
         )
         records.append(
@@ -103,13 +125,14 @@ def render_dashboard(query_string: str) -> str:
             f'{escape(asset.name)}</h3><span class="syn-status syn-status--{variant}">{label}</span></div>'
             f'<p class="syn-caption">{escape(asset.code)} · {FORMATS[asset.kind]} · {escape(asset.district)}</p>'
             f'<div class="syn-filter-actions"><strong>${asset.monthly:,} / month</strong>'
-            f'<a href="{link}">{"Selected asset" if selected else "View asset details"}</a></div>'
+            f'<a href="{link}">{"Selected asset" if selected else "View asset details"}</a>'
+            f'<a href="#map-marker-{escape(asset.code)}" aria-label="Find {escape(asset.name)} on the schematic map">Find on schematic</a></div>'
             f'</article></li>'
         )
 
     if chosen is None:
         inspector = ""
-        empty = '<p class="syn-app-card" role="status">No assets match your filters. Adjust the search or status.</p>'
+        empty = '<p class="syn-app-card" role="status">No assets match your filters. Adjust the search, availability, format or district.</p>'
     else:
         label, variant = STATUS[chosen.status]
         inspector = f"""
@@ -186,6 +209,13 @@ def render_dashboard(query_string: str) -> str:
             {''.join(_option(value, label, kind) for value, label in FORMATS.items())}
           </select>
         </label>
+        <label class="syn-filter-field" for="filter-district">
+          District
+          <select class="syn-select" id="filter-district" name="district">
+            {_option("all", "All districts", district)}
+            {''.join(_option(value, value, district) for value in DISTRICTS)}
+          </select>
+        </label>
         <div class="syn-filter-actions">
           <button type="submit" class="syn-button syn-button--primary">Apply filters</button>
           <a href="/" class="syn-button syn-button--outline">Clear</a>
@@ -195,8 +225,13 @@ def render_dashboard(query_string: str) -> str:
       <div class="syn-geo-shell">
         <div class="syn-geo-workspace">
           <section class="syn-geo-sidebar" id="results" aria-label="Inventory results and selected asset">
+            <nav aria-label="Browse districts">
+              <h2 class="syn-heading">Browse districts</h2>
+              <p class="syn-caption">Counts reflect search, availability and format. District links narrow the records and markers.</p>
+              <ul class="syn-geo-data-list">{''.join(district_links)}</ul>
+            </nav>
             <h2 class="syn-heading">Inventory results</h2>
-            <p class="syn-caption">{len(rows)} matching fictional records</p>
+            <p class="syn-caption">{len(rows)} matching fictional records in {escape(district) if district != "all" else "all districts"}</p>
             {empty}
             <ul class="syn-geo-data-list">{''.join(records)}</ul>
             {inspector}
@@ -226,8 +261,8 @@ def render_dashboard(query_string: str) -> str:
       </div>
       <section class="syn-app-card" id="about" aria-labelledby="about-heading">
         <h2 class="syn-heading" id="about-heading">Implementation notes</h2>
-        <p>GET filters and selection use the Python standard library and normal hyperlinks.
-        Syntyr provides CSS only; no client-side scripts or build tooling are required.</p>
+        <p>GET filters, district drill-down and selection use the Python standard library and normal hyperlinks.
+        Districts are fictional categories, not geospatial polygons or map layers. Syntyr provides CSS only; no client-side scripts or build tooling are required.</p>
         <p>This demonstration has no authentication, real map data, booking logic or multi-tenant isolation.
         Integrate backend authorization, inventory sources and transaction safety before production use.</p>
       </section>

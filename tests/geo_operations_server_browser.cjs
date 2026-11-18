@@ -58,6 +58,25 @@ async function verify(engine, name, base) {
     assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Vista'}).count(),1);
     assert.equal(await page.locator('.syn-geo-marker[aria-current="location"]').count(),1);
 
+    // District navigation is a server-filtered facet, not a cosmetic map layer.
+    await page.goto(base + '/?status=available&type=static');
+    const districts = page.getByRole('navigation', {name: 'Browse districts'});
+    await districts.getByRole('link', {name: 'East district (2)'}).click();
+    assert(page.url().includes('district=East+district'), 'district GET navigation must preserve active status/type');
+    assert(page.url().includes('status=available') && page.url().includes('type=static'));
+    assert.equal(await page.locator('.syn-geo-marker').count(), 2);
+    assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Junction'}).count(), 1);
+    await page.getByRole('link', {name:'Find East Vista on the schematic map'}).click();
+    assert(page.url().endsWith('#map-marker-EV-035'), 'record must navigate to a keyboard-focusable marker');
+    await page.getByRole('link', {name:'Select East Vista'}).click();
+    assert(page.url().includes('district=East+district') && page.url().includes('selected=EV-035'));
+    assert.equal(await page.locator('#selection').getByRole('heading', {name:'East Vista'}).count(), 1);
+    await page.getByRole('combobox', {name:'District'}).selectOption('North district');
+    await page.getByRole('button', {name: 'Apply filters'}).click();
+    assert(page.url().includes('district=North+district'));
+    assert.equal(await page.locator('.syn-geo-marker').count(), 1);
+    assert.equal(await page.locator('#selection').getByRole('heading', {name:'North Ridge'}).count(), 1);
+
     await page.goto(base + '/?query=no-such-asset');
     assert.equal(await page.locator('.syn-geo-marker').count(), 0);
     assert.equal(await page.locator('#selection').count(), 0);
@@ -95,7 +114,7 @@ async function verify(engine, name, base) {
     await forced.goto(base + '/');
     assert.equal(await forced.locator('.syn-geo-marker[aria-current="location"]').count(),1);
     await forced.close();
-    console.log('PASS', name, 'server filters, selection, RTL, 320/390/1280, enlarged text, forced colors, no JS');
+    console.log('PASS', name, 'server filters, district drill-down, selection, RTL, 320/390/1280, enlarged text, forced colors, no JS');
   } finally {
     await browser.close();
   }
