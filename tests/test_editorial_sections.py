@@ -60,6 +60,16 @@ class EditorialSectionsTests(unittest.TestCase):
         self.assertIn('<time datetime=', (ROOT / 'blocks/snippets/article-grid.html').read_text())
         self.assertIn('<time datetime=', (ROOT / 'blocks/snippets/article-detail.html').read_text())
 
+    def test_block_guide_counts_match_canonical_manifest(self):
+        blocks = json.loads((ROOT / 'blocks/manifest.json').read_text())['blocks']
+        count = len(blocks)
+        guide = (ROOT / 'docs/blocks-guide.md').read_text()
+        for expected in (f'Browse {count} blocks', f'The {count} copy-owned',
+                         f'all {count} static previews', f'contains the {count} MIT',
+                         f'same {count} MIT blocks'):
+            with self.subTest(expected=expected):
+                self.assertIn(expected, guide)
+
     def test_every_new_editorial_block_is_copyable_and_filterable(self):
         html = (ROOT / 'docs/blocks.html').read_text()
         for ident in EDITORIAL:

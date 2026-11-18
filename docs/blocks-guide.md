@@ -11,13 +11,13 @@ cases. Each contains its own Syntyr root, uses accessible native markup and requ
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all 38 static previews remain visible, with
+buttons. Disable JavaScript and all 43 static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
 ## Safe local registry installation (experimental alpha.5 source)
 
-The static [universal registry](../registry/registry.json) contains the 38 MIT
+The static [universal registry](../registry/registry.json) contains the 43 MIT
 HTML blocks and nine CSS module entries. Every item includes its exact
 source-tree version, SHA-256 content hashes, declared CSS dependencies, files,
 and destination paths. This is **not** a published immutable alpha.5 release.
@@ -170,7 +170,7 @@ copied into the public project. The separate private Console Kit is unaffected.
 ## Experimental shadcn universal-item registry
 
 The source candidate can generate a **copy-owned, framework-independent**
-shadcn-compatible universal-item registry from the same 38 MIT blocks and
+shadcn-compatible universal-item registry from the same 43 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.
