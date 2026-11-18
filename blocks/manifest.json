@@ -622,6 +622,50 @@
         "portfolio",
         "results"
       ]
+    },
+    {
+      "id": "site-header",
+      "category": "Navigation",
+      "title": "Responsive site header",
+      "description": "A compact brand, navigation and call-to-action header with native links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "header",
+        "navigation",
+        "website"
+      ]
+    },
+    {
+      "id": "site-footer",
+      "category": "Navigation",
+      "title": "Multi-column site footer",
+      "description": "A reusable footer with separate navigation groups and business information.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "footer",
+        "links",
+        "website"
+      ]
+    },
+    {
+      "id": "mega-navigation",
+      "category": "Navigation",
+      "title": "Native expandable mega menu",
+      "description": "Keyboard-friendly disclosure with grouped destination links and no menu runtime.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "mega menu",
+        "navigation",
+        "disclosure",
+        "site"
+      ]
     }
   ]
 }
