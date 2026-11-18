@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Research rubric for the unreleased alpha.5 source candidate , not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix…">
-  <meta name="syntyr-source-sha256" content="cad54198bdebf63d09aa2fd4a24824a24a75bb14239069a381a72edcb045771d">
+  <meta name="syntyr-source-sha256" content="9411514c0c0fd7c9503b5db0ed2c8d85cef9b4f7b6aaf783c70e3d2646567766">
   <meta name="theme-color" content="#f5f7fb">
   <title>Web design reference matrix and Syntyr benchmark applications — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-reference-matrix">
@@ -36,6 +36,7 @@
         <article class="docs-prose" aria-label="Web design reference matrix and Syntyr benchmark applications">
 <h1 id="web-design-reference-matrix-and-syntyr-benchmark-applications">Web design reference matrix and Syntyr benchmark applications</h1>
 <p>Research rubric for the <strong>unreleased alpha.5 source candidate</strong>, not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix identifies what to <em>study</em>, not assets to redistribute. Design inspiration and design principles are not licenses.</p>
+<p>For a browsable public catalog with descriptions and direct links, see the <a href="design-resources.html">Syntyr web design resources directory</a>. This matrix adds Syntyr-specific adoption criteria and reproducible benchmarks, rather than duplicating the directory.</p>
 <h2 id="ranked-reference-matrix">Ranked reference matrix</h2>
 <table>
 <thead>
@@ -234,7 +235,7 @@ python3 scripts/design_reference_audit.py
 python3 scripts/design_reference_audit.py --json
 python3 -m unittest discover -s tests -p test_design_reference_benchmarks.py -v
 </code></pre>
-<p>The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, unique <code>--syn-*</code> declarations across linked CSS, <code>&lt;style&gt;</code> blocks and <code>style</code> attributes, and script plus inline event-handler JavaScript bytes. Gzip uses deterministic <code>mtime=0</code>; stylesheets are counted once per page and are <strong>not</strong> equivalent to browser transfer totals with caching. The metrics do <strong>not</strong> claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.</p>
+<p>The audit reports real HTML bytes; local Syntyr stylesheet bytes and gzip bytes; <strong>linked</strong> custom CSS (<code>custom_css_bytes</code> and <code>custom_css_gzip_bytes</code>); <strong>inline</strong> CSS from <code>&lt;style&gt;</code> blocks and <code>style</code> attributes (<code>inline_css_bytes</code> and <code>inline_css_gzip_bytes</code>); combined logical custom CSS totals (<code>custom_css_total_bytes</code> and <code>custom_css_total_gzip_bytes</code>); unique declared <code>--syn-*</code> tokens excluding CSS comments and strings; and script plus recognized inline event-handler JavaScript bytes. Inline CSS gzip compresses all inline CSS fragments joined by one newline in document order, once per page, using deterministic <code>mtime=0</code>. Linked stylesheet gzip bytes remain the sum of each distinct local CSS file compressed separately, with unchanged linked-only fields. Inline CSS bytes are <strong>already part of HTML markup bytes</strong>, so these analytical totals are not additive network-transfer measurements. The metrics do <strong>not</strong> claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.</p>
 <h3 id="follow-up-quality-gates">Follow-up quality gates</h3>
 <ul>
 <li>Compare the three designs at 320, 375, 768, 1280 CSS pixels, 200% zoom, and with long translated strings.</li>

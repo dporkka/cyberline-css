@@ -115,6 +115,9 @@ class DesignReferenceBenchmarkTest(unittest.TestCase):
         image = audit_page('<img src="fixture.png" onerror="recover()" />', BASE)
         self.assertEqual(image["runtime_js_bytes"], len("recover()"))
 
+        unrelated = audit_page('<p one="note" only="metadata">Text</p>', BASE)
+        self.assertEqual(unrelated["runtime_js_bytes"], 0)
+
     def test_audit_counts_unique_tokens_in_style_elements_and_attributes(self):
         from scripts.design_reference_audit import audit_page
         markup = (
@@ -123,6 +126,35 @@ class DesignReferenceBenchmarkTest(unittest.TestCase):
         )
         report = audit_page(markup, BASE)
         self.assertEqual(report["custom_token_overrides"], 3)
+
+    def test_audit_excludes_comments_and_strings_from_custom_token_declarations(self):
+        from scripts.design_reference_audit import audit_page
+        markup = (
+            '<style>/* --syn-fake: red */ .card { content: "--syn-string: blue"; '
+            '--syn-real: purple; /* --syn-fake: yellow; */ --syn-other: 3px; }</style>'
+            '<div style="/* --syn-fake: black */ --syn-real: green">Card</div>'
+        )
+        self.assertEqual(audit_page(markup, BASE)["custom_token_overrides"], 2)
+
+    def test_audit_accounts_for_inline_css_without_changing_linked_css_totals(self):
+        from scripts.design_reference_audit import audit_page
+        import gzip
+        styles = [".card { --syn-accent: red }", "--syn-radius: 4px"]
+        markup = f"<style>{styles[0]}</style><div style='{styles[1]}'>Card</div>"
+        report = audit_page(markup, BASE)
+        inline = "\n".join(styles).encode("utf-8")
+        self.assertEqual(report["custom_css_bytes"], 0)
+        self.assertEqual(report["custom_css_gzip_bytes"], 0)
+        self.assertEqual(report["inline_css_bytes"], sum(len(s.encode("utf-8")) for s in styles))
+        self.assertEqual(report["inline_css_gzip_bytes"], len(gzip.compress(inline, mtime=0)))
+        self.assertEqual(report["custom_css_total_bytes"], report["inline_css_bytes"])
+        self.assertEqual(report["custom_css_total_gzip_bytes"], report["inline_css_gzip_bytes"])
+
+        linked = audit_page('<link rel="stylesheet" href="benchmark.css">' + markup, BASE)
+        self.assertGreater(linked["custom_css_bytes"], 0)
+        self.assertGreater(linked["custom_css_gzip_bytes"], 0)
+        self.assertEqual(linked["custom_css_total_bytes"], linked["custom_css_bytes"] + linked["inline_css_bytes"])
+        self.assertEqual(linked["custom_css_total_gzip_bytes"], linked["custom_css_gzip_bytes"] + linked["inline_css_gzip_bytes"])
 
     def test_audit_rejects_remote_stylesheet_or_missing_stylesheet(self):
         from scripts.design_reference_audit import audit_page

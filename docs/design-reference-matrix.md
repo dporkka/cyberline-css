@@ -2,6 +2,8 @@
 
 Research rubric for the **unreleased alpha.5 source candidate**, not a statement about the published alpha.4 package. Updated 2026-11-18. This matrix identifies what to *study*, not assets to redistribute. Design inspiration and design principles are not licenses.
 
+For a browsable public catalog with descriptions and direct links, see the [Syntyr web design resources directory](design-resources.html). This matrix adds Syntyr-specific adoption criteria and reproducible benchmarks, rather than duplicating the directory.
+
 ## Ranked reference matrix
 
 | Priority | Reference and source | Study | Syntyr application / acceptance criterion | Boundary |
@@ -59,7 +61,7 @@ python3 scripts/design_reference_audit.py --json
 python3 -m unittest discover -s tests -p test_design_reference_benchmarks.py -v
 ```
 
-The audit reports real HTML bytes, local Syntyr stylesheet bytes and gzip bytes, custom stylesheet bytes and gzip bytes, unique `--syn-*` declarations across linked CSS, `<style>` blocks and `style` attributes, and script plus inline event-handler JavaScript bytes. Gzip uses deterministic `mtime=0`; stylesheets are counted once per page and are **not** equivalent to browser transfer totals with caching. The metrics do **not** claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.
+The audit reports real HTML bytes; local Syntyr stylesheet bytes and gzip bytes; **linked** custom CSS (`custom_css_bytes` and `custom_css_gzip_bytes`); **inline** CSS from `<style>` blocks and `style` attributes (`inline_css_bytes` and `inline_css_gzip_bytes`); combined logical custom CSS totals (`custom_css_total_bytes` and `custom_css_total_gzip_bytes`); unique declared `--syn-*` tokens excluding CSS comments and strings; and script plus recognized inline event-handler JavaScript bytes. Inline CSS gzip compresses all inline CSS fragments joined by one newline in document order, once per page, using deterministic `mtime=0`. Linked stylesheet gzip bytes remain the sum of each distinct local CSS file compressed separately, with unchanged linked-only fields. Inline CSS bytes are **already part of HTML markup bytes**, so these analytical totals are not additive network-transfer measurements. The metrics do **not** claim real-world LCP, CLS, browser-interaction latency, color contrast, or full WCAG conformance. Run the repository's Playwright/axe checks for those claims. Source checkout and published alpha.4 differ.
 
 ### Follow-up quality gates
 
