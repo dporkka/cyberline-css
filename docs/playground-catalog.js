@@ -704,5 +704,60 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "kind": "block",
     "category": "Services",
     "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-article-featured",
+    "title": "Featured editorial story",
+    "module": "syntyr.core.css",
+    "description": "A prominent lead article with an accessible summary and a real reading link.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-featured-story\">\n  \u003cp class=\"syn-eyebrow\">FROM THE JOURNAL\u003c/p>\n  \u003cdiv class=\"syn-split\">\n    \u003cdiv>\n      \u003ch2 id=\"syn-featured-story\" class=\"syn-heading\">Designing calmer customer experiences\u003c/h2>\n      \u003cp class=\"syn-lede\">Practical ways to make useful software easier to understand.\u003c/p>\n      \u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-10-14\">October 14, 2026\u003c/time> \u00b7 6 min read\u003c/p>\n      \u003ca class=\"syn-button syn-button--primary\" href=\"/journal/calm-interfaces\">Read the article\u003c/a>\n    \u003c/div>\n    \u003caside class=\"syn-panel\" aria-label=\"Article highlights\">\n      \u003cp class=\"syn-eyebrow\">IN THIS ARTICLE\u003c/p>\n      \u003cul class=\"syn-feature-list\">\u003cli>Clear information hierarchy\u003c/li>\u003cli>Helpful empty states\u003c/li>\u003cli>Accessible interaction patterns\u003c/li>\u003c/ul>\n    \u003c/aside>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Featured editorial story A prominent lead article with an accessible summary and a real reading link. blog featured editorial",
+    "kind": "block",
+    "category": "Editorial",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-article-grid",
+    "title": "Article and news grid",
+    "module": "syntyr.core.css",
+    "description": "A responsive collection of dated articles with titles and excerpts.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-journal-grid\">\n  \u003ch2 id=\"syn-journal-grid\" class=\"syn-heading\">Latest from the journal\u003c/h2>\n  \u003cdiv class=\"syn-grid\">\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">DESIGN\u003c/p>\u003ch3>\u003ca href=\"/journal/reading-layouts\">Better reading layouts\u003c/a>\u003c/h3>\u003cp>Make long-form pages inviting across screen sizes.\u003c/p>\u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-11-03\">November 3, 2026\u003c/time>\u003c/p>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">DEVELOPMENT\u003c/p>\u003ch3>\u003ca href=\"/journal/native-elements\">Start with native elements\u003c/a>\u003c/h3>\u003cp>Accessible controls before complex abstractions.\u003c/p>\u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-10-18\">October 18, 2026\u003c/time>\u003c/p>\u003c/article>\n    \u003carticle class=\"syn-panel\">\u003cp class=\"syn-eyebrow\">PRACTICE\u003c/p>\u003ch3>\u003ca href=\"/journal/design-systems\">A small design system\u003c/a>\u003c/h3>\u003cp>Build reusable interfaces without growing complexity.\u003c/p>\u003cp class=\"syn-caption\">\u003ctime datetime=\"2026-10-02\">October 2, 2026\u003c/time>\u003c/p>\u003c/article>\n  \u003c/div>\n  \u003cp>\u003ca href=\"/journal\">All articles\u003c/a>\u003c/p>\n\u003c/section>",
+    "keywords": "Article and news grid A responsive collection of dated articles with titles and excerpts. blog news posts cards",
+    "kind": "block",
+    "category": "Editorial",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-article-detail",
+    "title": "Long-form article layout",
+    "module": "syntyr.core.css",
+    "description": "A semantic article header, readable paragraphs and related links.",
+    "html": "\u003carticle class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-article-title\">\n  \u003cheader>\n    \u003cp class=\"syn-eyebrow\">FIELD NOTES\u003c/p>\n    \u003ch2 id=\"syn-article-title\" class=\"syn-heading\">Build a website that lasts\u003c/h2>\n    \u003cp class=\"syn-lede\">Make room for clarity, portability and simple maintenance.\u003c/p>\n    \u003cp class=\"syn-caption\">By the editorial team \u00b7 \u003ctime datetime=\"2026-10-20\">October 20, 2026\u003c/time>\u003c/p>\n  \u003c/header>\n  \u003csection aria-labelledby=\"syn-article-body\">\n    \u003ch3 id=\"syn-article-body\">Start with meaningful content\u003c/h3>\n    \u003cp>Use real headings, links and lists to give every reader a clear path through the page. Structure should remain understandable without a stylesheet.\u003c/p>\n    \u003ch3>Keep layouts flexible\u003c/h3>\u003cp>Use fluid sizing and relative units so content can respond to different screens and text settings.\u003c/p>\n    \u003cblockquote>\u003cp>Good defaults make the common case easier.\u003c/p>\u003c/blockquote>\n  \u003c/section>\n  \u003cfooter>\u003cp>\u003ca href=\"/journal\">Back to all articles\u003c/a>\u003c/p>\u003c/footer>\n\u003c/article>",
+    "keywords": "Long-form article layout A semantic article header, readable paragraphs and related links. article blog reading",
+    "kind": "block",
+    "category": "Editorial",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-author-profile",
+    "title": "Author bio card",
+    "module": "syntyr.core.css",
+    "description": "A concise author introduction with a clearly labeled profile link.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-author-name\">\n  \u003cdiv class=\"syn-panel\">\n    \u003cp class=\"syn-eyebrow\">ABOUT THE AUTHOR\u003c/p>\n    \u003ch2 id=\"syn-author-name\" class=\"syn-heading\">Editorial Team\u003c/h2>\n    \u003cp>Writing about resilient websites, accessible interfaces and practical design decisions.\u003c/p>\n    \u003ca href=\"/authors/editorial\">View all articles by the editorial team\u003c/a>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Author bio card A concise author introduction with a clearly labeled profile link. author bio profile",
+    "kind": "block",
+    "category": "Editorial",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-case-study-preview",
+    "title": "Case-study teaser",
+    "module": "syntyr.core.css",
+    "description": "A project outcome summary with challenges, solution and next action.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-labelledby=\"syn-case-study\">\n  \u003cdiv class=\"syn-split\">\n    \u003cdiv>\n      \u003cp class=\"syn-eyebrow\">EXAMPLE CASE STUDY\u003c/p>\u003ch2 id=\"syn-case-study\" class=\"syn-heading\">A simpler client portal\u003c/h2>\n      \u003cp class=\"syn-lede\">An illustrative project brief for a field-services company.\u003c/p>\n      \u003ca class=\"syn-button syn-button--outline\" href=\"/work/client-portal\">Read case study\u003c/a>\n    \u003c/div>\n    \u003cdl class=\"syn-panel\">\n      \u003cdt>\u003cstrong>Challenge\u003c/strong>\u003c/dt>\u003cdd>Updates were scattered across email and documents.\u003c/dd>\n      \u003cdt>\u003cstrong>Approach\u003c/strong>\u003c/dt>\u003cdd>A focused portal with consistent status and file access.\u003c/dd>\n      \u003cdt>\u003cstrong>Outcome\u003c/strong>\u003c/dt>\u003cdd>Prototype ready for stakeholder review; no performance claims.\u003c/dd>\n    \u003c/dl>\n  \u003c/div>\n\u003c/section>",
+    "keywords": "Case-study teaser A project outcome summary with challenges, solution and next action. case-study portfolio results",
+    "kind": "block",
+    "category": "Portfolio",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
   }
 ];
