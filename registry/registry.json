@@ -1031,6 +1031,116 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "article-featured",
+      "type": "registry:item",
+      "title": "Featured editorial story",
+      "description": "A prominent lead article with an accessible summary and a real reading link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-featured.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-featured.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "article-grid",
+      "type": "registry:item",
+      "title": "Article and news grid",
+      "description": "A responsive collection of dated articles with titles and excerpts.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "article-detail",
+      "type": "registry:item",
+      "title": "Long-form article layout",
+      "description": "A semantic article header, readable paragraphs and related links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/article-detail.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/article-detail.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "author-profile",
+      "type": "registry:item",
+      "title": "Author bio card",
+      "description": "A concise author introduction with a clearly labeled profile link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/author-profile.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/author-profile.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "case-study-preview",
+      "type": "registry:item",
+      "title": "Case-study teaser",
+      "description": "A project outcome summary with challenges, solution and next action.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/case-study-preview.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/case-study-preview.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }
