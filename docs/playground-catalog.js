@@ -759,5 +759,38 @@ window.SYNTYR_PLAYGROUND_CATALOG = [
     "kind": "block",
     "category": "Portfolio",
     "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-site-header",
+    "title": "Responsive site header",
+    "module": "syntyr.core.css",
+    "description": "A compact brand, navigation and call-to-action header with native links.",
+    "html": "\u003cheader class=\"syn-root syn-header syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site header\">\n  \u003ca class=\"syn-logo syn-list-row\" href=\"/home\">Northstar Studio\u003c/a>\n  \u003cnav class=\"syn-nav\" aria-label=\"Primary navigation\">\n    \u003ca class=\"syn-list-row\" href=\"/services\">Services\u003c/a>\u003ca class=\"syn-list-row\" href=\"/work\">Work\u003c/a>\u003ca class=\"syn-list-row\" href=\"/journal\">Journal\u003c/a>\n  \u003c/nav>\n  \u003ca class=\"syn-button syn-button--primary\" href=\"/contact\">Start a project\u003c/a>\n\u003c/header>",
+    "keywords": "Responsive site header A compact brand, navigation and call-to-action header with native links. header navigation website",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-site-footer",
+    "title": "Multi-column site footer",
+    "module": "syntyr.core.css",
+    "description": "A reusable footer with separate navigation groups and business information.",
+    "html": "\u003cfooter class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-label=\"Example site footer\">\n  \u003cdiv class=\"syn-grid\">\n    \u003csection class=\"syn-panel\" aria-labelledby=\"syn-footer-brand\">\n      \u003ch2 class=\"syn-heading\" id=\"syn-footer-brand\">Northstar Studio\u003c/h2>\n      \u003cp class=\"syn-muted\">Independent design and engineering for useful websites.\u003c/p>\n    \u003c/section>\n    \u003cnav class=\"syn-panel\" aria-label=\"Explore\">\n      \u003cstrong>Explore\u003c/strong>\n      \u003cul>\u003cli>\u003ca class=\"syn-list-row\" href=\"/services\">Services\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/work\">Selected work\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/journal\">Journal\u003c/a>\u003c/li>\u003c/ul>\n    \u003c/nav>\n    \u003cnav class=\"syn-panel\" aria-label=\"Information\">\n      \u003cstrong>Information\u003c/strong>\n      \u003cul>\u003cli>\u003ca class=\"syn-list-row\" href=\"/contact\">Contact\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/privacy\">Privacy\u003c/a>\u003c/li>\u003cli>\u003ca class=\"syn-list-row\" href=\"/accessibility\">Accessibility\u003c/a>\u003c/li>\u003c/ul>\n    \u003c/nav>\n  \u003c/div>\n  \u003cp class=\"syn-caption\">Example footer. Replace brand details and links before publishing.\u003c/p>\n\u003c/footer>",
+    "keywords": "Multi-column site footer A reusable footer with separate navigation groups and business information. footer links website",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
+  },
+  {
+    "id": "block-mega-navigation",
+    "title": "Native expandable mega menu",
+    "module": "syntyr.core.css + syntyr.recipes.css",
+    "description": "Keyboard-friendly disclosure with grouped destination links and no menu runtime.",
+    "html": "\u003csection class=\"syn-root syn-region\" data-syn-theme=\"studio\" aria-label=\"Expandable website navigation example\">\n  \u003cnav aria-label=\"Products and resources\" class=\"syn-stack\">\n    \u003cdiv class=\"syn-inline\" style=\"--syn-inline-justify:space-between\">\n      \u003ca class=\"syn-logo\" href=\"/\">NORTH / STUDIO\u003c/a>\n      \u003ca class=\"syn-button syn-button--outline\" href=\"/contact\">Get in touch\u003c/a>\n    \u003c/div>\n    \u003cdetails class=\"syn-details\" open>\n      \u003csummary>Explore our solutions\u003c/summary>\n      \u003cdiv class=\"syn-stack\">\n        \u003cp class=\"syn-muted\">Browse product areas or jump straight to a guide.\u003c/p>\n        \u003cdiv class=\"syn-feature-grid\">\n          \u003csection class=\"syn-feature-card\">\n            \u003ch2 class=\"syn-heading\">Products\u003c/h2>\n            \u003cul class=\"syn-stack\">\n              \u003cli>\u003ca href=\"/products/analytics\">Analytics platform\u003c/a>\u003c/li>\n              \u003cli>\u003ca href=\"/products/automation\">Workflow automation\u003c/a>\u003c/li>\n            \u003c/ul>\n          \u003c/section>\n          \u003csection class=\"syn-feature-card\">\n            \u003ch2 class=\"syn-heading\">Resources\u003c/h2>\n            \u003cul class=\"syn-stack\">\n              \u003cli>\u003ca href=\"/docs\">Documentation\u003c/a>\u003c/li>\n              \u003cli>\u003ca href=\"/journal\">Journal\u003c/a>\u003c/li>\n            \u003c/ul>\n          \u003c/section>\n        \u003c/div>\n      \u003c/div>\n    \u003c/details>\n  \u003c/nav>\n\u003c/section>",
+    "keywords": "Native expandable mega menu Keyboard-friendly disclosure with grouped destination links and no menu runtime. mega menu navigation disclosure site",
+    "kind": "block",
+    "category": "Navigation",
+    "guidance": "Illustrative, MIT-licensed presentation. Use the required CSS modules; your application supplies actions, validation, real data and permissions."
   }
 ];
