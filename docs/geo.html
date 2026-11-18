@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Status: experimental and unreleased. The MIT-licensed syntyr.geo.css module styles geospatial application chrome : map workspaces, filters, layers, marker…">
-  <meta name="syntyr-source-sha256" content="d447790dcce860b1c863af3860a0fc624981f0be71ab4632e89d661514f56151">
+  <meta name="syntyr-source-sha256" content="577b80bc235077eebc94d0e78afd3d470b6e0e63c46e259f2973e1a65201b869">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr Geo — renderer-neutral geospatial interface styles — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/geo">
@@ -46,7 +46,46 @@
 <pre tabindex="0"><code class="language-sh">python3 examples/geo_operations_server.py --port 8765
 </code></pre>
 <p>Open <code>http://127.0.0.1:8765/</code>. It composes the existing <code>syntyr.core.css</code>, <code>syntyr.recipes.css</code> and <code>syntyr.geo.css</code> files into a responsive inventory search, accessible results/inspector, and fictional map schematic. Map coordinates are <strong>illustrative pixel percentages</strong>, not geographic coordinates. The Python file is a <strong>source-only reference</strong> and is not included in the distributable release ZIP. The server binds to localhost and contains fictional in-memory records; it has no credentials, accounts, tenant isolation, authorization, persistence or booking capability. Never expose this sample on a public interface as a production service.</p>
-<p>Maintainers can optionally verify Chromium/Firefox native GET interaction, 320px reflow, enlarged text, RTL markers and forced colors with <code>node tests/geo_operations_server_browser.cjs</code> after installing Playwright <strong>outside</strong> the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.</p>
+<h3 id="district-drill-down-and-selection-interaction-contract">District drill-down and selection: interaction contract</h3>
+<p>The optional server example uses <strong>real, browser-native GET navigation</strong> for a small fictional district facet. The new <code>district</code> select and district links share search, status and format filters. District counts are computed after those other filters but before choosing a district, so the number on each link represents the results it would show. There is no JavaScript filtering or hidden application state.</p>
+<table>
+<thead>
+<tr>
+<th>User action</th>
+<th>Native UI and URL state</th>
+<th>What the server must guarantee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Apply filters</td>
+<td>Labeled <code>search</code> input and <code>select</code> controls, <code>method=&quot;get&quot;</code></td>
+<td>Filter the <strong>list and the schematic markers</strong> from the same result set, recompute summary/counts and prevent stale selected records</td>
+</tr>
+<tr>
+<td>Browse a district</td>
+<td>Named <code>nav</code> of ordinary links with one <code>aria-current=&quot;page&quot;</code></td>
+<td>Retain search, status and format; reset selection before choosing the first visible item</td>
+</tr>
+<tr>
+<td>Select a map marker or an asset</td>
+<td>Link with preserved filters and <code>selected=ID#selection</code></td>
+<td>Inspect only an asset that belongs to the currently filtered district; never reveal an out-of-scope record</td>
+</tr>
+<tr>
+<td>Find a map marker from a record</td>
+<td><code>#map-marker-ID</code> points to a real named anchor</td>
+<td>Preserve a keyboard-reachable target even with JavaScript disabled; do <strong>not</strong> pretend to center a real map camera</td>
+</tr>
+<tr>
+<td>No matching records</td>
+<td>Plain-text status with no markers or inspector</td>
+<td>Clear stale selection and display an actionable filter-reset path</td>
+</tr>
+</tbody>
+</table>
+<p>This contract is <strong>read-only demonstration behavior</strong>, not tenant authorization. The district names and percentages are fictional, not geographic boundaries. A production application must validate parameters and permissions at the data-access layer, rather than treating filtered HTML or the marker list as an access-control boundary. Do not use the diagram's percentage coordinates to simulate real GIS geography.</p>
+<p>Maintainers can optionally verify Chromium/Firefox native GET interaction, district navigation, 320px reflow, enlarged text, RTL markers and forced colors with <code>node tests/geo_operations_server_browser.cjs</code> after installing Playwright <strong>outside</strong> the Syntyr runtime. The script starts and shuts down the localhost Python server automatically. This does not replace manual screen-reader or real browser-zoom review.</p>
 <h2 id="the-boundary-cartographic-behavior-is-an-application-concern">The boundary: cartographic behavior is an application concern</h2>
 <p><strong>Syntyr does not</strong> calculate geographic coordinates, distances, bearings, geodesics, clustering, projections, antimeridian handling, routing or point-in-polygon queries. It cannot fetch or display basemap data, style vector tiles, perform hit testing, handle map keyboard navigation, or ensure geospatial measurement accuracy. Supply your own GIS data, map engine, and attribution. Syntyr only styles HTML around the actual map.</p>
 <p>For interactive maps, integrate an engine such as <a href="https://maplibre.org/maplibre-gl-js/docs/">MapLibre GL JS</a> (vector tiles / WebGL), <a href="https://leafletjs.com/reference">Leaflet</a> (lightweight tiled/DOM maps), or <a href="https://openlayers.org/">OpenLayers</a> (specialized GIS interactions and projections). They are <strong>application dependencies</strong>, not dependencies of Syntyr. Engine-native attribution and copyright/license requirements still apply; never remove provider credits. A decorative CSS attribution surface cannot replace legally required renderer attribution.</p>
@@ -103,6 +142,7 @@
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-3" href="#optional-python-standard-library-operations-demo-repository-source">Optional Python standard-library operations demo (repository source)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#district-drill-down-and-selection-interaction-contract">District drill-down and selection: interaction contract</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#the-boundary-cartographic-behavior-is-an-application-concern">The boundary: cartographic behavior is an application concern</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#a-map-ready-responsive-shell">A map-ready, responsive shell</a>
 <a class="docs-article-toc-link docs-article-toc-3" href="#markers-use-the-renderer-to-position-them">Markers: use the renderer to position them</a>
