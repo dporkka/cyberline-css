@@ -127,7 +127,7 @@
     const shell = `<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' ${localStyleOrigin}; img-src data: ${localStyleOrigin}; base-uri 'none'; form-action 'none'">
-<link rel="stylesheet" href="../dist/syntyr.all.css">
+${snippet.previewStylesheets(catalogMap.get(example.value)?.module || "syntyr.core.css")}
 <style>html,body{min-height:100%;} body.syn-root{margin:0;padding:1.5rem;} *,*::before,*::after{box-sizing:border-box;}</style>
 </head><body class="syn-root syn-page" data-syn-theme="${theme.value}" style="${tokens()}">${previewSafeMarkup()}</body></html>`;
     preview.srcdoc = shell;

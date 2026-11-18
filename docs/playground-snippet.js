@@ -37,6 +37,12 @@
     return selected;
   }
 
+  function previewStylesheets(module) {
+    return requiredStylesheets(module).map(
+      name => `<link rel="stylesheet" href="../dist/${name}">`
+    ).join("\n");
+  }
+
   function configuredSnippet({ theme, tokens = "", module, markup = "" }) {
     if (!THEMES.has(theme)) throw new Error("Unsupported Syntyr theme");
     // Values originate from the documentation sliders, not pasted HTML.
@@ -52,6 +58,7 @@
 
   window.SYNTYR_PLAYGROUND_SNIPPET = Object.freeze({
     requiredStylesheets,
+    previewStylesheets,
     configuredSnippet
   });
 })();

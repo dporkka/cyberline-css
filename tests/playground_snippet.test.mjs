@@ -34,6 +34,19 @@ test("all generated catalog entries produce stylesheets present in the public CS
   }
 });
 
+test("preview and copy use identical module selections", () => {
+  const modules = "syntyr.core.css + syntyr.recipes.css";
+  const previewLinks = api.previewStylesheets(modules);
+  const snippet = api.configuredSnippet({
+    theme: "studio", tokens: "", module: modules, markup: "<p>Preview</p>"
+  });
+  for (const name of api.requiredStylesheets(modules)) {
+    assert.ok(previewLinks.includes(`href="../dist/${name}"`));
+    assert.ok(snippet.includes(`href="./${name}"`));
+  }
+  assert.equal(previewLinks.match(/<link /g).length, 2);
+});
+
 test("invalid or invented stylesheet names are never emitted in copied HTML", () => {
   assert.throws(() => api.requiredStylesheets("https://evil.example/foo.css"));
   assert.throws(() => api.requiredStylesheets("syntyr.fake.css"));
