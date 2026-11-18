@@ -7,6 +7,7 @@ from __future__ import annotations
 import argparse
 from html import escape
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -40,10 +41,29 @@ TYPOGRAPHY = (
 
 def build() -> str:
     blocks = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))["blocks"]
+    categories = list(dict.fromkeys(b["category"] for b in blocks))
+    category_options = "".join(
+        f'<option value="{escape(category, quote=True)}">{escape(category)}</option>'
+        for category in categories
+    )
+    count = len(blocks)
     cards = []
     for block in blocks:
         ident = block["id"]
         snippet = (ROOT / "blocks/snippets" / f"{ident}.html").read_text(encoding="utf-8").strip()
+        # Preview-only disabled fieldsets preserve readable form labels while
+        # ensuring no-JS demo controls cannot submit to unimplemented routes.
+        # Never mutate the original copyable snippet or registry markup.
+        preview = re.sub(
+            r"(<form\b[^>]*>)",
+            r'\1<fieldset class="blocks-preview-disabled" disabled>',
+            snippet, flags=re.IGNORECASE,
+        )
+        preview = re.sub(
+            r"(</form>)",
+            r"</fieldset><!-- end non-submittable gallery form -->\1",
+            preview, flags=re.IGNORECASE,
+        )
         modules = " + ".join(f"syntyr.{module}.css" for module in block["modules"])
         tags = " ".join([block["title"], block["description"], *block["tags"]])
         cards.append(f"""
@@ -58,7 +78,7 @@ def build() -> str:
         </div>
         <p class="syn-muted">{escape(block['description'])}</p>
         <div class="blocks-preview">
-{snippet}
+{preview}
         </div>
         <details class="blocks-details">
           <summary data-block-source>View HTML source for {escape(block['title'])}</summary>
@@ -97,7 +117,7 @@ def build() -> str:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="{count} original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -117,7 +137,7 @@ def build() -> str:
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">{count} production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -129,8 +149,7 @@ def build() -> str:
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            {category_options}</select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -139,7 +158,7 @@ def build() -> str:
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">{count} blocks available.</p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">{''.join(cards)}
       </div>

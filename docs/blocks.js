@@ -8,6 +8,10 @@
   const results = document.getElementById("blocks-results");
   const empty = document.getElementById("blocks-empty");
   const cards = Array.from(document.querySelectorAll("[data-block-id]"));
+  // Defense in depth for browsers without native inert support.
+  document.getElementById("blocks-grid")?.addEventListener("submit", (event) => {
+    if (event.target?.closest(".blocks-preview")) event.preventDefault();
+  });
   if (!controls || !query || !category || !theme || !results || !empty || !cards.length) return;
 
   const indexed = cards.map(card => ({

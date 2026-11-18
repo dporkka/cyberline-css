@@ -2,16 +2,24 @@
 
 **Status:** Experimental alpha.5 source gallery, not an immutable release or published npm package.
 
-[Browse 20 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
+[Browse 47 blocks](blocks.html) | [Component catalog](catalog.html) | [Themes](theme-customization.md) | [Accessibility](accessibility.md)
 
 ## Contract
 
-The 20 copy-owned HTML compositions cover marketing, application and technical use
+The 47 copy-owned HTML compositions cover marketing, editorial, services, portfolio, commerce, navigation, application and technical use
 cases. Each contains its own Syntyr root, uses accessible native markup and requires
 no application JavaScript. The data, testimonials and prices are illustrative, not live.
 
+Gallery preview controls are wrapped in disabled fieldsets to prevent
+accidental submissions to illustrative authentication, contact and newsletter
+routes even when JavaScript is disabled. Unlike an inert form, disabled controls
+retain a readable form structure and labels for assistive technology. A scoped
+submit handler is a progressive fallback. The copyable HTML source and block
+registry retain the original form actions and methods; host applications must
+implement them securely.
+
 The gallery script powers optional documentation search, theme switching and copy
-buttons. Disable JavaScript and all twenty static previews remain visible, with
+buttons. Disable JavaScript and all forty static previews remain visible, with
 selectable source under native disclosure elements. No scripts are included in
 application CSS, and the core Syntyr build is unchanged.
 
@@ -129,7 +137,7 @@ copied into the public project. The separate private Console Kit is unaffected.
 ## Experimental shadcn universal-item registry
 
 The source candidate can generate a **copy-owned, framework-independent**
-shadcn-compatible universal-item registry from the same 20 MIT blocks and
+shadcn-compatible universal-item registry from the same 40 MIT blocks and
 checked-in CSS distributions. It neither replaces nor duplicates the native
 block installer from PR #104. Universal files use explicit project-relative
 targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.
@@ -158,3 +166,66 @@ never reads private Console Kit assets or executes downloaded code. No dynamic
 service, telemetry, npm dependency, or customer license is introduced.
 Published alpha.4 assets remain immutable; registry payloads declare their
 source-candidate Syntyr version and must not be confused with a tagged release.
+
+## WordPress-inspired website section collection (alpha.5 candidate)
+
+Twenty additional MIT site sections cover headers, footers, editorial publishing,
+service-business pages, project portfolios, comparisons, integration directories,
+newsletter/contact forms, and product collection showcases. All are standalone
+copy-owned HTML files in blocks/snippets and use the same manifest and generated
+gallery as the original twenty. Filter the gallery by Navigation, Editorial,
+Services, Portfolio or Commerce.
+
+These are HTML design references, not native Gutenberg editor blocks, a
+WordPress plugin, a WooCommerce checkout, or live site integrations. For theme
+integration, follow the WordPress guide, prefer the isolated alpha.5
+syntyr.embed.css candidate inside existing themes, and verify on an
+actual published page. Routes such as /services, /journal, and
+/products are placeholders, not routes supplied by Syntyr.
+
+Form snippets intentionally have native POST actions but no backend. Before
+publishing, implement server validation, authorization where applicable,
+CSRF/anti-spam protection, privacy policy and opt-in confirmation. Do not
+claim a form is operational merely because it renders and submits.
+
+The new section families add no new CSS API, premium source, runtime scripts,
+bundled imagery, third-party assets, remote fonts or framework dependencies.
+Free MIT blocks and commercial website-kit compositions stay separate.
+
+## Additional native application and editorial patterns (alpha.5 candidate)
+
+Seven independently copy-owned blocks complement the website sections without
+adding another header/footer, article grid or comparison variant:
+`auth-sign-in`, `auth-recovery`, `docs-layout`, `error-recovery`, `empty-state`,
+`content-collection` and `mega-navigation`. All are built from the existing
+Syntyr CSS primitives and ordinary HTML; only the content collection and mega
+navigation need the separately optional recipes stylesheet.
+
+The authentication forms are **design references**, not login or password-reset
+services. Implement session management, CSRF protection, request throttling,
+non-enumerating responses, token expiry and authorization in your host
+application before enabling their routes. The content collection uses a native
+GET form and navigation links; the host server owns real filtering, pagination
+and query safety. The mega-navigation uses native `details` disclosure, not a
+JavaScript menu runtime. Replace fictional sample URLs before publishing.
+
+The block IDs are intentionally distinct from existing site-header, site-footer,
+article-detail and comparison patterns. The canonical manifest supplies the
+standalone snippets, gallery cards and shadcn-compatible registry payloads; a
+regression test checks each public registry item against its source snippet.
+
+## Four complete free website starter pages
+
+The following alpha.5 reference pages are generated from the same reviewed
+MIT block snippets, rather than duplicating their markup in a second template
+system:
+
+- [Business homepage](../examples/site-starter-business.html)
+- [Editorial index](../examples/site-starter-journal.html)
+- [Article detail](../examples/site-starter-article.html)
+- [Service business](../examples/site-starter-services.html)
+
+Run python3 scripts/build_site_starters.py to regenerate, or add --check
+to verify reproducibility. The generator uses only the Python standard
+library and adds no runtime dependency. These demonstrators are intentionally
+noindexed, contain fictional information and have placeholder host URLs.

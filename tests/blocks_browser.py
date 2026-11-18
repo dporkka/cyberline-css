@@ -7,12 +7,14 @@ import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import sys
 from threading import Thread
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
+BLOCK_COUNT = len(json.loads((ROOT / "blocks/manifest.json").read_text())["blocks"])
 GALLERY = (ROOT / "docs/blocks.html").as_uri()
 
 
@@ -45,7 +47,7 @@ def layout_check(browser, engine, width, scale):
                     clipped: controls, cards: cards.length,
                     visible: cards.filter(card => !card.hidden).length};
         }""")
-        require(metrics["cards"] == 20 and metrics["visible"] == 20,
+        require(metrics["cards"] == BLOCK_COUNT and metrics["visible"] == BLOCK_COUNT,
                 f"{engine} {width}px {scale}x: missing blocks {metrics}")
         require(metrics["scroll"] <= metrics["viewport"] + 1,
                 f"{engine} {width}px {scale}x: overflow {metrics}")
@@ -69,7 +71,7 @@ def progressive_checks(browser, engine, screenshots):
     context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
     page = context.new_page()
     page.goto(GALLERY)
-    require(page.locator("[data-block-id]").count() == 20, "No-JS: blocks missing")
+    require(page.locator("[data-block-id]").count() == BLOCK_COUNT, "No-JS: blocks missing")
     require(page.locator("[data-icon-id]").count() == 24, "No-JS: SVG icons missing")
     require(page.locator(".syn-block-asset").count() == 12, "No-JS: CSS assets missing")
     require(page.locator("#blocks-controls").is_hidden(), "No-JS: controls should be hidden")
@@ -95,17 +97,24 @@ def progressive_checks(browser, engine, screenshots):
             "Accessibility: search input lacks expected accessible name")
     require(page.get_by_role("button", name="Copy HTML for Product launch hero").count() == 1,
             "Accessibility: copy button lacks block context")
-    require("20 of 20" in page.locator("#blocks-results").inner_text(), "JS: count wrong")
+    require(f"{BLOCK_COUNT} of {BLOCK_COUNT}" in page.locator("#blocks-results").inner_text(), "JS: count wrong")
     page.locator("#blocks-search").fill("pricing")
     require(page.locator("[data-block-id]:visible").count() == 1, "JS: search wrong")
     page.locator("#blocks-search").fill("no-results-can-match-XYZ")
     require(page.locator("#blocks-empty").is_visible(), "JS: empty state missing")
     page.locator("#blocks-search").fill("")
-    page.locator("#blocks-category").select_option("Technical")
-    require(page.locator("[data-block-id]:visible").count() == 4, "JS: category filter wrong")
+    # New independently composed blocks may extend existing categories. The
+    # manifest—not a historical fixture count—is the filtering contract.
+    blocks = json.loads((ROOT / "blocks/manifest.json").read_text())["blocks"]
+    for selected in ("Technical", "Applications", "Publishing", "Navigation"):
+        expected = sum(b["category"] == selected for b in blocks)
+        require(expected > 0, f"Fixture category missing: {selected}")
+        page.locator("#blocks-category").select_option(selected)
+        actual = page.locator("[data-block-id]:visible").count()
+        require(actual == expected, f"JS: {selected} filter wrong: {actual} != {expected}")
     page.locator("#blocks-category").select_option("all")
     page.locator("#blocks-theme").select_option("noir")
-    require(page.locator('.blocks-preview > .syn-root[data-syn-theme="noir"]').count() == 20,
+    require(page.locator('.blocks-preview > .syn-root[data-syn-theme="noir"]').count() == BLOCK_COUNT,
             "JS: theme did not apply to all previews")
     if screenshots:
         screenshots.mkdir(parents=True, exist_ok=True)
@@ -191,7 +200,11 @@ def main():
     with sync_playwright() as pw:
         for engine in args.browsers:
             try:
-                browser = getattr(pw, engine).launch(headless=True)
+                options = {"headless": True}
+                if engine == "webkit" and os.getenv("SYNTYR_WEBKIT_EXECUTABLE"):
+                    # Developer-only wrapper for WPE environments missing OS libraries.
+                    options["executable_path"] = os.environ["SYNTYR_WEBKIT_EXECUTABLE"]
+                browser = getattr(pw, engine).launch(**options)
             except Exception as exc:
                 failures.append(f"BLOCKED {engine}: {str(exc)[:240]}")
                 continue

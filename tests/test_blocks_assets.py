@@ -24,9 +24,9 @@ class InspectHTML(HTMLParser):
 
 
 class BlocksAssetsTests(unittest.TestCase):
-    def test_twenty_independent_copy_owned_blocks(self):
+    def test_manifest_has_unique_independent_copy_owned_blocks(self):
         blocks = json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]
-        self.assertEqual(len(blocks), 20)
+        self.assertGreaterEqual(len(blocks), 40)
         self.assertEqual(len({b["id"] for b in blocks}), len(blocks))
         self.assertGreaterEqual(len({b["category"] for b in blocks}), 3)
         for block in blocks:
@@ -60,8 +60,8 @@ class BlocksAssetsTests(unittest.TestCase):
         parsed = InspectHTML()
         parsed.feed(page)
         ids = [a["data-block-id"] for a in parsed.attributes if "data-block-id" in a]
-        self.assertEqual(len(ids), 20)
-        self.assertEqual(len(set(ids)), 20)
+        self.assertEqual(len(ids), len(json.loads(MANIFEST.read_text())["blocks"]))
+        self.assertEqual(len(set(ids)), len(json.loads(MANIFEST.read_text())["blocks"]))
         self.assertIn('src="blocks.js"', page)
         self.assertIn('href="blocks-assets.css"', page)
         self.assertIn('id="blocks-search"', page)
@@ -71,14 +71,46 @@ class BlocksAssetsTests(unittest.TestCase):
         self.assertIn('id="blocks-theme"', page)
         self.assertIn("without JavaScript", page)
 
+    def test_gallery_preview_forms_cannot_submit_but_copyable_source_is_unchanged(self):
+        from html import escape
+        page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
+        forms = re.findall(r"<form\b[^>]*>", page)
+        self.assertGreaterEqual(len(forms), 6, "expected preview forms")
+        self.assertTrue(all(not re.search(r"\binert(?:\s|>)", form) for form in forms),
+                        "preview forms must remain readable in the accessibility tree")
+        self.assertEqual(page.count('<fieldset class="blocks-preview-disabled" disabled>'),
+                         len(forms), "all preview form controls must be disabled without JavaScript")
+        self.assertEqual(page.count('</fieldset><!-- end non-submittable gallery form -->'),
+                         len(forms))
+        script = (ROOT / "docs/blocks.js").read_text(encoding="utf-8")
+        self.assertIn('addEventListener("submit"', script)
+        self.assertIn('event.preventDefault()', script)
+        for ident in ("auth-sign-in", "auth-recovery"):
+            source = (ROOT / "blocks/snippets" / f"{ident}.html").read_text().strip()
+            self.assertIn(escape(source), page)
+            self.assertNotIn("<form inert", source)
+
+    def test_disabled_preview_fieldset_preserves_native_form_layout(self):
+        # Preview controls remain disabled without JS, but their wrapper must
+        # participate in the parent's grid/flex layout (including RTL/reflow).
+        css = (ROOT / "docs/blocks.css").read_text(encoding="utf-8")
+        import re
+        match = re.search(r"\.syn-root \.blocks-preview-disabled\s*\{([^}]*)\}", css)
+        self.assertIsNotNone(match)
+        declarations = match.group(1)
+        for rule in ("display:inherit", "gap:inherit", "flex-wrap:inherit",
+                     "grid-template-columns:inherit"):
+            self.assertIn(rule, declarations.replace(" ", ""),
+                          f"preview fieldset must preserve {rule}")
+
     def test_repeated_source_and_copy_controls_have_contextual_names(self):
         page = (ROOT / "docs/blocks.html").read_text(encoding="utf-8")
         parser = InspectHTML()
         parser.feed(page)
         copy_labels = [attrs.get("aria-label", "") for attrs in parser.attributes
                        if "data-block-copy" in attrs]
-        self.assertEqual(len(copy_labels), 20)
-        self.assertEqual(len(set(copy_labels)), 20)
+        self.assertEqual(len(copy_labels), len(json.loads(MANIFEST.read_text())["blocks"]))
+        self.assertEqual(len(set(copy_labels)), len(json.loads(MANIFEST.read_text())["blocks"]))
         self.assertTrue(all(name.startswith("Copy HTML for ") for name in copy_labels))
         for block in json.loads(MANIFEST.read_text(encoding="utf-8"))["blocks"]:
             self.assertIn("View HTML source for " + block["title"] + "</summary>", page)
