@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"net/url"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -22,20 +23,26 @@ type resourceRow struct {
 	resource
 	DetailURL string
 }
+
+const rowsPerPage = 3
+
 type pageData struct {
-	Query, Status, Sort, Theme             string
-	ThemeStudio, ThemeGrid, ThemeNoir      bool
-	StatusActive, StatusReview, StatusDone bool
-	SortName, SortUpdated                  bool
-	ShowOwner, ShowRegion                  bool
-	Rows                                   []resourceRow
-	Count                                  int
-	Selected                               *resource
-	AllPreviewURL, ReturnURL               string
-	IsPreview                              bool
-	Chosen                                 []resource
-	SelectionScope                         string
-	SelectionCount                         int
+	Query, Status, Sort, Theme                string
+	ThemeStudio, ThemeGrid, ThemeNoir         bool
+	StatusActive, StatusReview, StatusDone    bool
+	SortName, SortUpdated                     bool
+	ShowOwner, ShowRegion                     bool
+	Rows                                      []resourceRow
+	Count                                     int
+	Page, TotalPages, FirstResult, LastResult int
+	HasPrevious, HasNext                      bool
+	PreviousURL, NextURL                      string
+	Selected                                  *resource
+	AllPreviewURL, ReturnURL                  string
+	IsPreview                                 bool
+	Chosen                                    []resource
+	SelectionScope                            string
+	SelectionCount                            int
 }
 
 var resources = []resource{
@@ -144,22 +151,55 @@ func newHandler(distDir string) http.Handler {
 			}
 		}
 		filtered := filterResources(q, status, ordering)
+		page := 1
+		if v.Has("page") {
+			var err error
+			page, err = strconv.Atoi(v.Get("page"))
+			if err != nil || page < 1 {
+				http.Error(w, "Invalid page", http.StatusBadRequest)
+				return
+			}
+		}
+		totalPages := max(1, (len(filtered)+rowsPerPage-1)/rowsPerPage)
+		if page > totalPages {
+			http.Error(w, "Page out of range", http.StatusBadRequest)
+			return
+		}
+		first := (page - 1) * rowsPerPage
+		last := min(first+rowsPerPage, len(filtered))
+		visible := filtered[first:last]
 		params := baseValues(q, status, ordering, showOwner, showRegion)
 		params.Set("theme", theme)
+		params.Set("page", strconv.Itoa(page))
 		data := pageData{
 			Query: q, Status: status, Sort: ordering, Theme: theme,
 			ThemeStudio: theme == "studio", ThemeGrid: theme == "grid", ThemeNoir: theme == "noir",
 			StatusActive: status == "active", StatusReview: status == "review", StatusDone: status == "done",
 			SortName: ordering == "name", SortUpdated: ordering != "name",
 			ShowOwner: showOwner, ShowRegion: showRegion,
-			Count: len(filtered), Rows: make([]resourceRow, 0, len(filtered)),
+			Count: len(filtered), Rows: make([]resourceRow, 0, len(visible)),
+			Page: page, TotalPages: totalPages, FirstResult: first + 1, LastResult: last,
+			HasPrevious: page > 1, HasNext: page < totalPages,
 			AllPreviewURL: "", ReturnURL: link("/resources", params),
 			IsPreview: r.URL.Path == "/preview",
 		}
-		for _, item := range filtered {
+		if data.HasPrevious {
+			previous := baseValues(q, status, ordering, showOwner, showRegion)
+			previous.Set("theme", theme)
+			previous.Set("page", strconv.Itoa(page-1))
+			data.PreviousURL = link("/resources", previous)
+		}
+		if data.HasNext {
+			next := baseValues(q, status, ordering, showOwner, showRegion)
+			next.Set("theme", theme)
+			next.Set("page", strconv.Itoa(page+1))
+			data.NextURL = link("/resources", next)
+		}
+		for _, item := range visible {
 			detail := baseValues(q, status, ordering, showOwner, showRegion)
 			detail.Set("id", item.ID)
 			detail.Set("theme", theme)
+			detail.Set("page", strconv.Itoa(page))
 			data.Rows = append(data.Rows, resourceRow{item, link("/resources", detail)})
 			if item.ID == v.Get("id") && r.URL.Path != "/preview" {
 				selected := item
@@ -170,6 +210,7 @@ func newHandler(distDir string) http.Handler {
 			all := baseValues(q, status, ordering, showOwner, showRegion)
 			all.Set("scope", "matching")
 			all.Set("theme", theme)
+			all.Set("page", strconv.Itoa(page))
 			data.AllPreviewURL = link("/preview", all)
 		}
 		if data.IsPreview {
@@ -200,7 +241,7 @@ func newHandler(distDir string) http.Handler {
 					}
 					requested[id] = struct{}{}
 				}
-				for _, item := range filtered {
+				for _, item := range visible {
 					if _, ok := requested[item.ID]; ok {
 						data.Chosen = append(data.Chosen, item)
 					}
