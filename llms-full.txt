@@ -1484,6 +1484,47 @@ do not conceal autofilled values with pseudo-elements or forced-color overrides.
 
 See [the static form showcase](../examples/form-composition.html) and the [main component contract](components.md).
 
+
+## Optional CSS-only conversation layout
+
+The `syntyr.recipes.css` bundle includes a small, **presentational-only**
+conversation composition: `.syn-conversation`, `.syn-message`,
+`.syn-message--incoming`, `.syn-message--outgoing`, `.syn-message-meta`,
+`.syn-composer`, and `.syn-composer-actions`. It reuses existing colors,
+density, typography, `.syn-textarea`, and `.syn-button` without shipping
+a chat runtime, stream parser, message history, or new dependencies.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.recipes.css">
+<main class="syn-root" data-syn-theme="minimal" data-syn-intensity="quiet">
+  <section class="syn-conversation" aria-label="Conversation">
+    <article class="syn-message syn-message--outgoing" aria-label="User message">
+      <p>Summarize our release plan.</p>
+    </article>
+    <article class="syn-message syn-message--incoming" aria-label="Response">
+      <p>Start with the smallest verified release candidate.</p>
+    </article>
+    <form class="syn-composer" action="/messages" method="post">
+      <!-- Your server must provide CSRF protection and authenticated POST handling. -->
+      <label class="syn-label" for="reply">Message</label>
+      <textarea class="syn-textarea" id="reply" name="message" required></textarea>
+      <div class="syn-composer-actions">
+        <span class="syn-caption">Messages are handled by your application.</span>
+        <button class="syn-button syn-button--primary" type="submit">Send</button>
+      </div>
+    </form>
+  </section>
+</main>
+```
+
+A production application supplies authenticated persistence, input validation,
+request rate limits, message announcements and focus management for updates,
+and a server action or optional progressive enhancement for streaming.
+Avoid using `aria-live` on an entire long message history. See the
+[offline static demo](../examples/chat-interface.html); its Send button
+is deliberately disabled because it has no server backend.
+
 ---
 
 ## Source: docs/native-patterns.md
@@ -4228,6 +4269,31 @@ For errors, pair `aria-invalid="true"` with an associated error message
 See [the live design-state example](../examples/design-states.html) for
 semantic typography, nested themes, compact layout and form states.
 
+
+## Manual contrast, independent of theme
+
+Set `data-syn-contrast="more"` on a `.syn-root` or a nested region to
+strengthen subtle/default borders and suppress raised/overlay shadows.
+The option uses the current theme's `--syn-frame-strong`; it does **not**
+switch palettes, change typography, or load JavaScript. Use
+`data-syn-contrast="normal"` on a nested region to restore ordinary
+border/shadow tokens when the OS has not requested increased contrast.
+
+```html
+<section class="syn-root" data-syn-theme="minimal" data-syn-contrast="more">
+  <article class="syn-panel">Higher-contrast borders</article>
+  <aside data-syn-contrast="normal"><div class="syn-panel">Ordinary borders</div></aside>
+</section>
+```
+
+The OS `prefers-contrast: more` preference **always wins**, including inside
+explicit `normal` regions. Forced-colors support remains native. Manual
+contrast only changes border/shadow roles; combine it with
+`data-syn-intensity="quiet"` for reduced optional decoration. None of these
+settings guarantees WCAG contrast for consumer-supplied token overrides.
+Studio and Minimal now give plain `.syn-panel` a theme-sized corner radius;
+Grid, Noir, Industrial, Terminal, Corporate and Auto keep their prior square
+panel shape, including when nested inside Studio/Minimal.
 ## Component-local layouts without compilation (experimental alpha.5)
 
 Modern CSS custom properties allow Syntyr to expose a small set of layout

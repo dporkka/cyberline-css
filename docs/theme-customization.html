@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.">
-  <meta name="syntyr-source-sha256" content="ebe4c8e29c8c45f8cae19b04345e27adf238b83f7f7dce183dbbdcfede739209">
+  <meta name="syntyr-source-sha256" content="fa8efa02c04d725e68f7e25a90cd19f077498c5a0b32d1fdb2ac70af07e06590">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr theme customization — copy, override, ship — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/theme-customization">
@@ -273,6 +273,26 @@ For errors, pair <code>aria-invalid=&quot;true&quot;</code> with an associated e
 (<code>aria-describedby</code>); never rely on border color alone.</p>
 <p>See <a href="../examples/design-states.html">the live design-state example</a> for
 semantic typography, nested themes, compact layout and form states.</p>
+<h2 id="manual-contrast-independent-of-theme">Manual contrast, independent of theme</h2>
+<p>Set <code>data-syn-contrast=&quot;more&quot;</code> on a <code>.syn-root</code> or a nested region to
+strengthen subtle/default borders and suppress raised/overlay shadows.
+The option uses the current theme's <code>--syn-frame-strong</code>; it does <strong>not</strong>
+switch palettes, change typography, or load JavaScript. Use
+<code>data-syn-contrast=&quot;normal&quot;</code> on a nested region to restore ordinary
+border/shadow tokens when the OS has not requested increased contrast.</p>
+<pre><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;minimal&quot; data-syn-contrast=&quot;more&quot;&gt;
+  &lt;article class=&quot;syn-panel&quot;&gt;Higher-contrast borders&lt;/article&gt;
+  &lt;aside data-syn-contrast=&quot;normal&quot;&gt;&lt;div class=&quot;syn-panel&quot;&gt;Ordinary borders&lt;/div&gt;&lt;/aside&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The OS <code>prefers-contrast: more</code> preference <strong>always wins</strong>, including inside
+explicit <code>normal</code> regions. Forced-colors support remains native. Manual
+contrast only changes border/shadow roles; combine it with
+<code>data-syn-intensity=&quot;quiet&quot;</code> for reduced optional decoration. None of these
+settings guarantees WCAG contrast for consumer-supplied token overrides.
+Studio and Minimal now give plain <code>.syn-panel</code> a theme-sized corner radius;
+Grid, Noir, Industrial, Terminal, Corporate and Auto keep their prior square
+panel shape, including when nested inside Studio/Minimal.</p>
 <h2 id="component-local-layouts-without-compilation-experimental-alpha5">Component-local layouts without compilation (experimental alpha.5)</h2>
 <p>Modern CSS custom properties allow Syntyr to expose a small set of layout
 adjustments without inventing more utility classes. The default styles remain
@@ -389,6 +409,7 @@ hover backgrounds against text across all palettes and browser engines.</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#system-palette-no-javascript-experimental">System palette, no JavaScript (experimental)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#typography-density-and-quiet-surfaces">Typography, density, and quiet surfaces</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#semantic-roles-states-and-content-rhythm">Semantic roles, states, and content rhythm</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#manual-contrast-independent-of-theme">Manual contrast, independent of theme</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#component-local-layouts-without-compilation-experimental-alpha5">Component-local layouts without compilation (experimental alpha.5)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#native-state-styling-and-accessibility">Native state styling and accessibility</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#experimental-opt-in-oklch-mixing">Experimental opt-in OKLCH mixing</a>

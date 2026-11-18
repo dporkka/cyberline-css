@@ -222,6 +222,31 @@ For errors, pair `aria-invalid="true"` with an associated error message
 See [the live design-state example](../examples/design-states.html) for
 semantic typography, nested themes, compact layout and form states.
 
+
+## Manual contrast, independent of theme
+
+Set `data-syn-contrast="more"` on a `.syn-root` or a nested region to
+strengthen subtle/default borders and suppress raised/overlay shadows.
+The option uses the current theme's `--syn-frame-strong`; it does **not**
+switch palettes, change typography, or load JavaScript. Use
+`data-syn-contrast="normal"` on a nested region to restore ordinary
+border/shadow tokens when the OS has not requested increased contrast.
+
+```html
+<section class="syn-root" data-syn-theme="minimal" data-syn-contrast="more">
+  <article class="syn-panel">Higher-contrast borders</article>
+  <aside data-syn-contrast="normal"><div class="syn-panel">Ordinary borders</div></aside>
+</section>
+```
+
+The OS `prefers-contrast: more` preference **always wins**, including inside
+explicit `normal` regions. Forced-colors support remains native. Manual
+contrast only changes border/shadow roles; combine it with
+`data-syn-intensity="quiet"` for reduced optional decoration. None of these
+settings guarantees WCAG contrast for consumer-supplied token overrides.
+Studio and Minimal now give plain `.syn-panel` a theme-sized corner radius;
+Grid, Noir, Industrial, Terminal, Corporate and Auto keep their prior square
+panel shape, including when nested inside Studio/Minimal.
 ## Component-local layouts without compilation (experimental alpha.5)
 
 Modern CSS custom properties allow Syntyr to expose a small set of layout

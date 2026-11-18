@@ -807,6 +807,39 @@
       ]
     },
     {
+      "name": "syn-composer",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-composer-actions",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-conversation",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
       "name": "syn-cta-band",
       "module": "recipes.css",
       "description": "Syntyr CSS class (recipes.css).",
@@ -2048,6 +2081,50 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-message",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-message--incoming",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-message--outgoing",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
+      ]
+    },
+    {
+      "name": "syn-message-meta",
+      "module": "recipes.css",
+      "description": "Syntyr CSS class (recipes.css).",
+      "stylesheets": [
+        "presets/cinematic.css",
+        "presets/saas.css",
+        "syntyr.all.css",
+        "syntyr.recipes.css"
       ]
     },
     {
@@ -4934,10 +5011,10 @@
     },
     {
       "name": "--syn-panel-radius",
-      "module": "components/layout.css",
+      "module": "tokens.css",
       "description": "Per-panel border radius; defaults to square corners.",
       "stylesheets": [
-        "components/layout.css",
+        "components/tokens.css",
         "presets/cinematic.css",
         "presets/minimal.css",
         "presets/saas.css",

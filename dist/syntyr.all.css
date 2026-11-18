@@ -42,10 +42,16 @@
     /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
     --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
     --syn-border-floating: var(--syn-frame-strong);
-    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    /* Inherit only the contrast mode, not a resolved parent-palette color:
+       nested themes must recalculate borders from their own frame tokens. */
+    --syn-border-subtle: color-mix(in srgb,
+      var(--syn-frame-strong) var(--_syn-contrast-strong, 0%),
+      color-mix(in srgb, var(--syn-frame) 60%, transparent));
     /* These aliases recompute in nested themed regions. */
     --syn-text-subtle: var(--syn-muted);
-    --syn-border-default: var(--syn-frame);
+    --syn-border-default: color-mix(in srgb,
+      var(--syn-frame-strong) var(--_syn-contrast-strong, 0%),
+      var(--syn-frame));
     --syn-border-hover: var(--syn-frame-strong);
     --syn-border-focus: var(--syn-accent);
     --syn-focus-ring: var(--syn-accent);
@@ -122,6 +128,7 @@
     --syn-warning: #92500a;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: .25rem;
+    --syn-panel-radius: var(--syn-radius);
     --syn-cut: .9rem;
   }
   :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
@@ -141,6 +148,7 @@
     --syn-warning: #ffd08b;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: .25rem;
+    --syn-panel-radius: 0;
     --syn-cut: .9rem;
   }
   :where(.syn-root[data-syn-theme="noir"], .syn-root [data-syn-theme="noir"]) {
@@ -160,6 +168,7 @@
     --syn-warning: #fbd18c;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 10%, transparent);
     --syn-radius: .25rem;
+    --syn-panel-radius: 0;
     --syn-cut: .9rem;
   }
   :where(.syn-root[data-syn-theme="industrial"], .syn-root [data-syn-theme="industrial"]) {
@@ -179,6 +188,7 @@
     --syn-warning: #ffd08f;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: .15rem;
+    --syn-panel-radius: 0;
     --syn-cut: .45rem;
   }
   :where(.syn-root[data-syn-theme="terminal"], .syn-root [data-syn-theme="terminal"]) {
@@ -198,6 +208,7 @@
     --syn-warning: #eccd86;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
     --syn-radius: 0;
+    --syn-panel-radius: 0;
     --syn-cut: 0;
   }
   :where(.syn-root[data-syn-theme="corporate"], .syn-root [data-syn-theme="corporate"]) {
@@ -217,6 +228,7 @@
     --syn-warning: #9a5600;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
     --syn-radius: .5rem;
+    --syn-panel-radius: 0;
     --syn-cut: 0;
   }
   :where(.syn-root[data-syn-theme="minimal"], .syn-root [data-syn-theme="minimal"]) {
@@ -236,6 +248,7 @@
     --syn-warning: #8d5200;
     --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 7%, transparent);
     --syn-radius: .375rem;
+    --syn-panel-radius: var(--syn-radius);
     --syn-cut: 0;
   }
 
@@ -260,6 +273,7 @@
       --syn-warning: light-dark(#92500a, #ffd08b);
       --syn-accent-soft: light-dark(color-mix(in srgb, var(--syn-accent) 9%, transparent), color-mix(in srgb, var(--syn-accent) 11%, transparent));
       --syn-radius: .25rem;
+      --syn-panel-radius: 0;
       --syn-cut: .9rem;
     }
   }
@@ -281,13 +295,30 @@
     --syn-font-display: var(--syn-mono);
   }
 
-  /* Higher contrast preserves nested theme and intensity overrides.
-     Custom application CSS can still override these layered defaults. */
+  /* Explicit contrast is independent of palette and density. A nested 'normal'
+     region may opt out of manual contrast, but never the OS preference. */
+  :where(.syn-root[data-syn-contrast="normal"], .syn-root [data-syn-contrast="normal"]) {
+    --_syn-contrast-strong: 0%;
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    --syn-border-default: var(--syn-frame);
+    --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
+    --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
+  }
+  :where(.syn-root[data-syn-contrast="more"], .syn-root [data-syn-contrast="more"]) {
+    --_syn-contrast-strong: 100%;
+    --syn-border-subtle: var(--syn-frame-strong);
+    --syn-border-default: var(--syn-frame-strong);
+    --syn-shadow-raised: none;
+    --syn-shadow-overlay: none;
+  }
+  /* Higher contrast covers nested palettes, intensity, and manual contrast.
+     Later application CSS can override these layered defaults if intentional. */
   @media (prefers-contrast: more) {
-    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity]) {
+    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity], .syn-root [data-syn-contrast]) {
       --syn-border-subtle: var(--syn-frame-strong);
       --syn-border-default: var(--syn-frame-strong);
       --syn-shadow-raised: 0 0 0 transparent;
+      --syn-shadow-overlay: none;
       --syn-grid-alpha: 0%;
       --syn-glow-alpha: 0%;
       --syn-wash-alpha: 0%;
@@ -1696,6 +1727,50 @@
       background: var(--syn-surface-floating); color: var(--syn-text);
       border: 1px solid var(--syn-border-floating); box-shadow: var(--syn-shadow-overlay);
     }
+
+    /* Conversational UI: visual-only recipes; messaging belongs to the app. */
+    &.syn-conversation {
+      display: grid; gap: var(--syn-space-3);
+      inline-size: min(100%, var(--syn-conversation-width, 52rem));
+      min-inline-size: 0; margin-inline: auto;
+    }
+    &.syn-message {
+      min-inline-size: 0; max-inline-size: min(100%, var(--syn-message-width, 40rem));
+      overflow-wrap: anywhere;
+    }
+    &.syn-message--incoming { justify-self: start; }
+    &.syn-message--outgoing {
+      justify-self: end; padding: var(--syn-space-2) var(--syn-space-3);
+      background: var(--syn-surface-raised); color: var(--syn-text);
+      border: 1px solid var(--syn-border-subtle);
+      border-radius: calc(var(--syn-radius) + .5rem);
+    }
+    &.syn-message > :first-child { margin-block-start: 0; }
+    &.syn-message > :last-child { margin-block-end: 0; }
+    &.syn-message-meta { color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    &.syn-composer {
+      display: grid; gap: var(--syn-space-2); padding: var(--syn-space-2);
+      min-inline-size: 0; background: var(--syn-surface);
+      border: 1px solid var(--syn-border-default);
+      border-radius: calc(var(--syn-radius) + .75rem);
+    }
+    &.syn-composer:focus-within { border-color: var(--syn-border-focus); }
+    &.syn-composer .syn-textarea {
+      background: transparent; border-color: transparent;
+      min-height: 4rem; max-height: 16rem; resize: vertical;
+    }
+    &.syn-composer .syn-textarea:where(:focus, :hover) { border-color: transparent; }
+    &.syn-composer .syn-textarea:where(:user-invalid, [aria-invalid="true"]) {
+      border-color: var(--syn-danger);
+    }
+    &.syn-composer-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-1);
+    }
+    @media (forced-colors: active) {
+      &.syn-message--outgoing, &.syn-composer { border-color: CanvasText; }
+    }
+    /* End conversational UI */
 
     /* A shared heading anatomy for operational detail and settings screens. */
     &.syn-page-header {

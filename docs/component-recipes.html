@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="These are MIT-licensed, plain-HTML examples . Copy and modify them without installing a Syntyr CLI, template registry, React, or a JavaScript runtime…">
-  <meta name="syntyr-source-sha256" content="44b6598669ef1b441df0eefea8d8bab361fc71ed67064084720ecbeec4f508fb">
+  <meta name="syntyr-source-sha256" content="11d8de0163ef5d7f95844793732c4f120b7f0b1168a33152c3cf493979ebf472">
   <meta name="theme-color" content="#f5f7fb">
   <title>Copy-owned form recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/component-recipes">
@@ -151,6 +151,41 @@ do not conceal autofilled values with pseudo-elements or forced-color overrides.
 <li><code>syntyr.semantic.css</code> remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.</li>
 </ul>
 <p>See <a href="../examples/form-composition.html">the static form showcase</a> and the <a href="components.html">main component contract</a>.</p>
+<h2 id="optional-css-only-conversation-layout">Optional CSS-only conversation layout</h2>
+<p>The <code>syntyr.recipes.css</code> bundle includes a small, <strong>presentational-only</strong>
+conversation composition: <code>.syn-conversation</code>, <code>.syn-message</code>,
+<code>.syn-message--incoming</code>, <code>.syn-message--outgoing</code>, <code>.syn-message-meta</code>,
+<code>.syn-composer</code>, and <code>.syn-composer-actions</code>. It reuses existing colors,
+density, typography, <code>.syn-textarea</code>, and <code>.syn-button</code> without shipping
+a chat runtime, stream parser, message history, or new dependencies.</p>
+<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;minimal&quot; data-syn-intensity=&quot;quiet&quot;&gt;
+  &lt;section class=&quot;syn-conversation&quot; aria-label=&quot;Conversation&quot;&gt;
+    &lt;article class=&quot;syn-message syn-message--outgoing&quot; aria-label=&quot;User message&quot;&gt;
+      &lt;p&gt;Summarize our release plan.&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;article class=&quot;syn-message syn-message--incoming&quot; aria-label=&quot;Response&quot;&gt;
+      &lt;p&gt;Start with the smallest verified release candidate.&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;form class=&quot;syn-composer&quot; action=&quot;/messages&quot; method=&quot;post&quot;&gt;
+      &lt;!-- Your server must provide CSRF protection and authenticated POST handling. --&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;reply&quot;&gt;Message&lt;/label&gt;
+      &lt;textarea class=&quot;syn-textarea&quot; id=&quot;reply&quot; name=&quot;message&quot; required&gt;&lt;/textarea&gt;
+      &lt;div class=&quot;syn-composer-actions&quot;&gt;
+        &lt;span class=&quot;syn-caption&quot;&gt;Messages are handled by your application.&lt;/span&gt;
+        &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Send&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+<p>A production application supplies authenticated persistence, input validation,
+request rate limits, message announcements and focus management for updates,
+and a server action or optional progressive enhancement for streaming.
+Avoid using <code>aria-live</code> on an entire long message history. See the
+<a href="../examples/chat-interface.html">offline static demo</a>; its Send button
+is deliberately disabled because it has no server backend.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#1-labeled-field-with-assistance-and-server-side-validation">1. Labeled field with assistance and server-side validation</a>
@@ -160,6 +195,7 @@ do not conceal autofilled values with pseudo-elements or forced-color overrides.
 <a class="docs-article-toc-link docs-article-toc-2" href="#5-server-rendered-error-recovery">5. Server-rendered error recovery</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#6-native-readonly-text-fields">6. Native readonly text fields</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-companion-styles">Optional companion styles</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-css-only-conversation-layout">Optional CSS-only conversation layout</a>
         </nav></aside>
       </div>
       <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="component-recipes.md">Markdown source</a></nav>

@@ -145,3 +145,44 @@ do not conceal autofilled values with pseudo-elements or forced-color overrides.
 - `syntyr.semantic.css` remains a separate opt-in style for unclassed native HTML. Do not apply it indiscriminately around other component libraries.
 
 See [the static form showcase](../examples/form-composition.html) and the [main component contract](components.md).
+
+
+## Optional CSS-only conversation layout
+
+The `syntyr.recipes.css` bundle includes a small, **presentational-only**
+conversation composition: `.syn-conversation`, `.syn-message`,
+`.syn-message--incoming`, `.syn-message--outgoing`, `.syn-message-meta`,
+`.syn-composer`, and `.syn-composer-actions`. It reuses existing colors,
+density, typography, `.syn-textarea`, and `.syn-button` without shipping
+a chat runtime, stream parser, message history, or new dependencies.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<link rel="stylesheet" href="/css/syntyr.recipes.css">
+<main class="syn-root" data-syn-theme="minimal" data-syn-intensity="quiet">
+  <section class="syn-conversation" aria-label="Conversation">
+    <article class="syn-message syn-message--outgoing" aria-label="User message">
+      <p>Summarize our release plan.</p>
+    </article>
+    <article class="syn-message syn-message--incoming" aria-label="Response">
+      <p>Start with the smallest verified release candidate.</p>
+    </article>
+    <form class="syn-composer" action="/messages" method="post">
+      <!-- Your server must provide CSRF protection and authenticated POST handling. -->
+      <label class="syn-label" for="reply">Message</label>
+      <textarea class="syn-textarea" id="reply" name="message" required></textarea>
+      <div class="syn-composer-actions">
+        <span class="syn-caption">Messages are handled by your application.</span>
+        <button class="syn-button syn-button--primary" type="submit">Send</button>
+      </div>
+    </form>
+  </section>
+</main>
+```
+
+A production application supplies authenticated persistence, input validation,
+request rate limits, message announcements and focus management for updates,
+and a server action or optional progressive enhancement for streaming.
+Avoid using `aria-live` on an entire long message history. See the
+[offline static demo](../examples/chat-interface.html); its Send button
+is deliberately disabled because it has no server backend.

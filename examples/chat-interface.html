@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Original, low-noise conversation layout using Syntyr CSS with zero JavaScript.">
+  <title>Syntyr — Conversation UI recipe</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <style>
+    .skip-link { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; }
+    .skip-link:focus { inset-block-start: 1rem; }
+    .demo-heading { text-align: center; padding-block: clamp(2rem, 6vw, 4rem) var(--syn-space-3); }
+    .demo-heading p { max-inline-size: 55ch; margin-inline: auto; }
+    .demo-note { margin-block: var(--syn-space-4); }
+    .demo-note > :last-child { margin-block-end: 0; }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="minimal" data-syn-intensity="quiet">
+  <a class="syn-button skip-link" href="#main">Skip to example</a>
+  <main id="main" class="syn-shell">
+    <header class="demo-heading">
+      <p class="syn-eyebrow">SYNTYR / COMPOSITION RECIPE</p>
+      <h1>Conversation, without a framework.</h1>
+      <p class="syn-muted">A quiet, original messaging layout made from semantic HTML, local CSS, and existing theme tokens.</p>
+    </header>
+
+    <section class="syn-conversation" aria-label="Illustrative conversation">
+      <article class="syn-message syn-message--outgoing" aria-label="Example user message">
+        <p>How could we simplify our operations dashboard?</p>
+        <p class="syn-message-meta">Example user</p>
+      </article>
+      <article class="syn-message syn-message--incoming" aria-label="Example assistant message">
+        <p>Start with fewer competing surfaces. Use a clear heading hierarchy, one primary action,
+          semantic status text, and accessible controls.</p>
+        <p>Keep the underlying components reusable across Studio, Minimal, and Grid.</p>
+        <p class="syn-message-meta">Example response, not generated content</p>
+      </article>
+
+      <form class="syn-composer" aria-label="Static message composer preview">
+        <label class="syn-label" for="message-prompt">Your message</label>
+        <textarea id="message-prompt" name="prompt" class="syn-textarea"
+          rows="2" placeholder="Ask a question…" aria-describedby="composer-help"></textarea>
+        <div class="syn-composer-actions">
+          <span id="composer-help" class="syn-caption">Static styling demo. Messages are not sent.</span>
+          <button class="syn-button syn-button--primary" type="submit" disabled>Send (demo)</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="syn-panel demo-note" data-syn-contrast="more" aria-labelledby="contrast-title">
+      <h2 id="contrast-title">Optional increased contrast</h2>
+      <p>Set <code>data-syn-contrast="more"</code> on any Syntyr region to strengthen borders and suppress elevation without changing its palette or type scale. The OS contrast preference takes priority.</p>
+      <div class="syn-surface--recessed" data-syn-contrast="normal" style="padding:var(--syn-space-2)">
+        <p>Nested <code>normal</code> restores the default border hierarchy when the OS has not requested increased contrast.</p>
+      </div>
+    </section>
+    <footer class="syn-caption demo-note">
+      No JavaScript or remote assets. Connect the visual composer to an application backend to enable messaging.
+    </footer>
+  </main>
+</body>
+</html>

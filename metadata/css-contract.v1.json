@@ -4,9 +4,9 @@
   "presets": {
     "cinematic": {
       "file": "dist/presets/cinematic.css",
-      "gzip_bytes": 24301,
-      "raw_bytes": 131641,
-      "sha256": "140eb4c2340bec7fb181f267de56571ab26b60d65eb979181c412b1f8742f340",
+      "gzip_bytes": 24860,
+      "raw_bytes": 135079,
+      "sha256": "9b84cd6e55e75f408abab37f7e29eedc8d1029e952205c8c8733401ccc009acb",
       "sources": [
         "tokens.css",
         "base.css",
@@ -28,9 +28,9 @@
     },
     "minimal": {
       "file": "dist/presets/minimal.css",
-      "gzip_bytes": 14508,
-      "raw_bytes": 78824,
-      "sha256": "27ecde3a0dc25cc4a7e868e0ad36d0161e1e7d806e6539db7cb9805aef3d7d4d",
+      "gzip_bytes": 14759,
+      "raw_bytes": 80291,
+      "sha256": "1959212263983060194f960f86471f2fe27ccefbc164035205b3ed1c683ce89e",
       "sources": [
         "tokens.css",
         "base.css",
@@ -47,9 +47,9 @@
     },
     "saas": {
       "file": "dist/presets/saas.css",
-      "gzip_bytes": 22016,
-      "raw_bytes": 117333,
-      "sha256": "fdf7005bc26ec408c0da7f14f8cb2e3de33e8b9cfcf63e74837fb59a2e1eaf6e",
+      "gzip_bytes": 22568,
+      "raw_bytes": 120771,
+      "sha256": "a16000d4f43a8ff63cf14bb4944c061ac7bfd286d517d7114383ac6bb8ef997d",
       "sources": [
         "tokens.css",
         "base.css",

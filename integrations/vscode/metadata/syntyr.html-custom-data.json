@@ -242,6 +242,18 @@
           "description": "Syntyr CSS class (recipes.css)."
         },
         {
+          "name": "syn-composer",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-composer-actions",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-conversation",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
           "name": "syn-cta-band",
           "description": "Syntyr CSS class (recipes.css)."
         },
@@ -664,6 +676,22 @@
         {
           "name": "syn-logo",
           "description": "Syntyr CSS class (components/typography.css)."
+        },
+        {
+          "name": "syn-message",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-message--incoming",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-message--outgoing",
+          "description": "Syntyr CSS class (recipes.css)."
+        },
+        {
+          "name": "syn-message-meta",
+          "description": "Syntyr CSS class (recipes.css)."
         },
         {
           "name": "syn-meter",
