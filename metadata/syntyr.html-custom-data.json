@@ -203,7 +203,7 @@
         },
         {
           "name": "syn-check",
-          "description": "Checkmark-style presentation; does not implement checkbox state."
+          "description": "Inline label layout for native checkbox or radio inputs; state remains native."
         },
         {
           "name": "syn-chip",

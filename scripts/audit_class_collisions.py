@@ -15,8 +15,9 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-CLASS_SELECTOR = re.compile(r"\.((?:\\.|[A-Za-z_-][A-Za-z0-9_-]*)+)")
-TOKEN_DECLARATION = re.compile(r"(?<![A-Za-z0-9_-])(--syn-[A-Za-z0-9_-]+)\s*:")
+TOKEN_DECLARATION = re.compile(r"\s*(--syn-[\w-]+)\s*:", re.UNICODE)
+HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
+CSS_WHITESPACE = " \t\r\n\f"
 
 
 def _mask_comments_and_strings(source: str) -> str:
@@ -46,6 +47,62 @@ def _mask_comments_and_strings(source: str) -> str:
     return "".join(out)
 
 
+def _css_name_char(char: str) -> bool:
+    return (char.isascii() and (char.isalnum() or char in "_-")) or ord(char) >= 0x80
+
+
+def _css_name_start(char: str) -> bool:
+    return (char.isascii() and (char.isalpha() or char == "_")) or ord(char) >= 0x80
+
+
+def _read_css_identifier(source: str, start: int) -> tuple[str, int] | None:
+    """Read one complete CSS identifier, decoding escapes per CSS Syntax.
+
+    A Unicode/escaped suffix belongs to the SAME class, not a shorter
+    ASCII prefix. Hex escapes consume up to six digits and one terminator
+    whitespace; punctuation escapes consume exactly one character.
+    """
+    if start >= len(source):
+        return None
+    first = source[start]
+    if not (_css_name_start(first) or first in "-\\"):
+        return None
+    if first == "-" and (start + 1 == len(source) or
+                         not (_css_name_start(source[start + 1]) or
+                              source[start + 1] in "-\\")):
+        return None
+
+    output = []
+    pos = start
+    while pos < len(source):
+        char = source[pos]
+        if char == "\\":
+            if pos + 1 >= len(source) or source[pos + 1] in "\r\n\f":
+                return None
+            pos += 1
+            if source[pos] in HEX_DIGITS:
+                end = pos
+                while (end < len(source) and end - pos < 6 and
+                       source[end] in HEX_DIGITS):
+                    end += 1
+                codepoint = int(source[pos:end], 16)
+                if codepoint == 0 or 0xD800 <= codepoint <= 0xDFFF or codepoint > 0x10FFFF:
+                    codepoint = 0xFFFD
+                output.append(chr(codepoint))
+                pos = end
+                if pos < len(source) and source[pos] in CSS_WHITESPACE:
+                    pos += 1
+            else:
+                output.append(source[pos])
+                pos += 1
+        elif _css_name_char(char):
+            output.append(char)
+            pos += 1
+        else:
+            break
+    return ("".join(output), pos) if output else None
+
+
 def extract_css_classes(css: str) -> set[str]:
     """Discover explicit class selectors, including escaped punctuation.
 
@@ -58,8 +115,12 @@ def extract_css_classes(css: str) -> set[str]:
         if char == "{":
             selector = "".join(prelude).strip()
             if selector and not selector.startswith("@"):
-                for match in CLASS_SELECTOR.finditer(selector):
-                    classes.add(re.sub(r"\\(.)", r"\1", match.group(1)))
+                for position, char in enumerate(selector):
+                    if char != ".":
+                        continue
+                    parsed = _read_css_identifier(selector, position + 1)
+                    if parsed:
+                        classes.add(parsed[0])
             prelude.clear()
         elif char in ("}", ";"):
             prelude.clear()
@@ -76,7 +137,14 @@ def audit_stylesheet(
 ) -> dict:
     """Compare declared names, not runtime styling or cascade compatibility."""
     external = extract_css_classes(css)
-    external_tokens = set(TOKEN_DECLARATION.findall(_mask_comments_and_strings(css)))
+    # Only declaration positions inside CSS blocks count. A feature query
+    # such as @supports (--syn-accent: red) does not set a CSS variable.
+    masked = _mask_comments_and_strings(css)
+    external_tokens = set()
+    for segment in re.split(r"[{};]", masked):
+        match = TOKEN_DECLARATION.match(segment)
+        if match:
+            external_tokens.add(match.group(1))
     return {
         "other_class_count": len(external),
         "exact_overlap": sorted(external & public_classes),

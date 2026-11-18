@@ -89,7 +89,7 @@ CLASS_DOCS.update({
     "syn-button--small": "Compact-size button variant; preserve accessible interaction targets.",
     "syn-button-group": "Grouped buttons or action links; each retains native semantics.",
     "syn-caption": "Secondary caption text for supporting context.",
-    "syn-check": "Checkmark-style presentation; does not implement checkbox state.",
+    "syn-check": "Inline label layout for native checkbox or radio inputs; state remains native.",
     "syn-chip": "Compact metadata chip or filter label; state is host-owned.",
     "syn-code": "Inline or block code presentation; preserve native code semantics.",
     "syn-data-grid": "Enterprise data-grid presentation; selection, sorting and virtualization are host-owned.",

@@ -28,6 +28,30 @@ class NamespaceCollisionAuditTests(unittest.TestCase):
         self.assertEqual(extract_css_classes(css),
                          {"syn-button", "syn-root", "syn-panel", "tw:flex"})
 
+    def test_css_escapes_unicode_and_full_selector_names_are_preserved(self):
+        css = r"""
+        .syn-\70 anel { color: red; }
+        .syn-panelé { color: blue; }
+        .syn-\62 utton, .tw\:flex { opacity: 1; }
+        .syn-\000070 anel { margin: 0; }
+        """
+        result = audit_stylesheet(css, {"syn-panel", "syn-button"},
+                                  public_tokens={"--syn-accent"})
+        self.assertEqual(result["exact_overlap"], ["syn-button", "syn-panel"])
+        self.assertIn("syn-panelé", result["other_syn_classes"])
+        self.assertIn("tw:flex", extract_css_classes(css))
+
+    def test_feature_query_does_not_define_a_custom_property(self):
+        css = """
+        @supports (--syn-accent: red) {
+            .host { color: red; }
+        }
+        :root { --syn-bg: white; }
+        """
+        result = audit_stylesheet(css, set(),
+                                  public_tokens={"--syn-accent", "--syn-bg"})
+        self.assertEqual(result["exact_token_overlap"], ["--syn-bg"])
+
     def test_reports_exact_collisions_and_prefixed_names_only(self):
         public = {"syn-button", "syn-panel", "syn-root"}
         result = audit_stylesheet(

@@ -686,7 +686,7 @@
     {
       "name": "syn-check",
       "module": "components/forms.css",
-      "description": "Checkmark-style presentation; does not implement checkbox state.",
+      "description": "Inline label layout for native checkbox or radio inputs; state remains native.",
       "stylesheets": [
         "components/forms.css",
         "presets/cinematic.css",

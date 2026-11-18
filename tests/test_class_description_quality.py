@@ -15,6 +15,12 @@ class ClassDescriptionQualityTests(unittest.TestCase):
                 self.assertNotIn("Syntyr CSS class (", description)
                 self.assertNotIn("Syntyr class.", description)
 
+    def test_check_class_metadata_matches_checkbox_label_layout(self):
+        from scripts.export_api_metadata import collect
+        classes = {item["name"]: item["description"] for item in collect()["classes"]}
+        self.assertIn("label", classes["syn-check"].lower())
+        self.assertNotIn("checkmark", classes["syn-check"].lower())
+
     def test_design_tokens_have_intelligible_metadata(self):
         tokens = {item["name"]: item["description"] for item in collect()["tokens"]}
         self.assertGreater(len(tokens), 100)
