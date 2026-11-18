@@ -215,6 +215,34 @@ class QuietStaticHandler(SimpleHTTPRequestHandler):
         pass
 
 
+def documentation_sidecar_check(browser, engine):
+    """A documentation example must give the article, not its nav, the main track."""
+    context = browser.new_context(viewport={"width": 1280, "height": 900})
+    page = context.new_page()
+    try:
+        page.goto(GALLERY)
+        # Show the entire block card at desktop width to exercise the intended
+        # two-column sidecar rather than the gallery's multi-card grid.
+        page.add_style_tag(content=".blocks-grid {grid-template-columns:minmax(0,1fr) !important;}")
+        region = page.locator('[data-block-id="docs-layout"] .blocks-preview .syn-sidecar')
+        metrics = region.evaluate("""root => {
+            const article = root.querySelector(':scope > article');
+            const navigation = root.querySelector(':scope > nav');
+            return {
+                first: root.firstElementChild?.tagName,
+                article: article?.getBoundingClientRect().width ?? 0,
+                aside: navigation?.getBoundingClientRect().width ?? 0,
+                layout: getComputedStyle(root).display,
+            };
+        }""")
+        require(metrics["first"] == "ARTICLE" and metrics["layout"] == "flex",
+                f"{engine}: documentation main-first sidecar contract broken: {metrics}")
+        require(metrics["article"] > metrics["aside"] * 1.5,
+                f"{engine}: documentation article squeezed narrower than navigation: {metrics}")
+    finally:
+        context.close()
+
+
 def playground_preview_check(browser, engine):
     """Preview destinations are inert while editor and copy preserve real href."""
     context = browser.new_context(viewport={"width": 800, "height": 700})
@@ -316,6 +344,12 @@ def main():
             except Exception as exc:
                 failures.append(f"{engine} progressive: {exc}")
                 item["progressive"] = "fail"
+            try:
+                documentation_sidecar_check(browser, engine)
+                item["docs_sidecar"] = "pass"
+            except Exception as exc:
+                failures.append(f"{engine} documentation layout: {exc}")
+                item["docs_sidecar"] = "fail"
             try:
                 playground_preview_check(browser, engine)
                 item["playground_navigation"] = "pass"

@@ -61,6 +61,13 @@ class PublishingCommerceTests(unittest.TestCase):
         commerce=(ROOT/'blocks/snippets/product-collection.html').read_text()
         self.assertIn('Fictional products and prices',commerce)
 
+    def test_documentation_sidecar_places_article_in_main_track(self):
+        # Syntyr's .syn-sidecar explicitly assigns first child to the wide
+        # main track and last child to the narrow optional aside.
+        source = (ROOT / 'blocks/snippets/docs-layout.html').read_text()
+        self.assertRegex(source, r'(?s)<div class="syn-sidecar">\s*<article>')
+        self.assertRegex(source, r'(?s)</article>\s*<nav class="syn-panel"')
+
     def test_gallery_preserves_copy_owned_source_and_inert_form_preview(self):
         page=(ROOT/'docs/blocks.html').read_text()
         for ident in ADDITIONS:
