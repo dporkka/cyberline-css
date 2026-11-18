@@ -2,7 +2,8 @@
    Host sets data-syn-platform. Palette and density remain independent.
    Window chrome, native controls, and OS integration belong to the host. */
 @layer syn.desktop {
-  .syn-root[data-syn-platform] {
+  .syn-root[data-syn-platform],
+  .syn-root[data-syn-platform] [data-syn-theme] {
     --syn-desktop-radius: .625rem;
     --syn-desktop-toolbar-height: 3.25rem;
     --syn-desktop-sidebar-width: 13.5rem;
@@ -17,21 +18,24 @@
     --syn-desktop-shadow: var(--syn-shadow-raised);
     --syn-desktop-control-radius: .4rem;
   }
-  .syn-root[data-syn-platform="macos"] {
+  .syn-root[data-syn-platform="macos"],
+  .syn-root[data-syn-platform="macos"] [data-syn-theme] {
     --syn-desktop-radius: .8rem;
     --syn-desktop-toolbar-bg: color-mix(in srgb, var(--syn-surface) 75%, var(--syn-bg));
     --syn-desktop-sidebar-bg: color-mix(in srgb, var(--syn-surface) 42%, var(--syn-bg));
     --syn-desktop-active-bg: color-mix(in srgb, var(--syn-accent) 14%, var(--syn-surface));
     --syn-desktop-control-radius: .5rem;
   }
-  .syn-root[data-syn-platform="windows"] {
+  .syn-root[data-syn-platform="windows"],
+  .syn-root[data-syn-platform="windows"] [data-syn-theme] {
     --syn-desktop-radius: .5rem;
     --syn-desktop-toolbar-bg: var(--syn-surface-recessed);
     --syn-desktop-sidebar-bg: var(--syn-surface-recessed);
     --syn-desktop-active-bg: color-mix(in srgb, var(--syn-accent) 12%, var(--syn-surface));
     --syn-desktop-control-radius: .35rem;
   }
-  .syn-root[data-syn-platform="gnome"] {
+  .syn-root[data-syn-platform="gnome"],
+  .syn-root[data-syn-platform="gnome"] [data-syn-theme] {
     --syn-desktop-radius: .85rem;
     --syn-desktop-toolbar-bg: var(--syn-surface);
     --syn-desktop-sidebar-bg: var(--syn-surface-recessed);

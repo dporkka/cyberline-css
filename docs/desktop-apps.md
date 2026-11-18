@@ -48,4 +48,4 @@ For a real native SwiftUI, WinUI, GTK or Qt screen, consume Syntyr's design toke
 
 ## Validation and adoption
 
-Run `python3 -m unittest discover -s tests -p test_desktop_appearance.py`. Validate at desktop and narrow viewports, 200% zoom, keyboard-only navigation, forced colors, light/dark theme overrides, and Windows/macOS/Linux webviews before promising platform fidelity. The demonstration is a reference, not a tested signed Tauri application. Avoid broadening the API until a real host app exercises it.
+Run `python3 -m unittest discover -s tests -p test_desktop_appearance.py` for static contracts and `SYNTYR_CHROME=/path/to/chrome python3 tests/desktop_browser.py` for opt-in Chromium regressions covering nested dark themes and responsive columns. Validate at desktop and narrow viewports, 200% zoom, keyboard-only navigation, forced colors, light/dark theme overrides, and Windows/macOS/Linux webviews before promising platform fidelity. The demonstration is a reference, not a tested signed Tauri application. Avoid broadening the API until a real host app exercises it.

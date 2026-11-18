@@ -20,7 +20,9 @@ class DesktopAppearanceContract(unittest.TestCase):
         package = json.loads((ROOT / "package.json").read_text())
         self.assertEqual(package["exports"]["./desktop.css"], "./" + CSS_PATH)
         self.assertIn("integrations/desktop/", package["files"])
-        for name in (CSS_PATH, EXAMPLE, DEMO_JS, "docs/desktop-apps.md"):
+        for asset in ("docs/docs.css", "assets/syntyr-mark.svg"):
+            self.assertIn(asset, FILES, f"offline guide asset missing {asset}")
+        for name in (CSS_PATH, EXAMPLE, DEMO_JS, "docs/desktop-apps.md", "docs/desktop-apps.html"):
             self.assertTrue((ROOT / name).is_file(), name)
             self.assertIn(name, FILES, f"release ZIP missing {name}")
             self.assertIn(name, source_files(), f"site missing {name}")
@@ -38,7 +40,10 @@ class DesktopAppearanceContract(unittest.TestCase):
         self.assertNotIn("@import", css)
         self.assertNotRegex(css, r"url\s*\(\s*['\"]?https?://")
         self.assertNotIn("!important", css)
-        self.assertNotIn("data-syn-theme", css)
+        # Nested palette scopes must recompute theme-derived desktop colors.
+        self.assertIn(".syn-root[data-syn-platform] [data-syn-theme]", css)
+        for platform in ("macos", "windows", "gnome"):
+            self.assertIn(f'.syn-root[data-syn-platform="{platform}"] [data-syn-theme]', css)
         self.assertNotIn("body {", css)
         self.assertNotIn("html {", css)
         self.assertNotIn("--syn-control-height:", css)  # Density remains independent.
