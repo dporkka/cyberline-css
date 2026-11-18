@@ -70,15 +70,20 @@ class ContinuousIntegrationContract(unittest.TestCase):
         # Generated docs import markdown_it while consumer CSS requires no Python
         # runtime dependency. Both full-suite and composed-main CI need the
         # pinned maintainer-only authoring dependency.
-        install = "python3 -m pip install --disable-pip-version-check --no-input -r requirements-docs.txt"
+        # The Woodpecker runner's PyPI proxy returns 403; Debian APT works.
+        # Its Python 3.14 interpreter is in /usr/local and needs the Debian
+        # dist-packages directory explicitly visible.
         for path, runner in (
             (".woodpecker/quality.yaml", "python3 -m unittest discover"),
             (".woodpecker/pr-merge.yaml", "python3 scripts/check_merge_candidate.py"),
         ):
             with self.subTest(workflow=path):
                 content = (ROOT / path).read_text()
-                self.assertIn(install, content)
-                self.assertLess(content.index(install), content.index(runner))
+                self.assertIn("python3-markdown-it", content)
+                self.assertIn("PYTHONPATH: /usr/lib/python3/dist-packages", content)
+                self.assertIn('version("markdown-it-py") == "3.0.0"', content)
+                self.assertNotIn("pip install", content)
+                self.assertLess(content.index("python3-markdown-it"), content.index(runner))
 
     def test_commented_blocks_command_is_not_an_active_release_step(self):
         command = "python3 tests/blocks_browser.py --browsers chromium firefox webkit"
