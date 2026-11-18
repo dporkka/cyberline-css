@@ -1,0 +1,177 @@
+/* Optional desktop webview styling, loaded after syntyr.core.css.
+   Host sets data-syn-platform. Palette and density remain independent.
+   Window chrome, native controls, and OS integration belong to the host. */
+@layer syn.desktop {
+  .syn-root[data-syn-platform],
+  .syn-root[data-syn-platform] [data-syn-theme] {
+    --syn-desktop-radius: .625rem;
+    --syn-desktop-toolbar-height: 3.25rem;
+    --syn-desktop-sidebar-width: 13.5rem;
+    --syn-desktop-inspector-width: 16rem;
+    --syn-desktop-pane-bg: var(--syn-surface);
+    --syn-desktop-sidebar-bg: var(--syn-surface-recessed);
+    --syn-desktop-toolbar-bg: var(--syn-surface-raised);
+    --syn-desktop-status-bg: var(--syn-surface-recessed);
+    --syn-desktop-active-bg: var(--syn-accent-soft);
+    --syn-desktop-active-text: var(--syn-accent);
+    --syn-desktop-divider: var(--syn-border-subtle);
+    --syn-desktop-shadow: var(--syn-shadow-raised);
+    --syn-desktop-control-radius: .4rem;
+  }
+  .syn-root[data-syn-platform="macos"],
+  .syn-root[data-syn-platform="macos"] [data-syn-theme] {
+    --syn-desktop-radius: .8rem;
+    --syn-desktop-toolbar-bg: color-mix(in srgb, var(--syn-surface) 75%, var(--syn-bg));
+    --syn-desktop-sidebar-bg: color-mix(in srgb, var(--syn-surface) 42%, var(--syn-bg));
+    --syn-desktop-active-bg: color-mix(in srgb, var(--syn-accent) 14%, var(--syn-surface));
+    --syn-desktop-control-radius: .5rem;
+  }
+  .syn-root[data-syn-platform="windows"],
+  .syn-root[data-syn-platform="windows"] [data-syn-theme] {
+    --syn-desktop-radius: .5rem;
+    --syn-desktop-toolbar-bg: var(--syn-surface-recessed);
+    --syn-desktop-sidebar-bg: var(--syn-surface-recessed);
+    --syn-desktop-active-bg: color-mix(in srgb, var(--syn-accent) 12%, var(--syn-surface));
+    --syn-desktop-control-radius: .35rem;
+  }
+  .syn-root[data-syn-platform="gnome"],
+  .syn-root[data-syn-platform="gnome"] [data-syn-theme] {
+    --syn-desktop-radius: .85rem;
+    --syn-desktop-toolbar-bg: var(--syn-surface);
+    --syn-desktop-sidebar-bg: var(--syn-surface-recessed);
+    --syn-desktop-active-bg: color-mix(in srgb, var(--syn-accent) 16%, var(--syn-surface));
+    --syn-desktop-shadow: var(--syn-shadow-sm);
+    --syn-desktop-control-radius: .65rem;
+  }
+  .syn-root[data-syn-platform] .syn-desktop-shell {
+    display: grid;
+    grid-template-columns: minmax(0, var(--syn-desktop-sidebar-width)) minmax(0, 1fr) minmax(0, var(--syn-desktop-inspector-width));
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "toolbar toolbar toolbar" "sidebar content inspector" "status status status";
+    min-inline-size: 0;
+    min-block-size: min(42rem, 90svh);
+    border: 1px solid var(--syn-border-default);
+    border-radius: var(--syn-desktop-radius);
+    background: var(--syn-desktop-pane-bg);
+    color: var(--syn-text);
+    box-shadow: var(--syn-desktop-shadow);
+    overflow: clip;
+    overflow-wrap: anywhere;
+  }
+  .syn-root[data-syn-platform] .syn-desktop-toolbar {
+    grid-area: toolbar;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    min-block-size: var(--syn-desktop-toolbar-height);
+    padding: .5rem .85rem;
+    background: var(--syn-desktop-toolbar-bg);
+    border-block-end: 1px solid var(--syn-desktop-divider);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-toolbar-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
+    min-inline-size: 0;
+  }
+  .syn-root[data-syn-platform] .syn-desktop-sidebar {
+    grid-area: sidebar;
+    min-inline-size: 0;
+    padding: 1rem .65rem;
+    background: var(--syn-desktop-sidebar-bg);
+    border-inline-end: 1px solid var(--syn-desktop-divider);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-nav { display: grid; gap: .2rem; }
+  .syn-root[data-syn-platform] .syn-desktop-nav a {
+    display: block;
+    padding: .55rem .7rem;
+    border-radius: var(--syn-desktop-control-radius);
+    color: var(--syn-text);
+    text-decoration: none;
+    font-size: var(--syn-type-sm);
+    line-height: 1.35;
+    transition: background-color var(--syn-duration-fast);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-nav a:hover { background: var(--syn-surface-hover); }
+  .syn-root[data-syn-platform] .syn-desktop-nav a[aria-current="page"] {
+    background: var(--syn-desktop-active-bg);
+    color: var(--syn-desktop-active-text);
+    font-weight: 650;
+  }
+  .syn-root[data-syn-platform="windows"] .syn-desktop-nav a[aria-current="page"] {
+    border-inline-start: 3px solid var(--syn-accent);
+    padding-inline-start: calc(.7rem - 3px);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-content {
+    grid-area: content;
+    min-inline-size: 0;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    background: var(--syn-desktop-pane-bg);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-inspector {
+    grid-area: inspector;
+    min-inline-size: 0;
+    padding: 1rem;
+    background: var(--syn-desktop-sidebar-bg);
+    border-inline-start: 1px solid var(--syn-desktop-divider);
+  }
+  .syn-root[data-syn-platform] .syn-desktop-statusbar {
+    grid-area: status;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem 1.25rem;
+    justify-content: space-between;
+    padding: .45rem .9rem;
+    font-size: var(--syn-type-xs);
+    color: var(--syn-muted);
+    background: var(--syn-desktop-status-bg);
+    border-block-start: 1px solid var(--syn-desktop-divider);
+  }
+  .syn-root[data-syn-platform] :is(.syn-desktop-nav a, .syn-desktop-toolbar a, .syn-desktop-toolbar button):focus-visible {
+    outline: 2px solid var(--syn-focus-ring);
+    outline-offset: 2px;
+  }
+  @media (max-width: 850px) {
+    .syn-root[data-syn-platform] .syn-desktop-shell {
+      grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+      grid-template-areas: "toolbar toolbar" "sidebar content" "inspector inspector" "status status";
+    }
+    .syn-root[data-syn-platform] .syn-desktop-inspector {
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--syn-desktop-divider);
+    }
+  }
+  @media (max-width: 560px) {
+    .syn-root[data-syn-platform] .syn-desktop-shell {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "toolbar" "sidebar" "content" "inspector" "status";
+    }
+    .syn-root[data-syn-platform] .syn-desktop-sidebar {
+      border-inline-end: 0;
+      border-block-end: 1px solid var(--syn-desktop-divider);
+    }
+    .syn-root[data-syn-platform] .syn-desktop-nav {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr));
+    }
+  }
+  @media (forced-colors: active) {
+    .syn-root[data-syn-platform] .syn-desktop-shell,
+    .syn-root[data-syn-platform] :is(.syn-desktop-toolbar, .syn-desktop-sidebar, .syn-desktop-inspector, .syn-desktop-statusbar) {
+      border-color: CanvasText;
+    }
+    .syn-root[data-syn-platform] .syn-desktop-nav a[aria-current="page"] {
+      color: HighlightText;
+      background: Highlight;
+      outline: 1px solid Highlight;
+    }
+    .syn-root[data-syn-platform] :is(.syn-desktop-nav a, .syn-desktop-toolbar a, .syn-desktop-toolbar button):focus-visible {
+      outline-color: Highlight;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .syn-root[data-syn-platform] .syn-desktop-nav a { transition: none; }
+  }
+}

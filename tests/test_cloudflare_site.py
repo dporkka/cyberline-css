@@ -95,6 +95,7 @@ class CloudflareSiteTests(unittest.TestCase):
                     "examples/animation.html", "examples/copy.html",
                     "examples/resizable-workspace.html",
                     "examples/command-launcher.html",
+                    "examples/desktop-workspace.html",
                     # Explicitly opted-in first-party ESM examples only.
                 }
             ))

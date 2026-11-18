@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Optional macOS, Windows, and GNOME-inspired desktop app styling with Syntyr CSS.">
+  <title>Desktop workspace — Syntyr CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../integrations/desktop/syntyr.desktop.css">
+  <script type="module" src="./desktop-workspace.mjs"></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-platform="macos" data-syn-density="compact" data-syn-intensity="quiet">
+  <a class="syn-button" href="#records">Skip to workspace content</a>
+  <div class="syn-shell">
+    <header class="syn-header">
+      <div>
+        <p class="syn-eyebrow">SYNTYR / OPTIONAL DESKTOP ADAPTER</p>
+        <h1 class="syn-title">One workspace, three desktop appearances</h1>
+        <p class="syn-muted">CSS-only components. The selector below changes presentation only; a desktop host owns native window behavior.</p>
+      </div>
+    </header>
+    <div class="syn-inline">
+      <label for="desktop-platform">Appearance</label>
+      <select id="desktop-platform" name="desktop-platform">
+        <option value="macos" selected>macOS-inspired</option>
+        <option value="windows">Windows 11-inspired</option>
+        <option value="gnome">GNOME-inspired</option>
+      </select>
+      <a class="syn-button syn-button--outline" href="../docs/desktop-apps.html">Integration guidance</a>
+    </div>
+    <p class="syn-caption">Demo data only. No native titlebar controls, stored settings, live files, or network actions.</p>
+
+    <section class="syn-desktop-shell" aria-label="Desktop-style example application">
+      <header class="syn-desktop-toolbar">
+        <div class="syn-desktop-toolbar-group">
+          <strong>Workspace</strong>
+          <span class="syn-muted">/ Projects / Atlas</span>
+        </div>
+        <div class="syn-desktop-toolbar-group">
+          <a class="syn-button syn-button--ghost" href="#notes">Notes</a>
+          <a class="syn-button syn-button--outline" href="#details">Inspector</a>
+        </div>
+      </header>
+
+      <aside class="syn-desktop-sidebar" aria-label="Workspace navigation">
+        <p class="syn-eyebrow">PROJECT</p>
+        <nav class="syn-desktop-nav" aria-label="Project sections">
+          <a href="#records" aria-current="page">Records</a>
+          <a href="#details">Details</a>
+          <a href="#notes">Notes</a>
+          <a href="#about-demo">About this example</a>
+        </nav>
+        <p class="syn-caption">Navigation uses ordinary anchor links and remains functional without JavaScript.</p>
+      </aside>
+
+      <main id="records" class="syn-desktop-content">
+        <p class="syn-eyebrow">PROJECT / ATLAS</p>
+        <h2 class="syn-heading">Records</h2>
+        <p class="syn-muted">A compact project overview using native table semantics and existing Syntyr components.</p>
+        <div class="syn-table-wrap" role="region" aria-label="Sample records" tabindex="0">
+          <table class="syn-table">
+            <caption>Illustrative project records</caption>
+            <thead><tr><th scope="col">Record</th><th scope="col">Owner</th><th scope="col">State</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Alpha proposal</th><td>Team</td><td>Reviewed</td></tr>
+              <tr><th scope="row">Beta concept</th><td>Design</td><td>Draft</td></tr>
+              <tr><th scope="row">Gamma delivery</th><td>Ops</td><td>Queued</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <section id="notes" aria-labelledby="notes-title">
+          <h3 id="notes-title" class="syn-heading">Notes</h3>
+          <p>This sample is intentionally static. The application, not the stylesheet, manages tabs, windows, data and persistence.</p>
+        </section>
+        <section id="about-demo" aria-labelledby="about-title">
+          <h3 id="about-title" class="syn-heading">About this example</h3>
+          <p>Change the appearance without replacing components or altering the theme or density.</p>
+        </section>
+      </main>
+
+      <aside id="details" class="syn-desktop-inspector" aria-labelledby="details-heading">
+        <p class="syn-eyebrow">INSPECTOR</p>
+        <h2 id="details-heading" class="syn-heading">Project details</h2>
+        <dl class="syn-record-fields">
+          <div><dt>Project</dt><dd>Atlas</dd></div>
+          <div><dt>Team</dt><dd>Design systems</dd></div>
+          <div><dt>Last update</dt><dd>Illustrative</dd></div>
+        </dl>
+        <p class="syn-caption">Host-owned record state; no simulated native window actions.</p>
+      </aside>
+
+      <footer class="syn-desktop-statusbar">
+        <span>Example workspace · Local presentation</span>
+        <span>Three appearances · One HTML structure</span>
+      </footer>
+    </section>
+  </div>
+</body>
+</html>

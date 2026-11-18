@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: experimental source for the unreleased alpha.5 candidate . This is not a native widget toolkit or a shipped native binary.">
+  <meta name="syntyr-source-sha256" content="250aceb8da77b4a41230b52df454506864e23665267af50002471034b436b9df">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr Desktop — optional webview appearance adapter — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/desktop-apps">
+  <link rel="alternate" type="text/markdown" href="desktop-apps.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr Desktop — optional webview appearance adapter</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="desktop-apps.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr Desktop — optional webview appearance adapter">
+<h1 id="syntyr-desktop-optional-webview-appearance-adapter">Syntyr Desktop — optional webview appearance adapter</h1>
+<p>Status: experimental source for the <strong>unreleased alpha.5 candidate</strong>. This is not a native widget toolkit or a shipped native binary.</p>
+<p>Syntyr Desktop styles HTML applications running in a browser, Tauri, Electron, Wails, or another embedded webview. It is optional, scoped to <code>.syn-root[data-syn-platform]</code>, and has no runtime dependencies. The <code>syntyr.core.css</code> bytes do not change.</p>
+<h2 id="install">Install</h2>
+<p>Load the core <strong>first</strong>, then the desktop CSS adapter:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/syntyr.desktop.css&quot;&gt;
+&lt;div class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;
+     data-syn-density=&quot;compact&quot; data-syn-platform=&quot;macos&quot;&gt;
+  &lt;section class=&quot;syn-desktop-shell&quot; aria-label=&quot;Workspace&quot;&gt;
+    &lt;!-- Header, navigation, main, inspector and statusbar slots --&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+</code></pre>
+<p>For the unpublished npm source package, use <code>@syntyr/css/desktop.css</code> alongside <code>@syntyr/css/core.css</code>. Or copy <code>integrations/desktop/syntyr.desktop.css</code> beside your self-hosted assets. The <a href="../examples/desktop-workspace.html">interactive example</a> is self-contained and loads only local files.</p>
+<h2 id="supported-appearances">Supported appearances</h2>
+<ul>
+<li><code>macos</code> — subtle unified-toolbar, translucent-looking <strong>CSS color-mixed</strong> surfaces, rounded selection.</li>
+<li><code>windows</code> — restrained rounded surfaces and selected navigation indicator, inspired by Windows 11.</li>
+<li><code>gnome</code> — softly rounded header and calm sidebar/inspector, inspired by GNOME/Adwaita.</li>
+</ul>
+<p>These are <strong>visual interpretations</strong>, not exact reproductions of Apple, Microsoft or GNOME widgets. KDE may be added after actual demand. An unsupported or omitted platform gets the neutral desktop tokens only when <code>data-syn-platform</code> is present.</p>
+<p>The <code>data-syn-platform</code> attribute is <strong>supplied by the host</strong>. CSS cannot reliably determine the OS from a webview and must not depend on user-agent sniffing. In a Tauri or Electron app, obtain the OS through that host's supported API, normalize it to <code>macos</code>, <code>windows</code>, or <code>gnome</code> based on your product's chosen Linux appearance, then set the attribute. This example's tiny ESM switcher is demo-only, not part of the library.</p>
+<h2 id="responsibilities-and-boundaries">Responsibilities and boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Syntyr CSS handles</th>
+<th>Desktop host handles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Toolbar, sidebar, content, inspector and status layouts</td>
+<td>Actual window titlebar, resize, minimize and close</td>
+</tr>
+<tr>
+<td>Token-based visual treatment and keyboard focus styles</td>
+<td>System menus, global shortcuts and IPC</td>
+</tr>
+<tr>
+<td>Responsive, RTL-aware borders and selected navigation</td>
+<td>File dialogs, drag regions, native notifications</td>
+</tr>
+<tr>
+<td>Reduced-motion and forced-color presentation</td>
+<td>Accessibility integration and OS theme detection</td>
+</tr>
+</tbody>
+</table>
+<p>The shell expects descendants with <code>.syn-desktop-toolbar</code>, <code>.syn-desktop-sidebar</code>, <code>.syn-desktop-content</code>, <code>.syn-desktop-inspector</code>, and <code>.syn-desktop-statusbar</code>. The toolbar can contain <code>.syn-desktop-toolbar-group</code>; the sidebar can contain <code>.syn-desktop-nav</code>. Use semantic <code>header</code>, <code>aside</code>, <code>nav</code>, <code>main</code>, and <code>footer</code>, with real links and accessible labels. None of these selectors adds interaction state or a JavaScript requirement.</p>
+<p>Platform styling does <strong>not</strong> modify <code>data-syn-theme</code>, <code>data-syn-density</code>, <code>data-syn-intensity</code>, <code>--syn-control-height</code>, or global accent palettes. Existing <code>--syn-*</code> semantic colors remain authoritative. Use system-native controls where required; do not imitate native window buttons without wiring to supported host APIs.</p>
+<p>For a real native SwiftUI, WinUI, GTK or Qt screen, consume Syntyr's design tokens as data and implement the platform's controls natively. This CSS does not render inside native widget trees.</p>
+<h2 id="validation-and-adoption">Validation and adoption</h2>
+<p>Run <code>python3 -m unittest discover -s tests -p test_desktop_appearance.py</code> for static contracts and <code>SYNTYR_CHROME=/path/to/chrome python3 tests/desktop_browser.py</code> for opt-in Chromium regressions covering nested dark themes and responsive columns. Validate at desktop and narrow viewports, 200% zoom, keyboard-only navigation, forced colors, light/dark theme overrides, and Windows/macOS/Linux webviews before promising platform fidelity. The demonstration is a reference, not a tested signed Tauri application. Avoid broadening the API until a real host app exercises it.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#install">Install</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#supported-appearances">Supported appearances</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#responsibilities-and-boundaries">Responsibilities and boundaries</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#validation-and-adoption">Validation and adoption</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="desktop-apps.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -68,6 +68,7 @@ class NpmTarballAuditTests(unittest.TestCase):
         package_files = expected_files(ROOT)
         for path in (
             "package/integrations/headless/interactions.css",
+            "package/integrations/desktop/syntyr.desktop.css",
             "package/integrations/dropdown/menu.mjs",
             "package/metadata/css-contract.v1.json",
             "package/metadata/component-gallery.v1.json",
