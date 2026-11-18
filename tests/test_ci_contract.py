@@ -66,6 +66,20 @@ class ContinuousIntegrationContract(unittest.TestCase):
         self.assertIn("git --version", content)
         self.assertLess(content.index(install), content.index("python3 -m unittest discover"))
 
+    def test_maintainer_docs_dependency_is_installed_before_ci_tests(self):
+        # Generated docs import markdown_it while consumer CSS requires no Python
+        # runtime dependency. Both full-suite and composed-main CI need the
+        # pinned maintainer-only authoring dependency.
+        install = "python3 -m pip install --disable-pip-version-check --no-input -r requirements-docs.txt"
+        for path, runner in (
+            (".woodpecker/quality.yaml", "python3 -m unittest discover"),
+            (".woodpecker/pr-merge.yaml", "python3 scripts/check_merge_candidate.py"),
+        ):
+            with self.subTest(workflow=path):
+                content = (ROOT / path).read_text()
+                self.assertIn(install, content)
+                self.assertLess(content.index(install), content.index(runner))
+
     def test_commented_blocks_command_is_not_an_active_release_step(self):
         command = "python3 tests/blocks_browser.py --browsers chromium firefox webkit"
         self.assertEqual(active_workflow_command_position("#      - " + command, command), -1)

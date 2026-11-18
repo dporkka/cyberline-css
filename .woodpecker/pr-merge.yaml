@@ -9,6 +9,8 @@ steps:
     commands:
       - apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
       - git --version
+      # Docs authoring/test dependency only; never part of the shipped CSS.
+      - python3 -m pip install --disable-pip-version-check --no-input -r requirements-docs.txt
       - if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then git fetch --unshallow origin; fi
       - git fetch --no-tags origin main
       - python3 scripts/check_merge_candidate.py --base FETCH_HEAD

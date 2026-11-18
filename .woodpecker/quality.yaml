@@ -1,5 +1,5 @@
-# Standard-library-only CI. No npm, Node, or browser dependency is needed
-# to build, consume, or verify the shipped CSS.
+# The shipped CSS remains dependency-free. CI installs the pinned
+# maintainer-only Markdown renderer for the full documentation test suite.
 when:
   - event: pull_request
   - event: push
@@ -14,6 +14,8 @@ steps:
       # The CI-only Git CLI is not a library runtime dependency.
       - apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
       - git --version
+      # Docs authoring/test dependency only; never part of the shipped CSS.
+      - python3 -m pip install --disable-pip-version-check --no-input -r requirements-docs.txt
       - python3 scripts/build.py --check
       - python3 scripts/maintenance_policy.py
       - python3 scripts/export_api_metadata.py --check
