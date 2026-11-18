@@ -24,6 +24,11 @@ class HowToPlaygroundTests(unittest.TestCase):
         ids = re.findall(r'data-block-id="([a-z0-9-]+)"', blocks)
         snippets = re.findall(r'<pre class="blocks-source"><code>(.*?)</code></pre>', blocks, re.S)
         entries = catalog_entries()
+        manifest_categories = {
+            entry["category"] for entry in json.loads(
+                (ROOT / "blocks/manifest.json").read_text(encoding="utf-8")
+            )["blocks"]
+        }
         by_id = {item["id"]: item for item in entries}
         self.assertEqual(len(ids), len(snippets))
         self.assertGreaterEqual(len(ids), 20)
@@ -33,7 +38,7 @@ class HowToPlaygroundTests(unittest.TestCase):
             item = by_id["block-" + key]
             self.assertEqual(item["html"], unescape(snippet).strip())
             self.assertEqual(item["kind"], "block")
-            self.assertEqual(item["category"] in ("Marketing", "Applications", "Technical"), True)
+            self.assertIn(item["category"], manifest_categories)
             self.assertIn("syntyr.core.css", item["module"])
             self.assertTrue(item["description"])
             self.assertTrue(item["title"])

@@ -877,6 +877,160 @@
           "target": "~/syntyr/LICENSE"
         }
       ]
+    },
+    {
+      "name": "logo-wall",
+      "type": "registry:item",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/logo-wall.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/logo-wall.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "process-steps",
+      "type": "registry:item",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/process-steps.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/process-steps.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "services-grid",
+      "type": "registry:item",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/services-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/services-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "service-areas",
+      "type": "registry:item",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/service-areas.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/service-areas.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "portfolio-grid",
+      "type": "registry:item",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/portfolio-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/portfolio-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "team-grid",
+      "type": "registry:item",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/team-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/team-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "contact-quote",
+      "type": "registry:item",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/contact-quote.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/contact-quote.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
     }
   ]
 }
