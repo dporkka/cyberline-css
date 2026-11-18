@@ -130,3 +130,55 @@ func TestThemePersistsAcrossFilteredViewsAndPreview(t *testing.T) {
 		t.Fatal("unknown theme must fail closed")
 	}
 }
+
+func TestPaginationUsesBoundedRowsAndPreservesViewState(t *testing.T) {
+	code, body := request(t, "/resources?page=2&sort=name&theme=grid&columns_present=1&columns=owner")
+	if code != http.StatusOK || !strings.Contains(body, "Page 2 of 2") {
+		t.Fatalf("expected second page, code=%d", code)
+	}
+	if strings.Contains(body, "Airport Loop") || strings.Contains(body, "Civic Center") || !strings.Contains(body, "Transit Hub") {
+		t.Fatal("second page must display only second-page resources")
+	}
+	if !strings.Contains(body, "page=1") || !strings.Contains(body, "sort=name") || !strings.Contains(body, "theme=grid") || !strings.Contains(body, "columns=owner") {
+		t.Fatal("pagination must preserve filters, theme and column settings")
+	}
+	if !strings.Contains(body, "6 results") {
+		t.Fatal("total filtered count must not become a page-length count")
+	}
+}
+
+func TestInvalidPagesFailClosed(t *testing.T) {
+	paths := []string{"/resources?page=0", "/resources?page=-1", "/resources?page=nope", "/resources?page=99", "/resources?status=review&page=2", "/preview?page=999&scope=matching"}
+	for _, path := range paths {
+		code, _ := request(t, path)
+		if code != http.StatusBadRequest {
+			t.Errorf("%s: code = %d", path, code)
+		}
+	}
+}
+
+func TestCheckedPreviewIsPageScopedButMatchingScopeSpansPages(t *testing.T) {
+	code, body := request(t, "/preview?page=2&ids=RS-204")
+	if code != http.StatusOK || !strings.Contains(body, "No resources selected") || strings.Contains(body, "<li>RS-204") {
+		t.Fatal("checked selection must not include a record from a different page")
+	}
+	code, body = request(t, "/preview?page=2&ids=RS-088")
+	if code != http.StatusOK || !strings.Contains(body, "1 selected") || !strings.Contains(body, "<li>RS-088") {
+		t.Fatal("valid checked IDs on the current page should work")
+	}
+	code, body = request(t, "/preview?page=2&scope=matching")
+	if code != http.StatusOK || !strings.Contains(body, "6 selected") || !strings.Contains(body, "page=2") {
+		t.Fatal("explicit matching scope should span all filtered pages and retain return page")
+	}
+}
+
+func TestInspectorHonorsVisiblePage(t *testing.T) {
+	_, body := request(t, "/resources?page=2&id=RS-204")
+	if strings.Contains(body, "Selected record: Harbor East") {
+		t.Fatal("inspector must not reveal record excluded by current page")
+	}
+	_, body = request(t, "/resources?page=2&id=RS-088")
+	if !strings.Contains(body, "Selected record: Civic Center") {
+		t.Fatal("inspector must open a visible current-page record")
+	}
+}

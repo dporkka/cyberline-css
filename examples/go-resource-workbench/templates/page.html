@@ -99,6 +99,7 @@
             <input type="hidden" name="q" value="{{.Query}}">
             <input type="hidden" name="status" value="{{.Status}}">
             <input type="hidden" name="sort" value="{{.Sort}}">
+            <input type="hidden" name="page" value="{{.Page}}">
             <input type="hidden" name="theme" value="{{.Theme}}">
             <input type="hidden" name="columns_present" value="1">
             {{if .ShowOwner}}<input type="hidden" name="columns" value="owner">{{end}}
@@ -122,10 +123,16 @@
               </table>
             </div>
             <div class="syn-bulk-actions">
-              <span>Checked rows only · no changes will be saved</span>
+              <span>Checked rows on this page only · no changes will be saved</span>
               <button class="syn-button" type="submit">Preview checked</button>
             </div>
           </form>
+          <nav class="syn-pagination" aria-label="Resource result pages">
+            {{if .HasPrevious}}<a class="syn-page-link" href="{{.PreviousURL}}">Previous</a>{{end}}
+            <span class="syn-page-link" aria-current="page">Page {{.Page}} of {{.TotalPages}}</span>
+            {{if .HasNext}}<a class="syn-page-link" href="{{.NextURL}}">Next</a>{{end}}
+          </nav>
+          <p class="syn-caption">Showing {{.FirstResult}}–{{.LastResult}} of {{.Count}} filtered resources. Only visible-page checkboxes are submitted. “Preview all matching” explicitly spans all filtered pages.</p>
         {{else}}
           <div class="syn-result-state" role="status">
             <h3>No matching resources</h3>
