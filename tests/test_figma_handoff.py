@@ -22,6 +22,19 @@ class FigmaHandoffTests(unittest.TestCase):
         self.assertIsNone(tokens["--syn-type-heading"]["figma_px"])
         self.assertTrue(tokens["--syn-type-heading"]["requires_browser_validation"])
 
+    def test_css_comments_cannot_override_real_source_values(self):
+        from scripts.export_figma_handoff import scoped_declarations
+        source = """:where(.syn-root) {
+          --syn-space-2: .75rem;
+          /* Draft override that must not become a Figma variable:
+             --syn-space-2: 99rem;
+          */
+        }"""
+        self.assertEqual(
+            scoped_declarations(source, ":where(.syn-root)")["--syn-space-2"],
+            ".75rem",
+        )
+
     def test_density_states_are_source_derived_and_not_font_rescales(self):
         handoff = build_handoff()
         densities = handoff["density"]

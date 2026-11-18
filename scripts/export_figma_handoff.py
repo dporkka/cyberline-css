@@ -18,12 +18,16 @@ else:
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "metadata/figma/syntyr-handoff.v1.json"
 DECL = re.compile(r"^\s*(--syn-[a-z0-9-]+):\s*([^;]+);", re.MULTILINE)
+CSS_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
 REM = re.compile(r"^(-?(?:\d+(?:\.\d*)?|\.\d+))rem$")
 PX = re.compile(r"^(-?(?:\d+(?:\.\d*)?|\.\d+))px$")
 
 
 def scoped_declarations(source: str, selector: str) -> dict[str, str]:
     marker = selector + " {"
+    # CSS comments are non-executable: never let a draft declaration replace
+    # a real value in the generated design handoff.
+    source = CSS_COMMENT.sub("", source)
     start = source.find(marker)
     if start < 0:
         raise ValueError(f"Missing CSS source scope: {selector}")
