@@ -45,6 +45,19 @@ class InteractiveReferenceTests(unittest.TestCase):
         self.assertIn("URLSearchParams", script)
         self.assertIn("window.SYNTYR_PLAYGROUND_CATALOG", script)
 
+    def test_copy_export_loads_standalone_module_planner_before_playground(self):
+        html = (ROOT / "docs/playground.html").read_text()
+        script = (ROOT / "docs/playground.js").read_text()
+        planner = (ROOT / "docs/playground-snippet.js").read_text()
+        self.assertIn('src="playground-snippet.js" defer', html)
+        self.assertLess(html.index('src="playground-snippet.js"'),
+                        html.index('src="playground.js"'))
+        self.assertIn("snippet.configuredSnippet", script)
+        self.assertIn("playground-required-stylesheets", html)
+        self.assertIn("requiredStylesheets", planner)
+        site = (ROOT / "scripts/build_cloudflare_site.py").read_text()
+        self.assertIn('"playground-snippet.js"', site)
+
     def test_catalog_can_open_any_example_in_playground(self):
         js = (ROOT / "docs/catalog.js").read_text()
         self.assertIn("playground.html#component=", js)

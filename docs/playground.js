@@ -58,6 +58,7 @@
   const catalog = Array.isArray(window.SYNTYR_PLAYGROUND_CATALOG)
     ? window.SYNTYR_PLAYGROUND_CATALOG : [];
   const catalogMap = new Map(catalog.map(item => [item.id, item]));
+  const snippet = window.SYNTYR_PLAYGROUND_SNIPPET;
   const starterGuide = {
     metrics: "Responsive statistics using a named container and semantic values.",
     actions: "A native button toolbar; connect actions in your application.",
@@ -65,7 +66,7 @@
     cards: "Semantic marketing cards using a responsive CSS grid."
   };
   let framePending = false;
-  if (!example || !theme || !markup || !preview || !viewport || !radius || !padding) return;
+  if (!example || !theme || !markup || !preview || !viewport || !radius || !padding || !snippet) return;
 
   function numericValue(control, minimum, maximum) {
     return Math.min(maximum, Math.max(minimum, Number(control.value) || minimum));
@@ -94,10 +95,12 @@
   }
 
   function configuredHTML() {
-    return `<!-- Load syntyr.core.css and any optional modules listed in the reference. -->
-<div class="syn-root" data-syn-theme="${theme.value}" style="${tokens()}">
-${themedMarkup()}
-</div>`;
+    return snippet.configuredSnippet({
+      theme: theme.value,
+      tokens: tokens(),
+      module: catalogMap.get(example.value)?.module || "syntyr.core.css",
+      markup: themedMarkup()
+    });
   }
 
   function updateViewport() {
@@ -173,6 +176,9 @@ ${themedMarkup()}
     markup.dispatchEvent(new Event("syntyr:load-example"));
     byId("playground-reference-title").textContent = item ? item.title : "Starter example";
     byId("playground-reference-module").textContent = item ? item.module : "syntyr.core.css";
+    byId("playground-required-stylesheets").textContent = snippet.requiredStylesheets(
+      item?.module || "syntyr.core.css"
+    ).join(" + ");
     byId("playground-reference-description").textContent = item ? item.description : starterGuide[example.value];
     byId("playground-reference-guidance").textContent = item ? item.guidance :
       "The documentation examples are illustrative. Implement real application actions yourself.";
