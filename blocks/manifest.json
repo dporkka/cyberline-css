@@ -290,6 +290,267 @@
         "releases",
         "updates"
       ]
+    },
+    {
+      "id": "resource-workspace",
+      "category": "Applications",
+      "title": "Resource management workspace",
+      "description": "Server-ready resource search, record table, pagination and empty state.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "resources",
+        "crud",
+        "admin",
+        "operations"
+      ]
+    },
+    {
+      "id": "crm-workspace",
+      "category": "Applications",
+      "title": "CRM pipeline workspace",
+      "description": "Accessible native deal stages, filters and links with no drag runtime.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "crm",
+        "pipeline",
+        "deals",
+        "sales"
+      ]
+    },
+    {
+      "id": "billing-workspace",
+      "category": "Applications",
+      "title": "Billing and settings workspace",
+      "description": "Subscription details, invoice history and a server-owned billing contact form.",
+      "modules": [
+        "core",
+        "recipes"
+      ],
+      "tags": [
+        "saas",
+        "billing",
+        "settings",
+        "invoices",
+        "forms"
+      ]
+    },
+    {
+      "id": "auth-sign-in",
+      "category": "Applications",
+      "title": "Sign-in form",
+      "description": "Native authentication form with accessible labels and recovery link.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "login",
+        "form"
+      ]
+    },
+    {
+      "id": "auth-recovery",
+      "category": "Applications",
+      "title": "Account recovery",
+      "description": "Email recovery request presentation with security integration notes.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "authentication",
+        "recovery",
+        "password"
+      ]
+    },
+    {
+      "id": "error-recovery",
+      "category": "Applications",
+      "title": "Error recovery view",
+      "description": "Actionable error state without fake success or client-side retry.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "error",
+        "recovery",
+        "status"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "category": "Applications",
+      "title": "Empty collection state",
+      "description": "Clear primary action and filter recovery guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "empty",
+        "no-results",
+        "onboarding"
+      ]
+    },
+    {
+      "id": "comparison-table",
+      "category": "Marketing",
+      "title": "Features comparison table",
+      "description": "A semantic comparison matrix that can scroll within narrow containers.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "comparison",
+        "features",
+        "matrix"
+      ]
+    },
+    {
+      "id": "integrations-grid",
+      "category": "Marketing",
+      "title": "Integration directory grid",
+      "description": "A grid of documented integration entry points and benefits.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "integrations",
+        "directory",
+        "apps"
+      ]
+    },
+    {
+      "id": "newsletter-signup",
+      "category": "Marketing",
+      "title": "Newsletter signup panel",
+      "description": "An accessible subscription form with a native server-backed fallback.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "newsletter",
+        "email",
+        "lead"
+      ]
+    },
+    {
+      "id": "announcement-banner",
+      "category": "Marketing",
+      "title": "Site announcement strip",
+      "description": "A lightweight product or event announcement with a contextual destination.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "announcement",
+        "promotion",
+        "notice"
+      ]
+    },
+    {
+      "id": "logo-wall",
+      "category": "Marketing",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "logos",
+        "partners",
+        "trust"
+      ]
+    },
+    {
+      "id": "process-steps",
+      "category": "Services",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "process",
+        "steps",
+        "workflow"
+      ]
+    },
+    {
+      "id": "services-grid",
+      "category": "Services",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "agency",
+        "services",
+        "business"
+      ]
+    },
+    {
+      "id": "service-areas",
+      "category": "Services",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "locations",
+        "local",
+        "services"
+      ]
+    },
+    {
+      "id": "portfolio-grid",
+      "category": "Portfolio",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "portfolio",
+        "projects",
+        "work"
+      ]
+    },
+    {
+      "id": "team-grid",
+      "category": "Services",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "team",
+        "people",
+        "about"
+      ]
+    },
+    {
+      "id": "contact-quote",
+      "category": "Services",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "contact",
+        "lead",
+        "inquiry"
+      ]
     }
   ]
 }

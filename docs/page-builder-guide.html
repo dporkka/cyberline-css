@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The visual builder is a local-first, optional editing tool in the public Syntyr documentation. It assembles a small set of existing Syntyr CSS/HTML…">
+  <meta name="syntyr-source-sha256" content="2d18528b774486829116bdafb7b3c4241eaf2896bf77e75b5fdb950ca19e7cc9">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr visual page builder (experimental) — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/page-builder-guide">
+  <link rel="alternate" type="text/markdown" href="page-builder-guide.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr visual page builder (experimental)</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="page-builder-guide.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr visual page builder (experimental)">
+<h1 id="syntyr-visual-page-builder-experimental">Syntyr visual page builder (experimental)</h1>
+<p>The <a href="page-builder.html">visual builder</a> is a local-first, optional editing tool in the public Syntyr documentation. It assembles a small set of existing Syntyr CSS/HTML patterns; it is <strong>not</strong> an application framework, CMS, universal importer, SaaS hosting product, or complete GrapesJS integration.</p>
+<h2 id="what-works">What works</h2>
+<ul>
+<li>Add hero, feature-card, split-text, testimonial, FAQ, CTA, site header and footer sections from the palette.</li>
+<li>Search and insert <strong>gallery components</strong> from the generated <code>metadata/component-gallery.v1.json</code> contract (16 curated examples in the current source candidate). Edit their visible text, placeholders and safe links; examples carry the CSS modules needed and can be repeated without duplicate input IDs.</li>
+<li>The gallery is loaded from the same origin as the builder. If the JSON is missing, the original eight semantic page sections remain available; no external API or build service is required.</li>
+<li>Select sections in the outline or preview, edit their text and links, reorder with buttons or drag-and-drop, and remove sections. Keyboard focus remains in the outline during reordering; native FAQ disclosures open in the preview.</li>
+<li>Switch among themes available to the unreleased source candidate and preview true 1200px desktop, 760px tablet, and 390px mobile iframe viewports. Narrow canvases scroll rather than silently scaling the device viewport.</li>
+<li>Undo and redo editing changes (limited in-memory history).</li>
+<li>Export an HTML file and matching Syntyr CSS as separate files and host them alongside each other.</li>
+<li>Download a JSON project and reopen that JSON to restore editability.</li>
+</ul>
+<p>The builder runs entirely in your browser. It does not upload projects or require a server account. Save the JSON file before closing the page: unsaved edits are not persisted.</p>
+<h2 id="framework-independent-output">Framework-independent output</h2>
+<p>Gallery-backed blocks use a <code>gallery:&lt;catalog-example-id&gt;</code> type with only typed,
+string-valued editable properties. The trusted native HTML fragment comes from
+the generated, publicly published manifest, <strong>never from imported project JSON</strong>.
+Imported projects referencing missing gallery definitions or incompatible
+editable-field schemas fail validation rather than executing arbitrary markup.
+A changed definition with the same field names can still import, potentially
+placing saved strings in different locations. Preserve an exported HTML copy
+for long-term rendering when the optional source catalog changes. The manifest is an <strong>unreleased alpha.5 source candidate</strong>; these
+examples are not promised in the published alpha.4 release.</p>
+<p>The document schema is syntyr.page.v1, with schema, title, theme, and an ordered array of id, type, and props blocks. The canonical validation and renderer are in page-builder-model.mjs, a dependency-free ESM module with no browser globals.</p>
+<p>The exported index.html uses ordinary HTML sections, anchors, buttons-styled links, native FAQ disclosures, and existing syn-* classes. The local syntyr.all.css stylesheet must be hosted next to it; the page does not contain React, a builder script, or Syntyr editor dependencies. You can instead load CSS modules required by your chosen components using the <a href="distribution.html">distribution guide</a>.</p>
+<p>An HTML export does <strong>not</strong> preserve editor metadata sufficiently for arbitrary HTML import; the JSON project is the editable source of truth. Proprietary embeds, CMS integrations, React/Vue/Svelte code generation, hosting, and collaboration are not yet implemented.</p>
+<h2 id="security-boundaries">Security boundaries</h2>
+<p>Imported project data is strictly validated: only recognized string block types and string fields, unique safe IDs, a known theme, up to 50 blocks, bounded property lengths, and a 16 MiB UTF-8 JSON import cap compatible with the maximum valid exported project size. Repeating gallery snippets scopes internal HTML IDs and their <code>for</code>,
+<code>list</code>, <code>commandfor</code>, and ARIA references to each block instance.
+The gallery manifest is restricted to checked-in, validated markup; links
+are normalized to local anchors/paths or HTTPS. Every user-controlled text value is HTML escaped, and unsupported href protocols (including javascript: and data:) are rendered as #. The preview is inside a sandboxed iframe without script or form-submission permissions. The exported result is still <strong>static HTML</strong>, not a backend application.</p>
+<p>This experimental tool is deliberately separate from the MIT CSS core. It uses only small first-party documentation scripts; adopting a heavyweight editor engine such as GrapesJS should be justified through comparative testing, not as a mandatory dependency.</p>
+<h2 id="maintainer-verification">Maintainer verification</h2>
+<p>Run from repository root:</p>
+<pre tabindex="0"><code>node --test tests/page_builder_model.test.mjs tests/page_builder_gallery.test.mjs
+python3 -m unittest tests.test_cloudflare_site -v
+python3 scripts/build_cloudflare_site.py --check
+</code></pre>
+<p>For the optional browser smoke test:</p>
+<pre tabindex="0"><code>python3 tests/page_builder_browser.py
+</code></pre>
+<p>The browser smoke test requires Playwright and a local browser installation. Validate keyboard access, small screens, malicious imported JSON, and download/export before treating this as a stable product.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#what-works">What works</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#framework-independent-output">Framework-independent output</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#security-boundaries">Security boundaries</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#maintainer-verification">Maintainer verification</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="page-builder-guide.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

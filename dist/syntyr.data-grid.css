@@ -118,7 +118,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  :where(.syn-root .syn-data-grid__cell[aria-selected="true"]) {
+  /* Actual interactive grids use aria-selected; this static read-only
+     table example uses a purely presentational data-syn-selected hook. */
+  :where(.syn-root .syn-data-grid__cell:is([aria-selected="true"], [data-syn-selected="true"])) {
     background: var(--syn-grid-selected);
     box-shadow: inset 3px 0 var(--syn-accent);
   }
@@ -184,7 +186,7 @@
     font-variant-numeric: tabular-nums;
   }
   @media (forced-colors: active) {
-    :where(.syn-root .syn-data-grid__cell[aria-selected="true"]) {
+    :where(.syn-root .syn-data-grid__cell:is([aria-selected="true"], [data-syn-selected="true"])) {
       outline: 2px solid Highlight;
       outline-offset: -2px;
       box-shadow: none;

@@ -99,6 +99,7 @@
   .docs-prose :not(pre) > code { font: .88em/1.4 var(--syn-mono); background: var(--syn-surface-hi); padding: .15em .32em; border-radius: .2rem; overflow-wrap: anywhere; }
   .docs-prose pre { background: #0c1722; color: #e4f2f7; border: 1px solid #40526a; border-radius: .5rem; padding: 1.2rem; line-height: 1.55; font-size: .875rem; overflow-x: auto; tab-size: 2; }
   .docs-prose pre code { color: inherit; font: inherit; white-space: pre; }
+  .docs-prose pre:focus-visible { outline: 2px solid var(--syn-accent); outline-offset: 2px; }
   .docs-prose table { display: block; width: max-content; max-width: 100%; overflow-x: auto; border-collapse: collapse; margin-block: 1.5rem; font-size: .92rem; }
   .docs-prose :is(th,td) { min-width: 7rem; padding: .65rem .9rem; border: 1px solid var(--syn-frame); text-align: start; vertical-align: top; }
   .docs-prose th { background: var(--syn-surface-hi); font-weight: 650; }

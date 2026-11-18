@@ -5,7 +5,7 @@
     &.syn-meter::-webkit-progress-bar { background: var(--syn-bg); }
     &.syn-meter::-webkit-progress-value { background: var(--syn-accent); }
     &.syn-meter::-moz-progress-bar { background: var(--syn-accent); }
-    &.syn-table-wrap { overflow-x: auto; }
+    &.syn-table-wrap { max-inline-size: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
     /* Bounded, keyboard-scrollable overflow for large native tables. */
     &.syn-table-wrap--scroll { max-block-size: var(--syn-table-scroll-height, 24rem); overflow: auto; }
     &.syn-table { width: 100%; border-collapse: collapse; text-align: left; font: var(--syn-type-sm)/1.55 var(--syn-font-ui); }
@@ -14,9 +14,11 @@
     &.syn-table .syn-cell--nowrap { white-space: nowrap; }
     /* Allow descriptive cells to wrap without changing compact identifier/numeric cells. */
     &.syn-table .syn-cell--wrap { white-space: normal; overflow-wrap: anywhere; max-inline-size: 38ch; }
-    /* Opt-in striping; selected rows take precedence. */
-    &.syn-table--striped tbody tr:nth-child(even):not([aria-selected="true"]):not([data-syn-state="selected"]) { background: var(--syn-surface-recessed); }
-    &.syn-table tbody tr:not([aria-selected="true"]):not([data-syn-state="selected"]):hover { background: var(--syn-surface-raised); }
+    /* Visual selection is data-syn-state for ordinary tables. ARIA selection
+       only affects styling on an actual grid/treegrid, where the host owns
+       keyboard navigation and selection behavior. */
+    &.syn-table--striped tbody tr:nth-child(even):not([data-syn-state="selected"]):not(:is([role="grid"] tr[aria-selected="true"], [role="treegrid"] tr[aria-selected="true"])) { background: var(--syn-surface-recessed); }
+    &.syn-table tbody tr:not([data-syn-state="selected"]):not(:is([role="grid"] tr[aria-selected="true"], [role="treegrid"] tr[aria-selected="true"])):hover { background: var(--syn-surface-raised); }
     &.syn-table--sticky thead th {
       position: sticky;
       inset-block-start: var(--syn-table-sticky-offset, 0px);
@@ -35,8 +37,9 @@
     }
     &.syn-table th[aria-sort="ascending"] .syn-table-sort::after { transform: rotate(225deg); }
     &.syn-table th[aria-sort="descending"] .syn-table-sort::after { transform: rotate(45deg); }
-    &.syn-table tr[aria-selected="true"], &.syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
-    &.syn-table tr[aria-selected="true"] > :first-child,
+    &.syn-table:is([role="grid"], [role="treegrid"]) tr[aria-selected="true"],
+    &.syn-table tr[data-syn-state="selected"] { background: var(--syn-surface-pressed); }
+    &.syn-table:is([role="grid"], [role="treegrid"]) tr[aria-selected="true"] > :first-child,
     &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start: 3px solid var(--syn-accent); }
     &.syn-table tr:focus-within { outline: 2px solid var(--syn-focus-ring); outline-offset: -2px; }
     &.syn-table th { color: var(--syn-text-subtle); font-weight: 550; }
@@ -49,7 +52,7 @@
     &.syn-status--warning { color: var(--syn-warning); }
     &.syn-status--danger { color: var(--syn-danger); }
     @media (forced-colors: active) {
-      &.syn-table tr[aria-selected="true"] > :first-child,
+      &.syn-table:is([role="grid"], [role="treegrid"]) tr[aria-selected="true"] > :first-child,
       &.syn-table tr[data-syn-state="selected"] > :first-child { border-inline-start-color: Highlight; }
       &.syn-status::before { border: 1px solid currentColor; }
       &.syn-table--sticky thead th { background: Canvas; box-shadow: inset 0 -1px CanvasText; }

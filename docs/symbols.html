@@ -39,7 +39,7 @@
 icon font, emoji assets, a JavaScript icon runtime, or an ASCII-art generator.
 The free MIT module is <code>dist/syntyr.symbols.css</code>. It is optional and works
 with any of the seven source themes, server-rendered HTML and framework views.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.symbols.css&quot;&gt;
 </code></pre>
 <p>Use these two files, <strong>or</strong> <code>syntyr.all.css</code>, not both. If you don't use
@@ -51,7 +51,7 @@ Put it directly on an inline SVG, or on a wrapper around an SVG. Default size
 is <code>1.25em</code>; override <code>--syn-icon-size</code> for a specific icon or container.
 SVG <code>stroke</code> and <code>fill</code> remain under your control; this supports both
 outline packs and filled icons. The following path is an original example.</p>
-<pre><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot;&gt;
   &lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot;
        stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; aria-hidden=&quot;true&quot;
        focusable=&quot;false&quot;&gt;
@@ -74,7 +74,7 @@ respective licenses. None is vendored or required. Avoid loading an entire
 icon font or a massive SVG sprite for a handful of icons. An SVG that uses
 <code>currentColor</code> inherits Syntyr's theme colors automatically.</p>
 <h2 id="2-unicode-as-actual-text">2. Unicode as actual text</h2>
-<pre><code class="language-html">&lt;span class=&quot;syn-symbol syn-symbol--accent&quot; aria-hidden=&quot;true&quot;&gt;◆&lt;/span&gt;
+<pre tabindex="0"><code class="language-html">&lt;span class=&quot;syn-symbol syn-symbol--accent&quot; aria-hidden=&quot;true&quot;&gt;◆&lt;/span&gt;
 &lt;span&gt;Operational&lt;/span&gt;
 &lt;span class=&quot;syn-symbol syn-symbol--muted&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
 &lt;span&gt;Details&lt;/span&gt;
@@ -89,7 +89,7 @@ Do not rely on a symbol's color or shape alone to communicate state.</p>
 <p>Use real <code>&lt;pre&gt;</code> text. <code>.syn-ascii</code> preserves spaces, line breaks and
 monospace alignment and scrolls horizontally rather than splitting a border.
 It pairs with existing <code>.syn-terminal</code> recipes, but does not require them.</p>
-<pre><code class="language-html">&lt;p id=&quot;sys-health&quot;&gt;API online and jobs online.&lt;/p&gt;
+<pre tabindex="0"><code class="language-html">&lt;p id=&quot;sys-health&quot;&gt;API online and jobs online.&lt;/p&gt;
 &lt;pre class=&quot;syn-ascii syn-ascii--accent&quot; aria-hidden=&quot;true&quot;&gt;+-------------------+
 |  SYSTEM: ONLINE   |
 +-------------------+

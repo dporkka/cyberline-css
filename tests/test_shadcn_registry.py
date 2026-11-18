@@ -11,7 +11,7 @@ REGISTRY = ROOT / "registry"
 MANIFEST = json.loads((ROOT / "blocks/manifest.json").read_text(encoding="utf-8"))
 MODULES = {"core": "syntyr.core.css", "recipes": "syntyr.recipes.css",
            "geometry": "syntyr.geometry.css", "symbols": "syntyr.symbols.css",
-           "viz": "syntyr.viz.css", "motion": "syntyr.motion.css",
+           "viz": "syntyr.viz.css", "geo": "syntyr.geo.css", "motion": "syntyr.motion.css",
            "effects": "syntyr.effects.css", "utilities": "syntyr.utilities.css"}
 
 

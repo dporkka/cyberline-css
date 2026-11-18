@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="20 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
+  <meta name="description" content="38 original HTML/CSS blocks, 12 visual assets, and 24 SVG icon examples for Syntyr. View, filter, and copy without a framework.">
   <title>Free HTML/CSS Blocks and UI Assets — Syntyr CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.all.css">
   <link rel="stylesheet" href="docs.css">
@@ -17,13 +17,13 @@
     <a class="syn-logo" href="index.html">SYNTYR / BLOCKS &amp; ASSETS</a>
     <nav class="syn-nav" aria-label="Documentation">
       <a href="index.html">Gallery</a><a href="catalog.html">Components</a>
-      <a href="blocks-guide.html">Integration guide</a>
+      <a href="blocks-guide.html">Integration guide</a><a href="how-to.html">How-To</a>
     </nav>
   </header>
   <main class="syn-shell" id="blocks-main">
     <section class="docs-section">
       <p class="syn-eyebrow">COPY-OWNED / FRAMEWORK-INDEPENDENT</p>
-      <h1 class="syn-title">20 production-shaped blocks.</h1>
+      <h1 class="syn-title">38 production-shaped blocks.</h1>
       <p class="syn-lede">Build faster with original HTML compositions styled by Syntyr.
       Every preview renders without JavaScript. Search, theme switching, and copying
       are documentation-only enhancements, not dependencies for your application.</p>
@@ -35,8 +35,7 @@
           <input class="syn-input" type="search" id="blocks-search" placeholder="Try pricing, settings, telemetry…" autocomplete="off"></div>
         <div><label class="syn-label" for="blocks-category">Category</label>
           <select class="syn-select" id="blocks-category"><option value="all">All categories</option>
-            <option value="Marketing">Marketing</option><option value="Applications">Applications</option>
-            <option value="Technical">Technical</option></select></div>
+            <option value="Marketing">Marketing</option><option value="Applications">Applications</option><option value="Technical">Technical</option><option value="Services">Services</option><option value="Portfolio">Portfolio</option></select></div>
         <div><label class="syn-label" for="blocks-theme">Preview theme</label>
           <select class="syn-select" id="blocks-theme">
             <option value="studio">Studio</option><option value="grid">Grid</option>
@@ -45,7 +44,8 @@
             <option value="minimal">Minimal</option>
           </select></div>
       </div>
-      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">20 blocks available.</p>
+      <p id="blocks-results" class="syn-caption" role="status" aria-live="polite">38 blocks available.</p>
+      <p id="blocks-feedback" class="syn-caption" role="status" aria-live="polite" aria-atomic="true"></p>
       <p id="blocks-empty" class="syn-alert" hidden>No blocks found. Try a different search or category.</p>
       <div id="blocks-grid" class="blocks-grid">
       <article class="blocks-card syn-panel" data-block-id="hero-product"
@@ -65,8 +65,8 @@
     <h2 id="syn-hero-product" class="syn-site-heading">Understand your product. <strong>Act with confidence.</strong></h2>
     <p class="syn-lede">One clear workspace for teams tracking what matters.</p>
     <div class="syn-actions">
-      <a class="syn-button syn-button--primary" href="/start">Start free</a>
-      <a class="syn-button syn-button--outline" href="/demo">Explore demo</a>
+      <a class="syn-button syn-button--primary">Start free</a>
+      <a class="syn-button syn-button--outline">Explore demo</a>
     </div>
   </div>
 </section>
@@ -104,7 +104,7 @@
     <span class="syn-badge">SECURITY BY DESIGN</span>
     <h2 id="syn-hero-security" class="syn-site-heading">Ship fast. <strong>Stay in control.</strong></h2>
     <p class="syn-lede">Deploy reliable software without trading away visibility or ownership.</p>
-    <div class="syn-actions"><a class="syn-button syn-button--primary" href="/docs">Read the docs</a></div>
+    <div class="syn-actions"><a class="syn-button syn-button--primary">Read the docs</a></div>
     <p class="syn-caption">Self-hosting and access controls are supplied by your application, not by CSS.</p>
   </div>
 </section>
@@ -212,9 +212,9 @@
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-pricing-heading">
   <h2 id="syn-pricing-heading" class="syn-heading">Plans that scale</h2>
   <div class="syn-pricing">
-    <article class="syn-price-card"><h3>Solo</h3><p class="syn-price-value">$19 <small>/ mo</small></p><ul class="syn-feature-list"><li>One workspace</li><li>Essential reports</li></ul><a class="syn-button" href="/checkout/solo">Choose Solo</a></article>
-    <article class="syn-price-card" data-syn-featured><h3>Team</h3><p class="syn-price-value">$49 <small>/ mo</small></p><ul class="syn-feature-list"><li>Unlimited workspaces</li><li>Team permissions</li></ul><a class="syn-button syn-button--primary" href="/checkout/team">Choose Team</a></article>
-    <article class="syn-price-card"><h3>Scale</h3><p class="syn-price-value">Custom</p><ul class="syn-feature-list"><li>Advanced controls</li><li>Assisted onboarding</li></ul><a class="syn-button" href="/contact">Contact sales</a></article>
+    <article class="syn-price-card"><h3>Solo</h3><p class="syn-price-value">$19 <small>/ mo</small></p><ul class="syn-feature-list"><li>One workspace</li><li>Essential reports</li></ul><a class="syn-button">Choose Solo</a></article>
+    <article class="syn-price-card" data-syn-featured><h3>Team</h3><p class="syn-price-value">$49 <small>/ mo</small></p><ul class="syn-feature-list"><li>Unlimited workspaces</li><li>Team permissions</li></ul><a class="syn-button syn-button--primary">Choose Team</a></article>
+    <article class="syn-price-card"><h3>Scale</h3><p class="syn-price-value">Custom</p><ul class="syn-feature-list"><li>Advanced controls</li><li>Assisted onboarding</li></ul><a class="syn-button">Contact sales</a></article>
   </div>
   <p class="syn-caption">Example prices only; replace plan data and checkout routes.</p>
 </section>
@@ -308,7 +308,7 @@
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-cta-heading">
   <div class="syn-cta-band">
     <div><h2 id="syn-cta-heading" class="syn-heading">Ready to explore?</h2><p>Start with a workflow that works for your team.</p></div>
-    <a class="syn-button syn-button--primary" href="/contact">Talk to us</a>
+    <a class="syn-button syn-button--primary">Talk to us</a>
   </div>
 </section>
         </div>
@@ -453,7 +453,7 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
   <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
-  <form class="syn-panel syn-form" method="get" action="/requests">
+  <form class="syn-panel syn-form" method="get" action="/requests"><fieldset class="blocks-preview-disabled" disabled>
     <label class="syn-label" for="syn-block-query">Search by name</label>
     <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
     <label class="syn-label" for="syn-block-status">Status</label>
@@ -461,7 +461,7 @@
       <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
     </select>
     <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
-  </form>
+  </fieldset></form>
 </section>
         </div>
         <details class="blocks-details">
@@ -495,14 +495,14 @@
         <div class="blocks-preview">
 <section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
   <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
-  <form class="syn-panel syn-form" method="post" action="/settings">
+  <form class="syn-panel syn-form" method="post" action="/settings"><fieldset class="blocks-preview-disabled" disabled>
     <label class="syn-label" for="syn-block-name">Workspace name</label>
     <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
     <label class="syn-label" for="syn-block-timezone">Timezone</label>
     <select class="syn-select" id="syn-block-timezone" name="timezone"><option value="UTC">UTC</option><option value="America/Sao_Paulo">Brasília</option></select>
     <p class="syn-help">Connect your actual validation, CSRF protection and persistence.</p>
     <button class="syn-button syn-button--primary" type="submit">Save settings</button>
-  </form>
+  </fieldset></form>
 </section>
         </div>
         <details class="blocks-details">
@@ -577,7 +577,7 @@
     <p class="syn-eyebrow">TEAM PLAN</p>
     <p class="syn-metric">$49 <span class="syn-caption">/ month</span></p>
     <p class="syn-muted">Next illustrative invoice: December 1, 2026.</p>
-    <a href="/billing" class="syn-button">Manage billing</a>
+    <a class="syn-button">Manage billing</a>
   </article>
 </section>
         </div>
@@ -615,7 +615,7 @@
       <li><span>2. Invite teammates</span><span class="syn-status syn-status--warning">Next</span></li>
       <li><span>3. Connect a data source</span><span class="syn-muted">Not started</span></li>
     </ol>
-    <a href="/onboarding" class="syn-button syn-button--primary">Continue setup</a>
+    <a class="syn-button syn-button--primary">Continue setup</a>
   </div>
 </section>
         </div>
@@ -689,7 +689,7 @@
   <div class="syn-alert syn-alert--danger">
     <h2 id="syn-incident-heading" class="syn-heading">Degraded API performance</h2>
     <p>Some requests may be delayed. Engineers are investigating and will post updates.</p>
-    <a href="/status">View status history</a>
+    <a>View status history</a>
   </div>
 </section>
         </div>
@@ -761,7 +761,7 @@
     <ul class="syn-feature-list">
       <li>Improved record filtering.</li><li>Clearer empty and loading states.</li><li>Keyboard navigation refinements.</li>
     </ul>
-    <a href="/changelog">View all releases</a>
+    <a>View all releases</a>
   </article>
 </section>
         </div>
@@ -781,6 +781,926 @@
         </details>
         <button type="button" class="syn-button blocks-copy" data-block-copy
                 aria-label="Copy HTML for Release notes" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="resource-workspace"
+               data-block-category="Applications"
+               data-block-keywords="Resource management workspace Server-ready resource search, record table, pagination and empty state. saas resources crud admin operations"
+               aria-labelledby="block-title-resource-workspace">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-resource-workspace">Resource management workspace</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Server-ready resource search, record table, pagination and empty state.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-resource-workspace-heading">
+  <header class="syn-collection-toolbar">
+    <div>
+      <h2 id="syn-resource-workspace-heading" class="syn-heading">Resources</h2>
+      <p class="syn-muted">Illustrative records. Search, edits, and permissions require your application.</p>
+    </div>
+    <div class="syn-collection-actions">
+      <a class="syn-button syn-button--primary">Create resource</a>
+    </div>
+  </header>
+  <form class="syn-filter-bar syn-panel" action="/resources" method="get" role="search" aria-label="Filter resources"><fieldset class="blocks-preview-disabled" disabled>
+    <div class="syn-filter-field syn-filter-field--query">
+      <label class="syn-label" for="syn-rw-search">Find resources</label>
+      <input class="syn-input" id="syn-rw-search" name="q" type="search" placeholder="Name or identifier">
+    </div>
+    <div class="syn-filter-field">
+      <label class="syn-label" for="syn-rw-status">Status</label>
+      <select class="syn-select" id="syn-rw-status" name="status">
+        <option value="">All statuses</option>
+        <option value="active">Active</option>
+        <option value="pending">Pending review</option>
+      </select>
+    </div>
+    <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Filter</button></div>
+  </fieldset></form>
+  <div class="syn-panel">
+    <div class="syn-table-wrap" role="region" aria-label="Resources; scroll horizontally for more columns" tabindex="0">
+      <table class="syn-table">
+        <caption>Illustrative resources, sorted by name</caption>
+        <thead>
+          <tr><th scope="col">Name</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Details</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">North warehouse</th><td>Morgan</td>
+            <td><span class="syn-status syn-status--success">Active</span></td>
+            <td><a>View</a></td>
+          </tr>
+          <tr>
+            <th scope="row">West terminal</th><td>Casey</td>
+            <td><span class="syn-status syn-status--warning">Pending</span></td>
+            <td><a>View</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <nav aria-label="Resource pages" class="syn-inline">
+      <span aria-current="page">Page 1 of 2</span>
+      <a>Next page</a>
+    </nav>
+  </div>
+  <details>
+    <summary>Alternative empty-result state (illustration)</summary>
+    <div class="syn-result-state">
+      <h3 class="syn-heading">No matching resources</h3>
+      <p>Try different filters or <a>create a resource</a>.</p>
+    </div>
+  </details>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Resource management workspace</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-resource-workspace-heading&quot;&gt;
+  &lt;header class=&quot;syn-collection-toolbar&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 id=&quot;syn-resource-workspace-heading&quot; class=&quot;syn-heading&quot;&gt;Resources&lt;/h2&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Illustrative records. Search, edits, and permissions require your application.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-collection-actions&quot;&gt;
+      &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/resources/new&quot;&gt;Create resource&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+  &lt;form class=&quot;syn-filter-bar syn-panel&quot; action=&quot;/resources&quot; method=&quot;get&quot; role=&quot;search&quot; aria-label=&quot;Filter resources&quot;&gt;
+    &lt;div class=&quot;syn-filter-field syn-filter-field--query&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-rw-search&quot;&gt;Find resources&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-rw-search&quot; name=&quot;q&quot; type=&quot;search&quot; placeholder=&quot;Name or identifier&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-rw-status&quot;&gt;Status&lt;/label&gt;
+      &lt;select class=&quot;syn-select&quot; id=&quot;syn-rw-status&quot; name=&quot;status&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;All statuses&lt;/option&gt;
+        &lt;option value=&quot;active&quot;&gt;Active&lt;/option&gt;
+        &lt;option value=&quot;pending&quot;&gt;Pending review&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-actions&quot;&gt;&lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Filter&lt;/button&gt;&lt;/div&gt;
+  &lt;/form&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;div class=&quot;syn-table-wrap&quot; role=&quot;region&quot; aria-label=&quot;Resources; scroll horizontally for more columns&quot; tabindex=&quot;0&quot;&gt;
+      &lt;table class=&quot;syn-table&quot;&gt;
+        &lt;caption&gt;Illustrative resources, sorted by name&lt;/caption&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Name&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Owner&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Status&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Details&lt;/th&gt;&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;North warehouse&lt;/th&gt;&lt;td&gt;Morgan&lt;/td&gt;
+            &lt;td&gt;&lt;span class=&quot;syn-status syn-status--success&quot;&gt;Active&lt;/span&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;a href=&quot;/resources/north-warehouse&quot;&gt;View&lt;/a&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;th scope=&quot;row&quot;&gt;West terminal&lt;/th&gt;&lt;td&gt;Casey&lt;/td&gt;
+            &lt;td&gt;&lt;span class=&quot;syn-status syn-status--warning&quot;&gt;Pending&lt;/span&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;a href=&quot;/resources/west-terminal&quot;&gt;View&lt;/a&gt;&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+    &lt;nav aria-label=&quot;Resource pages&quot; class=&quot;syn-inline&quot;&gt;
+      &lt;span aria-current=&quot;page&quot;&gt;Page 1 of 2&lt;/span&gt;
+      &lt;a href=&quot;/resources?page=2&quot;&gt;Next page&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+  &lt;details&gt;
+    &lt;summary&gt;Alternative empty-result state (illustration)&lt;/summary&gt;
+    &lt;div class=&quot;syn-result-state&quot;&gt;
+      &lt;h3 class=&quot;syn-heading&quot;&gt;No matching resources&lt;/h3&gt;
+      &lt;p&gt;Try different filters or &lt;a href=&quot;/resources/new&quot;&gt;create a resource&lt;/a&gt;.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/details&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Resource management workspace" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="crm-workspace"
+               data-block-category="Applications"
+               data-block-keywords="CRM pipeline workspace Accessible native deal stages, filters and links with no drag runtime. saas crm pipeline deals sales"
+               aria-labelledby="block-title-crm-workspace">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-crm-workspace">CRM pipeline workspace</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Accessible native deal stages, filters and links with no drag runtime.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-crm-workspace-heading">
+  <header class="syn-collection-toolbar">
+    <div>
+      <h2 id="syn-crm-workspace-heading" class="syn-heading">Deal pipeline</h2>
+      <p class="syn-muted">Illustrative opportunities. The server supplies real stages, deal states, and permissions.</p>
+    </div>
+    <a class="syn-button syn-button--primary">New deal</a>
+  </header>
+  <form method="get" action="/crm/deals" class="syn-filter-bar syn-panel" role="search" aria-label="Filter opportunities"><fieldset class="blocks-preview-disabled" disabled>
+    <div class="syn-filter-field syn-filter-field--query">
+      <label class="syn-label" for="syn-crm-query">Search deals</label>
+      <input class="syn-input" id="syn-crm-query" type="search" name="q" placeholder="Company or deal">
+    </div>
+    <div class="syn-filter-field">
+      <label class="syn-label" for="syn-crm-owner">Owner</label>
+      <select class="syn-select" id="syn-crm-owner" name="owner">
+        <option value="">All owners</option>
+        <option value="morgan">Morgan</option><option value="casey">Casey</option>
+      </select>
+    </div>
+    <div class="syn-filter-actions"><button class="syn-button syn-button--primary" type="submit">Apply</button></div>
+  </fieldset></form>
+  <div class="syn-pipeline" tabindex="0" role="region" aria-label="Deal stages; scroll horizontally for more stages">
+    <section class="syn-pipeline-lane" aria-labelledby="syn-crm-prospect">
+      <h3 id="syn-crm-prospect">Prospecting <span class="syn-badge">1</span></h3>
+      <ol class="syn-pipeline-list">
+        <li class="syn-pipeline-card"><a>Atlas Systems</a>
+          <p>New site evaluation</p><small>Owner: Morgan · $8,000 estimated</small></li>
+      </ol>
+    </section>
+    <section class="syn-pipeline-lane" aria-labelledby="syn-crm-proposal">
+      <h3 id="syn-crm-proposal">Proposal <span class="syn-badge">1</span></h3>
+      <ol class="syn-pipeline-list">
+        <li class="syn-pipeline-card"><a>Cedar Labs</a>
+          <p>Annual placement</p><small>Owner: Casey · $12,000 estimated</small></li>
+      </ol>
+    </section>
+    <section class="syn-pipeline-lane" aria-labelledby="syn-crm-won">
+      <h3 id="syn-crm-won">Closed won <span class="syn-badge">0</span></h3>
+      <p class="syn-muted">No deals in this stage.</p>
+    </section>
+  </div>
+  <p class="syn-help">Stages are presentation only. Changing a deal's stage needs an authorized server operation; there is no drag-and-drop JavaScript.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for CRM pipeline workspace</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-crm-workspace-heading&quot;&gt;
+  &lt;header class=&quot;syn-collection-toolbar&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 id=&quot;syn-crm-workspace-heading&quot; class=&quot;syn-heading&quot;&gt;Deal pipeline&lt;/h2&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Illustrative opportunities. The server supplies real stages, deal states, and permissions.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/crm/deals/new&quot;&gt;New deal&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;form method=&quot;get&quot; action=&quot;/crm/deals&quot; class=&quot;syn-filter-bar syn-panel&quot; role=&quot;search&quot; aria-label=&quot;Filter opportunities&quot;&gt;
+    &lt;div class=&quot;syn-filter-field syn-filter-field--query&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-crm-query&quot;&gt;Search deals&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-crm-query&quot; type=&quot;search&quot; name=&quot;q&quot; placeholder=&quot;Company or deal&quot;&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-field&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-crm-owner&quot;&gt;Owner&lt;/label&gt;
+      &lt;select class=&quot;syn-select&quot; id=&quot;syn-crm-owner&quot; name=&quot;owner&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;All owners&lt;/option&gt;
+        &lt;option value=&quot;morgan&quot;&gt;Morgan&lt;/option&gt;&lt;option value=&quot;casey&quot;&gt;Casey&lt;/option&gt;
+      &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-filter-actions&quot;&gt;&lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Apply&lt;/button&gt;&lt;/div&gt;
+  &lt;/form&gt;
+  &lt;div class=&quot;syn-pipeline&quot; tabindex=&quot;0&quot; role=&quot;region&quot; aria-label=&quot;Deal stages; scroll horizontally for more stages&quot;&gt;
+    &lt;section class=&quot;syn-pipeline-lane&quot; aria-labelledby=&quot;syn-crm-prospect&quot;&gt;
+      &lt;h3 id=&quot;syn-crm-prospect&quot;&gt;Prospecting &lt;span class=&quot;syn-badge&quot;&gt;1&lt;/span&gt;&lt;/h3&gt;
+      &lt;ol class=&quot;syn-pipeline-list&quot;&gt;
+        &lt;li class=&quot;syn-pipeline-card&quot;&gt;&lt;a href=&quot;/crm/deals/atlas&quot;&gt;Atlas Systems&lt;/a&gt;
+          &lt;p&gt;New site evaluation&lt;/p&gt;&lt;small&gt;Owner: Morgan · $8,000 estimated&lt;/small&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;syn-pipeline-lane&quot; aria-labelledby=&quot;syn-crm-proposal&quot;&gt;
+      &lt;h3 id=&quot;syn-crm-proposal&quot;&gt;Proposal &lt;span class=&quot;syn-badge&quot;&gt;1&lt;/span&gt;&lt;/h3&gt;
+      &lt;ol class=&quot;syn-pipeline-list&quot;&gt;
+        &lt;li class=&quot;syn-pipeline-card&quot;&gt;&lt;a href=&quot;/crm/deals/cedar&quot;&gt;Cedar Labs&lt;/a&gt;
+          &lt;p&gt;Annual placement&lt;/p&gt;&lt;small&gt;Owner: Casey · $12,000 estimated&lt;/small&gt;&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;syn-pipeline-lane&quot; aria-labelledby=&quot;syn-crm-won&quot;&gt;
+      &lt;h3 id=&quot;syn-crm-won&quot;&gt;Closed won &lt;span class=&quot;syn-badge&quot;&gt;0&lt;/span&gt;&lt;/h3&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;No deals in this stage.&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-help&quot;&gt;Stages are presentation only. Changing a deal&#x27;s stage needs an authorized server operation; there is no drag-and-drop JavaScript.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for CRM pipeline workspace" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="billing-workspace"
+               data-block-category="Applications"
+               data-block-keywords="Billing and settings workspace Subscription details, invoice history and a server-owned billing contact form. saas billing settings invoices forms"
+               aria-labelledby="block-title-billing-workspace">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-billing-workspace">Billing and settings workspace</h2></div>
+          <span class="syn-badge">syntyr.core.css + syntyr.recipes.css</span>
+        </div>
+        <p class="syn-muted">Subscription details, invoice history and a server-owned billing contact form.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-billing-workspace-heading">
+  <header class="syn-collection-toolbar">
+    <div>
+      <h2 id="syn-billing-workspace-heading" class="syn-heading">Workspace and billing</h2>
+      <p class="syn-muted">Illustrative subscription and invoice information, not a payment interface.</p>
+    </div>
+    <a class="syn-button syn-button--outline">Manage payment method</a>
+  </header>
+  <div class="syn-layout">
+    <section class="syn-panel" aria-labelledby="syn-billing-plan-heading">
+      <h3 id="syn-billing-plan-heading">Current plan</h3>
+      <dl class="syn-record-fields">
+        <div><dt>Plan</dt><dd>Growth (example)</dd></div>
+        <div><dt>Billing cycle</dt><dd>Monthly</dd></div>
+        <div><dt>Next invoice</dt><dd><time datetime="2027-01-01">January 1, 2027</time></dd></div>
+      </dl>
+      <p><a>Compare plans</a></p>
+    </section>
+    <section class="syn-panel" aria-labelledby="syn-billing-settings-heading">
+      <h3 id="syn-billing-settings-heading">Billing contact</h3>
+      <form method="post" action="/billing/settings" class="syn-form"><fieldset class="blocks-preview-disabled" disabled>
+        <div class="syn-field">
+          <label class="syn-label" for="syn-billing-email">Billing email</label>
+          <input class="syn-input" type="email" id="syn-billing-email" name="billing_email"
+                 autocomplete="email" value="billing@example.invalid" aria-describedby="syn-billing-help" required>
+          <p id="syn-billing-help" class="syn-help">Your server must validate this address and protect writes against CSRF.</p>
+        </div>
+        <button class="syn-button syn-button--primary" type="submit">Save contact</button>
+      </fieldset></form>
+    </section>
+  </div>
+  <section class="syn-panel" aria-labelledby="syn-billing-invoices-heading">
+    <h3 id="syn-billing-invoices-heading">Recent invoices</h3>
+    <div class="syn-table-wrap" role="region" aria-label="Recent invoices; scroll horizontally for more columns" tabindex="0">
+      <table class="syn-table">
+        <caption>Illustrative invoice history</caption>
+        <thead><tr><th scope="col">Invoice</th><th scope="col">Date</th><th scope="col">Status</th><th scope="col">Amount</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><a>INV-102</a></th>
+              <td><time datetime="2026-11-01">Nov 1, 2026</time></td><td>Paid</td><td>$149</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Billing and settings workspace</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-billing-workspace-heading&quot;&gt;
+  &lt;header class=&quot;syn-collection-toolbar&quot;&gt;
+    &lt;div&gt;
+      &lt;h2 id=&quot;syn-billing-workspace-heading&quot; class=&quot;syn-heading&quot;&gt;Workspace and billing&lt;/h2&gt;
+      &lt;p class=&quot;syn-muted&quot;&gt;Illustrative subscription and invoice information, not a payment interface.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;a class=&quot;syn-button syn-button--outline&quot; href=&quot;/billing/payment-method&quot;&gt;Manage payment method&lt;/a&gt;
+  &lt;/header&gt;
+  &lt;div class=&quot;syn-layout&quot;&gt;
+    &lt;section class=&quot;syn-panel&quot; aria-labelledby=&quot;syn-billing-plan-heading&quot;&gt;
+      &lt;h3 id=&quot;syn-billing-plan-heading&quot;&gt;Current plan&lt;/h3&gt;
+      &lt;dl class=&quot;syn-record-fields&quot;&gt;
+        &lt;div&gt;&lt;dt&gt;Plan&lt;/dt&gt;&lt;dd&gt;Growth (example)&lt;/dd&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;dt&gt;Billing cycle&lt;/dt&gt;&lt;dd&gt;Monthly&lt;/dd&gt;&lt;/div&gt;
+        &lt;div&gt;&lt;dt&gt;Next invoice&lt;/dt&gt;&lt;dd&gt;&lt;time datetime=&quot;2027-01-01&quot;&gt;January 1, 2027&lt;/time&gt;&lt;/dd&gt;&lt;/div&gt;
+      &lt;/dl&gt;
+      &lt;p&gt;&lt;a href=&quot;/billing/plans&quot;&gt;Compare plans&lt;/a&gt;&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section class=&quot;syn-panel&quot; aria-labelledby=&quot;syn-billing-settings-heading&quot;&gt;
+      &lt;h3 id=&quot;syn-billing-settings-heading&quot;&gt;Billing contact&lt;/h3&gt;
+      &lt;form method=&quot;post&quot; action=&quot;/billing/settings&quot; class=&quot;syn-form&quot;&gt;
+        &lt;div class=&quot;syn-field&quot;&gt;
+          &lt;label class=&quot;syn-label&quot; for=&quot;syn-billing-email&quot;&gt;Billing email&lt;/label&gt;
+          &lt;input class=&quot;syn-input&quot; type=&quot;email&quot; id=&quot;syn-billing-email&quot; name=&quot;billing_email&quot;
+                 autocomplete=&quot;email&quot; value=&quot;billing@example.invalid&quot; aria-describedby=&quot;syn-billing-help&quot; required&gt;
+          &lt;p id=&quot;syn-billing-help&quot; class=&quot;syn-help&quot;&gt;Your server must validate this address and protect writes against CSRF.&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Save contact&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  &lt;section class=&quot;syn-panel&quot; aria-labelledby=&quot;syn-billing-invoices-heading&quot;&gt;
+    &lt;h3 id=&quot;syn-billing-invoices-heading&quot;&gt;Recent invoices&lt;/h3&gt;
+    &lt;div class=&quot;syn-table-wrap&quot; role=&quot;region&quot; aria-label=&quot;Recent invoices; scroll horizontally for more columns&quot; tabindex=&quot;0&quot;&gt;
+      &lt;table class=&quot;syn-table&quot;&gt;
+        &lt;caption&gt;Illustrative invoice history&lt;/caption&gt;
+        &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Invoice&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Date&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Status&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Amount&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;&lt;a href=&quot;/billing/invoices/inv-102&quot;&gt;INV-102&lt;/a&gt;&lt;/th&gt;
+              &lt;td&gt;&lt;time datetime=&quot;2026-11-01&quot;&gt;Nov 1, 2026&lt;/time&gt;&lt;/td&gt;&lt;td&gt;Paid&lt;/td&gt;&lt;td&gt;$149&lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Billing and settings workspace" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="auth-sign-in"
+               data-block-category="Applications"
+               data-block-keywords="Sign-in form Native authentication form with accessible labels and recovery link. authentication login form"
+               aria-labelledby="block-title-auth-sign-in">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-auth-sign-in">Sign-in form</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Native authentication form with accessible labels and recovery link.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-signin-heading">
+  <div class="syn-panel">
+    <h2 class="syn-heading" id="syn-signin-heading">Sign in to Northstar</h2>
+    <p class="syn-muted">Use your account credentials. Authentication is implemented by your application.</p>
+    <form class="syn-form" method="post" action="/sign-in"><fieldset class="blocks-preview-disabled" disabled>
+      <label class="syn-label" for="syn-signin-email">Email address</label>
+      <input class="syn-input" id="syn-signin-email" name="email" type="email" autocomplete="username" required>
+      <label class="syn-label" for="syn-signin-password">Password</label>
+      <input class="syn-input" id="syn-signin-password" name="password" type="password" autocomplete="current-password" required>
+      <button class="syn-button syn-button--primary" type="submit">Sign in</button>
+    </fieldset></form>
+    <p class="syn-caption"><a>Forgot password?</a> · <a>Create account</a></p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Sign-in form</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-signin-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;h2 class=&quot;syn-heading&quot; id=&quot;syn-signin-heading&quot;&gt;Sign in to Northstar&lt;/h2&gt;
+    &lt;p class=&quot;syn-muted&quot;&gt;Use your account credentials. Authentication is implemented by your application.&lt;/p&gt;
+    &lt;form class=&quot;syn-form&quot; method=&quot;post&quot; action=&quot;/sign-in&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-signin-email&quot;&gt;Email address&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-signin-email&quot; name=&quot;email&quot; type=&quot;email&quot; autocomplete=&quot;username&quot; required&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-signin-password&quot;&gt;Password&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-signin-password&quot; name=&quot;password&quot; type=&quot;password&quot; autocomplete=&quot;current-password&quot; required&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Sign in&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;&lt;a href=&quot;/password/forgot&quot;&gt;Forgot password?&lt;/a&gt; · &lt;a href=&quot;/sign-up&quot;&gt;Create account&lt;/a&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Sign-in form" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="auth-recovery"
+               data-block-category="Applications"
+               data-block-keywords="Account recovery Email recovery request presentation with security integration notes. authentication recovery password"
+               aria-labelledby="block-title-auth-recovery">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-auth-recovery">Account recovery</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Email recovery request presentation with security integration notes.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-recovery-heading">
+  <div class="syn-panel">
+    <h2 class="syn-heading" id="syn-recovery-heading">Recover account access</h2>
+    <p>Enter the email address associated with your account. If eligible, the service will send a recovery link.</p>
+    <form class="syn-form" method="post" action="/password/forgot"><fieldset class="blocks-preview-disabled" disabled>
+      <label class="syn-label" for="syn-recovery-email">Email address</label>
+      <input class="syn-input" id="syn-recovery-email" name="email" type="email" autocomplete="email" required>
+      <button class="syn-button syn-button--primary" type="submit">Request recovery link</button>
+    </fieldset></form>
+    <p class="syn-help">The server should return a non-enumerating response and enforce token expiry, rate limits and CSRF protection.</p>
+    <a>Return to sign in</a>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Account recovery</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-recovery-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;h2 class=&quot;syn-heading&quot; id=&quot;syn-recovery-heading&quot;&gt;Recover account access&lt;/h2&gt;
+    &lt;p&gt;Enter the email address associated with your account. If eligible, the service will send a recovery link.&lt;/p&gt;
+    &lt;form class=&quot;syn-form&quot; method=&quot;post&quot; action=&quot;/password/forgot&quot;&gt;
+      &lt;label class=&quot;syn-label&quot; for=&quot;syn-recovery-email&quot;&gt;Email address&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-recovery-email&quot; name=&quot;email&quot; type=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Request recovery link&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;p class=&quot;syn-help&quot;&gt;The server should return a non-enumerating response and enforce token expiry, rate limits and CSRF protection.&lt;/p&gt;
+    &lt;a href=&quot;/sign-in&quot;&gt;Return to sign in&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Account recovery" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="error-recovery"
+               data-block-category="Applications"
+               data-block-keywords="Error recovery view Actionable error state without fake success or client-side retry. error recovery status"
+               aria-labelledby="block-title-error-recovery">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-error-recovery">Error recovery view</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Actionable error state without fake success or client-side retry.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-error-heading">
+  <div class="syn-panel">
+    <p class="syn-eyebrow">Unable to load / 503</p>
+    <h2 id="syn-error-heading" class="syn-heading">This view is temporarily unavailable</h2>
+    <p>No changes were submitted. Check service status or return to your dashboard.</p>
+    <div class="syn-inline"><a class="syn-button syn-button--primary">Return to dashboard</a><a class="syn-button">Service status</a></div>
+    <p class="syn-help">The server must return the correct HTTP error status and provide a working retry route if available.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Error recovery view</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-error-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;Unable to load / 503&lt;/p&gt;
+    &lt;h2 id=&quot;syn-error-heading&quot; class=&quot;syn-heading&quot;&gt;This view is temporarily unavailable&lt;/h2&gt;
+    &lt;p&gt;No changes were submitted. Check service status or return to your dashboard.&lt;/p&gt;
+    &lt;div class=&quot;syn-inline&quot;&gt;&lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/dashboard&quot;&gt;Return to dashboard&lt;/a&gt;&lt;a class=&quot;syn-button&quot; href=&quot;/status&quot;&gt;Service status&lt;/a&gt;&lt;/div&gt;
+    &lt;p class=&quot;syn-help&quot;&gt;The server must return the correct HTTP error status and provide a working retry route if available.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Error recovery view" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="empty-state"
+               data-block-category="Applications"
+               data-block-keywords="Empty collection state Clear primary action and filter recovery guidance. empty no-results onboarding"
+               aria-labelledby="block-title-empty-state">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Applications</p>
+            <h2 class="syn-heading" id="block-title-empty-state">Empty collection state</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">Clear primary action and filter recovery guidance.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-empty-heading">
+  <div class="syn-panel syn-empty">
+    <h2 id="syn-empty-heading" class="syn-heading">No projects yet</h2>
+    <p>Create a project to organize tasks and invite teammates.</p>
+    <a class="syn-button syn-button--primary">Create a project</a>
+    <p class="syn-caption">Try clearing your filters if you expected existing projects.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Empty collection state</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-empty-heading&quot;&gt;
+  &lt;div class=&quot;syn-panel syn-empty&quot;&gt;
+    &lt;h2 id=&quot;syn-empty-heading&quot; class=&quot;syn-heading&quot;&gt;No projects yet&lt;/h2&gt;
+    &lt;p&gt;Create a project to organize tasks and invite teammates.&lt;/p&gt;
+    &lt;a class=&quot;syn-button syn-button--primary&quot; href=&quot;/projects/new&quot;&gt;Create a project&lt;/a&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;Try clearing your filters if you expected existing projects.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Empty collection state" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="comparison-table"
+               data-block-category="Marketing"
+               data-block-keywords="Features comparison table A semantic comparison matrix that can scroll within narrow containers. comparison features matrix"
+               aria-labelledby="block-title-comparison-table">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-comparison-table">Features comparison table</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A semantic comparison matrix that can scroll within narrow containers.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-compare">
+  <h2 id="syn-compare" class="syn-heading">Compare plan capabilities</h2>
+  <div class="syn-table-wrap" role="region" aria-label="Plan capabilities; scroll horizontally to view all columns" tabindex="0">
+    <table class="syn-table">
+      <caption>Illustrative package feature comparison</caption>
+      <thead><tr><th scope="col">Capability</th><th scope="col">Basic</th><th scope="col">Team</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Shared projects</th><td>3</td><td>Unlimited</td></tr>
+        <tr><th scope="row">Email support</th><td>Included</td><td>Included</td></tr>
+        <tr><th scope="row">Team permissions</th><td>Not included</td><td>Included</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="syn-caption">Replace sample capabilities with real product entitlements.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Features comparison table</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-compare&quot;&gt;
+  &lt;h2 id=&quot;syn-compare&quot; class=&quot;syn-heading&quot;&gt;Compare plan capabilities&lt;/h2&gt;
+  &lt;div class=&quot;syn-table-wrap&quot; role=&quot;region&quot; aria-label=&quot;Plan capabilities; scroll horizontally to view all columns&quot; tabindex=&quot;0&quot;&gt;
+    &lt;table class=&quot;syn-table&quot;&gt;
+      &lt;caption&gt;Illustrative package feature comparison&lt;/caption&gt;
+      &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Capability&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Basic&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Team&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Shared projects&lt;/th&gt;&lt;td&gt;3&lt;/td&gt;&lt;td&gt;Unlimited&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Email support&lt;/th&gt;&lt;td&gt;Included&lt;/td&gt;&lt;td&gt;Included&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Team permissions&lt;/th&gt;&lt;td&gt;Not included&lt;/td&gt;&lt;td&gt;Included&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Replace sample capabilities with real product entitlements.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Features comparison table" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="integrations-grid"
+               data-block-category="Marketing"
+               data-block-keywords="Integration directory grid A grid of documented integration entry points and benefits. integrations directory apps"
+               aria-labelledby="block-title-integrations-grid">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-integrations-grid">Integration directory grid</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A grid of documented integration entry points and benefits.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-integrations">
+  <h2 id="syn-integrations" class="syn-heading">Works with your workflow</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><h3>Calendar export</h3><p>Plan dates alongside existing schedules.</p><a>Integration guide</a></article>
+    <article class="syn-panel"><h3>Webhooks</h3><p>Send event data to systems you control.</p><a>Webhook guide</a></article>
+    <article class="syn-panel"><h3>CSV import</h3><p>Move your records from a simple file.</p><a>CSV import guide</a></article>
+  </div>
+  <p class="syn-caption">Example capabilities only. Connect these application-owned /integrations/ routes before publishing.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Integration directory grid</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-integrations&quot;&gt;
+  &lt;h2 id=&quot;syn-integrations&quot; class=&quot;syn-heading&quot;&gt;Works with your workflow&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Calendar export&lt;/h3&gt;&lt;p&gt;Plan dates alongside existing schedules.&lt;/p&gt;&lt;a href=&quot;/integrations/calendar&quot;&gt;Integration guide&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Webhooks&lt;/h3&gt;&lt;p&gt;Send event data to systems you control.&lt;/p&gt;&lt;a href=&quot;/integrations/webhooks&quot;&gt;Webhook guide&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;CSV import&lt;/h3&gt;&lt;p&gt;Move your records from a simple file.&lt;/p&gt;&lt;a href=&quot;/integrations/csv&quot;&gt;CSV import guide&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Example capabilities only. Connect these application-owned /integrations/ routes before publishing.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Integration directory grid" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="newsletter-signup"
+               data-block-category="Marketing"
+               data-block-keywords="Newsletter signup panel An accessible subscription form with a native server-backed fallback. newsletter email lead"
+               aria-labelledby="block-title-newsletter-signup">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-newsletter-signup">Newsletter signup panel</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">An accessible subscription form with a native server-backed fallback.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-newsletter">
+  <div class="syn-panel">
+    <p class="syn-eyebrow">STAY IN THE LOOP</p><h2 id="syn-newsletter" class="syn-heading">A useful note, once a month</h2>
+    <p>Design patterns, maintenance tips and new articles. Unsubscribe at any time.</p>
+    <form class="syn-form" action="/newsletter/subscribe" method="post"><fieldset class="blocks-preview-disabled" disabled>
+      <div class="syn-field"><label class="syn-label" for="syn-newsletter-email">Email address</label>
+        <input class="syn-input" type="email" id="syn-newsletter-email" name="email" autocomplete="email" required></div>
+      <button class="syn-button syn-button--primary" type="submit">Subscribe</button>
+    </fieldset></form>
+    <p class="syn-caption">Connect a real consent-aware endpoint, CSRF protection and confirmation flow before publishing.</p>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Newsletter signup panel</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-newsletter&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;STAY IN THE LOOP&lt;/p&gt;&lt;h2 id=&quot;syn-newsletter&quot; class=&quot;syn-heading&quot;&gt;A useful note, once a month&lt;/h2&gt;
+    &lt;p&gt;Design patterns, maintenance tips and new articles. Unsubscribe at any time.&lt;/p&gt;
+    &lt;form class=&quot;syn-form&quot; action=&quot;/newsletter/subscribe&quot; method=&quot;post&quot;&gt;
+      &lt;div class=&quot;syn-field&quot;&gt;&lt;label class=&quot;syn-label&quot; for=&quot;syn-newsletter-email&quot;&gt;Email address&lt;/label&gt;
+        &lt;input class=&quot;syn-input&quot; type=&quot;email&quot; id=&quot;syn-newsletter-email&quot; name=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;&lt;/div&gt;
+      &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Subscribe&lt;/button&gt;
+    &lt;/form&gt;
+    &lt;p class=&quot;syn-caption&quot;&gt;Connect a real consent-aware endpoint, CSRF protection and confirmation flow before publishing.&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Newsletter signup panel" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="announcement-banner"
+               data-block-category="Marketing"
+               data-block-keywords="Site announcement strip A lightweight product or event announcement with a contextual destination. announcement promotion notice"
+               aria-labelledby="block-title-announcement-banner">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-announcement-banner">Site announcement strip</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A lightweight product or event announcement with a contextual destination.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-announcement">
+  <div class="syn-panel">
+    <p class="syn-eyebrow">PRODUCT UPDATE</p>
+    <h2 id="syn-announcement" class="syn-heading">A new set of guides is available</h2>
+    <p>Explore recently published resources and discover what has changed.</p>
+    <a class="syn-button syn-button--outline">Read the update</a>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Site announcement strip</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-announcement&quot;&gt;
+  &lt;div class=&quot;syn-panel&quot;&gt;
+    &lt;p class=&quot;syn-eyebrow&quot;&gt;PRODUCT UPDATE&lt;/p&gt;
+    &lt;h2 id=&quot;syn-announcement&quot; class=&quot;syn-heading&quot;&gt;A new set of guides is available&lt;/h2&gt;
+    &lt;p&gt;Explore recently published resources and discover what has changed.&lt;/p&gt;
+    &lt;a class=&quot;syn-button syn-button--outline&quot; href=&quot;/updates&quot;&gt;Read the update&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Site announcement strip" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="logo-wall"
+               data-block-category="Marketing"
+               data-block-keywords="Partner logo text wall A compact text-only partner strip with no unlicensed logos. logos partners trust"
+               aria-labelledby="block-title-logo-wall">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Marketing</p>
+            <h2 class="syn-heading" id="block-title-logo-wall">Partner logo text wall</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A compact text-only partner strip with no unlicensed logos.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-partners">
+  <h2 id="syn-partners" class="syn-heading">Compatible with your tools</h2>
+  <p class="syn-muted">Example technology categories, not customer endorsements.</p>
+  <ul class="syn-grid">
+    <li class="syn-panel"><strong>SQL databases</strong></li>
+    <li class="syn-panel"><strong>Static generators</strong></li>
+    <li class="syn-panel"><strong>Web components</strong></li>
+  </ul>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Partner logo text wall</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-partners&quot;&gt;
+  &lt;h2 id=&quot;syn-partners&quot; class=&quot;syn-heading&quot;&gt;Compatible with your tools&lt;/h2&gt;
+  &lt;p class=&quot;syn-muted&quot;&gt;Example technology categories, not customer endorsements.&lt;/p&gt;
+  &lt;ul class=&quot;syn-grid&quot;&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;strong&gt;SQL databases&lt;/strong&gt;&lt;/li&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;strong&gt;Static generators&lt;/strong&gt;&lt;/li&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;strong&gt;Web components&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Partner logo text wall" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="process-steps"
+               data-block-category="Services"
+               data-block-keywords="How it works steps An ordered and accessible sequence for explaining a service. process steps workflow"
+               aria-labelledby="block-title-process-steps">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Services</p>
+            <h2 class="syn-heading" id="block-title-process-steps">How it works steps</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">An ordered and accessible sequence for explaining a service.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-process">
+  <h2 id="syn-process" class="syn-heading">A straightforward process</h2>
+  <ol class="syn-grid">
+    <li class="syn-panel"><h3>Discover</h3><p>Understand the people, context and constraints.</p></li>
+    <li class="syn-panel"><h3>Design</h3><p>Validate the important flows with realistic content.</p></li>
+    <li class="syn-panel"><h3>Deliver</h3><p>Ship, document and prepare for ongoing maintenance.</p></li>
+  </ol>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for How it works steps</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-process&quot;&gt;
+  &lt;h2 id=&quot;syn-process&quot; class=&quot;syn-heading&quot;&gt;A straightforward process&lt;/h2&gt;
+  &lt;ol class=&quot;syn-grid&quot;&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Discover&lt;/h3&gt;&lt;p&gt;Understand the people, context and constraints.&lt;/p&gt;&lt;/li&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Design&lt;/h3&gt;&lt;p&gt;Validate the important flows with realistic content.&lt;/p&gt;&lt;/li&gt;
+    &lt;li class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Deliver&lt;/h3&gt;&lt;p&gt;Ship, document and prepare for ongoing maintenance.&lt;/p&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for How it works steps" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="services-grid"
+               data-block-category="Services"
+               data-block-keywords="Service offerings grid A services section with clear descriptions and destination links. agency services business"
+               aria-labelledby="block-title-services-grid">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Services</p>
+            <h2 class="syn-heading" id="block-title-services-grid">Service offerings grid</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A services section with clear descriptions and destination links.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-services">
+  <p class="syn-eyebrow">WHAT WE DO</p><h2 id="syn-services" class="syn-heading">Services built around your goals</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><h3>Website design</h3><p>Clear, responsive pages for growing teams.</p><a>Explore design services</a></article>
+    <article class="syn-panel"><h3>Product development</h3><p>Reliable tools designed for everyday workflows.</p><a>Explore development</a></article>
+    <article class="syn-panel"><h3>Ongoing care</h3><p>Maintenance, performance and accessibility reviews.</p><a>Explore ongoing care</a></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Service offerings grid</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-services&quot;&gt;
+  &lt;p class=&quot;syn-eyebrow&quot;&gt;WHAT WE DO&lt;/p&gt;&lt;h2 id=&quot;syn-services&quot; class=&quot;syn-heading&quot;&gt;Services built around your goals&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Website design&lt;/h3&gt;&lt;p&gt;Clear, responsive pages for growing teams.&lt;/p&gt;&lt;a href=&quot;/services/design&quot;&gt;Explore design services&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Product development&lt;/h3&gt;&lt;p&gt;Reliable tools designed for everyday workflows.&lt;/p&gt;&lt;a href=&quot;/services/development&quot;&gt;Explore development&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Ongoing care&lt;/h3&gt;&lt;p&gt;Maintenance, performance and accessibility reviews.&lt;/p&gt;&lt;a href=&quot;/services/maintenance&quot;&gt;Explore ongoing care&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Service offerings grid" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="service-areas"
+               data-block-category="Services"
+               data-block-keywords="Service coverage cards A service-area section suitable for local and regional businesses. locations local services"
+               aria-labelledby="block-title-service-areas">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Services</p>
+            <h2 class="syn-heading" id="block-title-service-areas">Service coverage cards</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A service-area section suitable for local and regional businesses.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-coverage">
+  <h2 id="syn-coverage" class="syn-heading">Where we work</h2>
+  <p class="syn-lede">Remote collaboration with optional on-site project sessions.</p>
+  <div class="syn-grid">
+    <article class="syn-panel"><h3>Local teams</h3><p>On-site workshops and coordination by arrangement.</p><a>Request local availability</a></article>
+    <article class="syn-panel"><h3>Remote teams</h3><p>Structured online reviews, delivery and documentation.</p><a>Plan a remote project</a></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Service coverage cards</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-coverage&quot;&gt;
+  &lt;h2 id=&quot;syn-coverage&quot; class=&quot;syn-heading&quot;&gt;Where we work&lt;/h2&gt;
+  &lt;p class=&quot;syn-lede&quot;&gt;Remote collaboration with optional on-site project sessions.&lt;/p&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Local teams&lt;/h3&gt;&lt;p&gt;On-site workshops and coordination by arrangement.&lt;/p&gt;&lt;a href=&quot;/contact/local&quot;&gt;Request local availability&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Remote teams&lt;/h3&gt;&lt;p&gt;Structured online reviews, delivery and documentation.&lt;/p&gt;&lt;a href=&quot;/contact/remote&quot;&gt;Plan a remote project&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Service coverage cards" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="portfolio-grid"
+               data-block-category="Portfolio"
+               data-block-keywords="Selected work grid An accessible project gallery without fragile image dependencies. portfolio projects work"
+               aria-labelledby="block-title-portfolio-grid">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Portfolio</p>
+            <h2 class="syn-heading" id="block-title-portfolio-grid">Selected work grid</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">An accessible project gallery without fragile image dependencies.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-portfolio">
+  <h2 id="syn-portfolio" class="syn-heading">Selected projects</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><p class="syn-eyebrow">WEB APP</p><h3>Field operations portal</h3><p>Planning and reporting in one practical workspace.</p><a>View project details</a></article>
+    <article class="syn-panel"><p class="syn-eyebrow">WEBSITE</p><h3>Independent publisher</h3><p>A durable editorial system built for reading.</p><a>View publishing project</a></article>
+    <article class="syn-panel"><p class="syn-eyebrow">COMMERCE</p><h3>Specialty storefront</h3><p>Products presented with clarity and accessible browsing.</p><a>View storefront project</a></article>
+  </div>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Selected work grid</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-portfolio&quot;&gt;
+  &lt;h2 id=&quot;syn-portfolio&quot; class=&quot;syn-heading&quot;&gt;Selected projects&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;WEB APP&lt;/p&gt;&lt;h3&gt;Field operations portal&lt;/h3&gt;&lt;p&gt;Planning and reporting in one practical workspace.&lt;/p&gt;&lt;a href=&quot;/work/field-portal&quot;&gt;View project details&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;WEBSITE&lt;/p&gt;&lt;h3&gt;Independent publisher&lt;/h3&gt;&lt;p&gt;A durable editorial system built for reading.&lt;/p&gt;&lt;a href=&quot;/work/publisher&quot;&gt;View publishing project&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;p class=&quot;syn-eyebrow&quot;&gt;COMMERCE&lt;/p&gt;&lt;h3&gt;Specialty storefront&lt;/h3&gt;&lt;p&gt;Products presented with clarity and accessible browsing.&lt;/p&gt;&lt;a href=&quot;/work/storefront&quot;&gt;View storefront project&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Selected work grid" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="team-grid"
+               data-block-category="Services"
+               data-block-keywords="Team introduction cards A team directory section without invented portraits or credentials. team people about"
+               aria-labelledby="block-title-team-grid">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Services</p>
+            <h2 class="syn-heading" id="block-title-team-grid">Team introduction cards</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A team directory section without invented portraits or credentials.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-team">
+  <h2 id="syn-team" class="syn-heading">Meet the team</h2>
+  <div class="syn-grid">
+    <article class="syn-panel"><h3>Design</h3><p>Research, content design and accessible interaction patterns.</p><a>About the design team</a></article>
+    <article class="syn-panel"><h3>Engineering</h3><p>Development, integration and long-term site operations.</p><a>About the engineering team</a></article>
+  </div>
+  <p class="syn-caption">Role-based sample content; add actual people only with permission.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Team introduction cards</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-team&quot;&gt;
+  &lt;h2 id=&quot;syn-team&quot; class=&quot;syn-heading&quot;&gt;Meet the team&lt;/h2&gt;
+  &lt;div class=&quot;syn-grid&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Design&lt;/h3&gt;&lt;p&gt;Research, content design and accessible interaction patterns.&lt;/p&gt;&lt;a href=&quot;/team/design&quot;&gt;About the design team&lt;/a&gt;&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;&lt;h3&gt;Engineering&lt;/h3&gt;&lt;p&gt;Development, integration and long-term site operations.&lt;/p&gt;&lt;a href=&quot;/team/engineering&quot;&gt;About the engineering team&lt;/a&gt;&lt;/article&gt;
+  &lt;/div&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Role-based sample content; add actual people only with permission.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Team introduction cards" hidden>Copy HTML</button>
+      </article>
+      <article class="blocks-card syn-panel" data-block-id="contact-quote"
+               data-block-category="Services"
+               data-block-keywords="Project inquiry form A labeled contact form with appropriate native inputs and privacy guidance. contact lead inquiry"
+               aria-labelledby="block-title-contact-quote">
+        <div class="blocks-card-heading">
+          <div><p class="syn-eyebrow">Services</p>
+            <h2 class="syn-heading" id="block-title-contact-quote">Project inquiry form</h2></div>
+          <span class="syn-badge">syntyr.core.css</span>
+        </div>
+        <p class="syn-muted">A labeled contact form with appropriate native inputs and privacy guidance.</p>
+        <div class="blocks-preview">
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-inquiry">
+  <h2 id="syn-inquiry" class="syn-heading">Tell us about your project</h2>
+  <form class="syn-panel syn-form" action="/contact/request" method="post"><fieldset class="blocks-preview-disabled" disabled>
+    <div class="syn-field"><label class="syn-label" for="syn-inquiry-name">Your name</label>
+      <input class="syn-input" id="syn-inquiry-name" name="name" autocomplete="name" required></div>
+    <div class="syn-field"><label class="syn-label" for="syn-inquiry-email">Email address</label>
+      <input class="syn-input" id="syn-inquiry-email" name="email" type="email" autocomplete="email" required></div>
+    <div class="syn-field"><label class="syn-label" for="syn-inquiry-details">Project details</label>
+      <textarea class="syn-input" id="syn-inquiry-details" name="details" rows="3" required></textarea></div>
+    <button class="syn-button syn-button--primary" type="submit">Request a conversation</button>
+  </fieldset></form>
+  <p class="syn-caption">Sample form only. Add consent, anti-spam, CSRF and server validation in your application.</p>
+</section>
+        </div>
+        <details class="blocks-details">
+          <summary data-block-source>View HTML source for Project inquiry form</summary>
+          <pre class="blocks-source"><code>&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-labelledby=&quot;syn-inquiry&quot;&gt;
+  &lt;h2 id=&quot;syn-inquiry&quot; class=&quot;syn-heading&quot;&gt;Tell us about your project&lt;/h2&gt;
+  &lt;form class=&quot;syn-panel syn-form&quot; action=&quot;/contact/request&quot; method=&quot;post&quot;&gt;
+    &lt;div class=&quot;syn-field&quot;&gt;&lt;label class=&quot;syn-label&quot; for=&quot;syn-inquiry-name&quot;&gt;Your name&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-inquiry-name&quot; name=&quot;name&quot; autocomplete=&quot;name&quot; required&gt;&lt;/div&gt;
+    &lt;div class=&quot;syn-field&quot;&gt;&lt;label class=&quot;syn-label&quot; for=&quot;syn-inquiry-email&quot;&gt;Email address&lt;/label&gt;
+      &lt;input class=&quot;syn-input&quot; id=&quot;syn-inquiry-email&quot; name=&quot;email&quot; type=&quot;email&quot; autocomplete=&quot;email&quot; required&gt;&lt;/div&gt;
+    &lt;div class=&quot;syn-field&quot;&gt;&lt;label class=&quot;syn-label&quot; for=&quot;syn-inquiry-details&quot;&gt;Project details&lt;/label&gt;
+      &lt;textarea class=&quot;syn-input&quot; id=&quot;syn-inquiry-details&quot; name=&quot;details&quot; rows=&quot;3&quot; required&gt;&lt;/textarea&gt;&lt;/div&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot; type=&quot;submit&quot;&gt;Request a conversation&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;p class=&quot;syn-caption&quot;&gt;Sample form only. Add consent, anti-spam, CSRF and server validation in your application.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+        </details>
+        <button type="button" class="syn-button blocks-copy" data-block-copy
+                aria-label="Copy HTML for Project inquiry form" hidden>Copy HTML</button>
       </article>
       </div>
     </section>

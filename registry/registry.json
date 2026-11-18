@@ -104,6 +104,26 @@
       ]
     },
     {
+      "name": "geo",
+      "type": "registry:item",
+      "title": "Syntyr geo CSS",
+      "description": "MIT Syntyr geo stylesheet. No runtime JavaScript.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "dist/syntyr.geo.css",
+          "type": "registry:file",
+          "target": "~/syntyr/css/syntyr.geo.css"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
       "name": "motion",
       "type": "registry:item",
       "title": "Syntyr motion CSS",
@@ -605,6 +625,405 @@
           "path": "blocks/snippets/release-notes.html",
           "type": "registry:file",
           "target": "~/syntyr/blocks/release-notes.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "resource-workspace",
+      "type": "registry:item",
+      "title": "Resource management workspace",
+      "description": "Server-ready resource search, record table, pagination and empty state.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/resource-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/resource-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "crm-workspace",
+      "type": "registry:item",
+      "title": "CRM pipeline workspace",
+      "description": "Accessible native deal stages, filters and links with no drag runtime.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/crm-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/crm-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "billing-workspace",
+      "type": "registry:item",
+      "title": "Billing and settings workspace",
+      "description": "Subscription details, invoice history and a server-owned billing contact form.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json",
+        "https://syntyr-css.pages.dev/registry/r/recipes.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/billing-workspace.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/billing-workspace.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "auth-sign-in",
+      "type": "registry:item",
+      "title": "Sign-in form",
+      "description": "Native authentication form with accessible labels and recovery link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/auth-sign-in.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/auth-sign-in.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "auth-recovery",
+      "type": "registry:item",
+      "title": "Account recovery",
+      "description": "Email recovery request presentation with security integration notes.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/auth-recovery.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/auth-recovery.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "error-recovery",
+      "type": "registry:item",
+      "title": "Error recovery view",
+      "description": "Actionable error state without fake success or client-side retry.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/error-recovery.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/error-recovery.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:item",
+      "title": "Empty collection state",
+      "description": "Clear primary action and filter recovery guidance.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/empty-state.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/empty-state.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "comparison-table",
+      "type": "registry:item",
+      "title": "Features comparison table",
+      "description": "A semantic comparison matrix that can scroll within narrow containers.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/comparison-table.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/comparison-table.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "integrations-grid",
+      "type": "registry:item",
+      "title": "Integration directory grid",
+      "description": "A grid of documented integration entry points and benefits.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/integrations-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/integrations-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "newsletter-signup",
+      "type": "registry:item",
+      "title": "Newsletter signup panel",
+      "description": "An accessible subscription form with a native server-backed fallback.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/newsletter-signup.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/newsletter-signup.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "announcement-banner",
+      "type": "registry:item",
+      "title": "Site announcement strip",
+      "description": "A lightweight product or event announcement with a contextual destination.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/announcement-banner.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/announcement-banner.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "logo-wall",
+      "type": "registry:item",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/logo-wall.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/logo-wall.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "process-steps",
+      "type": "registry:item",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/process-steps.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/process-steps.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "services-grid",
+      "type": "registry:item",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/services-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/services-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "service-areas",
+      "type": "registry:item",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/service-areas.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/service-areas.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "portfolio-grid",
+      "type": "registry:item",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/portfolio-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/portfolio-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "team-grid",
+      "type": "registry:item",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/team-grid.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/team-grid.html"
+        },
+        {
+          "path": "LICENSE",
+          "type": "registry:file",
+          "target": "~/syntyr/LICENSE"
+        }
+      ]
+    },
+    {
+      "name": "contact-quote",
+      "type": "registry:item",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://syntyr-css.pages.dev/registry/r/core.json"
+      ],
+      "files": [
+        {
+          "path": "blocks/snippets/contact-quote.html",
+          "type": "registry:file",
+          "target": "~/syntyr/blocks/contact-quote.html"
         },
         {
           "path": "LICENSE",

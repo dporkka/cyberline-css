@@ -62,23 +62,23 @@
 </tbody>
 </table>
 <p>For a production application, copy a tagged CSS release to your own origin and pin its version. The CDN URL below is suitable for an initial prototype:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
 </code></pre>
 <p>For page-level recipes, load the same <strong>version</strong> of the optional module after core:</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css&quot;&gt;
 &lt;link rel=&quot;stylesheet&quot; href=&quot;https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.recipes.css&quot;&gt;
 </code></pre>
 <p>Do not combine <code>syntyr.all.css</code> with individual CSS modules; that loads duplicates. A stylesheet is not automatically installed by adding a <code>syn-*</code> class to markup.</p>
 <h3 id="one-file-semantic-html-unreleased-source-only">One-file semantic HTML (unreleased source only)</h3>
 <p>If testing alpha.5 from a local source checkout, <code>syntyr.semantic-bundle.css</code> includes both core and optional semantic rules. Do <strong>not</strong> point a production page at a nonexistent alpha.5 CDN release URL.</p>
-<pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
 &lt;main class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;article&gt;&lt;h1&gt;Settings&lt;/h1&gt;&lt;button type=&quot;button&quot;&gt;Save&lt;/button&gt;&lt;/article&gt;
 &lt;/main&gt;
 </code></pre>
 <p>Use <code>.syn-root</code> and <code>.syn-semantic</code> together; the bundle does not globally restyle arbitrary host HTML. Never load it alongside <code>core.css</code> or <code>semantic.css</code>, which would duplicate CSS. <a href="../examples/semantic-starter.html">Complete source demo</a>.</p>
 <h2 id="2-generate-valid-html">2. Generate valid HTML</h2>
-<pre><code class="language-html">&lt;main class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;studio&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;main class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;studio&quot;&gt;
   &lt;div class=&quot;syn-shell&quot;&gt;
     &lt;header class=&quot;syn-header&quot;&gt;
       &lt;a href=&quot;/&quot; class=&quot;syn-logo&quot;&gt;Acme&lt;/a&gt;
@@ -94,7 +94,7 @@
 </code></pre>
 <p>All classes in this sample are available from published alpha.4 core. Use an <code>&lt;a&gt;</code> for navigation, a <code>&lt;button&gt;</code> for an action, and functional <code>href</code>/<code>action</code> values rather than dummy <code>#</code> placeholders.</p>
 <h2 id="3-use-responsive-recipes-only-when-their-module-is-loaded">3. Use responsive recipes only when their module is loaded</h2>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Operations overview&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot; aria-label=&quot;Operations overview&quot;&gt;
   &lt;div class=&quot;syn-stats&quot;&gt;
     &lt;article class=&quot;syn-stat&quot;&gt;
       &lt;p class=&quot;syn-stat-label&quot;&gt;Open tickets&lt;/p&gt;
@@ -110,7 +110,7 @@
 <p><code>syn-region</code> and <code>syn-stats</code> are core classes; they use native container queries. The containing region must be an ancestor of the responsive pattern. For application shells, <code>syn-app-shell</code> is in <strong>recipes</strong>, not core.</p>
 <h2 id="4-optional-scoped-semantic-mode">4. Optional scoped semantic mode</h2>
 <p>Load <code>syntyr.semantic.css</code> <strong>after core</strong>, then opt into <code>syn-semantic</code> in a <code>syn-root</code> subtree. Ordinary HTML outside that subtree is unaffected.</p>
-<pre><code class="language-html">&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;noir&quot;&gt;
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;noir&quot;&gt;
   &lt;form action=&quot;/login&quot; method=&quot;post&quot;&gt;
     &lt;label for=&quot;email&quot;&gt;Email &lt;input id=&quot;email&quot; name=&quot;email&quot; type=&quot;email&quot; required&gt;&lt;/label&gt;
     &lt;button type=&quot;submit&quot;&gt;Sign in&lt;/button&gt;

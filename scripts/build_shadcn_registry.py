@@ -6,6 +6,7 @@ not publish a registry, install packages, use npm, or modify consumer projects.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -20,6 +21,7 @@ CSS_MODULES = {
     "geometry": "syntyr.geometry.css",
     "symbols": "syntyr.symbols.css",
     "viz": "syntyr.viz.css",
+    "geo": "syntyr.geo.css",
     "motion": "syntyr.motion.css",
     "effects": "syntyr.effects.css",
     "utilities": "syntyr.utilities.css",
@@ -83,7 +85,8 @@ def generate(registry_url: str = DEFAULT_REGISTRY_URL) -> dict[str, bytes]:
             **item,
             "files": files,
             "meta": {"syntyrVersion": version, "source": "MIT source candidate",
-                     "runtimeJavaScript": False},
+                     "runtimeJavaScript": False,
+                     "fileDigests": {f["target"]: hashlib.sha256(f["content"].encode("utf-8")).hexdigest() for f in files}},
             "docs": ("Experimental source-candidate asset. Review exact version, "
                      "HTML routes, keyboard behavior and integration before production use."),
         }

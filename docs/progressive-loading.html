@@ -44,7 +44,7 @@ repeat-visit experience, not only the apparent time of the first paint.</p>
 <a href="performance-and-polish.html">existing rendering benchmark</a> and the
 <a href="performance-validation.html">benchmark comparison protocol</a>.</p>
 <h2 id="recommended-default-early-css-selective-modules-native-image-priority">Recommended default: early CSS, selective modules, native image priority</h2>
-<pre><code class="language-html">&lt;head&gt;
+<pre tabindex="0"><code class="language-html">&lt;head&gt;
   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
   &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
   &lt;!-- Include only optional modules actually used on this route. --&gt;
@@ -89,7 +89,7 @@ fallbacks and an actual server-rendered content path.</li>
 <h2 id="use-selective-builds-only-when-modules-really-matter">Use selective builds only when modules really matter</h2>
 <p>The optional standard-library builder selects explicit <strong>source modules</strong>,
 not CSS selectors. It never scans templates or purges dynamic classes:</p>
-<pre><code class="language-sh">python3 scripts/build_selective.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_selective.py \
   --components layout,typography,buttons,forms \
   --modules recipes \
   --output /tmp/syntyr.marketing.css \
@@ -147,7 +147,7 @@ pages</strong>: a normal-stylesheet baseline and a candidate generated in the
 application. Both must contain equivalent DOM, images and text. This
 comparison tool generates <em>no</em> CSS and requires <em>no</em> JavaScript in the
 application. Its own instrumentation uses Playwright at development time.</p>
-<pre><code class="language-sh"># Example only: serve the two application variants yourself.
+<pre tabindex="0"><code class="language-sh"># Example only: serve the two application variants yourself.
 python3 scripts/perf_loading_compare.py \
   --baseline http://localhost:8000/baseline.html \
   --candidate http://localhost:8000/critical-candidate.html \
@@ -198,7 +198,7 @@ or split a shared stylesheet into critical and deferred noncritical parts.
 All variants have the same body, images and actual visual styling. They
 require no application JavaScript.</p>
 <p>Generate the test fixture using the Python standard library:</p>
-<pre><code class="language-sh">python3 scripts/perf_loading_fixture.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/perf_loading_fixture.py \
   --output /tmp/syntyr-loading-fixture
 python3 scripts/perf_loading_fixture.py \
   --output /tmp/syntyr-loading-fixture --serve --port 8955 --css-delay-ms 150
@@ -207,7 +207,7 @@ python3 scripts/perf_loading_fixture.py \
 responds with <code>Cache-Control: no-store</code> for HTML, caches CSS for one day,
 and optionally introduces a <strong>synthetic 150 ms delay to CSS responses</strong>.
 Run baseline comparisons from another terminal:</p>
-<pre><code class="language-sh">python3 scripts/perf_loading_compare.py \
+<pre tabindex="0"><code class="language-sh">python3 scripts/perf_loading_compare.py \
   --baseline http://127.0.0.1:8955/baseline.html \
   --candidate http://127.0.0.1:8955/selective.html \
   --browsers chromium,firefox --viewports mobile,desktop --runs 10 \

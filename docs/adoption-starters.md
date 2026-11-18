@@ -28,6 +28,22 @@ npm run build
 npm run preview
 ```
 
+## Eleventy static-site generator
+
+[Source](../examples/eleventy/) — Eleventy 3 copying Syntyr's prebuilt CSS
+from `dist/` into a subpath-deployed output. Uses native Nunjucks and no
+Syntyr/Eleventy browser runtime.
+
+```sh
+cd examples/eleventy
+npm install
+npm run build
+npm run verify
+```
+
+For Hugo, Jekyll, Zola, and static Next.js export, see the
+[static-site generator compatibility guide](static-site-generators.md).
+
 ## shadcn/ui semantic token compatibility
 
 [Source](../examples/shadcn-bridge/) — a Tailwind v4 project exercising
@@ -56,7 +72,7 @@ npm run build
 npm run dev
 ```
 
-All four starters refer to `"@syntyr/css": "file:../.."` to avoid implying
+The Node-based Tailwind, Astro and shadcn starters refer to `"@syntyr/css": "file:../.."` to avoid implying
 the alpha.5 package is published. Replace this with an actual pinned version
 after npm release. Generated assets, caches and dependencies are ignored.
 

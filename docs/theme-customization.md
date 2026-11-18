@@ -221,3 +221,101 @@ For errors, pair `aria-invalid="true"` with an associated error message
 
 See [the live design-state example](../examples/design-states.html) for
 semantic typography, nested themes, compact layout and form states.
+
+## Component-local layouts without compilation (experimental alpha.5)
+
+Modern CSS custom properties allow Syntyr to expose a small set of layout
+adjustments without inventing more utility classes. The default styles remain
+unchanged when you do not provide an override. Consumers need **no build step**,
+Tailwind compiler or JavaScript: use a normal stylesheet and optional application
+CSS, or put a local variable on a single component.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<section class="syn-root" data-syn-theme="studio">
+  <div class="syn-grid" style="--syn-grid-min: 14rem; --syn-grid-gap: 1.25rem">
+    <article class="syn-panel">Summary</article>
+    <article class="syn-panel">Campaigns</article>
+    <article class="syn-panel">Revenue</article>
+  </div>
+</section>
+```
+
+Core layout hooks (each can also be set in application CSS):
+
+| Component | Local token | Default |
+| --- | --- | --- |
+| `.syn-grid` | `--syn-grid-min` / `--syn-grid-gap` | `17rem` / `1rem` |
+| `.syn-layout` | `--syn-layout-min` / `--syn-layout-gap` | `21rem` / `1.25rem` |
+| `.syn-stack` | `--syn-stack-gap` | `--syn-space-3` |
+| `.syn-inline` | `--syn-inline-gap` | `--syn-space-2` |
+
+Optional `syntyr.recipes.css` adds `.syn-kpi-grid`
+(`--syn-kpi-min`, `--syn-kpi-gap`), `.syn-filter-bar`
+(`--syn-filter-gap`), `.syn-filter-field`
+(`--syn-filter-field-min`, `--syn-filter-query-min` on query variants),
+and the `.syn-detail-layout` shell (`--syn-detail-gap`,
+`--syn-detail-main-basis`, `--syn-detail-main-min`,
+`--syn-detail-aside-basis`, `--syn-detail-aside-min`).
+
+```html
+<form class="syn-filter-bar" action="/campaigns" method="get"
+      style="--syn-filter-gap: 1rem; --syn-filter-field-min: 9rem">
+  <label class="syn-filter-field">
+    Status
+    <select class="syn-select" name="status">
+      <option value="">All statuses</option>
+      <option>Active</option>
+    </select>
+  </label>
+  <button class="syn-button" type="submit">Filter</button>
+</form>
+```
+
+Intrinsic grids and wrapping filter/detail layouts respond to their available
+width, including inside narrow application panels. An explicit named
+`.syn-region` container remains the contract for components using
+`@container syn-region`. Do not set implausible minimum widths or nonlength
+values: a CSS variable with an invalid value can invalidate its entire
+declaration despite the `var()` fallback.
+
+## Native state styling and accessibility
+
+The classed `.syn-field` adds a focus-within label cue. Its label switches to
+the danger color when it contains an `aria-invalid="true"` control or a
+user-invalid native control. `.syn-input-group` highlights its addon border
+when a child receives focus. Core `.syn-panel[inert]` uses a dashed border and
+recessed surface to indicate unavailability, while the browser supplies inert
+interaction semantics. Use `inert` on the actual unavailable subtree, not as
+a substitute for server authorization; when not native or when unsupported,
+styling alone cannot disable behavior.
+
+Always preserve real labels, associated error text and focus outlines. For
+invalid fields, provide an error message and connect it with
+`aria-describedby`. The styling does not perform validation, keyboard
+management, popover activation or announcements, and accessibility requires
+manual keyboard, zoom, forced-colors and assistive-technology testing.
+
+## Experimental opt-in OKLCH mixing
+
+Syntyr's seven palette primitives and text/foreground contrast pairs remain
+unchanged. To compare perceptual color mixing on an individual theme region,
+opt in to `data-syn-color-space="oklch"`:
+
+```html
+<section class="syn-root" data-syn-theme="studio"
+         data-syn-color-space="oklch">
+  <button class="syn-button">Perceptual surface hover</button>
+  <aside data-syn-theme="grid" data-syn-color-space="oklch">
+    Nested themes must opt in independently.
+  </aside>
+</section>
+```
+
+Only the **`--syn-surface-hover`** role uses OKLCH mixing in this experiment.
+The default stays in sRGB. Browser engines lacking the required
+`color-mix(in oklch, ...)` support retain the existing sRGB role. **Nested themes**
+recompute their own tokens; add the opt-in attribute to each theme scope
+you intentionally want to compare. Do not generalize this experiment to text
+colors or primary buttons without a contrast audit, and check the resulting
+hover backgrounds against text across all palettes and browser engines.

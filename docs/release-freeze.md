@@ -35,6 +35,8 @@ The default command and `--check` run a **read-only technical preflight**: verif
 
 The freeze command stages only the public CSS distributions declared by the build script in a temporary directory, prepares SHA-256 hashes, and atomically replaces the manifest after placing the new immutable version directory. If an operation fails before manifest publication, it removes the uncommitted version directory and leaves earlier snapshots intact. It never overwrites a frozen version.
 
+Before authorizing any **separate npm publication**, run `python3 scripts/audit_npm_package.py` on the exact candidate source to inspect the actual packed bytes and exported CSS paths. This requires npm only in the maintainer environment, not for CSS consumers. The check does not confer release approval or publish anything.
+
 After freezing, review the manifest diff and source hashes, commit the new immutable snapshot, verify the static-site build, deploy to staging and verify live Cloudflare paths/content hashes/headers. Only then tag and publish the release through the separate release process. **This script does not deploy, tag, enable payments or publish an npm package.**
 
 ## Current status

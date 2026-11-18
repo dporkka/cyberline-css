@@ -1,14 +1,20 @@
 /* Documentation-only presentation. Not shipped with the CSS library. */
 @layer docs {
-  .catalog-controls { max-width: 31rem; margin-block: 1.5rem 1rem; }
+  .catalog-controls { display: grid; gap: .4rem; max-width: 40rem; margin-block: 1.5rem 1rem; }
+  .catalog-controls :where(input, select) { width: 100%; min-width: 0; }
+  .catalog-preview-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: .75rem; margin-block-start: .75rem; }
+  .catalog-preview-controls > div { min-width: 0; }
   .catalog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 27rem), 1fr)); align-items: start; gap: 1rem; }
   .catalog-card { display: grid; gap: .875rem; min-width: 0; }
   .catalog-card[hidden], #catalog-empty[hidden], #catalog-controls[hidden], .catalog-copy[hidden] { display: none; }
   .catalog-card-top { display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: .6rem; }
   .catalog-card-top h2 { margin: 0; }
   .catalog-preview { min-width: 0; padding: 1rem; border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); overflow: auto; }
+  .catalog-grid[data-catalog-preview="compact"] .catalog-preview { inline-size: min(100%, 23rem); box-sizing: border-box; justify-self: start; }
   .catalog-preview :where(.syn-panel, .syn-price-card, .syn-stat) { margin: 0; }
   .catalog-preview .syn-pricing { max-width: 100%; }
+  .catalog-preview img { max-width: 100%; height: auto; }
+  .catalog-preview pre { max-width: 100%; overflow-x: auto; }
   .catalog-code-details { min-width: 0; }
   .catalog-code-details summary { cursor: pointer; font-weight: 650; }
   .catalog-source { max-width: 100%; margin-block: .75rem 0; padding: .875rem; border: 1px solid var(--syn-border-subtle); color: var(--syn-text); background: var(--syn-bg); overflow: auto; font: .82rem/1.55 var(--syn-mono); }

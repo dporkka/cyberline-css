@@ -26,11 +26,20 @@
     .offers-section { padding-block:1.6rem 3rem; max-width:77rem; }
     .offers-section h2 { font-size:clamp(1.5rem,3vw,2.25rem); }
     .offers-note { border-inline-start:3px solid var(--syn-accent); padding:1rem 1.25rem; background:var(--syn-surface); max-width:70rem; }
+    .offers-matrix-wrap { overflow-x:auto; max-width:100%; border:1px solid var(--syn-frame); background:var(--syn-surface); }
+    .offers-matrix-wrap:focus-visible { outline:3px solid var(--syn-accent); outline-offset:3px; }
+    .offers-matrix { width:100%; border-collapse:collapse; min-width:43rem; font-size:.89rem; line-height:1.5; }
+    .offers-matrix caption { text-align:start; padding:.9rem 1rem; color:var(--syn-muted); font-size:.82rem; }
+    .offers-matrix th,.offers-matrix td { padding:.8rem .9rem; text-align:start; vertical-align:top; border-block-start:1px solid var(--syn-frame); }
+    .offers-matrix thead th { color:var(--syn-text); font-weight:750; background:var(--syn-surface-hi); }
+    .offers-matrix tbody th { font-weight:650; min-width:12rem; }
+    .offers-matrix tbody tr:nth-child(even) { background:var(--syn-surface-hi); }
+    .offers-matrix td { min-width:8rem; }
     .offers-faq { max-width:65rem; }
     .offers-faq details { padding:1rem 0; border-block-end:1px solid var(--syn-frame); }
     .offers-faq summary { cursor:pointer; font-weight:650; }
     .offers-faq summary:focus-visible { outline:2px solid var(--syn-accent); outline-offset:3px; }
-    @media (forced-colors:active) { .offers-status, .offers-note { border-color:CanvasText; } }
+    @media (forced-colors:active) { .offers-status, .offers-note, .offers-matrix-wrap { border-color:CanvasText; } }
   </style>
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
@@ -84,15 +93,15 @@
           <article class="syn-panel offers-card" data-product-id="pro">
             <span class="syn-eyebrow">CONCEPT / RESEARCH</span><h3>Syntyr Pro</h3>
             <p class="offers-price">$149 one-time</p><p class="offers-term syn-muted">Proposed price; not for sale.</p>
-            <p>A private source candidate extends Console Kit to 15 screen types and 45 static variants, including operational workflows.</p>
-            <ul><li>Work order and dispatch scheduling previews</li><li>Revenue intelligence screens; no live data connectors</li><li>Portable HTML/CSS; no final customer license</li></ul>
+            <p>A private source candidate extends Console Kit to 25 screen types and 75 static variants, including operations, governance and developer workflows.</p>
+            <ul><li>Work order and dispatch scheduling previews</li><li>Revenue intelligence screens; no live data connectors</li><li>Local-only Go reference workflow with real form validation, no authentication or persistence</li><li>Portable HTML/CSS; no final customer license</li></ul>
             <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Share what you would buy</a>
           </article>
           <article class="syn-panel offers-card" data-product-id="studio">
             <span class="syn-eyebrow">CONCEPT / RESEARCH</span><h3>Syntyr Studio</h3>
             <p class="offers-price">$299 one-time</p><p class="offers-term syn-muted">Proposed price; not for sale.</p>
-            <p>A private source candidate extends Pro to 18 screen types and 54 static variants, with an original homepage, pricing page and case study.</p>
-            <ul><li>Pro application designs and additional marketing pages</li><li>Original HTML/CSS templates; no hosted builder</li><li>Pricing, license and delivery under review</li></ul>
+            <p>A private source candidate extends Pro to 42 screen types and 126 static variants: 25 application screens plus 17 website previews. The website set includes three original website kits: a six-page B2B SaaS site, a five-page professional-services site, and a four-page ecommerce storefront, plus two standalone product/checkout previews.</p>
+            <ul><li>All Pro source, including a local-only Go workflow reference</li><li>Fifteen original website pages across three independent fictional brands, not hosted services</li><li>Static ecommerce product, collection, and cart reviews; no live checkout, payments, inventory, or orders</li><li>Original HTML/CSS templates; no hosted builder</li><li>Pricing, license and delivery under review</li></ul>
             <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Influence the roadmap</a>
           </article>
           <article class="syn-panel offers-card" data-product-id="agency">
@@ -103,6 +112,30 @@
             <a class="syn-button syn-button--outline" href="https://github.com/dporkka/syntyr-css/issues/new?template=commercial-product-feedback.yml">Describe agency needs</a>
           </article>
         </div>
+      </section>
+      <section class="offers-section" aria-labelledby="matrix-title" id="offer-feature-matrix">
+        <h2 id="matrix-title">Compare the actual prototype scope</h2>
+        <p class="syn-muted">Pricing is proposed and none of the premium products can be purchased today. The comparison shows what exists in private source previews, not a promise of deliverable production functionality.</p>
+        <div class="offers-matrix-wrap" role="region" tabindex="0" aria-label="Compare Premium features">
+          <table class="offers-matrix">
+            <caption>Feature and preview inventory verified on November 18, 2026. Scroll horizontally on small screens.</caption>
+            <thead><tr><th scope="col">Capability</th><th scope="col">Core</th><th scope="col">Console Kit</th><th scope="col">Pro</th><th scope="col">Studio</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Availability</th><td>Available / MIT</td><td>Not for sale</td><td>Not for sale</td><td>Not for sale</td></tr>
+              <tr><th scope="row">Proposed price</th><td>Free</td><td>$59 one-time</td><td>$149 one-time</td><td>$299 one-time</td></tr>
+              <tr><th scope="row">Native HTML and CSS</th><td>Core CSS and free examples</td><td>Included</td><td>Included</td><td>Included</td></tr>
+              <tr><th scope="row">Shared Console Kit application screen types</th><td>Free examples only</td><td>12</td><td>12</td><td>12</td></tr>
+              <tr><th scope="row">Additional Pro application screen types</th><td>—</td><td>—</td><td>13</td><td>13</td></tr>
+              <tr><th scope="row">Website page types (15 kit pages + 2 standalone previews)</th><td>Free examples</td><td>—</td><td>—</td><td>17</td></tr>
+              <tr><th scope="row">Studio / Grid / Noir preview variants</th><td>Published theme selection varies by release</td><td>36</td><td>75</td><td>126</td></tr>
+              <tr><th scope="row">Server-rendered resource workflow</th><td>—</td><td>—</td><td>Reference only</td><td>Reference only</td></tr>
+              <tr><th scope="row">Runnable backend</th><td>—</td><td>Read-only local Go CRM example</td><td>Local-only Go resource example</td><td>Same local-only Go resource example</td></tr>
+              <tr><th scope="row">Authentication, hosted app, or payment logic</th><td>Not included</td><td>Not included</td><td>Not included</td><td>Not included</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="syn-muted">The private Pro and Studio reference includes a local-only Go service with native GET forms and a POST edit flow backed by in-memory fictional records. It is not hosted, provides no authentication, persistent storage, customer data or production-ready backend. The separately authored static premium layouts remain illustrative.</p>
+        <p><a class="syn-button syn-button--outline" href="console-kit.html">Explore original preview screenshots</a></p>
       </section>
       <section class="offers-section" aria-labelledby="offers-terms-title">
         <h2 id="offers-terms-title">A clear licensing boundary</h2>

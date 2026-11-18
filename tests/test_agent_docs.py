@@ -60,6 +60,12 @@ class AgentDocsTests(unittest.TestCase):
                      "docs/api-stability.md", "docs/ai-quickstart.md"):
             self.assertIn(name, published)
 
+    def test_v1_contract_proposal_is_discoverable_and_not_misrepresented_as_stable(self):
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        entry = next(line for line in index.splitlines() if "docs/api-stability.md" in line)
+        self.assertIn("proposed minimum v1 contract", entry.lower())
+        self.assertIn("not yet approved", entry.lower())
+
     def test_release_freeze_guide_is_public_and_agent_discoverable(self):
         from scripts.build_cloudflare_site import source_files
         from urllib.parse import urlsplit

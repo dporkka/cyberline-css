@@ -112,7 +112,7 @@ interactive error states, font reflow and low-vision inspection.</li>
 </ul>
 <h2 id="reproduce-the-tests-without-installing-production-dependencies">Reproduce the tests without installing production dependencies</h2>
 <p>Run the standard library contracts and optional Playwright checks:</p>
-<pre><code class="language-sh">python3 scripts/build.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 
 # Dev-only installation; choose your package/environment manager.
@@ -126,7 +126,7 @@ python3 tests/accessibility_regression_browser.py --browsers chromium firefox we
 </code></pre>
 <p>For a pinned axe-core 4.10.3 audit, provide the checker at test time. No
 JavaScript file is shipped to application consumers:</p>
-<pre><code class="language-sh">curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
+<pre tabindex="0"><code class="language-sh">curl -fsSL https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js -o /tmp/axe.min.js
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
@@ -159,7 +159,7 @@ page/viewport/selector, and retains non-text and unsampled targets explicitly.
 The helper is deliberately <strong>not a release gate</strong>: selected pixels do not prove
 the contrast of every glyph, hover/focus state, overlay or customized theme.
 Run it with pinned tooling in a disposable developer environment:</p>
-<pre><code class="language-sh">python3 -m pip install playwright==1.65.2 Pillow==12.1.1
+<pre tabindex="0"><code class="language-sh">python3 -m pip install playwright==1.65.2 Pillow==12.1.1
 python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe.json
 python3 tests/contrast_pixel_triage.py \
@@ -187,7 +187,7 @@ adjudication; the preceding 160-element count is historical.</p>
 <p>See <a href="accessibility-alpha5-review.html">the manual release review</a> for limitations.</p>
 <p>For reproducible WebKit on an isolated testing host with Podman or Docker, clone
 the repository to a directory that the container can read and run:</p>
-<pre><code class="language-sh">podman run --rm --shm-size=1g -v &quot;$PWD&quot;:/work:ro,Z -w /work \
+<pre tabindex="0"><code class="language-sh">podman run --rm --shm-size=1g -v &quot;$PWD&quot;:/work:ro,Z -w /work \
   mcr.microsoft.com/playwright/python:v1.65.2-noble \
   bash -lc 'python3 -m pip install -q playwright==1.65.2 &amp;&amp; \
     python3 tests/browser_matrix.py --browsers chromium firefox webkit &amp;&amp; \
@@ -215,7 +215,7 @@ across 14 pages, alongside <strong>11 incomplete rule results encompassing 325
 individual nodes</strong>. Gradients, pseudo-elements and obscured backgrounds cause
 most incomplete results; a missing automated verdict is <strong>not</strong> a passing
 contrast measurement. Generate a selector-level local review list with:</p>
-<pre><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+<pre tabindex="0"><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
   --report /tmp/syntyr-axe-manual-review.json
 </code></pre>
 <p>A subsequent post-merge investigation of <code>4a623d0</code> confirmed that live

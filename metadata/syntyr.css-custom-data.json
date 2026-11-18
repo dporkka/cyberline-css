@@ -14,6 +14,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-avatar-size",
+      "description": "Syntyr CSS property (components/patterns.css)."
+    },
+    {
       "name": "--syn-bg",
       "description": "Theme background."
     },
@@ -98,6 +102,26 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-detail-aside-basis",
+      "description": "Detail aside flex basis; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "description": "Detail aside minimum width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-gap",
+      "description": "Detail shell gap; defaults to --syn-space-3."
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "description": "Detail main flex basis; defaults to 32rem."
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "description": "Detail main minimum width; defaults to 22rem."
+    },
+    {
       "name": "--syn-duration-fast",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -112,6 +136,22 @@
     {
       "name": "--syn-ease-enter",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-file-edge",
+      "description": "Syntyr CSS property (recipes.css)."
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "description": "Filter field basis and minimum; defaults to 11rem."
+    },
+    {
+      "name": "--syn-filter-gap",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "description": "Query field flex basis; defaults to 18rem."
     },
     {
       "name": "--syn-fluid-display-size",
@@ -186,6 +226,42 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-geo-floating",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-land",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-point",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-road",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-route",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-water",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "description": "Syntyr CSS property (geo.css)."
+    },
+    {
       "name": "--syn-glow-alpha",
       "description": "Glow accent share; varies by scoped data-syn-intensity."
     },
@@ -210,8 +286,16 @@
       "description": "Syntyr CSS property (data-grid.css)."
     },
     {
+      "name": "--syn-grid-gap",
+      "description": "Grid gap; defaults to 1rem."
+    },
+    {
       "name": "--syn-grid-hover",
       "description": "Syntyr CSS property (data-grid.css)."
+    },
+    {
+      "name": "--syn-grid-min",
+      "description": "Minimum grid track width; defaults to 17rem."
     },
     {
       "name": "--syn-grid-muted",
@@ -234,6 +318,26 @@
       "description": "Horizon line accent share."
     },
     {
+      "name": "--syn-inline-gap",
+      "description": "Inline flex gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "description": "KPI grid gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-min",
+      "description": "Minimum KPI grid track width; defaults to 13rem."
+    },
+    {
+      "name": "--syn-layout-gap",
+      "description": "Layout gap; defaults to 1.25rem."
+    },
+    {
+      "name": "--syn-layout-min",
+      "description": "Minimum layout track width; defaults to 21rem."
+    },
+    {
       "name": "--syn-leading-body",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -252,6 +356,10 @@
     {
       "name": "--syn-on-accent",
       "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-operation-edge",
+      "description": "Syntyr CSS property (recipes.css)."
     },
     {
       "name": "--syn-panel-border-width",
@@ -298,6 +406,10 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-sheet-width",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem."
+    },
+    {
       "name": "--syn-space-1",
       "description": "Syntyr CSS property (tokens.css)."
     },
@@ -316,6 +428,10 @@
     {
       "name": "--syn-space-5",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-stack-gap",
+      "description": "Stack gap; defaults to --syn-space-3."
     },
     {
       "name": "--syn-stage-pad",
@@ -428,6 +544,10 @@
     {
       "name": "--syn-wash-secondary-alpha",
       "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "description": "Syntyr CSS property (recipes.css)."
     }
   ]
 }

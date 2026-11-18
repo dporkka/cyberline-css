@@ -182,10 +182,16 @@
         <a href="docs/catalog.html">Components</a>
         <a href="docs/blocks.html">Blocks</a>
         <a href="docs/products.html">Products</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog</a>
+        <a href="docs/compare.html">Compare</a>
+        <a href="docs/faq.html">FAQ</a>
         <a href="#themes">Themes</a>
         <a href="#showcase">Examples</a>
         <a href="docs/console-kit.html">Console Kit</a>
         <a href="examples/semantic-starter.html">Semantic starter</a>
+        <a href="docs/semantic-components.html">Semantic HTML recipes</a>
+        <a href="examples/semantic-compositions.html">Semantic HTML gallery: forms, docs, MathML</a>
         <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
       </nav>
       <details class="site-mobile-menu">
@@ -195,10 +201,16 @@
           <a href="docs/catalog.html">Components</a>
         <a href="docs/blocks.html">Blocks</a>
         <a href="docs/products.html">Products</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog</a>
+        <a href="docs/compare.html">Compare</a>
+        <a href="docs/faq.html">FAQ</a>
           <a href="#themes">Themes</a>
           <a href="#showcase">Examples</a>
           <a href="docs/console-kit.html">Console Kit</a>
           <a href="examples/semantic-starter.html">Semantic starter</a>
+        <a href="docs/semantic-components.html">Semantic HTML recipes</a>
+        <a href="examples/semantic-compositions.html">Semantic HTML gallery: forms, docs, MathML</a>
           <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
         </nav>
       </details>
@@ -213,6 +225,7 @@
           <div class="syn-actions">
             <a class="syn-button syn-button--primary" href="#quickstart">Get started</a>
             <a class="syn-button syn-button--outline" href="docs/catalog.html">Explore components</a>
+            <a class="syn-button syn-button--ghost" href="docs/site-builders.html">Use on WordPress, Shopify & more</a>
             <a class="syn-button" href="docs/console-kit.html">Preview Console Kit</a>
             <a class="site-tertiary-link" href="docs/#install">Installation guide</a>
           </div>
@@ -317,7 +330,7 @@
       <section class="site-section" id="showcase" aria-labelledby="showcase-title">
         <div class="site-section-head">
           <div><span class="site-kicker">Use cases</span><h2 class="site-section-title" id="showcase-title">One foundation. Three directions.</h2>
-          <p class="site-section-intro">Each demo uses the same semantic HTML and CSS building blocks. The visual identity is a theme choice, not a framework rewrite.</p></div>
+          <p class="site-section-intro">Each demo uses the same semantic HTML and CSS building blocks. The visual identity is a theme choice, not a framework rewrite. <a href="docs/how-to.html">Follow practical How-To guides</a> to build your own.</p></div>
           <a href="docs/catalog.html">Search and copy components</a>
         </div>
         <div class="site-showcase-grid">
@@ -433,6 +446,28 @@
           </div>
         </div>
       </section>
+      <section class="site-section" id="faq" aria-labelledby="faq-title">
+        <div class="site-section-head">
+          <div>
+            <span class="site-kicker">Syntyr CSS / FAQ</span>
+            <h2 class="site-section-title" id="faq-title">Frequently asked questions</h2>
+            <p class="site-section-intro">Clear answers about using a CSS-first design system, release compatibility and where other tools may fit better.</p>
+          </div>
+        </div>
+        <div class="site-foundation">
+          <details class="syn-details"><summary>What is Syntyr CSS?</summary><p>An MIT-licensed CSS-first design system for scoped, semantic HTML components and reusable SaaS interfaces. It is not an application or widget runtime. <a href="docs/catalog.html">Browse components</a>.</p></details>
+          <details class="syn-details"><summary>Does Syntyr require JavaScript or a build tool?</summary><p>No. You can self-host prebuilt CSS and use native HTML. Rich interactive widgets, state and application logic still need the browser or application framework. <a href="docs/progressive-enhancement.html">Read the integration guidance</a>.</p></details>
+          <details class="syn-details"><summary>Can I use it with React, WordPress, Shopify or Astro?</summary><p>Yes where the platform allows custom CSS and HTML, but hosting constraints and framework resets must be checked. <a href="docs/framework-integrations.html">Framework guide</a> and <a href="docs/site-builders.html">site-builder guide</a>.</p></details>
+          <details class="syn-details"><summary>Is Syntyr free for commercial websites?</summary><p>The core is MIT-licensed. Optional commercial products are separate. Check the <a href="LICENSE">license</a> and <a href="docs/products.html">products and roadmap</a>.</p></details>
+          <details class="syn-details"><summary>Which version should I install?</summary><p>v0.3.0-alpha.4 is the published immutable release. The alpha.5 source candidate is unreleased; pin a tagged stylesheet and verify classes against that version. <a href="docs/distribution.html">Installation details</a>.</p></details>
+          <details class="syn-details"><summary>How is it different from Tailwind or Bootstrap?</summary><p>Syntyr supplies scoped components and design tokens; Tailwind emphasizes utilities, while Bootstrap provides a mature component ecosystem. The right fit depends on your build and interaction needs. <a href="docs/compare.html">Compare alternatives</a>.</p></details>
+        </div>
+        <div class="site-section-links" style="margin-top: 1.5rem">
+          <a href="docs/faq.html">Read the complete Syntyr FAQ</a>
+          <a href="docs/compare.html">Explore all CSS framework comparisons</a>
+          <a href="docs/compare-tailwind.html">Syntyr vs Tailwind CSS</a>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -440,7 +475,12 @@
       <nav aria-label="Footer navigation">
         <a href="docs/">Documentation</a>
         <a href="docs/catalog.html">Component catalog</a>
+        <a href="docs/how-to.html">How-To guides</a>
         <a href="docs/products.html">Products &amp; roadmap</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog &amp; articles</a>
+        <a href="docs/faq.html">FAQ</a>
+        <a href="docs/compare.html">Compare CSS frameworks</a>
         <a href="docs/console-kit.html">Console Kit concept</a>
         <a href="docs/#install">Installation</a>
         <a href="https://github.com/dporkka/syntyr-css">Source</a>

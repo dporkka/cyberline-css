@@ -28,6 +28,22 @@ Three opt-in classes complement the existing syn-table class:
 The browser still owns native table semantics. Do not use role="grid"
 unless you implement and test the required grid keyboard interactions.
 
+### Highlighting a record without inventing grid semantics
+
+On a normal data `<table>`, visual emphasis uses
+`<tr data-syn-state="selected">` (with a corresponding readable label or
+selection checkbox for real user selection). Do **not** put
+`aria-selected` on ordinary table rows just to change color. Syntyr's
+`aria-selected="true"` row appearance is limited to a table carrying
+`role="grid"` or `role="treegrid"`; the host must implement the full
+interactive behavior before opting into those roles. This is an alpha.5
+source-candidate correction; it does not retroactively alter published
+alpha.4 CSS.
+
+For authoring checks, the optional `python3 scripts/syntyr_check.py --semantic your-page.html`
+emits advisory findings for ordinary table rows
+using ARIA selection and headed data tables without a caption/name.
+
 ## Keyboard-scrollable table example
 
     <section class="syn-root" data-syn-theme="studio" data-syn-density="compact">

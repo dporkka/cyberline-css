@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr uses scoped native CSS, not a JavaScript layout engine. These patterns are available in the unreleased alpha.5 source candidate under…">
+  <meta name="syntyr-source-sha256" content="b204c287de2cc92ca7dd81691a513ca640b6aadbf506dc1444ea12832ef21a54">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Intrinsic layout compositions: inline clusters and sidecars — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/composition-adoption">
+  <link rel="alternate" type="text/markdown" href="composition-adoption.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Intrinsic layout compositions: inline clusters and sidecars</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="composition-adoption.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Intrinsic layout compositions: inline clusters and sidecars">
+<h1 id="intrinsic-layout-compositions-inline-clusters-and-sidecars">Intrinsic layout compositions: inline clusters and sidecars</h1>
+<p>Syntyr uses scoped native CSS, not a JavaScript layout engine. These patterns
+are available in the <strong>unreleased alpha.5 source candidate</strong> under
+<code>dist/syntyr.core.css</code>. No additional JavaScript or CSS modules are required.</p>
+<p><a href="../examples/composition-adoption.html">Open the no-JavaScript composition demo</a>.</p>
+<h2 id="use-syn-inline-for-a-wrapping-cluster">Use syn-inline for a wrapping cluster</h2>
+<p>An existing <code>.syn-inline</code> is the cluster primitive; Syntyr does <strong>not</strong> add an
+identical <code>.syn-cluster</code> alias. It wraps naturally and now exposes optional
+<code>--syn-inline-align</code>, <code>--syn-inline-justify</code>, and <code>--syn-inline-gap</code> custom
+properties.</p>
+<pre tabindex="0"><code class="language-html">&lt;nav class=&quot;syn-inline&quot; aria-label=&quot;Contact filters&quot;
+     style=&quot;--syn-inline-justify:space-between&quot;&gt;
+  &lt;a href=&quot;/contacts?status=active&quot;&gt;Active&lt;/a&gt;
+  &lt;a href=&quot;/contacts?status=inactive&quot;&gt;Inactive&lt;/a&gt;
+  &lt;a href=&quot;/contacts&quot;&gt;All contacts&lt;/a&gt;
+&lt;/nav&gt;
+</code></pre>
+<p>Use a real <code>nav</code> for navigation and a real <code>form</code> for filtering inputs.
+The class changes layout only; it never implies tab semantics or keyboard
+behavior. Existing <code>.syn-inline</code> layouts retain their default center
+alignment and start justification.</p>
+<h2 id="use-syn-sidecar-for-an-intrinsic-main-aside">Use syn-sidecar for an intrinsic main + aside</h2>
+<p>A two-child <code>.syn-sidecar</code> puts the <strong>main content first</strong> and the supplementary
+aside second in document and focus order. It wraps on available container width
+without viewport breakpoints, JavaScript, or an explicit container query.
+A lone child remains the main region and keeps the min-size and
+unbroken-text overflow protections.</p>
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-root syn-sidecar&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main class=&quot;syn-panel&quot;&gt;
+    &lt;h1&gt;Campaigns&lt;/h1&gt;
+    &lt;p&gt;The principal content remains first in the accessibility tree.&lt;/p&gt;
+  &lt;/main&gt;
+  &lt;aside class=&quot;syn-panel&quot; aria-label=&quot;Campaign insights&quot;&gt;
+    &lt;h2&gt;Insights&lt;/h2&gt;
+    &lt;p&gt;Supplementary context.&lt;/p&gt;
+  &lt;/aside&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Custom properties belong on the layout container:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--syn-sidecar-gap</code></td>
+<td><code>--syn-space-3</code></td>
+<td>Space between regions</td>
+</tr>
+<tr>
+<td><code>--syn-sidecar-main-min</code></td>
+<td><code>28rem</code></td>
+<td>Minimum preferred size of the main area before wrapping</td>
+</tr>
+<tr>
+<td><code>--syn-sidecar-aside-width</code></td>
+<td><code>16rem</code></td>
+<td>Preferred width of the supplementary area</td>
+</tr>
+<tr>
+<td><code>--syn-sidecar-align</code></td>
+<td><code>start</code></td>
+<td>Cross-axis alignment</td>
+</tr>
+</tbody>
+</table>
+<p>Do not add absolute positioning or hide the aside on small screens. CSS intrinsic
+wrapping responds to the <em>actual available width</em>, including embedded sidebars,
+rather than guessing from the viewport. Content may still overflow if
+application-defined children use fixed dimensions; make tables and code blocks
+scrollable and keyboard reachable where necessary.</p>
+<h2 id="import-only-what-you-need">Import only what you need</h2>
+<p>For no-build consumers, the preferred option is one self-hosted
+<code>syntyr.core.css</code> stylesheet. For selective component loading, use the
+prebuilt CSS files in order: <code>components/tokens.css</code>,
+<code>components/base.css</code>, then <code>components/layout.css</code> and any additional
+components. Do not load core and these component files together. The
+<code>form-composition</code> module also needs <code>forms</code>.</p>
+<p>The <code>--syn-inline-*</code> and <code>--syn-sidecar-*</code> properties are public
+customization points; they do not require an app-side CSS compiler.
+Syntyr's optional <a href="https://github.com/dporkka/syntyr-css/blob/main/docs/selective-builds.md">selective builder</a> can assemble
+a single stylesheet without scanning templates or purging dynamic classes.</p>
+<p>See the <a href="https://github.com/dporkka/syntyr-css/tree/main/examples/go-htmx">Go server-rendered starter</a> for a
+working app whose native GET route can optionally return HTMX fragments.
+Application state, accessibility behavior and data authorization always
+belong to the host, not to these layout classes.</p>
+<p>For optional browser verification, run <code>python3 tests/composition_adoption_browser.py</code>
+from a checkout with Playwright and browser engines installed. It checks
+wide, narrow, and embedded widths; WebKit needs its native system dependencies.
+The release CSS and the example itself do not require Playwright.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#use-syn-inline-for-a-wrapping-cluster">Use syn-inline for a wrapping cluster</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#use-syn-sidecar-for-an-intrinsic-main-aside">Use syn-sidecar for an intrinsic main + aside</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#import-only-what-you-need">Import only what you need</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="composition-adoption.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

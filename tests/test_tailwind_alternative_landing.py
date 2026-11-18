@@ -79,6 +79,10 @@ class TailwindAlternativeLandingTests(unittest.TestCase):
             self.assertIn(href, dom.hrefs)
             self.assertTrue((ROOT / "docs" / href).is_file(), href)
 
+    def test_agent_index_discovers_comparison(self):
+        index = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        self.assertIn("https://syntyr-css.pages.dev/docs/tailwind-alternative.html", index)
+
     def test_marketing_surfaces_link_to_comparison(self):
         self.assertIn('href="docs/tailwind-alternative.html"', (ROOT / "index.html").read_text())
         self.assertIn('href="tailwind-alternative.html"', (ROOT / "docs/guides.html").read_text())

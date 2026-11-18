@@ -7,6 +7,7 @@ import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+import os
 from pathlib import Path
 import sys
 from threading import Thread
@@ -14,6 +15,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 GALLERY = (ROOT / "docs/blocks.html").as_uri()
+BLOCK_COUNT = len(json.loads((ROOT / "blocks/manifest.json").read_text())["blocks"])
 
 
 def require(value, message):
@@ -35,6 +37,13 @@ def layout_check(browser, engine, width, scale):
                 const r = el.getBoundingClientRect(), s = getComputedStyle(el);
                 if (s.display === 'none' || s.visibility === 'hidden' || !r.width || !r.height) return false;
                 if (el.closest('.blocks-source, .blocks-icon-card pre, .syn-table-wrap')) return false;
+                // An internally scrollable pipeline is reachable via its own
+                // horizontal scroll, without widening the document viewport.
+                for (let p = el.parentElement; p; p = p.parentElement) {
+                  const overflow = getComputedStyle(p).overflowX;
+                  if ((overflow === 'auto' || overflow === 'scroll') &&
+                      p.scrollWidth > p.clientWidth + 1) return false;
+                }
                 return r.left < -1 || r.right > innerWidth + 1;
               }).slice(0, 6).map(el => [
                 el.tagName, (el.textContent || el.getAttribute('aria-label') || '').slice(0, 32),
@@ -45,7 +54,7 @@ def layout_check(browser, engine, width, scale):
                     clipped: controls, cards: cards.length,
                     visible: cards.filter(card => !card.hidden).length};
         }""")
-        require(metrics["cards"] == 20 and metrics["visible"] == 20,
+        require(metrics["cards"] == BLOCK_COUNT and metrics["visible"] == BLOCK_COUNT,
                 f"{engine} {width}px {scale}x: missing blocks {metrics}")
         require(metrics["scroll"] <= metrics["viewport"] + 1,
                 f"{engine} {width}px {scale}x: overflow {metrics}")
@@ -66,10 +75,14 @@ def layout_check(browser, engine, width, scale):
 
 
 def progressive_checks(browser, engine, screenshots):
-    context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 844})
+    context = browser.new_context(java_script_enabled=False,
+                                  viewport={"width": 390, "height": 844},
+                                  reduced_motion="reduce")
     page = context.new_page()
     page.goto(GALLERY)
-    require(page.locator("[data-block-id]").count() == 20, "No-JS: blocks missing")
+    require(page.locator("[data-block-id]").count() == BLOCK_COUNT, "No-JS: blocks missing")
+    require(page.locator(".blocks-preview a[href]").count() == 0,
+            "No-JS: gallery preview still navigates to placeholder routes")
     require(page.locator("[data-icon-id]").count() == 24, "No-JS: SVG icons missing")
     require(page.locator(".syn-block-asset").count() == 12, "No-JS: CSS assets missing")
     require(page.locator("#blocks-controls").is_hidden(), "No-JS: controls should be hidden")
@@ -83,6 +96,55 @@ def progressive_checks(browser, engine, screenshots):
             f"Screen-reader source disclosure lacks block context: {block_ax[-350:]}")
     require("SVG source for Search" in icon_ax,
             f"Screen-reader SVG source disclosure lacks icon context: {icon_ax}")
+    # Demo forms must be safely disabled, with the same grid/flex layout as
+    # the copyable original forms. The fieldset wrapper is preview-only.
+    for ident, layout in (
+        ("auth-sign-in", "grid"), ("auth-recovery", "grid"),
+        ("newsletter-signup", "grid"), ("resource-workspace", "flex"),
+    ):
+        fieldset = page.locator(
+            f'[data-block-id="{ident}"] .blocks-preview form > fieldset.blocks-preview-disabled'
+        )
+        require(fieldset.count() == 1, f"{engine}: {ident} missing safe preview fieldset")
+        require(fieldset.get_attribute("disabled") is not None,
+                f"{engine}: {ident} preview fieldset is not disabled")
+        computed = fieldset.evaluate("e => ({display: getComputedStyle(e).display, wrap: getComputedStyle(e).flexWrap})")
+        require(computed["display"] == layout,
+                f"{engine}: {ident} preview layout {computed}, expected {layout}")
+        if layout == "flex":
+            require(computed["wrap"] == "wrap",
+                    f"{engine}: {ident} fieldset cannot wrap mobile controls: {computed}")
+        control = fieldset.locator("input,select,button").first
+        require(control.count() == 1 and control.is_disabled(),
+                f"{engine}: {ident} demo controls not disabled")
+    # The preview intentionally strips hrefs. Verify that its named, scrollable
+    # pipeline is reachable via Tab and exposes later lanes using keyboard arrows.
+    pipeline = page.locator('[data-block-id="crm-workspace"] .syn-pipeline')
+    focused = False
+    for _ in range(90):
+        page.keyboard.press("Tab")
+        if pipeline.evaluate("e => e === document.activeElement"):
+            focused = True
+            break
+    require(focused, f"{engine}: pipeline is not keyboard-reachable")
+    start_scroll = pipeline.evaluate("e => e.scrollLeft")
+    for _ in range(4):
+        page.keyboard.press("ArrowRight")
+    page.wait_for_timeout(550)
+    deal_link = page.locator('[data-block-id="crm-workspace"] .syn-pipeline-card a').filter(has_text="Cedar Labs")
+    metric = deal_link.evaluate("""e => {
+        const link = e.getBoundingClientRect();
+        const pipeline = e.closest('.syn-pipeline');
+        const region = pipeline.getBoundingClientRect();
+        return {left: link.left, right: link.right, regionLeft: region.left,
+                regionRight: region.right, scroll: pipeline.scrollLeft,
+                viewport: document.documentElement.clientWidth};
+    }""")
+    require(metric["scroll"] > start_scroll,
+            f"{engine}: arrow keys cannot scroll the focused pipeline: {metric}")
+    require(metric["left"] >= max(0, metric["regionLeft"]) - 1 and
+            metric["right"] <= min(metric["viewport"], metric["regionRight"]) + 1,
+            f"{engine}: Cedar Labs lane is not fully visible after keyboard scrolling: {metric}")
     context.close()
 
     context = browser.new_context(viewport={"width": 1280, "height": 900})
@@ -95,17 +157,23 @@ def progressive_checks(browser, engine, screenshots):
             "Accessibility: search input lacks expected accessible name")
     require(page.get_by_role("button", name="Copy HTML for Product launch hero").count() == 1,
             "Accessibility: copy button lacks block context")
-    require("20 of 20" in page.locator("#blocks-results").inner_text(), "JS: count wrong")
+    require(f"{BLOCK_COUNT} of {BLOCK_COUNT}" in page.locator("#blocks-results").inner_text(), "JS: count wrong")
     page.locator("#blocks-search").fill("pricing")
     require(page.locator("[data-block-id]:visible").count() == 1, "JS: search wrong")
     page.locator("#blocks-search").fill("no-results-can-match-XYZ")
     require(page.locator("#blocks-empty").is_visible(), "JS: empty state missing")
     page.locator("#blocks-search").fill("")
-    page.locator("#blocks-category").select_option("Technical")
-    require(page.locator("[data-block-id]:visible").count() == 4, "JS: category filter wrong")
+    category_counts = {}
+    for entry in json.loads((ROOT / "blocks/manifest.json").read_text())["blocks"]:
+        key = entry["category"]
+        category_counts[key] = category_counts.get(key, 0) + 1
+    for selected, expected in category_counts.items():
+        page.locator("#blocks-category").select_option(selected)
+        require(page.locator("[data-block-id]:visible").count() == expected,
+                f"JS: category filter {selected} expected {expected}")
     page.locator("#blocks-category").select_option("all")
     page.locator("#blocks-theme").select_option("noir")
-    require(page.locator('.blocks-preview > .syn-root[data-syn-theme="noir"]').count() == 20,
+    require(page.locator('.blocks-preview > .syn-root[data-syn-theme="noir"]').count() == BLOCK_COUNT,
             "JS: theme did not apply to all previews")
     if screenshots:
         screenshots.mkdir(parents=True, exist_ok=True)
@@ -115,11 +183,12 @@ def progressive_checks(browser, engine, screenshots):
         page.set_viewport_size({"width": 1280, "height": 900})
     page.locator("[data-block-copy]").first.click()
     page.wait_for_function(
-        "() => /copied|selected/i.test(document.querySelector('#blocks-results').textContent)",
+        "() => /copied|selected/i.test(document.querySelector('#blocks-feedback').textContent)",
         timeout=3000
     )
-    status = page.locator("#blocks-results").inner_text().lower()
+    status = page.locator("#blocks-feedback").inner_text().lower()
     require("copied" in status or "selected" in status, "JS: copy/fallback failed")
+    require(f"{BLOCK_COUNT} of {BLOCK_COUNT}" in page.locator("#blocks-results").inner_text(), "JS: count overwritten by copy feedback")
     require(not console_errors, f"{engine}: script errors {console_errors}")
     context.close()
 
@@ -128,6 +197,26 @@ class QuietStaticHandler(SimpleHTTPRequestHandler):
     """Test-server only; avoid polluting browser verification output."""
     def log_message(self, fmt, *args):
         pass
+
+
+def playground_preview_check(browser, engine):
+    """Preview destinations are inert while editor and copy preserve real href."""
+    context = browser.new_context(viewport={"width": 800, "height": 700})
+    page = context.new_page()
+    try:
+        page.goto((ROOT / "docs/playground.html").as_uri() +
+                  "#component=block-error-recovery")
+        markup = page.locator("#playground-markup")
+        require('/dashboard' in markup.input_value(),
+                f"{engine}: editor lost source placeholder route")
+        frame = page.frame_locator("#playground-preview")
+        frame.get_by_text("Return to dashboard").wait_for()
+        require(frame.locator("a[href]").count() == 0,
+                f"{engine}: playground preview can navigate to placeholder routes")
+        require('/dashboard' in markup.input_value(),
+                f"{engine}: inert preview rewrote editable source")
+    finally:
+        context.close()
 
 
 def live_clipboard_check(browser):
@@ -145,7 +234,7 @@ def live_clipboard_check(browser):
                 "HTTP: controls not available")
         page.get_by_role("button", name="Copy HTML for Product launch hero").click()
         page.wait_for_function(
-            "() => document.querySelector('#blocks-results').textContent.includes('HTML copied')",
+            "() => document.querySelector('#blocks-feedback').textContent.includes('HTML copied')",
             timeout=3000
         )
         clipboard = page.evaluate("navigator.clipboard.readText()")
@@ -191,7 +280,7 @@ def main():
     with sync_playwright() as pw:
         for engine in args.browsers:
             try:
-                browser = getattr(pw, engine).launch(headless=True)
+                browser = getattr(pw, engine).launch(headless=True, executable_path=os.getenv(f"SYNTYR_{engine.upper()}_EXECUTABLE"))
             except Exception as exc:
                 failures.append(f"BLOCKED {engine}: {str(exc)[:240]}")
                 continue
@@ -211,6 +300,12 @@ def main():
             except Exception as exc:
                 failures.append(f"{engine} progressive: {exc}")
                 item["progressive"] = "fail"
+            try:
+                playground_preview_check(browser, engine)
+                item["playground_navigation"] = "pass"
+            except Exception as exc:
+                failures.append(f"{engine} playground preview: {exc}")
+                item["playground_navigation"] = "fail"
             if engine == "chromium":
                 try:
                     live_clipboard_check(browser)

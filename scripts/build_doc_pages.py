@@ -26,13 +26,16 @@ else:
 SITE = "https://syntyr-css.pages.dev"
 GUIDES = tuple(name for name in PUBLIC_DOCS if name.endswith(".md"))
 SECTIONS = (
+    ("FAQ and comparisons", ("faq", "compare", "compare-tailwind", "compare-bootstrap",
+                             "compare-shadcn", "compare-daisyui", "compare-pico", "compare-native-css")),
     ("Start here", ("ai-quickstart", "distribution", "package-managers", "from-pico",
                     "adoption-starters", "components", "data-tables", "data-grid",
-                    "recipes", "native-patterns", "component-recipes")),
-    ("Design system", ("theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "blocks-guide", "premium-compositions", "component-authoring")),
-    ("Integrations", ("framework-integrations", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
+                    "recipes", "native-patterns", "native-workflows", "semantic-components", "composition-adoption", "component-recipes",
+                    "email-components")),
+    ("Design system", ("design-principles", "theme-customization", "visual-intensity", "geometry-terminal", "symbols", "viz", "geo", "blocks-guide", "premium-compositions", "component-authoring")),
+    ("Integrations", ("framework-integrations", "site-builders", "wordpress", "shopify", "wix", "webflow", "framer", "squarespace", "ghost", "hubspot", "drupal", "joomla", "carrd", "duda", "tilda", "mobile-frameworks", "headless-interactions", "clipboard", "lit-integration", "radix-integration", "shadcn-integration", "ecosystem-integrations", "editor-integration", "figma-component-kit", "vertigo-integration", "rust-saas-integration", "saas-cli-business")),
     ("Accessibility and performance", ("accessibility", "accessibility-alpha5-review", "progressive-enhancement", "native-browser-apis", "progressive-loading", "performance-and-polish", "performance-validation", "live-performance-audit", "visual-regression")),
-    ("Maintainer and reference", ("agent-integration", "api-stability", "cloudflare-hosting", "site-generator-decision", "design-research-linear-resend", "tailwind-research", "selective-builds", "release-readiness-ecosystem")),
+    ("Maintainer and reference", ("agent-integration", "api-stability", "cloudflare-hosting", "nulang-cloud-hosting", "site-generator-decision", "design-research-linear-resend", "tailwind-research", "selective-builds", "release-readiness-ecosystem")),
 )
 
 
@@ -53,8 +56,45 @@ def renderer() -> MarkdownIt:
     return md
 
 
+PLATFORM_SEO_TITLES = {
+    'wordpress.md': 'Syntyr for WordPress | CSS Components & Setup',
+    'shopify.md': 'Syntyr for Shopify | CSS Components & Setup',
+    'wix.md': 'Syntyr for Wix | HTML Embed & CSS Setup',
+    'webflow.md': 'Syntyr for Webflow | Custom CSS & HTML Guide',
+    'framer.md': 'Syntyr for Framer | Embeds & CSS Components',
+    'squarespace.md': 'Syntyr for Squarespace | Custom CSS & HTML',
+    'ghost.md': 'Syntyr for Ghost | CSS for Posts & Themes',
+    'hubspot.md': 'Syntyr for HubSpot CMS | Custom Module CSS',
+    'drupal.md': 'Syntyr for Drupal | Theme CSS Integration',
+    'joomla.md': 'Syntyr for Joomla | Template CSS Components',
+    'carrd.md': 'Syntyr for Carrd | Custom CSS & HTML Embeds',
+    'duda.md': 'Syntyr for Duda | HTML Widget & CSS Guide',
+    'tilda.md': 'Syntyr for Tilda | T123 HTML & CSS Setup',
+}
+
+SEO_PAGE_TITLES = {
+    "faq.md": "Syntyr CSS FAQ | Installation, Licensing & Frameworks",
+    "compare.md": "Syntyr Alternatives | Compare CSS & UI Libraries",
+    "compare-tailwind.md": "Syntyr vs Tailwind CSS | Components vs Utilities",
+    "compare-bootstrap.md": "Syntyr vs Bootstrap | CSS Framework Comparison",
+    "compare-shadcn.md": "Syntyr vs shadcn/ui | CSS vs React Components",
+    "compare-daisyui.md": "Syntyr vs daisyUI | Standalone CSS or Tailwind",
+    "compare-pico.md": "Syntyr vs Pico CSS | Semantic Styling Compared",
+    "compare-native-css.md": "Syntyr vs Plain CSS | When to Use a Design System",
+}
+
 DESCRIPTION_OVERRIDES = {
+    "faq.md": "Answers to common Syntyr CSS questions about installation, MIT licensing, JavaScript requirements, React compatibility, native HTML, themes and accessibility.",
+    "compare.md": "Compare Syntyr CSS with Tailwind, Bootstrap, shadcn/ui, daisyUI, Pico and plain CSS. Explore practical tradeoffs, integration options and release compatibility.",
+    "compare-tailwind.md": "Compare Syntyr CSS and Tailwind CSS for components, utility-first styling, build tooling, performance tradeoffs and framework-neutral HTML projects.",
+    "compare-bootstrap.md": "Syntyr CSS vs Bootstrap: compare native HTML components, JavaScript plugins, CSS scopes, theme tokens, ecosystem maturity and migration guidance.",
+    "compare-shadcn.md": "Syntyr vs shadcn/ui: compare framework-neutral CSS primitives with editable React components, interaction ownership, Tailwind styling and dependencies.",
+    "compare-daisyui.md": "Compare Syntyr CSS and daisyUI for Tailwind plugin workflows, component classes, theming, JavaScript requirements and standalone CSS distribution.",
+    "compare-pico.md": "Syntyr CSS vs Pico CSS: compare scoped semantic HTML styling, classless defaults, theme tokens, SaaS layouts and a safe incremental migration path.",
+    "compare-native-css.md": "Syntyr CSS vs plain CSS: decide when a reusable design system pays off versus native browser CSS, custom properties and a smaller dependency surface.",
+    "design-principles.md": "Learn shared UI design principles, accessible component states, semantic HTML compositions, and static palette contrast checks in Syntyr CSS.",
     "ai-quickstart.md": "Install Syntyr CSS with AI coding agents using semantic HTML, real component classes, and version-aware, framework-neutral examples.",
+    "semantic-components.md": "Copy HTML patterns for native suggestions, glossaries, highlights, ordered timelines, MathML, resources, disclosures, search, forms and responsive images.",
     "components.md": "Reference Syntyr CSS components, class names, design tokens, scopes, and semantic HTML patterns for lightweight application interfaces.",
     "framework-integrations.md": "Integrate Syntyr CSS with server-rendered HTML, HTMX, LiveView, Livewire, and frontend frameworks without requiring client-side JavaScript.",
     "from-pico.md": "Migrate from Pico CSS to Syntyr with semantic HTML, explicit component styling, theme tokens, and minimal runtime dependencies.",
@@ -98,6 +138,21 @@ def render_guide(name: str, allowed: set[str]) -> str:
     digest = sha256(source.encode("utf-8")).hexdigest()
     tokens = renderer().parse(source)
     description = description_of(name, tokens)
+    page_title = SEO_PAGE_TITLES.get(name, PLATFORM_SEO_TITLES.get(name, f"{title} — Syntyr CSS docs"))
+    canonical = f"{SITE}/docs/{slug}"
+    # Marketing pages use the exact canonical URL emitted in the sitemap.
+    # These are inert metadata elements, not client-side JavaScript.
+    social_tags = ""
+    if name in SEO_PAGE_TITLES:
+        social_tags = (
+            f'<meta property="og:type" content="article">\n'
+            f'<meta property="og:title" content="{escape(page_title, quote=True)}">\n'
+            f'<meta property="og:description" content="{escape(description, quote=True)}">\n'
+            f'<meta property="og:url" content="{escape(canonical, quote=True)}">\n'
+            f'<meta property="og:image" content="{SITE}/assets/og-syntyr.png">\n'
+            f'<meta name="twitter:card" content="summary_large_image">\n'
+        )
+        social_tags = "\n  " + social_tags.rstrip().replace("\n", "\n  ")
     used: set[str] = set()
     headings: list[tuple[int, str, str]] = []
     for index, token in enumerate(tokens):
@@ -135,9 +190,18 @@ def render_guide(name: str, allowed: set[str]) -> str:
                 child.attrSet("href", urlunsplit(("https", "github.com", f"/dporkka/syntyr-css/blob/main/{repo_path}", parsed.query, parsed.fragment)))
 
     article = renderer().renderer.render(tokens, renderer().options, {})
+    # Any fenced code block can overflow on narrow or zoomed viewports.
+    # Preserve native pre/code semantics while making horizontal scrolling
+    # keyboard reachable without a documentation runtime or ARIA role.
+    article = article.replace("<pre><code", '<pre tabindex="0"><code')
     toc = "\n".join(
         f'<a class="docs-article-toc-link docs-article-toc-{level}" href="#{escape(anchor)}">{escape(label)}</a>'
         for level, anchor, label in headings
+    )
+    platform_og = (
+        '  <meta property="og:image" content="https://syntyr-css.pages.dev/assets/og-syntyr.png">\n'
+        '  <meta name="twitter:card" content="summary_large_image">\n'
+        if name in PLATFORM_SEO_TITLES else ""
     )
     return f'''<!doctype html>
 <html lang="en">
@@ -147,9 +211,9 @@ def render_guide(name: str, allowed: set[str]) -> str:
   <meta name="description" content="{escape(description, quote=True)}">
   <meta name="syntyr-source-sha256" content="{digest}">
   <meta name="theme-color" content="#f5f7fb">
-  <title>{escape(title)} — Syntyr CSS docs</title>
-  <link rel="canonical" href="{SITE}/docs/{slug}">
-  <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
+  <title>{escape(page_title)}</title>{social_tags}
+  <link rel="canonical" href="{canonical}">
+{platform_og}  <link rel="alternate" type="text/markdown" href="{name}" title="Markdown source">
   <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../dist/syntyr.core.css">
   <link rel="stylesheet" href="docs.css">

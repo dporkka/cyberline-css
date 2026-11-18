@@ -48,7 +48,7 @@ class DocumentationDeliveryTests(unittest.TestCase):
         files = source_files()
         page = files['docs/components.html'].decode()
         self.assertIn('<table>', page)
-        self.assertIn('<pre><code', page)
+        self.assertIn('<pre tabindex="0"><code', page)
         self.assertIn('href="visual-intensity.html"', page)
         self.assertNotIn('href="visual-intensity.md"', page)
         self.assertIn('id="loading-and-scoping"', page)

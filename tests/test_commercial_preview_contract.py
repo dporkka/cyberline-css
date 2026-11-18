@@ -45,6 +45,8 @@ class CommercialPreviewTests(unittest.TestCase):
                        "not a purchase form", "synthetic data", "No payment is being accepted"):
             self.assertIn(phrase.lower(), page.lower())
         self.assertNotIn('href="/checkout"', page)
+        self.assertNotIn("<script", page.lower(), "Public preview must remain static")
+        self.assertIn("MIT", page, "Keep OSS licensing distinct from paid concepts")
         self.assertIn("console-kit-feedback.yml", page)
 
     def test_feedback_qualifies_real_buyers_without_collecting_public_secrets(self):

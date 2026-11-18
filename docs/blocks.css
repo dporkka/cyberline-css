@@ -11,6 +11,9 @@
 .syn-root .blocks-card-heading .syn-badge {max-inline-size:100%;font-size:.7rem;overflow-wrap:anywhere}
 .syn-root .blocks-card .syn-muted {margin:0}
 .syn-root .blocks-preview {min-width:0;overflow-x:auto;border:1px solid var(--syn-border-subtle);border-radius:var(--syn-radius);background:var(--syn-bg)}
+.syn-root .blocks-preview-disabled {border:0;min-inline-size:0;margin:0;padding:0}
+.syn-root .syn-form>.blocks-preview-disabled {display:grid;grid-template-columns:inherit;gap:inherit;align-items:inherit}
+.syn-root .syn-filter-bar>.blocks-preview-disabled {display:flex;flex-wrap:wrap;gap:inherit;align-items:inherit;flex-grow:1}
 .syn-root .blocks-preview>.syn-root {display:block;padding:clamp(.85rem,3vw,1.65rem);min-width:0;min-height:12rem;font-size:.9rem}
 .syn-root .blocks-preview .syn-site-heading {font-size:clamp(1.7rem,3.5vw,3rem)}
 .syn-root .blocks-preview .syn-site-hero {padding:clamp(1.1rem,3vw,2rem)}

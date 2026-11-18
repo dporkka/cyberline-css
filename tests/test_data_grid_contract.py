@@ -76,7 +76,10 @@ class DataGridContract(unittest.TestCase):
         example = (ROOT / "examples/data-grid.html").read_text()
         self.assertIn("syntyr.data-grid.css", example)
         self.assertIn("syn-data-grid", example)
-        self.assertIn('role="grid"', example)
+        self.assertIn('role="table"', example)
+        self.assertNotIn('role="grid"', example)
+        self.assertIn('data-syn-selected="true"', example)
+        self.assertIn('[data-syn-selected="true"]', (ROOT / "src/data-grid.css").read_text())
         self.assertIn('role="row" aria-rowindex="1" class="syn-data-grid__header-row"', example)
         self.assertNotIn("<script", example.lower())
 

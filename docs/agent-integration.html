@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr works with ChatGPT, Codex, Claude Code, Cursor and other agents that generate HTML or framework markup. No Syntyr-specific service, account, MCP…">
-  <meta name="syntyr-source-sha256" content="eabcb32b19f37868119859e604a5d1fd730bc7caa2dbe077a20e1fd6a72ffd25">
+  <meta name="syntyr-source-sha256" content="8d9f9ce876e561034ce1416dc75149401d4aabe8eb33d308a9a7e0a073c672ac">
   <meta name="theme-color" content="#f5f7fb">
   <title>Using Syntyr with coding agents — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/agent-integration">
@@ -50,6 +50,35 @@
 <h2 id="project-level-integration">Project-level integration</h2>
 <p>A consumer may copy <a href="https://github.com/dporkka/syntyr-css/blob/main/agents/syntyr/SKILL.md"><code>agents/syntyr/SKILL.md</code></a> as an optional local skill in agent tooling that supports Skills. It is a portable instruction document, <strong>not a published package, automatic installation, or guaranteed discovery mechanism</strong>.</p>
 <p>The repository's root <code>AGENTS.md</code> guides agents contributing to Syntyr itself. It does <strong>not</strong> automatically become instructions in a separate application repository.</p>
+<h2 id="offline-first-run-agent-setup-source-checkout">Offline first-run agent setup (source checkout)</h2>
+<p>An optional Python standard-library command installs a <strong>portable consumer Skill</strong>,
+release-pinned CSS, and a small verified selector reference into an existing app.
+It runs from a Syntyr source checkout and does <strong>not</strong> install any application
+runtime dependencies, connect to services, or publish a package:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/syntyr_agent.py init --project /path/to/my-app --json
+python3 scripts/syntyr_agent.py check --project /path/to/my-app --json /path/to/my-app/page.html
+</code></pre>
+<p><code>init</code> defaults to the <strong>published, immutable alpha.4 CSS</strong> and writes
+<code>syntyr.agent.json</code>, versioned CSS files under <code>vendor/syntyr/&lt;release&gt;/</code>,
+and <code>.agents/skills/syntyr/SKILL.md</code> plus <code>references/api.json</code>. Rerunning is
+idempotent. Different existing files or symlinked output paths are rejected
+without overwriting project content. For tooling that expects another skill
+location, specify <code>--agent claude</code> or <code>--agent cursor</code>; <code>--agent codex</code> and
+<code>--agent generic</code> use the portable <code>.agents/skills/</code> path. Projects must still
+load the copied CSS in their own HTML/framework entrypoint: installation does
+<strong>not</strong> silently modify application code or guarantee CSS integration.</p>
+<p>Choose <code>--release 0.3.0-alpha.5</code> only when deliberately testing the
+<strong>unreleased source candidate</strong>. The generated <code>api.json</code> lists selectors
+actually present in the selected CSS files; source-only selectors cannot
+appear in an alpha.4 reference.</p>
+<p><code>check</code> validates the installed CSS asset hashes and literal <code>.html</code> files
+against that project's pinned release, returning structured, source-located
+JSON diagnostics. Its exit codes are <strong>0</strong> for checked and error-free HTML,
+<strong>1</strong> for errors, and <strong>2</strong> for incomplete coverage (for example, JSX/TSX or
+no HTML files). It is not a React/Vue/Svelte parser or a browser accessibility
+test. Generated CSS assets are not proof that the app has actually imported
+them. The separate local MCP adapter remains available for smaller markup
+fragments and interactive catalog queries.</p>
 <h2 id="optional-local-mcp-adapter">Optional local MCP adapter</h2>
 <p>An optional <strong>read-only local MCP server</strong> can now expose the checked-in
 component catalog and CSS API to supported coding agents. It is not needed to
@@ -76,7 +105,7 @@ checked-in CSS rather than presenting candidate-only selectors as fixes.</p>
 <p>When adding a guide for public consumption, review the explicit <code>PUBLIC_DOCS</code> allowlist in <code>scripts/build_cloudflare_site.py</code>. Regenerate the committed HTML with the maintainer-only generator (<code>python3 scripts/build_doc_pages.py</code>), and verify it with <code>--check</code>. The core static-site and CI builds require no Markdown parsing package or client runtime.</p>
 <h2 id="validation-and-maintenance">Validation and maintenance</h2>
 <p>The repository uses Python standard-library scripts:</p>
-<pre><code class="language-sh">python3 scripts/build_agent_docs.py --check
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_agent_docs.py --check
 python3 scripts/build.py --check
 python3 -m unittest discover -s tests -v
 python3 scripts/build_cloudflare_site.py --check
@@ -88,6 +117,7 @@ python3 scripts/build_cloudflare_site.py --check
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#recommended-context-to-supply-an-agent">Recommended context to supply an agent</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#project-level-integration">Project-level integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#offline-first-run-agent-setup-source-checkout">Offline first-run agent setup (source checkout)</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-local-mcp-adapter">Optional local MCP adapter</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documents-and-machine-readable-inventory">Documents and machine-readable inventory</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#documentation-formats-html-for-people-markdown-for-agents">Documentation formats: HTML for people, Markdown for agents</a>

@@ -105,6 +105,15 @@ palette collections. Full accessibility, font and visual parity remain open.
 
 Source: https://help.figma.com/hc/en-us/articles/15343816063383-Modes-for-variables
 
+## Mobile and native UI stacks
+
+The opt-in [mobile framework integration guide](mobile-frameworks.md) explains
+how to reuse the literal Syntyr palette and spacing tokens in React Native / Expo,
+Flutter, SwiftUI and Jetpack Compose. It also describes direct CSS usage with
+Ionic / Capacitor WebViews. React Native does **not** execute CSS classes
+on native renderers, so its adapter is a generated token module plus copy-owned
+native style objects, not a browser stylesheet or a required runtime.
+
 ## Keeping exports synchronized
 
 After changes to `src/tokens.css` or editor API metadata:
