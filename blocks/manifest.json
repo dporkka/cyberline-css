@@ -453,6 +453,104 @@
         "promotion",
         "notice"
       ]
+    },
+    {
+      "id": "logo-wall",
+      "category": "Marketing",
+      "title": "Partner logo text wall",
+      "description": "A compact text-only partner strip with no unlicensed logos.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "logos",
+        "partners",
+        "trust"
+      ]
+    },
+    {
+      "id": "process-steps",
+      "category": "Services",
+      "title": "How it works steps",
+      "description": "An ordered and accessible sequence for explaining a service.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "process",
+        "steps",
+        "workflow"
+      ]
+    },
+    {
+      "id": "services-grid",
+      "category": "Services",
+      "title": "Service offerings grid",
+      "description": "A services section with clear descriptions and destination links.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "agency",
+        "services",
+        "business"
+      ]
+    },
+    {
+      "id": "service-areas",
+      "category": "Services",
+      "title": "Service coverage cards",
+      "description": "A service-area section suitable for local and regional businesses.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "locations",
+        "local",
+        "services"
+      ]
+    },
+    {
+      "id": "portfolio-grid",
+      "category": "Portfolio",
+      "title": "Selected work grid",
+      "description": "An accessible project gallery without fragile image dependencies.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "portfolio",
+        "projects",
+        "work"
+      ]
+    },
+    {
+      "id": "team-grid",
+      "category": "Services",
+      "title": "Team introduction cards",
+      "description": "A team directory section without invented portraits or credentials.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "team",
+        "people",
+        "about"
+      ]
+    },
+    {
+      "id": "contact-quote",
+      "category": "Services",
+      "title": "Project inquiry form",
+      "description": "A labeled contact form with appropriate native inputs and privacy guidance.",
+      "modules": [
+        "core"
+      ],
+      "tags": [
+        "contact",
+        "lead",
+        "inquiry"
+      ]
     }
   ]
 }
