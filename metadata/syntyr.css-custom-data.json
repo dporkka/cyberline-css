@@ -1,0 +1,553 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--syn-accent",
+      "description": "Theme accent color; also check --syn-on-accent contrast."
+    },
+    {
+      "name": "--syn-accent-2",
+      "description": "Accent 2 design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-accent-soft",
+      "description": "Accent soft design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-avatar-size",
+      "description": "Avatar size design token from components/patterns.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-bg",
+      "description": "Theme background color for the scoped Syntyr root."
+    },
+    {
+      "name": "--syn-border-default",
+      "description": "Border default design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-border-floating",
+      "description": "Border floating design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-border-focus",
+      "description": "Border focus design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-border-hover",
+      "description": "Border hover design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-border-subtle",
+      "description": "Border subtle design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-bracket-size",
+      "description": "Bracket size design token from geometry.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-button-border-width",
+      "description": "Per-button border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-button-padding-inline",
+      "description": "Per-button inline padding; defaults to 1rem."
+    },
+    {
+      "name": "--syn-card-padding",
+      "description": "Card padding design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-chart-1",
+      "description": "Chart presentation design token chart 1; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-2",
+      "description": "Chart presentation design token chart 2; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-3",
+      "description": "Chart presentation design token chart 3; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-4",
+      "description": "Chart presentation design token chart 4; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-axis",
+      "description": "Chart presentation design token chart axis; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-grid",
+      "description": "Chart presentation design token chart grid; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-chart-tooltip-bg",
+      "description": "Chart presentation design token chart tooltip bg; provide non-color chart labels."
+    },
+    {
+      "name": "--syn-control-height",
+      "description": "Shared native form control height; check accessible target sizing."
+    },
+    {
+      "name": "--syn-control-padding-block",
+      "description": "Vertical padding used by shared form controls."
+    },
+    {
+      "name": "--syn-cut",
+      "description": "Cut design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-danger",
+      "description": "Semantic danger color; do not communicate errors through color alone."
+    },
+    {
+      "name": "--syn-detail-aside-basis",
+      "description": "Detail aside flex basis; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-aside-min",
+      "description": "Detail aside minimum width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-detail-gap",
+      "description": "Detail shell gap; defaults to --syn-space-3."
+    },
+    {
+      "name": "--syn-detail-main-basis",
+      "description": "Detail main flex basis; defaults to 32rem."
+    },
+    {
+      "name": "--syn-detail-main-min",
+      "description": "Detail main minimum width; defaults to 22rem."
+    },
+    {
+      "name": "--syn-duration-fast",
+      "description": "Motion duration token duration fast; respect user reduced-motion preferences."
+    },
+    {
+      "name": "--syn-duration-standard",
+      "description": "Motion duration token duration standard; respect user reduced-motion preferences."
+    },
+    {
+      "name": "--syn-ease",
+      "description": "Motion easing token ease; use only for optional transitions."
+    },
+    {
+      "name": "--syn-ease-enter",
+      "description": "Motion easing token ease enter; use only for optional transitions."
+    },
+    {
+      "name": "--syn-file-edge",
+      "description": "File edge design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-filter-field-min",
+      "description": "Filter field basis and minimum; defaults to 11rem."
+    },
+    {
+      "name": "--syn-filter-gap",
+      "description": "Wrapping filter-bar gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-filter-query-min",
+      "description": "Query field flex basis; defaults to 18rem."
+    },
+    {
+      "name": "--syn-fluid-display-size",
+      "description": "Fluid display size design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-focus-ring",
+      "description": "Focus indication styling for keyboard-visible focus states."
+    },
+    {
+      "name": "--syn-font",
+      "description": "Font design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-font-display",
+      "description": "Font family used for display headings."
+    },
+    {
+      "name": "--syn-font-ui",
+      "description": "Font family used by common interface controls and components."
+    },
+    {
+      "name": "--syn-frame",
+      "description": "Default frame or border color within the current theme."
+    },
+    {
+      "name": "--syn-frame-border-paint",
+      "description": "Solid or gradient border paint for optional frames."
+    },
+    {
+      "name": "--syn-frame-cut",
+      "description": "Shared fallback corner size for optional geometry shapes."
+    },
+    {
+      "name": "--syn-frame-cut-bl",
+      "description": "Optional bottom-left frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-br",
+      "description": "Optional bottom-right frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-tl",
+      "description": "Optional top-left frame cut size."
+    },
+    {
+      "name": "--syn-frame-cut-tr",
+      "description": "Optional top-right frame cut size."
+    },
+    {
+      "name": "--syn-frame-fill",
+      "description": "Interior fill paint for optional shaped frames."
+    },
+    {
+      "name": "--syn-frame-inlay-paint",
+      "description": "Optional translucent overlay on the inner shaped surface."
+    },
+    {
+      "name": "--syn-frame-outline",
+      "description": "Solid border paint fallback for optional frames."
+    },
+    {
+      "name": "--syn-frame-shape",
+      "description": "Frame shape design token from geometry.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-frame-stroke",
+      "description": "Width of the optional shape-following border."
+    },
+    {
+      "name": "--syn-frame-strong",
+      "description": "Frame strong design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-floating",
+      "description": "Geo floating design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-land",
+      "description": "Geo land design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-marker-color",
+      "description": "Geo marker color design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-parcel",
+      "description": "Geo parcel design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-point",
+      "description": "Geo point design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-road",
+      "description": "Geo road design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-route",
+      "description": "Geo route design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-water",
+      "description": "Geo water design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-geo-zone",
+      "description": "Geo zone design token from geo.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-glow-alpha",
+      "description": "Glow accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-alpha",
+      "description": "Grid-line accent share; varies by scoped data-syn-intensity."
+    },
+    {
+      "name": "--syn-grid-density-pad-inline",
+      "description": "Grid density pad inline design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-density-row-block",
+      "description": "Grid density row block design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-edge",
+      "description": "Grid edge design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-focus",
+      "description": "Grid focus design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-gap",
+      "description": "Grid gap; defaults to 1rem."
+    },
+    {
+      "name": "--syn-grid-hover",
+      "description": "Grid hover design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-min",
+      "description": "Minimum grid track width; defaults to 17rem."
+    },
+    {
+      "name": "--syn-grid-muted",
+      "description": "Grid muted design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-pad-inline",
+      "description": "Grid pad inline design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-row-block",
+      "description": "Grid row block design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-grid-selected",
+      "description": "Grid selected design token from data-grid.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-horizon-alpha",
+      "description": "Horizon line accent share."
+    },
+    {
+      "name": "--syn-inline-gap",
+      "description": "Inline flex gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-gap",
+      "description": "KPI grid gap; defaults to --syn-space-2."
+    },
+    {
+      "name": "--syn-kpi-min",
+      "description": "Minimum KPI grid track width; defaults to 13rem."
+    },
+    {
+      "name": "--syn-layout-gap",
+      "description": "Layout gap; defaults to 1.25rem."
+    },
+    {
+      "name": "--syn-layout-min",
+      "description": "Minimum layout track width; defaults to 21rem."
+    },
+    {
+      "name": "--syn-leading-body",
+      "description": "Leading body design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-line",
+      "description": "Line design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-mono",
+      "description": "Mono design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-muted",
+      "description": "Subdued text color for secondary content; retain readable contrast."
+    },
+    {
+      "name": "--syn-on-accent",
+      "description": "Foreground color for the primary accent."
+    },
+    {
+      "name": "--syn-operation-edge",
+      "description": "Operation edge design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-panel-border-width",
+      "description": "Per-panel border width; defaults to 1px."
+    },
+    {
+      "name": "--syn-panel-padding",
+      "description": "Per-panel padding; defaults to the existing fluid panel padding."
+    },
+    {
+      "name": "--syn-panel-radius",
+      "description": "Per-panel border radius; defaults to square corners."
+    },
+    {
+      "name": "--syn-primary-hover-bg",
+      "description": "Primary hover bg design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-radius",
+      "description": "Common corner radius for compatible components."
+    },
+    {
+      "name": "--syn-reading-width",
+      "description": "Reading width design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-row-padding-block",
+      "description": "Row padding block design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-scanline-alpha",
+      "description": "Scanline overlay opacity percentage."
+    },
+    {
+      "name": "--syn-shadow-overlay",
+      "description": "Overlay elevation shadow used by appropriate floating surfaces."
+    },
+    {
+      "name": "--syn-shadow-raised",
+      "description": "Shadow treatment for visually elevated surfaces."
+    },
+    {
+      "name": "--syn-shadow-sm",
+      "description": "Surface shadow design token shadow sm; reserve elevation for meaningful hierarchy."
+    },
+    {
+      "name": "--syn-sheet-width",
+      "description": "Maximum inline width of an optional record sheet; defaults to 30rem."
+    },
+    {
+      "name": "--syn-space-1",
+      "description": "Spacing scale token 1; use for consistent layout spacing."
+    },
+    {
+      "name": "--syn-space-2",
+      "description": "Spacing scale token 2; use for consistent layout spacing."
+    },
+    {
+      "name": "--syn-space-3",
+      "description": "Spacing scale token 3; use for consistent layout spacing."
+    },
+    {
+      "name": "--syn-space-4",
+      "description": "Spacing scale token 4; use for consistent layout spacing."
+    },
+    {
+      "name": "--syn-space-5",
+      "description": "Spacing scale token 5; use for consistent layout spacing."
+    },
+    {
+      "name": "--syn-stack-gap",
+      "description": "Stack gap; defaults to --syn-space-3."
+    },
+    {
+      "name": "--syn-stage-pad",
+      "description": "Stage pad design token from components/layout.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-success",
+      "description": "Semantic success color for positive states."
+    },
+    {
+      "name": "--syn-surface",
+      "description": "Primary surface color for panels and grouped content."
+    },
+    {
+      "name": "--syn-surface-floating",
+      "description": "Surface floating design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-surface-hi",
+      "description": "Surface hi design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-surface-hover",
+      "description": "Surface hover design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-surface-interactive",
+      "description": "Surface interactive design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-surface-pressed",
+      "description": "Surface pressed design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-surface-raised",
+      "description": "Raised surface color for elevated interface regions."
+    },
+    {
+      "name": "--syn-surface-recessed",
+      "description": "Recessed surface color for inset interface regions."
+    },
+    {
+      "name": "--syn-terminal-bg",
+      "description": "Terminal bg design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-terminal-fg",
+      "description": "Terminal fg design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-terminal-muted",
+      "description": "Terminal muted design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-terminal-prompt",
+      "description": "Terminal prompt design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-text",
+      "description": "Default foreground text color; check contrast against the current surface."
+    },
+    {
+      "name": "--syn-text-subtle",
+      "description": "Text subtle design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-tracking-display",
+      "description": "Tracking display design token from tokens.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-type-base",
+      "description": "Typography scale role type base; use consistently within the theme."
+    },
+    {
+      "name": "--syn-type-body",
+      "description": "Body typography size role; override consistently across components."
+    },
+    {
+      "name": "--syn-type-display",
+      "description": "Large display typography size role for emphasized headings."
+    },
+    {
+      "name": "--syn-type-heading",
+      "description": "Heading typography size role for component and page hierarchy."
+    },
+    {
+      "name": "--syn-type-lede",
+      "description": "Typography scale role type lede; use consistently within the theme."
+    },
+    {
+      "name": "--syn-type-section",
+      "description": "Section-heading typography size role."
+    },
+    {
+      "name": "--syn-type-sm",
+      "description": "Typography scale role type sm; use consistently within the theme."
+    },
+    {
+      "name": "--syn-type-xs",
+      "description": "Typography scale role type xs; use consistently within the theme."
+    },
+    {
+      "name": "--syn-warning",
+      "description": "Semantic warning color for attention states."
+    },
+    {
+      "name": "--syn-wash-alpha",
+      "description": "Primary atmospheric wash share."
+    },
+    {
+      "name": "--syn-wash-secondary-alpha",
+      "description": "Secondary atmospheric wash share."
+    },
+    {
+      "name": "--syn-workspace-leading",
+      "description": "Workspace leading design token from recipes.css; override in the appropriate Syntyr scope when needed."
+    }
+  ]
+}

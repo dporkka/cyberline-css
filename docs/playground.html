@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore, edit and preview SYNTYR CSS components in a sandboxed browser frame with no application build step.">
+  <title>Component Playground — SYNTYR CSS</title>
+  <link rel="stylesheet" href="../dist/syntyr.all.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="playground.css">
+  <script src="playground-catalog.js" defer></script>
+  <script src="playground-snippet.js" defer></script>
+  <script src="playground.js" defer></script>
+  <script src="playground-editor.js" defer></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="index.html">SYNTYR <span class="syn-muted">/ COMPONENT LAB</span></a>
+      <nav class="syn-nav" aria-label="Playground navigation">
+        <a href="catalog.html">COMPONENT CATALOG</a>
+        <a href="index.html">GALLERY</a>
+        <a href="theme-editor.html">THEME EDITOR</a>
+        <a href="page-builder.html">PAGE BUILDER</a>
+        <a href="#geometry-title">GEOMETRY MIXER</a>
+        <a href="editor-integration.md">EDITOR SETUP</a>
+      </nav>
+    </header>
+    <main>
+      <section class="syn-stage" aria-labelledby="playground-title">
+        <span class="syn-eyebrow">DEVELOPER EXPERIENCE / BUILD-FREE</span>
+        <h1 id="playground-title" class="syn-title">Component playground</h1>
+        <p class="syn-lede">Choose a real catalog component, search examples, edit native HTML, tune panel tokens, and preview responsive layouts. The CSS core stays JavaScript-free.</p>
+      </section>
+
+      <div class="playground-layout">
+        <section class="syn-panel playground-editor" aria-labelledby="playground-editor-title">
+          <h2 id="playground-editor-title" class="syn-heading">HTML source</h2>
+          <div class="playground-controls">
+            <label class="syn-label" for="playground-example">EXAMPLE
+              <select class="syn-select" id="playground-example">
+                <option value="metrics">Responsive metrics</option>
+                <option value="actions">Action toolbar</option>
+                <option value="form">Accessible form</option>
+                <option value="cards">Marketing cards</option>
+              </select>
+            </label>
+            <label class="syn-label" for="playground-theme">PREVIEW THEME
+              <select class="syn-select" id="playground-theme">
+                <option value="studio">Studio</option>
+                <option value="grid">Grid</option>
+                <option value="noir">Noir</option>
+                <option value="industrial">Industrial</option>
+                <option value="terminal">Terminal</option>
+                <option value="corporate">Corporate</option>
+                <option value="minimal">Minimal</option>
+                <option value="auto">System preference</option>
+              </select>
+            </label>
+          </div>
+          <div class="playground-discovery">
+            <label class="syn-label" for="playground-search">SEARCH COMPONENTS &amp; BLOCKS</label>
+            <input class="syn-input" id="playground-search" type="search" autocomplete="off" placeholder="Search buttons, forms, tables, navigation…" aria-describedby="playground-search-status">
+            <p class="syn-caption" id="playground-search-status" role="status" aria-live="polite">Choose a starter or catalog example above.</p>
+            <aside class="playground-reference" id="playground-reference" aria-labelledby="playground-reference-title">
+              <h3 class="syn-heading" id="playground-reference-title">Example guidance</h3>
+              <p class="syn-caption">Catalog module: <code id="playground-reference-module">syntyr.core.css</code></p>
+              <p class="syn-caption">Copy/export stylesheets: <code id="playground-required-stylesheets">syntyr.core.css</code></p>
+              <p class="syn-muted" id="playground-reference-description">Choose an example for implementation guidance.</p>
+              <p class="syn-caption" id="playground-reference-guidance">Accessibility and application behavior remain your responsibility.</p>
+              <p class="syn-caption"><a href="components.html">Component API</a> · <a href="component-recipes.html">HTML recipes</a> · <a id="playground-source-link" href="catalog.html">View original component</a> · <a href="blocks.html">Free UI blocks</a> · <a href="how-to.html">How-To guides</a></p>
+            </aside>
+          </div>
+          <label class="syn-label" for="playground-markup" id="playground-markup-label">EDITABLE HTML</label>
+          <textarea class="syn-textarea playground-code" id="playground-markup" spellcheck="false" rows="17" aria-describedby="playground-help"></textarea>
+          <div id="playground-editor-mount" class="playground-codemirror" hidden></div>
+          <div class="playground-token-controls">
+            <label class="syn-label" for="playground-panel-radius">PANEL RADIUS <output id="playground-panel-radius-value" for="playground-panel-radius">12px</output>
+              <input id="playground-panel-radius" class="syn-input" type="range" min="0" max="32" step="1" value="12">
+            </label>
+            <label class="syn-label" for="playground-panel-padding">PANEL PADDING <output id="playground-panel-padding-value" for="playground-panel-padding">24px</output>
+              <input id="playground-panel-padding" class="syn-input" type="range" min="8" max="48" step="2" value="24">
+            </label>
+          </div>
+          <p class="syn-muted" id="playground-help">Edit HTML with CodeMirror 6 syntax highlighting, indentation and undo; a native textarea remains available if the editor cannot load. The preview blocks scripts and form submission. Copy configured HTML includes the selected theme, panel tokens and self-hosted stylesheet links for the selected example. Added classes from other modules need their own links.</p>
+          <div class="syn-inline">
+            <button class="syn-button syn-button--primary" id="playground-render" type="button">RENDER PREVIEW</button>
+            <button class="syn-button" id="playground-copy" type="button">COPY CONFIGURED HTML</button>
+          </div>
+          <p id="playground-status" role="status" aria-live="polite" class="syn-caption">Ready to preview.</p>
+          <textarea id="playground-copy-fallback" class="syn-textarea" aria-label="Configured HTML for manual copying" readonly rows="9" spellcheck="false" hidden></textarea>
+        </section>
+
+        <section class="syn-panel playground-view" aria-labelledby="playground-view-title">
+          <div class="playground-view-header">
+            <h2 id="playground-view-title" class="syn-heading">Live preview</h2>
+            <span class="syn-badge">ISOLATED</span>
+          </div>
+          <label class="syn-label" for="playground-viewport">PREVIEW WIDTH
+            <select id="playground-viewport" class="syn-select">
+              <option value="fluid">Available width</option>
+              <option value="390">Mobile · 390px</option>
+              <option value="768">Tablet · 768px</option>
+              <option value="1200">Desktop · 1200px</option>
+            </select>
+          </label>
+          <div class="playground-canvas">
+            <iframe id="playground-preview" title="Sandboxed Syntyr component preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+          </div>
+          <p class="syn-caption">Syntyr styling runs with ordinary CSS. Only documentation uses JavaScript for editing and previewing. <a href="playground-editor.licenses.txt">CodeMirror and dependency licenses</a>.</p>
+        </section>
+      </div>
+      <section class="syn-panel playground-geometry" aria-labelledby="geometry-title">
+        <span class="syn-eyebrow">OPTIONAL / ZERO APPLICATION JAVASCRIPT</span>
+        <h2 id="geometry-title" class="syn-heading">Geometry mixer</h2>
+        <p class="syn-muted">Tune independent corners, shape-following borders and subtle inlays. The editor script is only used by this documentation page; Syntyr's distributed CSS stays script-free.</p>
+        <div class="playground-geometry-layout">
+          <div class="playground-geometry-controls">
+            <label class="syn-label" for="geometry-shape">FRAME PROFILE
+              <select class="syn-select" id="geometry-shape">
+                <option value="bevel">Four bevels</option>
+                <option value="notch">Diagonal notch</option>
+                <option value="step">Stepped corners</option>
+                <option value="facet">Opposite facets</option>
+              </select>
+            </label>
+            <div class="geometry-corner-grid">
+              <label class="syn-label" for="geometry-cut-tl">TOP LEFT <output id="geometry-cut-tl-value">16px</output>
+                <input id="geometry-cut-tl" class="syn-input" type="range" min="0" max="48" value="16">
+              </label>
+              <label class="syn-label" for="geometry-cut-tr">TOP RIGHT <output id="geometry-cut-tr-value">24px</output>
+                <input id="geometry-cut-tr" class="syn-input" type="range" min="0" max="48" value="24">
+              </label>
+              <label class="syn-label" for="geometry-cut-br">BOTTOM RIGHT <output id="geometry-cut-br-value">16px</output>
+                <input id="geometry-cut-br" class="syn-input" type="range" min="0" max="48" value="16">
+              </label>
+              <label class="syn-label" for="geometry-cut-bl">BOTTOM LEFT <output id="geometry-cut-bl-value">24px</output>
+                <input id="geometry-cut-bl" class="syn-input" type="range" min="0" max="48" value="24">
+              </label>
+            </div>
+            <label class="syn-label" for="geometry-stroke">BORDER WIDTH <output id="geometry-stroke-value">2px</output>
+              <input id="geometry-stroke" class="syn-input" type="range" min="1" max="6" value="2">
+            </label>
+            <label class="syn-label" for="geometry-border-paint">BORDER PAINT
+              <select class="syn-select" id="geometry-border-paint">
+                <option value="outline">Theme outline</option>
+                <option value="accent">Accent</option>
+                <option value="gradient">Gradient</option>
+              </select>
+            </label>
+            <label class="syn-check" for="geometry-inlay">
+              <input type="checkbox" id="geometry-inlay"> Subtle inner wash
+            </label>
+          </div>
+          <div class="playground-geometry-result">
+            <div class="geometry-preview-shell" id="geometry-preview-theme" data-syn-theme="studio">
+              <article id="geometry-preview" class="syn-panel syn-frame syn-frame--bevel">
+                <span class="syn-badge">GEOMETRY / 01</span>
+                <h3 class="syn-heading">Signal interface</h3>
+                <p class="syn-muted">Semantic content with an optional shape. Focusable controls remain rectangular.</p>
+                <a class="syn-button" href="#geometry-title">View controls</a>
+              </article>
+            </div>
+            <label class="syn-label" for="geometry-code">COPYABLE HTML</label>
+            <textarea id="geometry-code" class="syn-textarea playground-geometry-code" readonly rows="9" spellcheck="false"></textarea>
+            <div class="syn-inline">
+              <button id="geometry-copy" class="syn-button syn-button--primary" type="button">COPY HTML</button>
+              <p id="geometry-status" class="syn-caption" role="status" aria-live="polite">Ready.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="syn-panel playground-footer" aria-labelledby="playground-next-title">
+        <h2 id="playground-next-title" class="syn-heading">Build with the same API</h2>
+        <p>Load <code>syntyr.core.css</code> in your application and optionally add <code>syntyr.utilities.css</code> or <code>syntyr.recipes.css</code>. The preview and copied snippets both use the specific stylesheets declared by the selected example. Self-host those files from the same pinned release and move the generated <code>&lt;link&gt;</code> tags into your page's <code>&lt;head&gt;</code>. If you add classes from other optional modules, add their stylesheets manually.</p>
+        <p><a href="catalog.html">Searchable gallery</a> · <a href="components.md">Component reference</a> · <a href="theme-customization.md">Theme and token customization</a> · <a href="editor-integration.md">Editor autocomplete setup</a></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+/* Optional print treatment for reports and business documents.
+   No print-time JavaScript, remote assets, or hidden essential content. */
+@layer syn.print {
+  @media print {
+    .syn-root *, .syn-root *::before, .syn-root *::after {
+      animation: none; transition: none;
+    }
+    :where(.syn-root, .syn-root [data-syn-theme]) {
+      color-scheme: light;
+      --syn-bg: #fff;
+      --syn-surface: #fff;
+      --syn-surface-hi: #f3f3f3;
+      --syn-text: #111;
+      --syn-muted: #333;
+      --syn-accent: #111;
+      --syn-accent-2: #333;
+      --syn-on-accent: #fff;
+      --syn-accent-soft: transparent;
+      --syn-frame: #777;
+      --syn-frame-strong: #555;
+      --syn-danger: #750000;
+      --syn-success: #174a2c;
+      --syn-warning: #674500;
+    }
+    .syn-root { background: #fff; color: #111; }
+    .syn-root :is(.syn-app-shell, .syn-layout) { display: block; }
+    .syn-root :is(.syn-app-rail, .syn-app-nav, .syn-pagination, .syn-print-hide) { display: none; }
+    .syn-root :is(.syn-table-wrap, .syn-terminal-body) { overflow: visible; max-block-size: none; }
+    .syn-root :is(.syn-grid-effect, .syn-horizon, .syn-atmosphere, .syn-glow, .syn-site-hero, .syn-stage, .syn-panel) {
+      background-image: none; box-shadow: none;
+    }
+    .syn-root .syn-scanlines::after { display: none; }
+    .syn-root :is(.syn-button, .syn-page-link) {
+      background: transparent; color: #111; box-shadow: none; border-color: #777;
+    }
+    .syn-root .syn-terminal, .syn-root .syn-terminal * {
+      color: #111; background: #fff; box-shadow: none;
+    }
+    .syn-root :is(.syn-panel, .syn-app-card, .syn-feature-card, .syn-stat, .syn-price-card) {
+      break-inside: avoid;
+    }
+    .syn-root a { text-decoration: underline; }
+  }
+}

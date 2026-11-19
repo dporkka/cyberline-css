@@ -1,0 +1,1554 @@
+{
+  "version": 1.1,
+  "globalAttributes": [
+    {
+      "name": "class",
+      "description": "Syntyr class names in the optional syn-* styling API.",
+      "values": [
+        {
+          "name": "syn-actions",
+          "description": "Flexibly spaced action buttons or links; actions still need native behavior."
+        },
+        {
+          "name": "syn-activity-list",
+          "description": "Activity list presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-activity-timeline",
+          "description": "Activity timeline presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-alert",
+          "description": "Inline informational or status notice; write the message in readable text."
+        },
+        {
+          "name": "syn-alert--danger",
+          "description": "Danger-state variant of a text-based alert."
+        },
+        {
+          "name": "syn-alert--success",
+          "description": "Success-state variant of a text-based alert."
+        },
+        {
+          "name": "syn-alert--warning",
+          "description": "Warning-state variant of a text-based alert."
+        },
+        {
+          "name": "syn-app-card",
+          "description": "App card presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-app-card-header",
+          "description": "App card header presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-app-nav",
+          "description": "Navigation region styling for an application workspace."
+        },
+        {
+          "name": "syn-app-rail",
+          "description": "App rail presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-app-shell",
+          "description": "Application shell layout for navigation and main content."
+        },
+        {
+          "name": "syn-app-topbar",
+          "description": "App topbar presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-ascii",
+          "description": "Ascii presentation in the symbols.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-ascii--accent",
+          "description": "Accent appearance variant of the ascii component; see symbols.css for styles."
+        },
+        {
+          "name": "syn-ascii--muted",
+          "description": "Muted appearance variant of the ascii component; see symbols.css for styles."
+        },
+        {
+          "name": "syn-atmosphere",
+          "description": "Atmosphere presentation in the effects.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-avatar",
+          "description": "Compact avatar presentation; provide meaningful image alternatives."
+        },
+        {
+          "name": "syn-avatar--lg",
+          "description": "Large-size variant of avatar presentation."
+        },
+        {
+          "name": "syn-avatar--sm",
+          "description": "Small-size variant of avatar presentation."
+        },
+        {
+          "name": "syn-avatar-stack",
+          "description": "Avatar stack presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-badge",
+          "description": "Compact status or category label; do not rely on color alone."
+        },
+        {
+          "name": "syn-badge--accent",
+          "description": "Accent-emphasis variant of a badge or status label."
+        },
+        {
+          "name": "syn-body",
+          "description": "Body presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-breadcrumbs",
+          "description": "Breadcrumb navigation styling; use a real navigation list."
+        },
+        {
+          "name": "syn-bulk-actions",
+          "description": "Bulk actions presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-button",
+          "description": "Native button or link styling; use semantic HTML."
+        },
+        {
+          "name": "syn-button--danger",
+          "description": "Danger-emphasis variant for destructive actions; confirmation is host-owned."
+        },
+        {
+          "name": "syn-button--ghost",
+          "description": "Low-emphasis ghost button appearance for native buttons or links."
+        },
+        {
+          "name": "syn-button--icon",
+          "description": "Icon-only button variant; provide an accessible name."
+        },
+        {
+          "name": "syn-button--outline",
+          "description": "Outlined button variant for secondary actions."
+        },
+        {
+          "name": "syn-button--primary",
+          "description": "Primary action appearance."
+        },
+        {
+          "name": "syn-button--small",
+          "description": "Compact-size button variant; preserve accessible interaction targets."
+        },
+        {
+          "name": "syn-button-group",
+          "description": "Grouped buttons or action links; each retains native semantics."
+        },
+        {
+          "name": "syn-caption",
+          "description": "Secondary caption text for supporting context."
+        },
+        {
+          "name": "syn-cell--nowrap",
+          "description": "Nowrap appearance variant of the cell component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-cell--numeric",
+          "description": "Numeric appearance variant of the cell component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-cell--wrap",
+          "description": "Wrap appearance variant of the cell component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-change-after",
+          "description": "Updated or added revision value with visible text label."
+        },
+        {
+          "name": "syn-change-before",
+          "description": "Previous or removed revision value with visible text label."
+        },
+        {
+          "name": "syn-change-pair",
+          "description": "Responsive before/after value pair for existing semantic record fields."
+        },
+        {
+          "name": "syn-chart",
+          "description": "Chart presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-axis",
+          "description": "Chart axis presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-grid",
+          "description": "Chart grid presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-key",
+          "description": "Chart key presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-legend",
+          "description": "Chart legend presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-legend-item",
+          "description": "Chart legend item presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-title",
+          "description": "Chart title presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-chart-tooltip",
+          "description": "Chart tooltip presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-check",
+          "description": "Inline label layout for native checkbox or radio inputs; state remains native."
+        },
+        {
+          "name": "syn-chip",
+          "description": "Compact metadata chip or filter label; state is host-owned."
+        },
+        {
+          "name": "syn-choice-card",
+          "description": "Choice card presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-code",
+          "description": "Inline or block code presentation; preserve native code semantics."
+        },
+        {
+          "name": "syn-code-figure",
+          "description": "Code figure presentation in the native-recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-collection-actions",
+          "description": "Collection actions presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-collection-toolbar",
+          "description": "Collection toolbar presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-description",
+          "description": "Command description presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-group",
+          "description": "Command group presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-group-label",
+          "description": "Command group label presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-key",
+          "description": "Command key presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-panel",
+          "description": "Command panel presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-row",
+          "description": "Command row presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-command-search",
+          "description": "Command search presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-cta-band",
+          "description": "Cta band presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-data-grid",
+          "description": "Enterprise data-grid presentation; selection, sorting and virtualization are host-owned."
+        },
+        {
+          "name": "syn-data-grid__cell",
+          "description": "Data-grid cell part; use the data-grid structure and accessible row semantics."
+        },
+        {
+          "name": "syn-data-grid__cell--numeric",
+          "description": "Cell part of the data grid component with numeric styling; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__cell-text",
+          "description": "Cell text part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__columnheader",
+          "description": "Column-header part of a data grid; real sorting is host-owned."
+        },
+        {
+          "name": "syn-data-grid__editor",
+          "description": "Editor part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__footer",
+          "description": "Footer part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__header",
+          "description": "Header part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__header-row",
+          "description": "Header row part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__loading",
+          "description": "Loading part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__row",
+          "description": "Data-grid row part; keyboard behavior and selection are host-owned."
+        },
+        {
+          "name": "syn-data-grid__status",
+          "description": "Status part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__toolbar",
+          "description": "Toolbar part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-data-grid__viewport",
+          "description": "Viewport part of the data grid component; see data-grid.css for markup."
+        },
+        {
+          "name": "syn-defer-section",
+          "description": "Defer section presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-detail-aside",
+          "description": "Detail aside presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-detail-layout",
+          "description": "Detail layout presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-detail-main",
+          "description": "Detail main presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-details",
+          "description": "Native details/summary disclosure styling; use real HTML details."
+        },
+        {
+          "name": "syn-dialog",
+          "description": "Native dialog presentation; opening and focus behavior are browser/host-owned."
+        },
+        {
+          "name": "syn-dialog--transition",
+          "description": "Transition appearance variant of the dialog component; see motion.css for styles."
+        },
+        {
+          "name": "syn-display",
+          "description": "Large display typography for prominent page headings."
+        },
+        {
+          "name": "syn-divider-label",
+          "description": "Divider label presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-dropdown",
+          "description": "Dropdown presentation in the components/overlays.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-dropdown__group-label",
+          "description": "Group label part of the dropdown component; see components/overlays.css for markup."
+        },
+        {
+          "name": "syn-dropdown__item",
+          "description": "Item part of the dropdown component; see components/overlays.css for markup."
+        },
+        {
+          "name": "syn-dropdown__separator",
+          "description": "Separator part of the dropdown component; see components/overlays.css for markup."
+        },
+        {
+          "name": "syn-dropdown__shortcut",
+          "description": "Shortcut part of the dropdown component; see components/overlays.css for markup."
+        },
+        {
+          "name": "syn-email-body",
+          "description": "Email body presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-code",
+          "description": "Email code presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-compose",
+          "description": "Email compose presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-inbox",
+          "description": "Email inbox presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-item",
+          "description": "Email item presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-layout",
+          "description": "Email layout presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-main",
+          "description": "Email main presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-message",
+          "description": "Email message presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-message-header",
+          "description": "Email message header presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-meta",
+          "description": "Email meta presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-preferences",
+          "description": "Email preferences presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-preview",
+          "description": "Email preview presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-recipient-list",
+          "description": "Email recipient list presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-sidebar",
+          "description": "Email sidebar presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-signup",
+          "description": "Email signup presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-subject",
+          "description": "Email subject presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-time",
+          "description": "Email time presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-email-workspace",
+          "description": "Email workspace presentation in the email.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-empty",
+          "description": "Empty-state content presentation; provide meaningful guidance or recovery actions."
+        },
+        {
+          "name": "syn-error",
+          "description": "Visible form error text; associate with the relevant form control."
+        },
+        {
+          "name": "syn-error-summary",
+          "description": "Form validation summary presentation; host provides actual errors and focus."
+        },
+        {
+          "name": "syn-evidence-actions",
+          "description": "Evidence actions presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-evidence-body",
+          "description": "Evidence body presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-evidence-card",
+          "description": "Semantic figure-based evidence review presentation with captions and metadata, not a media viewer."
+        },
+        {
+          "name": "syn-evidence-grid",
+          "description": "Evidence grid presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-evidence-media",
+          "description": "Evidence media presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-evidence-media--placeholder",
+          "description": "Placeholder appearance variant of the evidence media component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-evidence-meta",
+          "description": "Evidence meta presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-eyebrow",
+          "description": "Eyebrow presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-feature-card",
+          "description": "Feature card presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-feature-grid",
+          "description": "Feature grid presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-feature-list",
+          "description": "Feature list presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-field",
+          "description": "Form field group for a native control, label, and optional help or error text."
+        },
+        {
+          "name": "syn-field--floating",
+          "description": "Floating appearance variant of the field component; see native-recipes.css for styles."
+        },
+        {
+          "name": "syn-field-body",
+          "description": "Field body presentation in the components/form-composition.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-field-row",
+          "description": "Responsive row composition for related form fields."
+        },
+        {
+          "name": "syn-fieldset",
+          "description": "Native fieldset styling; retain a meaningful legend."
+        },
+        {
+          "name": "syn-file-item",
+          "description": "File queue entry with host-owned queued, uploading, complete or failed state."
+        },
+        {
+          "name": "syn-file-item-header",
+          "description": "Flexible file name and visible status header for queue entries."
+        },
+        {
+          "name": "syn-file-queue",
+          "description": "Optional ordered file lifecycle list; not an upload engine."
+        },
+        {
+          "name": "syn-filter-actions",
+          "description": "Wrapping submit and reset action group for CRM filters."
+        },
+        {
+          "name": "syn-filter-bar",
+          "description": "Optional wrapping CRM GET filter form; host applies query parameters."
+        },
+        {
+          "name": "syn-filter-choices",
+          "description": "Filter choices presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-filter-field",
+          "description": "Label and control group in an optional CRM filter bar."
+        },
+        {
+          "name": "syn-filter-field--query",
+          "description": "Query appearance variant of the filter field component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-floating-label",
+          "description": "Floating label appearance; keep the input's accessible label."
+        },
+        {
+          "name": "syn-flow",
+          "description": "Flow presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-fluid-display",
+          "description": "Fluid display presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-fluid-lede",
+          "description": "Fluid lede presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-form",
+          "description": "Consistent spacing and structure for semantic HTML forms."
+        },
+        {
+          "name": "syn-form-actions",
+          "description": "Form submit/cancel action layout; server validation remains host-owned."
+        },
+        {
+          "name": "syn-form-actions__buttons",
+          "description": "Buttons part of the form actions component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-frame",
+          "description": "Frame presentation in the geometry.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-frame--accent",
+          "description": "Optional 2px accent outline for a selected frame shape."
+        },
+        {
+          "name": "syn-frame--bevel",
+          "description": "Bevel appearance variant of the frame component; see geometry.css for styles."
+        },
+        {
+          "name": "syn-frame--bracket",
+          "description": "Bracket appearance variant of the frame component; see geometry.css for styles."
+        },
+        {
+          "name": "syn-frame--circuit",
+          "description": "Circuit appearance variant of the frame component; see geometry.css for styles."
+        },
+        {
+          "name": "syn-frame--facet",
+          "description": "Optional diagonal top-left and bottom-right facets."
+        },
+        {
+          "name": "syn-frame--industrial",
+          "description": "Industrial appearance variant of the frame component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-frame--inset",
+          "description": "Inset appearance variant of the frame component; see geometry.css for styles."
+        },
+        {
+          "name": "syn-frame--notch",
+          "description": "Notch appearance variant of the frame component; see geometry.css for styles."
+        },
+        {
+          "name": "syn-frame--precision",
+          "description": "Precision appearance variant of the frame component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-frame--soft",
+          "description": "Soft appearance variant of the frame component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-frame--step",
+          "description": "Optional square-stepped top-right and bottom-left frame."
+        },
+        {
+          "name": "syn-geo-attribution",
+          "description": "Optional attribution surface; preserve map provider credits."
+        },
+        {
+          "name": "syn-geo-bottom",
+          "description": "Geo bottom presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-callout",
+          "description": "Geo callout presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-cluster",
+          "description": "Geo cluster presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-control",
+          "description": "Geo control presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-control-group",
+          "description": "Geo control group presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-controls",
+          "description": "Geo controls presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-data-list",
+          "description": "Geo data list presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-layer-list",
+          "description": "Geo layer list presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-legend",
+          "description": "Readable, labeled map legend; host must provide layer semantics."
+        },
+        {
+          "name": "syn-geo-legend-list",
+          "description": "Geo legend list presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-legend-title",
+          "description": "Geo legend title presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-map",
+          "description": "Map renderer mount surface; actual projection and map behavior belong to host."
+        },
+        {
+          "name": "syn-geo-marker",
+          "description": "44px visual marker target; renderer-managed marker positions stay renderer-managed."
+        },
+        {
+          "name": "syn-geo-marker-layer",
+          "description": "Static diagram overlay for percentage-positioned markers, not for renderer-managed markers."
+        },
+        {
+          "name": "syn-geo-overlay",
+          "description": "Pointer-transparent overlay for application-owned map controls and legends."
+        },
+        {
+          "name": "syn-geo-scale",
+          "description": "Scale presentation; actual scale and bar width require a real map renderer."
+        },
+        {
+          "name": "syn-geo-shell",
+          "description": "Named CSS container for map-based workspace layouts; use with core plus optional geo CSS."
+        },
+        {
+          "name": "syn-geo-sidebar",
+          "description": "Geo sidebar presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-swatch",
+          "description": "Geo swatch presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-viewport",
+          "description": "Geo viewport presentation in the geo.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-geo-workspace",
+          "description": "Responsive GIS sidebar plus map viewport; stacks based on container width."
+        },
+        {
+          "name": "syn-glow",
+          "description": "Opt-in themed shadow; decoration controlled by data-syn-intensity."
+        },
+        {
+          "name": "syn-gradient-wash",
+          "description": "Gradient wash presentation in the effects.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-grid",
+          "description": "Responsive grid composition."
+        },
+        {
+          "name": "syn-grid-effect",
+          "description": "Grid effect presentation in the effects.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-header",
+          "description": "Header presentation in the components/layout.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-heading",
+          "description": "Default component or card heading typography."
+        },
+        {
+          "name": "syn-help",
+          "description": "Supporting form help text; connect it with aria-describedby where appropriate."
+        },
+        {
+          "name": "syn-horizon",
+          "description": "Horizon presentation in the effects.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-icon",
+          "description": "Icon presentation in the symbols.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-inline",
+          "description": "Inline, wrapping layout for small groups of peers."
+        },
+        {
+          "name": "syn-input",
+          "description": "Native form input styling; use a real input with an associated label."
+        },
+        {
+          "name": "syn-input-addon",
+          "description": "Input addon presentation in the components/form-composition.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-input-group",
+          "description": "Input and addon grouping; form behavior remains native or host-owned."
+        },
+        {
+          "name": "syn-kpi-grid",
+          "description": "Responsive grid of key performance indicator cards or metrics."
+        },
+        {
+          "name": "syn-label",
+          "description": "Visible form label styling; use native label/for association."
+        },
+        {
+          "name": "syn-layout",
+          "description": "Responsive multi-column layout with token-configurable minimum widths."
+        },
+        {
+          "name": "syn-lede",
+          "description": "Lead paragraph typography beneath a heading."
+        },
+        {
+          "name": "syn-list-group",
+          "description": "Grouped list presentation; preserve semantic list markup."
+        },
+        {
+          "name": "syn-list-row",
+          "description": "List row presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-list-row__actions",
+          "description": "Actions part of the list row component; see components/patterns.css for markup."
+        },
+        {
+          "name": "syn-list-row__body",
+          "description": "Body part of the list row component; see components/patterns.css for markup."
+        },
+        {
+          "name": "syn-list-row__media",
+          "description": "Media part of the list row component; see components/patterns.css for markup."
+        },
+        {
+          "name": "syn-logo",
+          "description": "Logo presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-meter",
+          "description": "Meter presentation in the components/data.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-metric",
+          "description": "Emphasized numeric or measurement presentation with meaningful text."
+        },
+        {
+          "name": "syn-mono",
+          "description": "Mono presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-muted",
+          "description": "Lower-emphasis supporting text; maintain readable contrast."
+        },
+        {
+          "name": "syn-nav",
+          "description": "Navigation link group styling; use semantic nav and links."
+        },
+        {
+          "name": "syn-nav-tabs",
+          "description": "Tab-like navigation styling; use links for pages, not fake ARIA tabs."
+        },
+        {
+          "name": "syn-operation-feedback",
+          "description": "Optional host-managed operation feedback with truthful state text."
+        },
+        {
+          "name": "syn-page",
+          "description": "Page presentation in the base.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-page-header",
+          "description": "Page heading and action area layout for applications."
+        },
+        {
+          "name": "syn-page-header__actions",
+          "description": "Actions part of the page header component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-page-header__meta",
+          "description": "Meta part of the page header component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-page-link",
+          "description": "Page link presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-pagination",
+          "description": "Pagination link and control presentation; host performs page changes."
+        },
+        {
+          "name": "syn-panel",
+          "description": "General-purpose surface; customize via --syn-panel-* properties."
+        },
+        {
+          "name": "syn-panel--cut",
+          "description": "Cut appearance variant of the panel component; see components/layout.css for styles."
+        },
+        {
+          "name": "syn-panel--raised",
+          "description": "Raised-surface visual variant of a panel."
+        },
+        {
+          "name": "syn-pipeline",
+          "description": "Keyboard-focusable scrollable CRM stage layout; host manages state."
+        },
+        {
+          "name": "syn-pipeline-card",
+          "description": "Opt-in CRM record presentation, not a drag-drop widget."
+        },
+        {
+          "name": "syn-pipeline-lane",
+          "description": "Named stage column with semantic list of records."
+        },
+        {
+          "name": "syn-pipeline-list",
+          "description": "Pipeline list presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-popover",
+          "description": "Native popover presentation; opening, focus and dismissal are host-owned."
+        },
+        {
+          "name": "syn-popover--anchored",
+          "description": "Anchored appearance variant of the popover component; see components/overlays.css for styles."
+        },
+        {
+          "name": "syn-popover--transition",
+          "description": "Transition appearance variant of the popover component; see motion.css for styles."
+        },
+        {
+          "name": "syn-price-card",
+          "description": "Price card presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-price-value",
+          "description": "Price value presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-pricing",
+          "description": "Responsive pricing card composition; commercial data is host-owned."
+        },
+        {
+          "name": "syn-print-hide",
+          "description": "Print hide presentation in the print.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-prose",
+          "description": "Readable long-form article typography with scoped content rhythm."
+        },
+        {
+          "name": "syn-reading",
+          "description": "Reading presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-reading-progress",
+          "description": "Reading progress presentation in the motion.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-record-fields",
+          "description": "Responsive definition-list layout for key/value record details."
+        },
+        {
+          "name": "syn-region",
+          "description": "Container query boundary for responsive compositions."
+        },
+        {
+          "name": "syn-resizable-workspace",
+          "description": "Resizable workspace presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-resizable-workspace__pane",
+          "description": "Pane part of the resizable workspace component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-resizable-workspace__panes",
+          "description": "Panes part of the resizable workspace component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-resizable-workspace__separator",
+          "description": "Separator part of the resizable workspace component; see recipes.css for markup."
+        },
+        {
+          "name": "syn-resource-outline",
+          "description": "Resource outline presentation in the native-recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-result-state",
+          "description": "Result state presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-root",
+          "description": "Required style scope for Syntyr components and themes."
+        },
+        {
+          "name": "syn-rule",
+          "description": "Rule presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-scanlines",
+          "description": "Scanlines presentation in the effects.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-section-heading",
+          "description": "Section heading presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-select",
+          "description": "Native HTML select styling; provide a label and valid options."
+        },
+        {
+          "name": "syn-select--enhanced",
+          "description": "Enhanced appearance variant of the select component; see components/forms.css for styles."
+        },
+        {
+          "name": "syn-semantic",
+          "description": "Opt-in styling of native HTML elements."
+        },
+        {
+          "name": "syn-sheet",
+          "description": "Native popover or dialog side-sheet presentation; browser and host own opening, focus, and close behavior."
+        },
+        {
+          "name": "syn-sheet-body",
+          "description": "Sheet body presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-sheet-footer",
+          "description": "Sheet footer presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-sheet-header",
+          "description": "Heading and close-action area inside a native sheet."
+        },
+        {
+          "name": "syn-shell",
+          "description": "Constrained page-width container for a whole page or section."
+        },
+        {
+          "name": "syn-showcase",
+          "description": "Showcase presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-showcase-copy",
+          "description": "Showcase copy presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-showcase-visual",
+          "description": "Showcase visual presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-sidebar",
+          "description": "Sidebar navigation or supporting-content layout."
+        },
+        {
+          "name": "syn-sidecar",
+          "description": "Sidecar presentation in the components/layout.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-site-heading",
+          "description": "Site heading presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-site-heading--editorial",
+          "description": "Editorial appearance variant of the site heading component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-site-hero",
+          "description": "Site hero presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-skeleton",
+          "description": "Visual loading placeholder; do not mistake styling for live loading state."
+        },
+        {
+          "name": "syn-skeleton--short",
+          "description": "Short appearance variant of the skeleton component; see components/patterns.css for styles."
+        },
+        {
+          "name": "syn-split",
+          "description": "Split presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-stack",
+          "description": "Vertical layout with consistent, token-configurable spacing."
+        },
+        {
+          "name": "syn-stage",
+          "description": "Stage presentation in the components/layout.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-stage-header",
+          "description": "Stage header presentation in the components/layout.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-stat",
+          "description": "Single metric with value and explanatory label."
+        },
+        {
+          "name": "syn-stat-label",
+          "description": "Stat label presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-stat-value",
+          "description": "Stat value presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-stats",
+          "description": "Container-responsive metric composition."
+        },
+        {
+          "name": "syn-status",
+          "description": "Concise status label; include text independent of color."
+        },
+        {
+          "name": "syn-status--danger",
+          "description": "Danger appearance variant of the status component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-status--success",
+          "description": "Success appearance variant of the status component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-status--warning",
+          "description": "Warning appearance variant of the status component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-step",
+          "description": "Single item in a semantic process or progress sequence."
+        },
+        {
+          "name": "syn-step-detail",
+          "description": "Step detail presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-step-label",
+          "description": "Step label presentation in the components/patterns.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-steps",
+          "description": "Process sequence layout; status progression is host-owned."
+        },
+        {
+          "name": "syn-steps--vertical",
+          "description": "Vertical appearance variant of the steps component; see components/patterns.css for styles."
+        },
+        {
+          "name": "syn-surface--accent",
+          "description": "Accent appearance variant of the surface component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-surface--floating",
+          "description": "Floating appearance variant of the surface component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-surface--lift",
+          "description": "Lift appearance variant of the surface component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-surface--raised",
+          "description": "Raised appearance variant of the surface component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-surface--recessed",
+          "description": "Recessed appearance variant of the surface component; see recipes.css for styles."
+        },
+        {
+          "name": "syn-switcher",
+          "description": "Switcher presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-symbol",
+          "description": "Symbol presentation in the symbols.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-symbol--accent",
+          "description": "Accent appearance variant of the symbol component; see symbols.css for styles."
+        },
+        {
+          "name": "syn-symbol--muted",
+          "description": "Muted appearance variant of the symbol component; see symbols.css for styles."
+        },
+        {
+          "name": "syn-table",
+          "description": "Native HTML table styling; preserve th, scope, and proper headers."
+        },
+        {
+          "name": "syn-table--compact",
+          "description": "Compact-density native table variant."
+        },
+        {
+          "name": "syn-table--sticky",
+          "description": "Sticky-header table presentation; check scroll and reflow behavior."
+        },
+        {
+          "name": "syn-table--striped",
+          "description": "Alternating row background variant for a native table."
+        },
+        {
+          "name": "syn-table-emphasis",
+          "description": "Table emphasis presentation in the components/data.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-table-sort",
+          "description": "Table sort presentation in the components/data.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-table-wrap",
+          "description": "Responsive overflow wrapper for a native table."
+        },
+        {
+          "name": "syn-table-wrap--scroll",
+          "description": "Scroll appearance variant of the table wrap component; see components/data.css for styles."
+        },
+        {
+          "name": "syn-terminal",
+          "description": "Terminal presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-bar",
+          "description": "Terminal bar presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-body",
+          "description": "Terminal body presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-command",
+          "description": "Terminal command presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-cursor",
+          "description": "Terminal cursor presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-dots",
+          "description": "Terminal dots presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-error",
+          "description": "Terminal error presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-line",
+          "description": "Terminal line presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-meta",
+          "description": "Terminal meta presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-muted",
+          "description": "Terminal muted presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-output",
+          "description": "Terminal output presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-path",
+          "description": "Terminal path presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-prompt",
+          "description": "Terminal prompt presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-success",
+          "description": "Terminal success presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-title",
+          "description": "Terminal title presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-terminal-warning",
+          "description": "Terminal warning presentation in the recipes.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-text-support",
+          "description": "Text support presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-textarea",
+          "description": "Native multiline text field styling; pair with a label."
+        },
+        {
+          "name": "syn-textarea--autosize",
+          "description": "Autosize appearance variant of the textarea component; see components/forms.css for styles."
+        },
+        {
+          "name": "syn-timeline",
+          "description": "Chronological event or activity layout; preserve event text and order."
+        },
+        {
+          "name": "syn-title",
+          "description": "Title presentation in the components/typography.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-toolbar",
+          "description": "Aligned row of controls and actions; keyboard interactions are host-owned."
+        },
+        {
+          "name": "syn-u-between",
+          "description": "Optional between utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-center",
+          "description": "Optional center utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-flex",
+          "description": "Opt-in flexbox layout utility."
+        },
+        {
+          "name": "syn-u-gap-1",
+          "description": "Optional gap 1 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-gap-2",
+          "description": "Optional gap 2 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-gap-3",
+          "description": "Optional gap 3 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-grid",
+          "description": "Optional grid utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-inline",
+          "description": "Optional inline utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-max-reading",
+          "description": "Optional max reading utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-min-w-0",
+          "description": "Optional min w 0 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-mt-1",
+          "description": "Optional mt 1 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-mt-2",
+          "description": "Optional mt 2 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-mt-3",
+          "description": "Optional mt 3 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-overflow-auto",
+          "description": "Optional overflow auto utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-p-1",
+          "description": "Optional p 1 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-p-2",
+          "description": "Optional p 2 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-p-3",
+          "description": "Optional p 3 utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-sr-only",
+          "description": "Screen-reader-only text utility; retains content for assistive technology."
+        },
+        {
+          "name": "syn-u-stack",
+          "description": "Optional stack utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-text-center",
+          "description": "Optional text center utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-u-w-full",
+          "description": "Opt-in full-width utility."
+        },
+        {
+          "name": "syn-u-wrap",
+          "description": "Optional wrap utility; load utilities.css when used."
+        },
+        {
+          "name": "syn-upload-field",
+          "description": "File-selection field presentation; native input or host owns file upload."
+        },
+        {
+          "name": "syn-view-switcher",
+          "description": "Server-selected view links or host-controlled view buttons; the host owns selection and navigation."
+        },
+        {
+          "name": "syn-viz-bar",
+          "description": "Viz bar presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-bar-fill",
+          "description": "Viz bar fill presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-bar-label",
+          "description": "Viz bar label presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-bar-track",
+          "description": "Viz bar track presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-bars",
+          "description": "Viz bars presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-cell",
+          "description": "Viz cell presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-heatmap",
+          "description": "Viz heatmap presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-sparkline",
+          "description": "Viz sparkline presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-sparkline-area",
+          "description": "Viz sparkline area presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-sparkline-path",
+          "description": "Viz sparkline path presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-sr-only",
+          "description": "Viz sr only presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-viz-tracker",
+          "description": "Viz tracker presentation in the viz.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-workspace",
+          "description": "Responsive application workspace layout with primary and supporting regions."
+        }
+      ]
+    },
+    {
+      "name": "data-syn-theme",
+      "description": "Syntyr theme selector (on syn-root or a nested region).",
+      "values": [
+        {
+          "name": "auto"
+        },
+        {
+          "name": "corporate"
+        },
+        {
+          "name": "grid"
+        },
+        {
+          "name": "industrial"
+        },
+        {
+          "name": "minimal"
+        },
+        {
+          "name": "noir"
+        },
+        {
+          "name": "studio"
+        },
+        {
+          "name": "terminal"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-intensity",
+      "description": "Opt-in decorative intensity independent of theme and density.",
+      "values": [
+        {
+          "name": "quiet"
+        },
+        {
+          "name": "standard"
+        },
+        {
+          "name": "cinematic"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-density",
+      "description": "Opt-in presentation density.",
+      "values": [
+        {
+          "name": "compact"
+        },
+        {
+          "name": "comfortable"
+        },
+        {
+          "name": "spacious"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-color-space",
+      "description": "Experimental opt-in OKLCH hover mixing; default remains sRGB.",
+      "values": [
+        {
+          "name": "oklch"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-state",
+      "description": "Host-managed decorative state, not an ARIA substitute.",
+      "values": [
+        {
+          "name": "active"
+        },
+        {
+          "name": "complete"
+        },
+        {
+          "name": "conflict"
+        },
+        {
+          "name": "degraded"
+        },
+        {
+          "name": "down"
+        },
+        {
+          "name": "error"
+        },
+        {
+          "name": "failed"
+        },
+        {
+          "name": "healthy"
+        },
+        {
+          "name": "loading"
+        },
+        {
+          "name": "pending"
+        },
+        {
+          "name": "queued"
+        },
+        {
+          "name": "saved"
+        },
+        {
+          "name": "selected"
+        },
+        {
+          "name": "unknown"
+        },
+        {
+          "name": "unsaved"
+        },
+        {
+          "name": "uploading"
+        }
+      ]
+    },
+    {
+      "name": "data-syn-featured",
+      "description": "Decorative featured pricing card state."
+    }
+  ]
+}

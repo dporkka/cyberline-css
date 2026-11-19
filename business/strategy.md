@@ -32,16 +32,19 @@ A second product only if there is demand: **Syntyr Launch Kit** for developer to
 | Offer | Pilot price | Fulfillment | Conditions |
 | --- | ---: | --- | --- |
 | MIT core | $0 | Download / GitHub | No signup, unrestricted commercial use under MIT |
-| Single premium kit | $59 | One-time, instant download | 1 named developer, unlimited end products, 12 months updates |
-| Studio pack (all premium kits available at purchase) | $149 | One-time | 1 named developer, unlimited end products, 12 months updates |
-| Team license | $299 | One-time | Up to 5 named developers, 12 months updates |
-| Implementation / custom theme | From $750 | Scoped service agreement | Separate quote, clear deliverables, IP and support terms |
+| Console Kit pilot (after readiness gates) | $59 | Proposed one-time purchase; NOT for sale | 1 named developer, unlimited end products, 12 months updates (terms still under review) |
+| Console Kit regular | $99 | Later price hypothesis, not launched | Test only after actual pilot buyers and integration feedback |
+| Studio multi-kit bundle | Deferred | Do not list for purchase | Only worth offering if multiple distinct paid products ship |
+| Team license | $249 candidate | Deferred | Test if actual teams request multi-developer use |
+| Implementation / custom theme | Quote individually (often $1,500+) | Scoped service agreement | Separate quote, clear deliverables, IP and support terms |
 
-Use perpetual rights for purchased *versions* while keeping updates time-limited rather than promising lifetime maintenance. Team pricing and support can change after validation. Business/service clients may value a $750+ bespoke page more than dozens of low-ticket kit sales.
+Use perpetual rights for purchased *versions* while keeping updates time-limited rather than promising lifetime maintenance. Team pricing and support can change after validation. Business/service clients may value a $1,500+ scoped integration more than dozens of low-ticket kit sales; actual quotes depend on scope.
+
+See [commercial launch gates](commercial-launch-gates.md) for the current publication, qualification, accessibility and pre-sale requirements. No price hypothesis represents an available product or verified willingness to pay.
 
 ## Revenue math, not a forecast
 
-At $59 per kit and 2% **qualified visitor-to-purchase** conversion, 35 monthly sales yield $2,065 gross and require about 1,750 qualified landing-page visitors/month. To approach $10,000 gross at $149 average order value takes 68 monthly orders and ~3,400 qualified visitors at 2%. These are hypothetical conversion rates and *exclude refunds, taxes, processing fees, paid acquisition, support, and time spent producing products*. A new niche brand may convert substantially worse. Do not treat this as near-term reliable recurring income.
+At $59 per kit and 2% **qualified visitor-to-purchase** conversion, 35 monthly sales yield $2,065 gross and require about 1,750 qualified landing-page visitors/month. To approach $10,000 gross at a hypothetical $99 standard-kit price takes 102 monthly orders and ~5,100 qualified visitors at 2%. These are hypothetical conversion rates and *exclude refunds, taxes, processing fees, paid acquisition, support, and time spent producing products*. A new niche brand may convert substantially worse. Do not treat this as near-term reliable recurring income.
 
 ## Distribution channels to test
 
@@ -53,8 +56,8 @@ At $59 per kit and 2% **qualified visitor-to-purchase** conversion, 35 monthly s
 
 ## Competitive benchmark context
 
-As of Nov 2026, Tailwind Plus is advertised at $299 one-time; Shadcnblocks at $149–399 one-time; Preline offers free components and Pro at $249 and Team at $459. These are **product/packaging anchors, not proof Syntyr can charge those rates**. See official pages:
-- https://tailwindcss.com/plus/templates/spotlight
+Tailwind Plus historically sold for $299 one-time, but **new customer signups closed on September 9, 2026**, when Tailwind Labs announced it was joining Shopify. It is not a live purchasable pricing anchor. Shadcnblocks and Preline are category comparisons, not verified evidence of Syntyr willingness to pay; always recheck current prices before making customer-facing claims. Sources:
+- https://tailwindcss.com/blog/tailwind-is-joining-shopify
 - https://www.shadcnblocks.com/pricing
 - https://preline.co/pricing/
 

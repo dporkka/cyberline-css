@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr is a scoped, CSS-first visual library with no runtime JavaScript, no fonts downloaded by default, and no required package manager. Optimize real…">
+  <meta name="syntyr-source-sha256" content="c0fe714be2b6843d6d4ac50416c18d45305aecd6d1e47ef64b0f86b4fcb5ee28">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr performance and design guidance — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/performance-and-polish">
+  <link rel="alternate" type="text/markdown" href="performance-and-polish.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr performance and design guidance</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="performance-and-polish.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr performance and design guidance">
+<h1 id="syntyr-performance-and-design-guidance">Syntyr performance and design guidance</h1>
+<p>Syntyr is a scoped, CSS-first visual library with no runtime JavaScript, no
+fonts downloaded by default, and no required package manager. Optimize
+<strong>real browser behavior</strong> rather than targeting an arbitrary gzip byte count.</p>
+<h2 id="inspect-stylesheet-sizes-without-blocking-releases">Inspect stylesheet sizes without blocking releases</h2>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+python3 scripts/asset_report.py
+python3 scripts/asset_report.py --json &gt; /tmp/syntyr-sizes.json
+python3 scripts/asset_report.py --baseline /tmp/syntyr-sizes.json
+</code></pre>
+<p>The report shows deterministic raw and gzip transfer sizes for every actual
+distribution. A prior JSON report can be supplied to show signed size deltas.
+Both increasing and decreasing sizes are diagnostic: <strong>there is no 5 KiB or
+8 KiB pass/fail limit</strong>. A useful feature should not fail merely because of
+compressed bytes. Instead, investigate surprising jumps and measure real
+LCP, CLS, INP, style recalculation, and paint cost in production-shaped pages.</p>
+<p>For resource priority, LCP images, optional critical CSS experiments and
+cold/warm loading comparisons, see the <a href="progressive-loading.html">progressive-loading guide</a>
+and <a href="../examples/performance-first.html">performance-first example</a>.</p>
+<p>On the Syntyr Cloudflare documentation site, generated HTML uses
+content-addressed immutable CSS copies for better repeat navigation caching;
+the public <code>/dist/*</code> and versioned release URLs keep their existing
+contracts. See <a href="cloudflare-hosting.html">Cloudflare hosting</a>.</p>
+<p>Start with <code>syntyr.core.css</code> alone. Add <code>syntyr.recipes.css</code>,
+<code>syntyr.semantic.css</code>, or effects only when the application uses them.
+Do not include both <code>syntyr.all.css</code> and its individual modules. Prefer
+same-origin, cacheable stylesheets to an extra CDN hostname in most apps.</p>
+<h2 id="zero-js-visual-accents">Zero-JS visual accents</h2>
+<p>Optional recipes add depth and a stronger visual hierarchy without extra DOM,
+canvas, web fonts or animations:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;article class=&quot;syn-app-card syn-surface--accent syn-surface--lift&quot;&gt;
+    &lt;label class=&quot;syn-label&quot; for=&quot;search&quot;&gt;Find an account&lt;/label&gt;
+    &lt;input class=&quot;syn-input&quot; id=&quot;search&quot; name=&quot;q&quot; type=&quot;search&quot;&gt;
+  &lt;/article&gt;
+&lt;/section&gt;
+</code></pre>
+<ul>
+<li><code>syn-surface--accent</code> adds a token-colored inset top rule and subtle surface
+tint. It can be used on panels, cards and other bordered surfaces.</li>
+<li><code>syn-surface--lift</code> adds a modest hover/focus treatment on capable pointers,
+without transforms or persistent <code>will-change</code>. Use sparingly, mainly where
+cards contain interactive elements. It does not make a card clickable.</li>
+<li>The visual system adapts to any of the seven theme palettes; forced-colors
+mode uses a visible border instead of relying on shadows.</li>
+<li>These are optional recipes, <strong>not baseline component appearance changes</strong>.</li>
+</ul>
+<p>The original Grid/Noir aesthetic can remain technical; Studio/Corporate/Minimal
+should feel restrained. Use typography hierarchy, consistent spacing and
+purposeful accent color before adding glow, gradients or large shadows.</p>
+<h2 id="opt-in-long-page-render-deferral">Opt-in long-page render deferral</h2>
+<pre tabindex="0"><code class="language-html">&lt;!-- Only below-the-fold sections of sufficiently long, dense pages. --&gt;
+&lt;section class=&quot;syn-defer-section&quot; style=&quot;--syn-defer-size: 42rem&quot;&gt;
+  &lt;h2&gt;Archive&lt;/h2&gt;
+  &lt;!-- expensive table, logs or reporting visuals --&gt;
+&lt;/section&gt;
+</code></pre>
+<p><code>syn-defer-section</code> applies <code>content-visibility: auto</code> with a tunable
+<code>contain-intrinsic-size</code> placeholder. The browser can skip layout and paint
+for offscreen content until needed; actual benefit depends on DOM structure
+and the browser. Printing restores full visibility. Choose an approximate
+intrinsic block size based on actual content to reduce layout shifts.</p>
+<p><strong>Do not</strong> indiscriminately defer the hero/LCP content, small pages, open
+dialogs, active focus targets, or containers whose height is critical to
+navigation. It isn't virtualization and doesn't reduce network/DOM memory.
+Measure on real pages before adopting it broadly.</p>
+<h2 id="repeatable-offline-rendering-benchmark">Repeatable, offline rendering benchmark</h2>
+<p>Syntyr ships a <strong>developer-only</strong> Playwright harness. It generates two
+production-shaped synthetic layouts — a SaaS dashboard and a long-table page —
+using the <em>same</em> core + recipes CSS and equivalent DOM. The only experimental
+difference is whether independent, below-the-fold sections opt in to
+<code>syn-defer-section</code>.</p>
+<pre tabindex="0"><code class="language-sh"># Optional developer environment only; never required to consume Syntyr.
+python3 -m venv /tmp/syntyr-playwright
+/tmp/syntyr-playwright/bin/pip install playwright
+/tmp/syntyr-playwright/bin/playwright install chromium firefox webkit
+
+/tmp/syntyr-playwright/bin/python scripts/perf_benchmark.py \
+  --browsers chromium,firefox,webkit --runs 3 --rows 1200 --sections 12 \
+  --output /tmp/syntyr-browser-performance.json
+</code></pre>
+<p>The harness uses desktop (1365px) and <strong>mobile-width</strong> (390px) viewports,
+a warm-up round, rotated variant ordering, and median timings. It measures
+navigation, browser-reported FCP/LCP where exposed, non-input CLS where
+supported, forced theme restyling, and a synthetic scroll reveal into a late
+section. Chrome/Chromium also exposes CDP style-recalculation and layout
+durations. <strong>Paint duration is not available from the CDP metrics API used
+here</strong>, so <code>paint_ms</code> remains null; missing browser metrics are not reported
+as zero. This does not measure real-user INP, network RTT, mobile device CPU
+or field Web Vitals.</p>
+<p>The script returns a nonzero status and records <code>blocked</code> when a requested
+browser cannot launch. Firefox and WebKit must actually run to count as
+covered; do not treat installed browser files as successful execution.
+Cross-browser absolute timings are not comparable because their engines and
+instrumentation differ. Compare only the standard/deferred pair on the same
+engine, fixture, viewport and machine. Use a production-like CPU and data
+volume before making release decisions.</p>
+<p><strong>Trade-off:</strong> faster first paint may defer work until the user scrolls.
+Compare <code>scroll_reveal_ms</code> and <code>scroll_cls</code> as well as <code>navigation_ms</code>,
+and tune <code>--syn-defer-size</code> to approximate real sections. Real-user
+monitoring and mobile-device traces still take priority.</p>
+<h3 id="local-result-november-14-2026">Local result: November 14, 2026</h3>
+<p>Three measured rounds after one warm-up, 1,200 records, 12 regions, on one
+Linux development machine. Versions: Chromium 156.0.8078.4, Firefox 159.0,
+WebKit 27.2. Entries below are <strong>median synthetic navigation times</strong>, not
+field Core Web Vitals. Lower is better.</p>
+<table>
+<thead>
+<tr>
+<th>Engine / long-table viewport</th>
+<th style="text-align:right">Standard</th>
+<th style="text-align:right">Deferred</th>
+<th style="text-align:right">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chromium / 1365px</td>
+<td style="text-align:right">75.0 ms</td>
+<td style="text-align:right">55.9 ms</td>
+<td style="text-align:right">26% faster</td>
+</tr>
+<tr>
+<td>Chromium / 390px</td>
+<td style="text-align:right">91.5 ms</td>
+<td style="text-align:right">54.8 ms</td>
+<td style="text-align:right">40% faster</td>
+</tr>
+<tr>
+<td>Firefox / 1365px</td>
+<td style="text-align:right">142.9 ms</td>
+<td style="text-align:right">119.1 ms</td>
+<td style="text-align:right">17% faster</td>
+</tr>
+<tr>
+<td>Firefox / 390px</td>
+<td style="text-align:right">144.2 ms</td>
+<td style="text-align:right">107.7 ms</td>
+<td style="text-align:right">25% faster</td>
+</tr>
+<tr>
+<td>WebKit / 1365px</td>
+<td style="text-align:right">254.0 ms</td>
+<td style="text-align:right">196.3 ms</td>
+<td style="text-align:right">23% faster</td>
+</tr>
+<tr>
+<td>WebKit / 390px</td>
+<td style="text-align:right">227.7 ms</td>
+<td style="text-align:right">183.5 ms</td>
+<td style="text-align:right">19% faster</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Counterexample:</strong> the Firefox desktop <em>dashboard</em> navigation median
+was <strong>132.1 ms standard versus 144.9 ms deferred</strong> (10% slower), even while
+its synthetic FCP improved. Do not assume that the opt-in hint helps every
+page or every measurement.</p>
+<p>In these runs, Chromium reported zero cumulative layout shift initially
+and after the late-section scroll reveal, while Firefox and WebKit did not
+expose the same layout-shift entries (reported as <code>null</code>, not zero).
+Median synthetic scroll-reveal times were generally around 25–30 ms on
+these local fixtures; some comparisons modestly favored the standard
+variant. The text-only content can make synthetic LCP equal FCP; neither
+captures image-heavy production pages. No claim is made about real-world
+INP or paint duration.</p>
+<p><strong>Decision:</strong> retain render deferral as an opt-in tool for large independent
+below-fold sections, not a default applied to all components. Benchmark
+again with the consuming application's actual DOM and realistic viewport,
+content sizes, network and CPU constraints.</p>
+<h2 id="developer-experience-contract">Developer-experience contract</h2>
+<ul>
+<li>Native HTML first. Use existing <code>syn-*</code> classes and <code>--syn-*</code> tokens.</li>
+<li>Respect focus rings, disabled states, form semantics, reduced motion,
+color contrast, and forced colors.</li>
+<li>Keep framework-specific request/DOM logic in HTMX/React/Alpine/etc., not CSS.</li>
+<li>Use committed deterministic CSS; the stdlib Python build is for maintainers.</li>
+<li>Test actual browser rendering and zoom, not only compressed file size.</li>
+</ul>
+<p>See <a href="framework-integrations.html">framework integrations</a>,
+<a href="theme-customization.html">theme customization</a> and
+<a href="components.html">component contract</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#inspect-stylesheet-sizes-without-blocking-releases">Inspect stylesheet sizes without blocking releases</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#zero-js-visual-accents">Zero-JS visual accents</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#opt-in-long-page-render-deferral">Opt-in long-page render deferral</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#repeatable-offline-rendering-benchmark">Repeatable, offline rendering benchmark</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#local-result-november-14-2026">Local result: November 14, 2026</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#developer-experience-contract">Developer-experience contract</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="performance-and-polish.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

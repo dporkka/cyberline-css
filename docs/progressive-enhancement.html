@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr&#x27;s default contract is HTML first . Core CSS doesn&#x27;t include JavaScript, network requests, icons, fonts or a client-side build step. Progressive…">
+  <meta name="syntyr-source-sha256" content="e41d722f940362abc33dd58411b79538ecdc62d26819eb8affdb2ec48e83ee05">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Progressive enhancement and document rendering — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/progressive-enhancement">
+  <link rel="alternate" type="text/markdown" href="progressive-enhancement.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Progressive enhancement and document rendering</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="progressive-enhancement.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Progressive enhancement and document rendering">
+<h1 id="progressive-enhancement-and-document-rendering">Progressive enhancement and document rendering</h1>
+<p>Syntyr's default contract is <strong>HTML first</strong>. Core CSS doesn't include JavaScript,
+network requests, icons, fonts or a client-side build step. Progressive enhancement
+should add polish and optional interactions to working baseline workflows.</p>
+<p>For a static showcase of <code>search</code>, <code>figure</code>, <code>mark</code>, <code>kbd</code>, <code>output</code>, <code>meter</code> and safe code overflow with zero scripts, see <a href="../examples/native-elements.html">native-elements.html</a>. The example is presentational, not a working search service.</p>
+<h2 id="native-actions-and-server-responses-come-first">Native actions and server responses come first</h2>
+<p>Always use anchors for navigation, buttons for actions, associated labels for
+controls, and native form submission where the application has a server endpoint.
+A GET form below remains usable without HTMX, React, or other client JavaScript:</p>
+<pre tabindex="0"><code class="language-html">&lt;form action=&quot;/customers&quot; method=&quot;get&quot; role=&quot;search&quot;&gt;
+  &lt;label for=&quot;q&quot;&gt;Search customers&lt;/label&gt;
+  &lt;input id=&quot;q&quot; name=&quot;q&quot; type=&quot;search&quot; required&gt;
+  &lt;button type=&quot;submit&quot; class=&quot;syn-button syn-button--primary&quot;&gt;Search&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>HTMX or other adapters can enhance the same form. Return safe server-rendered
+HTML; handle validation and permissions on the server. If the enhancement fails,
+the form still navigates to the server search result. The host owns those routes.</p>
+<p>Native <code>details</code> is appropriate for disclosure. For a modal preview, include a
+real navigation route for critical information because <code>commandfor</code> and
+<code>command=&quot;show-modal&quot;</code> are not universally supported in older browsers:</p>
+<pre tabindex="0"><code class="language-html">&lt;a href=&quot;/reports/quarterly&quot;&gt;Read full report&lt;/a&gt;
+&lt;button type=&quot;button&quot; commandfor=&quot;report-preview&quot; command=&quot;show-modal&quot;&gt;
+  Preview report
+&lt;/button&gt;
+&lt;dialog id=&quot;report-preview&quot; aria-labelledby=&quot;report-preview-title&quot;&gt;
+  &lt;h2 id=&quot;report-preview-title&quot;&gt;Report preview&lt;/h2&gt;
+  &lt;p&gt;Illustrative summary. The full report link works in every browser.&lt;/p&gt;
+  &lt;form method=&quot;dialog&quot;&gt;&lt;button&gt;Close&lt;/button&gt;&lt;/form&gt;
+&lt;/dialog&gt;
+</code></pre>
+<p>Don't rely on ARIA to implement state changes or disable interactions. Use
+native control semantics; any optional JavaScript must feature-detect browser
+support, preserve keyboard focus, and never hide the only path to important data.</p>
+<h2 id="failed-enhancements-are-not-the-same-as-missing-javascript">Failed enhancements are not the same as missing JavaScript</h2>
+<p>Native forms handle the <strong>absence</strong> of HTMX or other enhancement scripts, but
+an enhanced request can still fail after the runtime has intercepted it.
+The browser will not automatically re-submit a failed HTMX request as a normal
+navigation. Keep a real form <code>action</code>/<code>method</code> and provide a visible,
+keyboard-reachable native-navigation fallback on response, connection and timeout
+errors. Preserve submitted values, and clear failed-request messaging on a
+subsequent successful request. A retry link must point to the real, authorized
+server endpoint; do not blindly replay non-idempotent POSTs.</p>
+<p>The <a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx.html">HTMX example</a>
+uses an optional, <strong>application-owned</strong>
+<a href="https://github.com/dporkka/syntyr-css/blob/main/examples/htmx-recovery.js"><code>htmx-recovery.js</code></a> listener that exposes a
+normal GET link with the user's current query on failure. With JavaScript
+disabled or the HTMX bundle missing, the form submits normally; with HTMX
+available, only the result fragment is replaced. Syntyr CSS never installs
+the listener and remains independent of HTMX.</p>
+<p>For mutations, use server-owned validation, CSRF defenses, idempotency or
+duplicate-submission controls, accessible field errors, and Post/Redirect/Get
+for ordinary successful form submissions. A client-side pending cursor is
+visual feedback only, not a submission lock or network recovery policy.</p>
+<p>Floating labels remain real <code>&lt;label for&gt;</code> controls. Do not remove their
+pointer activation when applying responsive, CSS-only label positioning:
+clicking the visible label must focus the associated input at both wide and
+narrow widths.</p>
+<h2 id="built-in-system-aware-theme">Built-in system-aware theme</h2>
+<p>Load core and set <code>data-syn-theme=&quot;auto&quot;</code>. No separate automatic theme
+stylesheet is needed:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;auto&quot;&gt;...&lt;/main&gt;
+</code></pre>
+<p><code>auto</code> uses the Grid palette for dark system preferences and Studio for light.
+It works on both root and nested themed regions, requires zero JavaScript, and
+does <strong>not</strong> override a user's explicitly selected <code>grid</code>, <code>noir</code>, or
+<code>studio</code> theme. Host apps can change the attribute if they provide a theme picker.
+Automatic themes use the native <code>light-dark()</code> CSS feature with a compatible
+fallback; existing tests verify that the palette stays aligned with Grid and Studio.</p>
+<h2 id="opt-in-print-styling">Opt-in print styling</h2>
+<p>Load <code>syntyr.print.css</code> after core when printing reports or invoices:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.print.css&quot;&gt;
+</code></pre>
+<p>It uses a readable light palette on paper, drops decorative backgrounds and
+shadows, and expands overflow regions. Use <code>.syn-print-hide</code> only on genuinely
+nonessential controls. The app must still ensure that its server-rendered data
+is complete, because CSS cannot materialize unloaded or virtualized rows.</p>
+<h2 id="responsive-legible-and-fast">Responsive, legible, and fast</h2>
+<ul>
+<li><code>.syn-layout</code> now uses intrinsic auto-fit tracks. It adapts to the width of
+its <strong>actual host</strong>, not only the viewport; narrow embedded panels stack.</li>
+<li>The current design uses scalable typography tokens; small labels use
+<code>--syn-type-sm</code> and optional metadata styles can be tuned by consumers.
+Preserve user font scaling and test 200% and 400% genuine browser zoom.</li>
+<li>Core never requires a polyfill. Load optional stylesheets only when their
+capabilities are needed, or use <code>syntyr.all.css</code> for demos.</li>
+<li>Reduced motion, forced colors and assistive-technology behavior still need
+manual, representative real-device verification. Automated checks alone
+cannot establish WCAG compliance.</li>
+</ul>
+<h2 id="cross-engine-regression-verification">Cross-engine regression verification</h2>
+<p>The development-only <code>tests/progressive_browser.py</code> checks computed theme
+colors, nested opt-in themes, semantic-mode isolation, narrow embedded layout,
+print-safe readable data, and disabled print motion in real browser engines:</p>
+<pre tabindex="0"><code class="language-sh">python3 tests/progressive_browser.py --browsers chromium firefox webkit
+</code></pre>
+<p>It requires Playwright and installed browser binaries for <strong>development only</strong>.
+For a host without WebKit libraries, use an official matching Playwright
+container. The test fails visibly if a browser cannot launch; it never counts
+unexecuted engines as passing. Run accessibility and reflow suites separately.</p>
+<p><strong>Limitations:</strong> Playwright viewport/root-font stress tests do not establish
+real browser UI zoom at 200%/400%. CSS <code>zoom</code> and CDP page scale are not
+interchangeable with native browser zoom: page scale may be post-layout.
+Real OS high-contrast and assistive-technology testing must be done manually.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-actions-and-server-responses-come-first">Native actions and server responses come first</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#failed-enhancements-are-not-the-same-as-missing-javascript">Failed enhancements are not the same as missing JavaScript</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#built-in-system-aware-theme">Built-in system-aware theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#opt-in-print-styling">Opt-in print styling</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#responsive-legible-and-fast">Responsive, legible, and fast</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#cross-engine-regression-verification">Cross-engine regression verification</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="progressive-enhancement.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

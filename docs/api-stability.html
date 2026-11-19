@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: experimental 0.3.0-alpha.5 candidate; no v1 stability promise. This document names the intended public contracts so that changes can be reviewed…">
+  <meta name="syntyr-source-sha256" content="74e8285a71b8fd7d9a5968932b00d4af57265dae4debf5ed6a36ec347c9bea0a">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>SYNTYR CSS public API and prerelease stability — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/api-stability">
+  <link rel="alternate" type="text/markdown" href="api-stability.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">SYNTYR CSS public API and prerelease stability</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="api-stability.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="SYNTYR CSS public API and prerelease stability">
+<h1 id="syntyr-css-public-api-and-prerelease-stability">SYNTYR CSS public API and prerelease stability</h1>
+<p><strong>Status: experimental <code>0.3.0-alpha.5</code> candidate; no v1 stability promise.</strong>
+This document names the intended public contracts so that changes can be
+reviewed consistently before <code>1.0.0</code>. It is not a new compatibility guarantee.</p>
+<h2 id="public-surface-and-intended-v1-boundaries">Public surface and intended v1 boundaries</h2>
+<table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Current policy</th>
+<th>Intent for v1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>syntyr.core.css</code>, <code>.syn-root</code>, stable component classes</td>
+<td>Public prerelease API</td>
+<td>Stable selectors and behavior</td>
+</tr>
+<tr>
+<td>Classed <code>.syn-dialog</code> and <code>.syn-popover</code> physical viewport overflow constraints (also in vertical writing modes)</td>
+<td>Alpha.5 bugfix, no new class names</td>
+<td>Preserve keyboard-scrollable content at zoom and on short viewports</td>
+</tr>
+<tr>
+<td>Specialized native <code>range</code>, <code>file</code> and <code>color</code> controls via the existing <code>.syn-input</code> selector</td>
+<td>Experimental alpha.5 appearance improvement; no new classes or runtime</td>
+<td>Keep native controls and browser-driven behavior</td>
+</tr>
+<tr>
+<td>New <code>.syn-field</code>, <code>.syn-field-row</code>, <code>.syn-field-body</code>, <code>.syn-input-group</code>, <code>.syn-input-addon</code> form compositions</td>
+<td>Experimental prerelease core additions</td>
+<td>Evaluate for v1 stabilization after browser/accessibility review</td>
+</tr>
+<tr>
+<td>Documented <code>--syn-*</code> design-token names</td>
+<td>Public prerelease API</td>
+<td>Stable names, not fixed default values</td>
+</tr>
+<tr>
+<td>New documented component-local layout variables</td>
+<td>Experimental alpha.5 opt-in API</td>
+<td>Evaluate for stability after responsive review</td>
+</tr>
+<tr>
+<td><code>data-syn-color-space=&quot;oklch&quot;</code></td>
+<td>Experimental alpha.5 presentation opt-in</td>
+<td>Evaluate perceptual color/contrast before v1</td>
+</tr>
+<tr>
+<td><code>data-syn-theme</code> and documented <code>data-syn-*</code> state hooks</td>
+<td>Public prerelease API</td>
+<td>Stable names and meanings</td>
+</tr>
+<tr>
+<td><code>syntyr.semantic.css</code> and <code>.syn-semantic</code></td>
+<td>Opt-in prerelease API</td>
+<td>Stable scoped semantics after audit</td>
+</tr>
+<tr>
+<td><code>dist/presets/{minimal,saas,cinematic}.css</code></td>
+<td>Experimental single-file entrypoints</td>
+<td>Stabilize names and inclusion contract only after explicit review</td>
+</tr>
+<tr>
+<td><code>metadata/css-contract.v1.json</code></td>
+<td>Build artifact-manifest schema v1</td>
+<td>Version schema independently of public CSS API</td>
+</tr>
+<tr>
+<td><code>syntyr.recipes.css</code>, <code>syntyr.geometry.css</code></td>
+<td>Experimental, opt-in</td>
+<td>Evaluate for individual stabilization</td>
+</tr>
+<tr>
+<td><code>syntyr.effects.css</code>, <code>syntyr.utilities.css</code></td>
+<td>Experimental, opt-in</td>
+<td>Evaluate for individual stabilization</td>
+</tr>
+<tr>
+<td><code>syntyr.css</code>, <code>syntyr.all.css</code></td>
+<td>Public convenience bundles</td>
+<td>Maintain documented contents/meaning at v1</td>
+</tr>
+<tr>
+<td><code>terminal/palettes.json</code></td>
+<td>Optional example/palette asset</td>
+<td>Separate compatibility decision from CSS</td>
+</tr>
+<tr>
+<td><code>integrations/</code>, <code>examples/</code>, documentation editor</td>
+<td>Non-core adapters/showcases</td>
+<td>No automatic CSS-core stability promise</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>syn-*</code> selector namespace, <code>--syn-*</code> properties and <code>data-syn-*</code> attributes
+remain the only Syntyr-specific styling namespace. ARIA states such as
+<code>aria-pressed</code>, <code>aria-busy</code>, <code>aria-invalid</code> and native HTML state remain governed
+by web-platform semantics, not a separate Syntyr state machine.</p>
+<p>Core classes do <strong>not</strong> require an application build pipeline. The opt-in
+semantic mode only styles elements under <code>.syn-semantic</code> within <code>.syn-root</code>.
+Themes set design tokens; component selectors should not fork per theme. The
+finite utilities are explicit overrides in their own final <code>syn.utilities</code>
+cascade layer. Do not load a convenience bundle and its component modules
+simultaneously.</p>
+<h2 id="proposed-minimum-v1-contract-not-yet-approved">Proposed minimum v1 contract (not yet approved)</h2>
+<p><strong>Proposal only.</strong> The source is still <code>0.3.0-alpha.5</code> and the published
+<code>0.3.0-alpha.4</code> files remain immutable. This shortlist is for v1 API review,
+not a declaration that 1.0 is released or that other current APIs are removed.
+Do not promise every prerelease class, token, optional stylesheet or theme name
+as a permanent compatibility commitment by default.</p>
+<table>
+<thead>
+<tr>
+<th>v1 candidate</th>
+<th>Intended stable responsibility</th>
+<th>Outside the initial freeze</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>syntyr.core.css</code>, <code>.syn-root</code></td>
+<td>Self-hosted, scoped CSS without framework or runtime requirements</td>
+<td>Adapter, preset and convenience-bundle inclusion details</td>
+</tr>
+<tr>
+<td><code>.syn-shell</code>, <code>.syn-stack</code>, <code>.syn-grid</code>, <code>.syn-inline</code>, <code>.syn-panel</code></td>
+<td>Basic layout and surfaces assembled with HTML</td>
+<td>Specialized dashboard, geometry and cinematic compositions</td>
+</tr>
+<tr>
+<td><code>.syn-button</code>, <code>.syn-input</code>, <code>.syn-select</code>, <code>.syn-textarea</code>, <code>.syn-table</code>, <code>.syn-table-wrap</code></td>
+<td>Common native controls and readable tabular content</td>
+<td>Advanced widget behavior, grid interaction and framework states</td>
+</tr>
+<tr>
+<td><code>.syn-heading</code>, <code>.syn-muted</code>, <code>.syn-badge</code></td>
+<td>Small portable typographic affordances</td>
+<td>Theme-specific graphic treatments and decorative variants</td>
+</tr>
+<tr>
+<td><code>--syn-bg</code>, <code>--syn-surface</code>, <code>--syn-text</code>, <code>--syn-muted</code>, <code>--syn-accent</code>, <code>--syn-on-accent</code>, <code>--syn-frame</code></td>
+<td>Minimal semantic palette roles; values may change for contrast fixes</td>
+<td>Internal derived shades and theme-specific effect tokens</td>
+</tr>
+<tr>
+<td><code>--syn-font</code>, <code>--syn-radius</code>, <code>--syn-space-1</code> through <code>--syn-space-4</code></td>
+<td>Basic typography, shape and spacing customization</td>
+<td>Experimental component-local layout overrides</td>
+</tr>
+<tr>
+<td><code>data-syn-theme</code>, native HTML and semantic ARIA states</td>
+<td>Token-based theme boundaries and state presentation</td>
+<td>Freezing every named palette, intensity and density profile</td>
+</tr>
+</tbody>
+</table>
+<p>The list is deliberately small and <strong>not exhaustive</strong>. Additional existing
+public alpha selectors remain available as documented for their particular
+version; deciding which belong in v1 requires evidence rather than an automatic
+rename or removal. Before stabilizing an entry, verify it is used in at least
+two independent, non-showcase consumer contexts, has documented composition and
+extension behavior, passes browser/accessibility review, and has no necessary
+framework-specific coupling. Consider opt-in <code>.syn-semantic</code> independently
+once the accessibility and scope review is complete.</p>
+<p>Versioned release assets and pre-v1 compatibility rules remain unchanged.
+Removal of unnecessary experimental aliases is possible <strong>before</strong> the v1
+freeze; after stabilization, semver and migration documentation apply. Do not
+add core API solely to make an optional integration easier.</p>
+<h3 id="alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</h3>
+<p>The source-only <code>syntyr.recipes.css</code> adds optional <code>.syn-filter-bar</code>,
+<code>.syn-pipeline</code> and <code>.syn-record-fields</code> compositions. These selectors are
+experimental and are not in immutable alpha.4. Core adds explicit
+<code>data-syn-density=&quot;comfortable&quot;</code> and <code>&quot;spacious&quot;</code> profiles alongside the
+existing <code>&quot;compact&quot;</code> profile, allowing nested density overrides.
+No application behaviors or JavaScript are shipped with these compositions.</p>
+<h3 id="alpha5-native-css-refinements">Alpha.5 native CSS refinements</h3>
+<p>Core layout components expose optional local <code>--syn-grid-*</code>,
+<code>--syn-layout-*</code>, <code>--syn-stack-gap</code> and <code>--syn-inline-gap</code> overrides.
+Optional recipes expose KPI, filter and detail-layout equivalents. Their
+fallbacks preserve the earlier default layouts, without a compiler or extra
+runtime dependency. <code>.syn-field</code> gains progressive native focus/error label
+styling, and <code>.syn-panel[inert]</code> gains a presentation-only unavailable cue.</p>
+<p>The experimental <code>data-syn-color-space=&quot;oklch&quot;</code> attribute changes only the
+surface-hover color-mix role on explicitly opted-in regions. Default palettes,
+semantic foreground pairs and fallback colors are unchanged. It is not a new
+default theme or a stability commitment; see the <a href="theme-customization.html">theme customization guide</a>.</p>
+<h3 id="alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</h3>
+<p>In the unreleased alpha.5 source candidate, classed <code>syn-input</code> and
+<code>syn-textarea</code> and opt-in semantic native text fields with a real <code>readonly</code>
+attribute use a recessed background and dashed border. This visual distinction
+does not disable controls, remove focus, suppress browser autofill, or change
+native form submission. No new public class, state attribute, JavaScript
+dependency, or validation machinery is introduced. Do not use <code>readonly</code> for
+native controls that do not support it (such as <code>select</code> or checkboxes).</p>
+<p>The <a href="component-recipes.html">server-error recovery recipe</a> composes existing
+<code>syn-error-summary</code> (from the <em>optional</em> recipes sheet) with core field
+primitives; it is a documentation contract, not a new core component.</p>
+<h3 id="alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</h3>
+<p>The unreleased semantic CSS candidate gives native classless <code>form</code> and
+<code>fieldset</code> a composed vertical layout, a comfortable native <code>summary</code>
+target, and readable table <code>caption</code> styling. Classed forms continue using
+their explicit component API. For ordinary <code>.syn-table</code> rows,
+<code>data-syn-state=&quot;selected&quot;</code> remains the visual state; the
+<code>aria-selected=&quot;true&quot;</code> row selector now applies only to a real ARIA grid or
+treegrid. Consumers styling ordinary table rows with <code>aria-selected</code> should
+switch to the visual data attribute rather than inventing widget semantics.
+The published immutable alpha.4 assets are unchanged.</p>
+<p>The optional validator <code>--semantic</code> mode adds conservative native HTML
+diagnostics, with no change to default validation or consumer runtime.</p>
+<h3 id="alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</h3>
+<p>The unreleased alpha.5 candidate changes classed <code>.syn-table</code> cells to wrap
+descriptive text by default, including when a table is placed in a narrow
+container. This <strong>prerelease layout compatibility change</strong> may increase row
+height in existing screens. To preserve the former implicit no-wrap behavior
+for short codes, dates, or identifiers, explicitly add <code>.syn-cell--nowrap</code>
+to those cells. Numeric cells with <code>.syn-cell--numeric</code> remain no-wrap.
+Keep long prose wrapping whenever possible; if full columns require sideways
+scrolling, use <code>.syn-table-wrap</code> with keyboard reachability and an accessible
+table caption. The published immutable alpha.4 stylesheet is unchanged.</p>
+<h3 id="alpha5-component-local-styling-and-registry-installation">Alpha.5 component-local styling and registry installation</h3>
+<p>In unreleased alpha.5, buttons, panels and form controls add optional,
+inherited <code>--syn-button-*</code>, <code>--syn-panel-*</code> and <code>--syn-field-*</code>
+custom-property overrides with their existing theme tokens as fallback.
+Button variants do not require Sass or a separate compiled theme.
+Server-supplied <code>data-syn-validation=&quot;valid&quot;</code> is presentation-only; valid
+and invalid states do not create validation, focus management, or ARIA
+semantics. The existing opt-in <code>syn-error-summary</code> component remains
+the supported form-level error presentation.</p>
+<p>The source candidate includes an optional, <strong>local-only</strong> Python registry
+planner. It resolves declared CSS dependencies and checks the current
+source version, SHA-256 hashes and file collisions before any opt-in copy.
+It does not fetch remote code, install a runtime or promise v1 API stability.</p>
+<h2 id="compatibility-and-version-policy">Compatibility and version policy</h2>
+<ul>
+<li>Before v1: breaking prerelease changes are possible; document them in the
+changelog. Do not maintain obsolete aliases solely for alpha compatibility.</li>
+<li>After v1: breaking changes to stabilized selector names, attribute meanings,
+documented file entrypoints and core component behavior require a major
+version. Additions can use minor releases; corrections use patch releases
+when semantically compatible.</li>
+<li>Values and appearance are not identical across patch versions. Accessibility
+fixes may adjust color, spacing, focus or contrast without renaming tokens.</li>
+<li>Custom, undocumented selectors and implementation variables are not a
+supported extension API. Use documented tokens and composition instead.</li>
+<li>Versioned <code>/v/&lt;version&gt;/</code> CDN assets remain byte-for-byte immutable; prefer
+self-hosting or pinning a version for production deployments.</li>
+</ul>
+<h2 id="pre-10-release-checklist">Pre-1.0 release checklist</h2>
+<ol>
+<li>Confirm which individual classes and tokens merit permanent compatibility.</li>
+<li>Finish keyboard, screen-reader, browser zoom and contrast review; automated
+scans do not establish WCAG conformance.</li>
+<li>Validate the supported browser/version matrix on realistic applications,
+including nested themes, CSS utilities and semantic opt-in behavior.</li>
+<li>Publish versioned docs, a reproducible CSS distribution and a complete
+migration note if prerelease contracts change.</li>
+</ol>
+<p>See <a href="https://github.com/dporkka/syntyr-css/blob/main/ARCHITECTURE.md"><code>ARCHITECTURE.md</code></a> for feature-admission criteria,
+layer ownership and dependency boundaries. Optional package integrations may
+provide additional contracts but must never introduce a mandatory core
+runtime dependency.</p>
+<h2 id="enterprise-presentation-recipes-unreleased-alpha5">Enterprise presentation recipes (unreleased alpha.5)</h2>
+<p>The optional <code>syntyr.recipes.css</code> source candidate adds <code>.syn-view-switcher</code>,
+<code>.syn-sheet</code> and <code>.syn-evidence-*</code> classes. These are experimental opt-in
+CSS selectors, not part of the immutable alpha.4 package and not a guarantee
+of application-level selection, dialog focus management, image verification
+or review workflows. See <a href="recipes.html">recipe contracts</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#public-surface-and-intended-v1-boundaries">Public surface and intended v1 boundaries</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#proposed-minimum-v1-contract-not-yet-approved">Proposed minimum v1 contract (not yet approved)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-opt-in-crm-compositions-and-density-profiles">Alpha.5 opt-in CRM compositions and density profiles</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-css-refinements">Alpha.5 native CSS refinements</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-native-readonly-form-presentation">Alpha.5 native readonly form presentation</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-semantic-html-authoring-changes">Alpha.5 semantic HTML authoring changes</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-data-table-wrapping-migration">Alpha.5 data-table wrapping migration</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#alpha5-component-local-styling-and-registry-installation">Alpha.5 component-local styling and registry installation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#compatibility-and-version-policy">Compatibility and version policy</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#pre-10-release-checklist">Pre-1.0 release checklist</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#enterprise-presentation-recipes-unreleased-alpha5">Enterprise presentation recipes (unreleased alpha.5)</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="api-stability.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

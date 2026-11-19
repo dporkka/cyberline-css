@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="This report distinguishes the most recent automated findings from older pixel-sampling evidence. It is not a WCAG certification.">
+  <meta name="syntyr-source-sha256" content="c7993350a92901bc834840ddc5dcead0235bcbaed8f97b7edda033c4e2048029">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>SYNTYR alpha.5 — outstanding accessibility review — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/accessibility-alpha5-review">
+  <link rel="alternate" type="text/markdown" href="accessibility-alpha5-review.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">SYNTYR alpha.5 — outstanding accessibility review</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="accessibility-alpha5-review.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="SYNTYR alpha.5 — outstanding accessibility review">
+<h1 id="syntyr-alpha5-outstanding-accessibility-review">SYNTYR alpha.5 — outstanding accessibility review</h1>
+<p>This report distinguishes the most recent automated findings from older
+pixel-sampling evidence. It is <strong>not</strong> a WCAG certification.</p>
+<h2 id="fresh-exact-head-audit-70ec764-november-18-2026">Fresh exact-head audit: <code>70ec764</code> (November 18, 2026)</h2>
+<p><strong>Newest automated source snapshot, not alpha.5 release approval.</strong>
+This source candidate includes the focused fixes to keyboard-inaccessible
+documentation code blocks and a prohibited ARIA label on a nested form footer.</p>
+<ul>
+<li>Chromium with <strong>Playwright 1.65.2</strong> and pinned <strong>axe-core 4.10.3</strong>,
+checksum SHA-256
+<code>880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb</code>:
+<strong>37 pages</strong>, <strong>zero confirmed automated violation nodes</strong>, and
+<strong>15 incomplete color-contrast rule results comprising 165 element targets</strong>.</li>
+<li>Baseline <code>985fe01</code> had <strong>two serious scrollable-region-focusable nodes</strong>
+in the design-principles guide and one <strong>aria-prohibited-attr</strong> incomplete
+footer. The source candidate eliminated all three; the 165 remaining
+incomplete targets concern contrast, not confirmed failures.</li>
+<li>The reconciled source passed <strong>1,035 Python tests (one skipped)</strong>,
+generated-document/metadata/registry/CSS/Cloudflare and maintenance checks.
+Chromium/Firefox verified focused ArrowRight keyboard scrolling of the
+code examples at 320px/390px (also forced-colors emulation) and 1280px.</li>
+<li>Conservative pixel triage at <strong>1280/390/320px</strong> produced
+<strong>495 observations</strong>: <strong>459 screenshot samples above text thresholds</strong>,
+<strong>9 opaque computed placeholder pairs above threshold</strong>, and
+<strong>27 non-text entries</strong>, with <strong>zero sampled below or near threshold</strong>.
+The lowest sampled text result was approximately <strong>5.19:1</strong> against the
+ordinary-text 4.5:1 threshold, on the business example kicker.</li>
+</ul>
+<p><strong>Still open:</strong> manually adjudicate each of the 165 axe-incomplete contrast
+targets in real painted, interactive states. Samples are not glyph-level
+certification and may miss gradients, overlays or focus/hover appearance.
+True <strong>200%/400% browser zoom</strong>, native OS high contrast, screen-reader
+testing and representative application flows are not proven. The unpatched
+high-severity <code>picomatch</code> advisory in optional Expo development tooling
+remains separate and unresolved. <strong>Do not tag or publish alpha.5</strong> on these
+automated results alone.</p>
+<p>For reproduction, run the pinned local axe script with
+<code>tests/axe_audit.py</code>, then pass its JSON report to
+<code>tests/contrast_pixel_triage.py</code> at widths 1280, 390 and 320. The JSON
+reports were retained outside the source tree at the audited revision.
+Repeat the audit when main advances.</p>
+<h2 id="historical-follow-up-audit-9f7f22b-november-15-2026">Historical follow-up audit: <code>9f7f22b</code> (November 15, 2026)</h2>
+<p>This is a <strong>newer source-only candidate audit</strong>, not a published
+release or an accessibility certification. It incorporates the enlarged-text
+WebKit reflow fixes and the restored <code>examples/native-apis.html</code> audit coverage.</p>
+<ul>
+<li>Chromium headless, Playwright 1.58.0 and the pinned axe-core <strong>4.10.3</strong>:
+<strong>28 pages audited, zero confirmed automated WCAG-tagged violations</strong>,
+<strong>14 incomplete color-contrast rule results involving 162 distinct
+element entries</strong>. The axe payload SHA-256 was
+<code>880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb</code>.</li>
+<li>Source CSS includes targeted min-content grid sizing, text wrapping,
+and long-label reflow improvements. The original 320px / 2× WebKit
+reproducible overflow failures on six pages were resolved in focused tests.</li>
+<li>WebKit <strong>26.0</strong> was launched with user-local native libraries and
+Playwright 1.58.0 on Ubuntu 24.04; neither the operating-system packages
+nor Syntyr consumer JavaScript dependencies were changed. This is useful
+browser evidence but does <strong>not</strong> substitute for the pinned Playwright
+1.65.2 release-image gate, genuine browser 200%/400% zoom,
+OS-native high-contrast, or screen-reader testing.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th style="text-align:right">Incomplete contrast element entries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/blocks.html</code></td>
+<td style="text-align:right">37</td>
+</tr>
+<tr>
+<td><code>examples/geometry-terminal.html</code></td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td><code>docs/index.html</code></td>
+<td style="text-align:right">17</td>
+</tr>
+<tr>
+<td><code>examples/flagship-grid.html</code></td>
+<td style="text-align:right">16</td>
+</tr>
+<tr>
+<td><code>examples/flagship-noir.html</code></td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td><code>examples/operations-console.html</code></td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td><code>examples/pricing.html</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>examples/saas-workflows.html</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>examples/business.html</code></td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td><code>examples/console.html</code></td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td><code>examples/symbols.html</code></td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td><code>examples/terminal.html</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>docs/catalog.html</code></td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td><code>examples/native-apis.html</code></td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>Other audited pages</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>162</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The audit's incomplete results may reflect gradients, pseudo-elements or
+complex backgrounds; they are <strong>unresolved</strong> rather than passed or failed
+contrast measurements. Prioritize the Blocks, geometry, documentation and
+flagship hero surfaces for a real painted-background assessment. Manual
+accessibility review, actual browser zoom and assistive-technology evidence,
+naming clearance and authenticated distribution ownership all remain open.
+<strong>Do not freeze, tag or publish alpha.5 solely based on this evidence.</strong></p>
+<h2 id="follow-up-pixel-triage-after-pr-118-november-15-2026">Follow-up pixel triage after PR #118 (November 15, 2026)</h2>
+<p>At <code>main</code> commit <code>9ff10ac</code> (which merged accessibility PR #118), pinned
+axe-core 4.10.3 returned <strong>zero confirmed violations</strong> across 27 audited
+pages, but <strong>162 unresolved color-contrast elements</strong> across 13 pages. A
+reproducible developer-only contrast triage examined three viewport widths:
+1280px, 390px, and 320px. These are screenshots with text glyph fill hidden,
+<strong>not</strong> measured glyph-level conformance.</p>
+<p>The initial 486 element/viewport observations included three provisional
+below-threshold samples (dot-field gallery caption at 1280/390px and Grid
+flagship lede at 390px), three narrow-margin samples, 450 sampled above the
+relevant text threshold, 27 non-text cases, and three unsampled placeholder
+cases. The follow-up branch adds localized contrast backdrops without removing
+the decorative patterns. Re-sampling found <strong>456 observations above sampled
+text thresholds</strong>, <strong>27 non-text</strong>, <strong>3 unsampled</strong>, <strong>0 sampled-below-threshold</strong>
+and <strong>0 narrow-margin</strong> at the three widths. This prioritizes risk but <strong>does not
+resolve any axe inconclusive as a certified pass</strong>.</p>
+<p>After rebasing the candidate onto newer <code>main</code> commit <code>7e5c14d</code>, a fresh
+axe-core scan reported <strong>160</strong> inconclusive elements across 27 pages. The
+three-width repeat (480 observations) contained 450 sampled-above, 27
+non-text, 3 unsampled placeholder and <strong>zero sampled-below or narrow-margin</strong>
+entries. This is a newer snapshot than the 162-target baseline, not an
+assertion that all 160 remaining elements have been manually adjudicated.</p>
+<p>A still newer rebase onto <code>main</code> commit <code>c726dc3</code> (which restored the
+native-APIs audit page) produced <strong>161 inconclusive elements on 28 pages</strong> at
+candidate revision <code>912e431</code>, with 14 incomplete rule results and zero
+confirmed violations. Across 483 element/viewport observations, 450 text
+observations sampled above their thresholds, 27 involved non-text glyphs and
+6 could not be sampled (the <code>#dispatch</code> and <code>#native-notes</code> textareas at three
+widths each); <strong>zero sampled below threshold or within the caution margin</strong>.
+This replaces the 160-element figure as the newest candidate triage, but
+<strong>all 161 inconclusive elements still require human review</strong>.</p>
+<p>The HTML sample text is not representative of every palette override or every
+author-created page. The unsampled item is the <code>#dispatch</code> textarea's
+placeholder; the non-text items are prompts and decorative symbols.
+Manual contrast adjudication is still open for all 161 latest targets, including
+composited glyph-level backgrounds and interaction states. Genuine browser
+200%/400% zoom, NVDA/VoiceOver, and <strong>native OS</strong> high-contrast testing are
+also still unverified. Browser forced-colors <em>emulation</em> and root-font scaling
+are only regression proxies. Do not treat the follow-up as WCAG 2.2 AA
+certification or approval to publish alpha.5.</p>
+<p>Run the opt-in methodology documented in <a href="accessibility.html">accessibility.md</a>,
+retaining its JSON report, source commit and browser versions with review notes.</p>
+<h2 id="verified-source-snapshot-038a24d-november-15-2026">Verified source snapshot: <code>038a24d</code> (November 15, 2026)</h2>
+<p>This <strong>point-in-time source audit</strong> includes PR #68 (the native CSS
+flow/high-contrast corrections) and the Blocks/Assets gallery changes through
+<code>038a24dd626c3299a10abd0de8ff6890adc7ea3d</code>. It is not a verdict on commits
+merged afterward, the published alpha.4 assets, or the future alpha.5 release.</p>
+<ul>
+<li>Reproducible CSS, API metadata, generated LLM reference and optional
+ecosystem adapters: <strong>PASS</strong> with <code>--check</code>. Full Python stdlib suite:
+<strong>311 passed</strong>. A public-only Cloudflare site build included <strong>114 allowlisted
+files</strong>; the 39-file alpha.5 candidate ZIP packaged successfully <strong>without
+publishing, freezing, or tagging a release</strong>.</li>
+<li>The developer-only Linux Playwright <strong>1.65.2</strong> matrix covered
+<strong>22 pages × 3 viewport widths × 3 engines = 198 passing browser cases</strong>
+in Chromium, Firefox and WebKit, including gallery-specific keyboard/popover
+assertions. The accompanying <strong>88 enlarged-root-font reflow cases per engine
+(264 total)</strong>, <strong>two Chromium forced-colors-emulation tests</strong>, and focused
+seven-theme native CSS tests in all three engines also passed. This stress
+testing is not actual browser zoom or OS-native high contrast. Tests changed
+no consumer runtime dependencies.</li>
+<li>A separate pinned <strong>axe-core 4.10.3</strong> audit of <strong>21 pages</strong> found
+<strong>zero confirmed automated WCAG-tagged violations</strong>, with <strong>11 incomplete
+color-contrast rule results containing 129 unresolved nodes</strong>. SHA-256 of
+the repository audit harness (<code>tests/axe_audit.py</code> at audited commit
+<code>038a24d</code>): <code>3f94a5672d13c39b511131386bc70abba43b81cba37a672f62b382c8908ddd58</code>.
+SHA-256 of the separately downloaded axe-core 4.10.3 JavaScript payload
+used by that harness: <code>880970c081707360e64f34cea25ff91892f5bc95675b0776925b9709dd8a68bb</code>.
+Incompletes are not passing contrast measurements or proven defects.</li>
+<li>GitHub showed Cloudflare Pages, build, deploy, and build-status checks
+successful for the audited commit. <strong>A real exact-head Woodpecker pipeline
+is still unverified.</strong> PR #68's CodeRabbit check was cancelled after the PR
+closed; this was not an independently completed CodeRabbit approval.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th style="text-align:right">Unresolved axe color-contrast nodes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/blocks.html</code></td>
+<td style="text-align:right">38</td>
+</tr>
+<tr>
+<td><code>examples/geometry-terminal.html</code></td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td><code>docs/index.html</code></td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td><code>examples/operations-console.html</code></td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td><code>examples/pricing.html</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>examples/saas-workflows.html</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>examples/business.html</code></td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td><code>examples/console.html</code></td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td><code>examples/symbols.html</code></td>
+<td style="text-align:right">5</td>
+</tr>
+<tr>
+<td><code>examples/terminal.html</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>docs/catalog.html</code></td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>Remaining 10 audited pages</td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>129</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Manual prioritization:</strong> inspect the Blocks hero and featured content,
+each shaped geometry surface, the documentation hero and the operations
+console first. These four pages account for <strong>93/129</strong> unresolved targets.
+Record the effective painted background including gradients and pseudo-elements,
+foreground color, theme, viewport, interaction state, a screenshot and measured
+contrast; do not automatically dismiss an axe incomplete because a CSS token pair
+is accessible in isolation.</p>
+<p><strong>Release gates that this evidence does not close:</strong> true 200% and 400% browser
+zoom, NVDA/VoiceOver screen-reader operation, native OS high-contrast mode,
+manual review of the 129 inconclusive nodes, and trademark/name clearance.
+Root-font reflow stress and forced-colors <em>emulation</em> are useful but are not
+substitutes. Do <strong>not</strong> tag/freeze/publish alpha.5 from these results alone.</p>
+<h2 id="historical-post-merge-snapshot-b19c331-november-14-2026-brasília">Historical post-merge snapshot: <code>b19c331</code> (November 14, 2026, Brasília)</h2>
+<p>This was the latest <strong>executed</strong> audit snapshot at that time, after the merges of
+<a href="https://github.com/dporkka/syntyr-css/pull/14">PR #14</a> and
+<a href="https://github.com/dporkka/syntyr-css/pull/22">PR #22</a>.
+The published alpha.4 CSS remains immutable; alpha.5 is not yet published.</p>
+<ul>
+<li>Deterministic build: <strong>PASS</strong>; Python contracts: <strong>155 passed</strong>.</li>
+<li>Pinned Playwright 1.64.1 Linux container: <strong>23 Chromium interaction
+checks</strong>, <strong>16 public pages × 3 viewports × 3 browser engines</strong> (144 cases),
+<strong>64 reflow cases × 3 browser engines</strong> (192 cases), and docs-only theme
+editor checks: <strong>PASS</strong>. These are automated tests, not actual browser zoom
+or assistive-technology operation.</li>
+<li>axe-core 4.10.3: <strong>0 confirmed violations</strong> across 16 pages; <strong>345
+unresolved <code>color-contrast</code> target entries on 13 pages</strong>. These have
+<strong>not</strong> been adjudicated as passes and do not establish WCAG compliance.</li>
+<li>Cloudflare Pages public deployment: current CSS, docs, new demo, and
+immutable release asset matched locally generated bytes for this exact
+main commit in sampled SHA-256 comparisons; private tests/business/.env
+paths returned HTTP 404. <strong>63 allowlisted public assets</strong> built locally.</li>
+<li>GitHub/Cloudflare build and deploy checks succeeded on <code>b19c331</code>; an
+independently executed Woodpecker pipeline on this exact commit was <strong>not
+verified</strong>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th style="text-align:right">Inconclusive color-contrast targets</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.html</code></td>
+<td style="text-align:right">42</td>
+</tr>
+<tr>
+<td><code>docs/index.html</code></td>
+<td style="text-align:right">122</td>
+</tr>
+<tr>
+<td><code>examples/console.html</code></td>
+<td style="text-align:right">33</td>
+</tr>
+<tr>
+<td><code>examples/resources.html</code></td>
+<td style="text-align:right">45</td>
+</tr>
+<tr>
+<td><code>examples/pricing.html</code></td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td><code>docs/console-kit.html</code></td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td><code>examples/saas.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><code>examples/business.html</code></td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td><code>examples/terminal.html</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>examples/geometry-terminal.html</code></td>
+<td style="text-align:right">26</td>
+</tr>
+<tr>
+<td><code>examples/operations-console.html</code></td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td><code>examples/themes.html</code></td>
+<td style="text-align:right">21</td>
+</tr>
+<tr>
+<td><code>examples/vertigo-admin.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><code>examples/saas-workflows.html</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>examples/minimalist-patterns.html</code></td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td><code>examples/design-states.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>345</strong></td>
+</tr>
+</tbody>
+</table>
+<p>These are axe-core <em>incomplete</em> element entries rather than proven defects.
+Regenerate the exact selector-level evidence with:</p>
+<pre tabindex="0"><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
+</code></pre>
+<p>The earlier pixel-sampling results below were collected against <code>4a623d0</code>,
+<strong>not</strong> <code>b19c331</code>. They cannot be transferred to the additional 20 findings
+or used to close the current 345 targets. Prioritize gradient/pseudo-element
+cases, the previously narrow 4.65:1 margin, keyboard and contrast states,
+and text-overflow cases in horizontally scrollable tables.</p>
+<h3 id="manual-only-release-requirements-still-open">Manual-only release requirements still open</h3>
+<p>Real 200% and 400% browser zoom; actual screen-reader navigation with named
+assistive technologies and browser versions; native OS high-contrast/forced
+colors; keyboard workflows in a representative integrated application; and
+review/adjudication of the 345 inconclusive contrast targets. Do not describe
+these automated results as a certification.</p>
+<h2 id="historical-comparison-4a623d0-baseline">Historical comparison: <code>4a623d0</code> baseline</h2>
+<p>The November 14 (Brasília) baseline <code>4a623d0</code>, incorporating
+<a href="https://github.com/dporkka/syntyr-css/pull/21">PR #21</a>, was independently
+tested before subsequent PRs merged. Its historical color-contrast counts and
+pixel samples are retained below; they should not be confused with the
+newer post-merge report.</p>
+<h2 id="automated-axe-core-findings">Automated axe-core findings</h2>
+<p>The fourteen-page post-merge audit with axe-core 4.10.3 and WCAG A/AA tags returned <strong>zero confirmed violations</strong> and <strong>eleven inconclusive <code>color-contrast</code> rule results involving 325 individual targets</strong>. Incomplete is not equivalent to passing.</p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th style="text-align:right">Inconclusive elements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.html</code></td>
+<td style="text-align:right">42</td>
+</tr>
+<tr>
+<td><code>docs/index.html</code></td>
+<td style="text-align:right">115</td>
+</tr>
+<tr>
+<td><code>examples/console.html</code></td>
+<td style="text-align:right">33</td>
+</tr>
+<tr>
+<td><code>examples/resources.html</code></td>
+<td style="text-align:right">45</td>
+</tr>
+<tr>
+<td><code>examples/pricing.html</code></td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td><code>docs/console-kit.html</code></td>
+<td style="text-align:right">14</td>
+</tr>
+<tr>
+<td><code>examples/saas.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><code>examples/business.html</code></td>
+<td style="text-align:right">6</td>
+</tr>
+<tr>
+<td><code>examples/terminal.html</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>examples/geometry-terminal.html</code></td>
+<td style="text-align:right">26</td>
+</tr>
+<tr>
+<td><code>examples/operations-console.html</code></td>
+<td style="text-align:right">11</td>
+</tr>
+<tr>
+<td><code>examples/themes.html</code></td>
+<td style="text-align:right">21</td>
+</tr>
+<tr>
+<td><code>examples/vertigo-admin.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><code>examples/saas-workflows.html</code></td>
+<td style="text-align:right">0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align:right"><strong>325</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The 325 targets comprise 282 unresolved backgrounds involving gradients, 34
+involving pseudo-elements, four too-short text cases, four non-text-only cases,
+and one partially obscured element. They are <strong>not</strong> 325 proven defects.
+Generate a reproducible node-by-node triage report (selectors, HTML snippets,
+rule and failure summaries) in a local file using the developer-only audit:</p>
+<pre tabindex="0"><code class="language-sh">python3 tests/axe_audit.py --axe-file /tmp/axe.min.js \
+  --report /tmp/syntyr-axe-manual-review.json
+</code></pre>
+<p>The automated checker cannot establish the effective paint underneath these foregrounds where gradients and pseudo-elements overlap text. Contrast-token unit tests are useful but do not certify composited backgrounds.</p>
+<h2 id="supplemental-browser-pixel-contrast-triage-merged-4a623d0">Supplemental browser-pixel contrast triage — merged <code>4a623d0</code></h2>
+<p>The axe report's <strong>325 incomplete targets</strong> were also investigated with a
+one-off Chromium screenshot-sampling pass on the merged source. This does not
+alter the number of axe findings or convert an incomplete axe result to a pass.</p>
+<table>
+<thead>
+<tr>
+<th>Viewport</th>
+<th style="text-align:right">Elements with pixel samples</th>
+<th style="text-align:right">Not directly sampled</th>
+<th style="text-align:right">Background-pixel samples</th>
+<th style="text-align:right">Lowest measured contrast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1280 px</td>
+<td style="text-align:right">324</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5,970</td>
+<td style="text-align:right">4.65:1</td>
+</tr>
+<tr>
+<td>390 px</td>
+<td style="text-align:right">310</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">6,480</td>
+<td style="text-align:right">5.09:1</td>
+</tr>
+<tr>
+<td>320 px</td>
+<td style="text-align:right">310</td>
+<td style="text-align:right">15</td>
+<td style="text-align:right">7,239</td>
+<td style="text-align:right">4.95:1</td>
+</tr>
+<tr>
+<td><strong>Total element/viewport observations</strong></td>
+<td style="text-align:right"><strong>944</strong></td>
+<td style="text-align:right"><strong>31</strong></td>
+<td style="text-align:right"><strong>19,689</strong></td>
+<td style="text-align:right">—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>No below-threshold result was found at the sampled positions</strong> using 4.5:1
+for ordinary text and 3:1 for large/bold text. The closest result was the
+Studio header badge at 1280 px (4.65:1 against a gradient); it should receive
+priority in visual review because its margin above 4.5:1 is narrow.</p>
+<p>Method: Chromium <strong>156.0.8078.4</strong> at device scale factor 1, Playwright
+<strong>1.65.2</strong>, a 1280/390/320 px page viewport, <code>getComputedStyle().color</code>
+for text foreground, text-node <code>Range.getClientRects()</code> for location, and
+full-page screenshots with glyph fill temporarily transparent to reveal
+underlying gradients. Five horizontal by three vertical points per text
+fragment were sampled and compared using the WCAG sRGB luminance/contrast
+formula. These are <strong>sampled background pixels</strong>, not a guarantee about
+every pixel beneath every glyph. Fixed viewport and static states do not
+establish behavior across zoom, hover, focus or user-customized themes.</p>
+<p>The sole 1280 px unsampled target was <code>#dispatch</code>, a textarea without
+ordinary text nodes; its computed placeholder color <code>rgb(173,191,202)</code>
+against background <code>rgb(8,15,25)</code> measures <strong>10.14:1</strong>, and its input
+text color measures <strong>17.93:1</strong>. At 320/390 px, the 14 additional unsampled
+targets were horizontally off-screen cells/statuses inside the deliberately
+scrollable <code>examples/resources.html</code> table. These cells were sampled at
+1280 px, but their mobile scrolled state still warrants manual inspection.</p>
+<p><strong>Interpretation:</strong> this triage found no obvious color-contrast regression in
+the sampled cases; it <strong>does not</strong> close the 325 manual-review targets or
+certify WCAG AA. Background sampling can miss local gradient extrema,
+overlapping pseudo-elements, text-shadow effects, embedded graphics, and
+interactive states. The actual screen reader, real zoom, high-contrast mode,
+and representative-product checks below remain open.</p>
+<h2 id="manual-verification-protocol">Manual verification protocol</h2>
+<p>For each flagged element, record selector, theme, browser, viewport/zoom setting, sampled foreground and effective background, measured contrast and screenshot. Test the lowest-contrast part of each gradient. Apply WCAG thresholds of at least 4.5:1 for regular text and 3:1 for large text and applicable essential UI graphics. Check hover, focus, disabled, selected and nested-theme contexts.</p>
+<p>Earlier automated browser evidence covered <strong>126 viewport cases</strong> across Chromium/Firefox/WebKit and <strong>168 enlarged-text reflow cases</strong> on a historical commit. These figures are not the latest branch coverage. The Chromium forced-colors primary-link screenshot and focus tests passed for all seven palettes in that snapshot. None of these checks substitute for native Windows High Contrast or other OS-level modes, real browser zoom, or a screen reader.</p>
+<h2 id="remaining-release-checklist">Remaining release checklist</h2>
+<ul>
+<li>[ ] Measure or adjudicate each of the <strong>165 axe-incomplete contrast elements</strong> in the latest 37-page candidate audit above (70ec764). Earlier 161-, 162-, 345- and 325-entry figures are historical snapshots, not the current review queue.</li>
+<li>[ ] Test keyboard-only navigation, native dialog/popover focus, table regions, disclosure and form semantics in a representative real app.</li>
+<li>[ ] Perform real assistive-technology testing with NVDA, JAWS, VoiceOver or Orca and record evidence.</li>
+<li>[ ] Test true 200% and 400% browser zoom on supported browsers; verify navigation, reflow and target visibility.</li>
+<li>[ ] Check actual OS forced-colors/high-contrast and reduced-motion settings.</li>
+<li>[x] Record browser versions used for automated testing (not a permanent
+support guarantee). The <strong>current</strong> 16-page matrix and 64-case/engine
+reflow run used Linux <code>mcr.microsoft.com/playwright/python:v1.64.1-noble</code>
+with Playwright Python 1.64.1: Chromium <strong>156.0.8078.4</strong>, Firefox
+<strong>157.0</strong>, and WebKit <strong>27.2</strong>. Versions were read directly using
+<code>browser.version</code> from the same pinned image.</li>
+<li>[x] Preserve the <strong>historical</strong> 14-page baseline's separate browser
+versions: Chromium 159.0.8154.6, Firefox 159.0, WebKit 27.2 in the
+Playwright 1.65.2 image. These do not describe the newer 1.64.1 run.</li>
+<li>[ ] Establish browser support versions and unresolved exceptions before a stable release.</li>
+</ul>
+<p>A passing axe-core run alone is <strong>not</strong> sufficient to claim WCAG conformance.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#fresh-exact-head-audit-70ec764-november-18-2026">Fresh exact-head audit: 70ec764 (November 18, 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#historical-follow-up-audit-9f7f22b-november-15-2026">Historical follow-up audit: 9f7f22b (November 15, 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#follow-up-pixel-triage-after-pr-118-november-15-2026">Follow-up pixel triage after PR #118 (November 15, 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#verified-source-snapshot-038a24d-november-15-2026">Verified source snapshot: 038a24d (November 15, 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#historical-post-merge-snapshot-b19c331-november-14-2026-brasília">Historical post-merge snapshot: b19c331 (November 14, 2026, Brasília)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#manual-only-release-requirements-still-open">Manual-only release requirements still open</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#historical-comparison-4a623d0-baseline">Historical comparison: 4a623d0 baseline</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#automated-axe-core-findings">Automated axe-core findings</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#supplemental-browser-pixel-contrast-triage-merged-4a623d0">Supplemental browser-pixel contrast triage — merged 4a623d0</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#manual-verification-protocol">Manual verification protocol</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#remaining-release-checklist">Remaining release checklist</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="accessibility-alpha5-review.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

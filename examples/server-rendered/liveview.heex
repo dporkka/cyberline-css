@@ -1,0 +1,24 @@
+<%!-- Copy into a Phoenix LiveView template; the LiveView supplies @name/@error and
+     handles the validate/save events. Keep the .syn-root outside LiveView replace targets. --%>
+<section class="syn-root" data-syn-theme="studio">
+  <article class="syn-panel">
+    <h2 class="syn-heading">New campaign</h2>
+    <form id="campaign-form" class="syn-form" phx-change="validate" phx-submit="save">
+      <div class="syn-field">
+        <label class="syn-label" for="campaign-name">Campaign name</label>
+        <input
+          id="campaign-name"
+          name="campaign[name]"
+          class="syn-input"
+          value={@name}
+          aria-invalid={if @error, do: "true", else: "false"}
+          aria-describedby={if @error, do: "campaign-name-error", else: nil}
+        />
+        <p :if={@error} id="campaign-name-error" class="syn-error">{@error}</p>
+      </div>
+      <button type="submit" class="syn-button syn-button--primary" phx-disable-with="Saving...">
+        Save campaign
+      </button>
+    </form>
+  </article>
+</section>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare Syntyr CSS with Tailwind CSS and Tailwind Plus: tokens, cascade layers, responsive components, build tooling, and licensing tradeoffs.">
+  <meta name="syntyr-source-sha256" content="3105f519f37f85b72d136e8ea3c302a75512d2bde40b7eb99368230832533edc">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>What Syntyr borrows conceptually from Tailwind CSS and Tailwind Plus — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/tailwind-research">
+  <link rel="alternate" type="text/markdown" href="tailwind-research.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">What Syntyr borrows conceptually from Tailwind CSS and Tailwind Plus</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="tailwind-research.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="What Syntyr borrows conceptually from Tailwind CSS and Tailwind Plus">
+<h1 id="what-syntyr-borrows-conceptually-from-tailwind-css-and-tailwind-plus">What Syntyr borrows conceptually from Tailwind CSS and Tailwind Plus</h1>
+<p>Research updated 2026-11-14. <strong>This project contains no Tailwind Plus component code, markup, graphics, screenshots, or licensed assets.</strong> Tailwind CSS and Tailwind Plus are third-party products; Syntyr is independent.</p>
+<h2 id="engineering-comparison">Engineering comparison</h2>
+<table>
+<thead>
+<tr>
+<th>Tailwind idea</th>
+<th>Syntyr adaptation</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSS-first theme configuration and native variables (Tailwind v4)</td>
+<td>Public <code>--syn-*</code> CSS tokens in a layered stylesheet</td>
+<td>Works without Tailwind, JS, config files, or compilation</td>
+</tr>
+<tr>
+<td>Cascade layers and predictable override priority</td>
+<td><code>syn.tokens</code>, <code>syn.base</code>, <code>syn.components</code>, <code>syn.semantic</code>, <code>syn.effects</code></td>
+<td>Preserve host-app override control and prevent unscoped resets</td>
+</tr>
+<tr>
+<td>Container query responsiveness</td>
+<td><code>.syn-region</code> with a named container; <code>.syn-stats</code>, <code>.syn-split</code>, <code>.syn-pricing</code> respond to their container</td>
+<td>Embeds remain responsive in narrow panels and sidebars</td>
+</tr>
+<tr>
+<td>Variants driven by attributes</td>
+<td>Native <code>aria-pressed</code>, <code>aria-busy</code>, <code>aria-current</code>, opt-in <code>data-syn-state</code> and <code>data-syn-featured</code></td>
+<td>Accessible state where semantic; decorative state without false semantics</td>
+</tr>
+<tr>
+<td>Theme composition in ordinary CSS</td>
+<td>Grid/Noir token scopes via <code>data-syn-theme</code>; unlayered application CSS overrides</td>
+<td>Predictable theme customizations with zero compiler</td>
+</tr>
+<tr>
+<td>Responsive reusable UI recipes</td>
+<td>Composable named CSS classes plus HTML partials</td>
+<td>Better fit for server templates and avoids dozens of atomic classes</td>
+</tr>
+<tr>
+<td>Tailwind Plus application UI categories and whole-page kits</td>
+<td>Free primitives and free examples; separately authored paid complete layouts</td>
+<td>Business value comes from workflow-complete templates, not essential CSS access</td>
+</tr>
+<tr>
+<td>Tailwind Plus one-time licensing</td>
+<td>Pilot one-time kit purchase with perpetual rights to purchased versions</td>
+<td>More credible initial model than forcing subscriptions for static files</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ideas-deliberately-rejected">Ideas deliberately rejected</h2>
+<ul>
+<li>No full Tailwind-style general-purpose utility compiler or class scanner. Those create build-system and markup complexity contrary to Syntyr's explicit constraints.</li>
+<li>No Tailwind <code>@theme</code>, <code>@utility</code>, or <code>@apply</code> directives in Syntyr CSS: these are Tailwind-specific compile-time syntax, not browser-standard CSS features.</li>
+<li>No default dependency on Tailwind Plus Elements or its JavaScript. Use native HTML, with optional host-owned JS for complex interactions.</li>
+<li>No Tailwind Plus components, snippets, or templates copied into Syntyr. Their commercial license restricts redistributing derivative component libraries and template products.</li>
+<li>No Tailwind CSS branding or entertainment franchise assets in Syntyr deliverables.</li>
+</ul>
+<h2 id="primary-sources">Primary sources</h2>
+<ul>
+<li><a href="https://tailwindcss.com/blog/tailwindcss-v4">Tailwind CSS v4 overview</a></li>
+<li><a href="https://tailwindcss.com/docs/theme">CSS theme variables</a></li>
+<li><a href="https://tailwindcss.com/docs/responsive-design">Responsive design/container queries</a></li>
+<li><a href="https://tailwindcss.com/docs/hover-focus-and-other-states">ARIA/data state variants</a></li>
+<li><a href="https://tailwindcss.com/plus/ui-blocks/application-ui">Tailwind Plus application UI taxonomy</a></li>
+<li><a href="https://tailwindcss.com/blog/tailwind-plus">Tailwind UI rebrand and one-time licensing</a></li>
+<li><a href="https://tailwindcss.com/plus/templates/syntax">Tailwind Plus FAQ and commercial restriction examples</a></li>
+<li><a href="https://tailwindcss.com/plus/ui-blocks/documentation/using-html">Tailwind Plus HTML interaction dependency</a></li>
+</ul>
+<h2 id="recommendation">Recommendation</h2>
+<p>Build <strong>the simplest coherent branded CSS vocabulary</strong>, plus browser-tested original compositions. Syntyr should not chase parity with the enormous Tailwind utility surface or advertise artificial savings from avoiding a build step when a team's existing build tooling is already reliable. The premium product should be <em>complete application screens</em> where buyer time saved is observable.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#engineering-comparison">Engineering comparison</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#ideas-deliberately-rejected">Ideas deliberately rejected</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#primary-sources">Primary sources</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#recommendation">Recommendation</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="tailwind-research.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

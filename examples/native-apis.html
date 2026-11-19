@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Script-free examples of native browser popovers, dialog commands, content-sized form fields, and progressive CSS effects in Syntyr.">
+  <title>Syntyr CSS — Native browser APIs</title>
+  <link rel="stylesheet" href="../dist/syntyr.css">
+  <link rel="stylesheet" href="../dist/syntyr.motion.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <div class="syn-reading-progress" aria-hidden="true"></div>
+  <div class="syn-shell" id="top">
+    <header class="syn-header">
+      <a class="syn-logo" href="../index.html">SYNTYR</a>
+      <nav class="syn-nav" aria-label="Native API navigation">
+        <a href="#overlays">OVERLAYS</a><a href="#fields">FIELDS</a>
+        <a href="#motion">MOTION</a><a href="../docs/native-browser-apis.md">GUIDE</a>
+      </nav>
+    </header>
+    <main>
+      <section class="syn-stage" aria-labelledby="native-title">
+        <p class="syn-eyebrow">NATIVE WEB PLATFORM / ZERO JAVASCRIPT</p>
+        <h1 class="syn-title" id="native-title">The browser is the runtime.</h1>
+        <p class="syn-lede">Progressively enhanced popovers, dialogs, auto-growing fields and decorative scroll effects. Ordinary HTML remains usable when optional CSS features are unavailable.</p>
+      </section>
+      <section class="syn-stage" id="overlays" aria-labelledby="overlays-title">
+        <h2 class="syn-heading" id="overlays-title">Native overlays</h2>
+        <div class="syn-grid">
+          <article class="syn-panel">
+            <h3 class="syn-heading">Anchored popover</h3>
+            <p>Popover activation, Escape dismissal and focus behavior are browser-owned. CSS anchor placement falls back to Syntyr's existing corner placement.</p>
+            <button type="button" class="syn-button syn-button--primary" popovertarget="native-popover">OPEN POPOVER</button>
+            <div id="native-popover" class="syn-popover syn-popover--anchored syn-popover--transition" popover>
+              <h4 class="syn-heading">Native command menu</h4>
+              <p>No popover manager, positioning engine or animation library.</p>
+              <button type="button" class="syn-button" popovertarget="native-popover" popovertargetaction="hide">CLOSE</button>
+            </div>
+          </article>
+          <article class="syn-panel">
+            <h3 class="syn-heading">Declarative dialog commands</h3>
+            <p>Use <code>commandfor</code> with <code>show-modal</code>, and close with a native dialog form. In older browsers, the disclosure below provides the same information.</p>
+            <button type="button" class="syn-button syn-button--outline" commandfor="native-dialog" command="show-modal">OPEN MODAL</button>
+            <dialog id="native-dialog" class="syn-dialog" aria-labelledby="native-dialog-title">
+              <h4 class="syn-heading" id="native-dialog-title">System status</h4>
+              <p>Native modal handling, focus management and Escape behavior.</p>
+              <form method="dialog"><button class="syn-button syn-button--primary" type="submit">ACKNOWLEDGE</button></form>
+            </dialog>
+            <details class="syn-details"><summary>Read system status without a modal</summary><p>System status: operational. This content is accessible without HTML Invoker Commands.</p></details>
+          </article>
+        </div>
+      </section>
+      <section class="syn-stage" id="fields" aria-labelledby="fields-title">
+        <h2 class="syn-heading" id="fields-title">Content-sized inputs</h2>
+        <div class="syn-panel">
+          <label class="syn-label" for="native-notes">NOTES
+            <textarea id="native-notes" class="syn-textarea syn-textarea--autosize" name="notes" rows="3" placeholder="Write several lines to expand this field without JavaScript."></textarea>
+          </label>
+          <p class="syn-help">On browsers supporting <code>field-sizing: content</code> the field grows with text (up to 24rem). Other browsers keep a normal resizable textarea.</p>
+        </div>
+      </section>
+      <section class="syn-stage" id="motion" aria-labelledby="motion-title">
+        <h2 class="syn-heading" id="motion-title">Progressive motion</h2>
+        <p class="syn-lede">The thin top-of-page indicator uses a native scroll timeline in supporting browsers. It is decorative and hidden when reduced motion is preferred. The popover entrance effect is opt-in and follows the same preference.</p>
+        <p>Scroll this page to inspect the progress indicator. There are no scroll listeners, animation observers or client dependencies. The position and size of the content remain stable while the indicator updates.</p>
+        <div class="syn-panel"><p>For content-rich pages, consider server-rendered sections with links and headings first. Use IntersectionObserver only when the application genuinely needs to defer work or track visibility.</p></div>
+        <p><a class="syn-button syn-button--outline" href="#top">BACK TO TOP</a> <a class="syn-button" href="../docs/native-browser-apis.md">READ THE API GUIDE</a></p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -6,6 +6,8 @@ accessible focus styling and semantic element options.
 
 ## 1. Choose a theme
 
+Without a `data-syn-theme` attribute, `.syn-root` now uses Studio. Select Grid or Noir explicitly for technical/cinematic styles. This change is only in the unreleased alpha.5 candidate; version-pinned alpha.4 assets remain unchanged.
+
 Load the published `syntyr.core.css` in your application and use regular HTML:
 
 ```html
@@ -51,6 +53,17 @@ is the contrasting **foreground on primary buttons**. Change both when
 necessary. Verify 4.5:1 contrast for body text and 3:1 for essential non-text
 graphics; don't assume arbitrary overrides remain accessible.
 
+Primary-button hover backgrounds default to the unchanged accent. On hover,
+the border switches to the contrasting foreground for a visible affordance.
+To customize the hover fill, set `--syn-primary-hover-bg` on the desired
+theme/root and test its contrast with `--syn-on-accent` in both rest and hover
+states. Syntyr does not automatically invent a contrast-safe hover color.
+
+Use `.syn-panel--raised` for opt-in elevation. The `.syn-title`/`.syn-display`
+and `.syn-section-heading` roles use native `text-wrap: balance` when
+supported; unsupported browsers fall back to ordinary line wrapping.
+Syntyr leaves platform font smoothing untouched.
+
 Useful tokens:
 
 | Token | Description |
@@ -65,13 +78,21 @@ Useful tokens:
 | `--syn-surface-recessed`, `--syn-surface-raised`, `--syn-border-subtle` | Derived surfaces and quiet separators |
 | `--syn-text-subtle`, `--syn-border-default`, `--syn-border-hover`, `--syn-border-focus`, `--syn-focus-ring` | Semantic text, borders, and focus |
 | `--syn-surface-interactive`, `--syn-surface-hover`, `--syn-surface-pressed` | Theme-aware interactive control states |
-| `--syn-type-display`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
+| `--syn-primary-hover-bg` | Primary-button hover background; defaults to the accent so foreground contrast does not regress |
+| `--syn-shadow-sm`, `--syn-shadow-raised`, `--syn-shadow-overlay` | Semantic elevation (small surfaces, raised panels, floating overlays) |
+| `--syn-type-display`, `--syn-type-section`, `--syn-type-heading`, `--syn-type-body`, `--syn-leading-body`, `--syn-tracking-display` | Composable typography roles |
 | `--syn-row-padding-block`, `--syn-card-padding`, `--syn-control-padding-block` | Density-aware spacing |
 | `--syn-space-1` … `--syn-space-5` | Spacing |
 | `--syn-cut`, `--syn-radius`, `--syn-control-height` | Geometry |
-| `--syn-duration-fast`, `--syn-ease` | Optional transitions |
+| `--syn-duration-fast`, `--syn-duration-standard`, `--syn-ease`, `--syn-ease-enter` | Optional transitions |
+| `--syn-panel-padding`, `--syn-panel-radius`, `--syn-panel-border-width` | Local panel customization |
+| `--syn-button-padding-inline`, `--syn-button-border-width` | Local button customization |
 
-## 3. CSS component mode versus native semantic mode
+## 3. Independent visual intensity
+
+Use `data-syn-intensity="quiet"` on a dense dashboard, the default `standard` for a balanced presentation, or `cinematic` on a limited hero region. Intensity controls only opt-in decoration in `syntyr.effects.css`; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the [visual-intensity guide](visual-intensity.md) and [live comparison](../examples/intensity-geometry.html).
+
+## 4. CSS component mode versus native semantic mode
 
 Scoped component classes: `.syn-panel`, `.syn-button`, `.syn-table`.
 They work with only `syntyr.core.css`.
@@ -96,11 +117,17 @@ If you need glows or static grid effects, add `syntyr.effects.css`
 as a third optional file. Don't load `syntyr.all.css` **and** its
 individual component files at the same time.
 
-## 4. Responsive applications and accessibility
+## 5. Responsive applications and accessibility
 
 Use `.syn-region` as the parent for container-responsive patterns such as
 `.syn-stats`, `.syn-split`, `.syn-pricing`; width comes from the container,
 not the whole viewport. Use `.syn-page` only for a full-page experience.
+
+Syntyr also honors `prefers-contrast: more` by strengthening tokenized borders
+and suppressing nonessential decorative effects, including inside nested
+themes and explicit cinematic-intensity regions. This is a preference-aware
+visual enhancement, not a substitute for actual high-contrast/forced-colors,
+zoom, and screen-reader testing.
 
 Syntyr honors `prefers-reduced-motion: reduce`. Theme overrides
 must not remove focus outlines, fake disabled states, or communicate state
@@ -147,7 +174,7 @@ themes, native form controls, and contrast in both OS preference modes.
 
 Control and navigation text uses `--syn-font-ui`. Display headings use
 `--syn-font-display`, while code and CLI regions retain `--syn-mono`.
-Grid and Terminal choose monospace UI by default; light themes and Noir use
+Grid and Terminal choose monospace UI explicitly; Studio is the implicit default; light themes and Noir use
 system sans-serif controls. Replace the font variables if a product has its
 own typeface, without introducing required external fonts.
 
@@ -174,7 +201,7 @@ Both use local fonts and static CSS without runtime dependencies.
 
 ## Semantic roles, states, and content rhythm
 
-Use `.syn-display` (also available as `.syn-title`), `.syn-heading`,
+Use `.syn-display` (also available as `.syn-title`), `.syn-section-heading` for section titles, `.syn-heading` for card headings,
 `.syn-body`, `.syn-text-support`, and the opt-in `.syn-prose` content
 container. Typography roles inherit theme fonts and allow applications to
 override type scale without rewriting individual component selectors.
@@ -194,3 +221,101 @@ For errors, pair `aria-invalid="true"` with an associated error message
 
 See [the live design-state example](../examples/design-states.html) for
 semantic typography, nested themes, compact layout and form states.
+
+## Component-local layouts without compilation (experimental alpha.5)
+
+Modern CSS custom properties allow Syntyr to expose a small set of layout
+adjustments without inventing more utility classes. The default styles remain
+unchanged when you do not provide an override. Consumers need **no build step**,
+Tailwind compiler or JavaScript: use a normal stylesheet and optional application
+CSS, or put a local variable on a single component.
+
+```html
+<link rel="stylesheet" href="/css/syntyr.core.css">
+<section class="syn-root" data-syn-theme="studio">
+  <div class="syn-grid" style="--syn-grid-min: 14rem; --syn-grid-gap: 1.25rem">
+    <article class="syn-panel">Summary</article>
+    <article class="syn-panel">Campaigns</article>
+    <article class="syn-panel">Revenue</article>
+  </div>
+</section>
+```
+
+Core layout hooks (each can also be set in application CSS):
+
+| Component | Local token | Default |
+| --- | --- | --- |
+| `.syn-grid` | `--syn-grid-min` / `--syn-grid-gap` | `17rem` / `1rem` |
+| `.syn-layout` | `--syn-layout-min` / `--syn-layout-gap` | `21rem` / `1.25rem` |
+| `.syn-stack` | `--syn-stack-gap` | `--syn-space-3` |
+| `.syn-inline` | `--syn-inline-gap` | `--syn-space-2` |
+
+Optional `syntyr.recipes.css` adds `.syn-kpi-grid`
+(`--syn-kpi-min`, `--syn-kpi-gap`), `.syn-filter-bar`
+(`--syn-filter-gap`), `.syn-filter-field`
+(`--syn-filter-field-min`, `--syn-filter-query-min` on query variants),
+and the `.syn-detail-layout` shell (`--syn-detail-gap`,
+`--syn-detail-main-basis`, `--syn-detail-main-min`,
+`--syn-detail-aside-basis`, `--syn-detail-aside-min`).
+
+```html
+<form class="syn-filter-bar" action="/campaigns" method="get"
+      style="--syn-filter-gap: 1rem; --syn-filter-field-min: 9rem">
+  <label class="syn-filter-field">
+    Status
+    <select class="syn-select" name="status">
+      <option value="">All statuses</option>
+      <option>Active</option>
+    </select>
+  </label>
+  <button class="syn-button" type="submit">Filter</button>
+</form>
+```
+
+Intrinsic grids and wrapping filter/detail layouts respond to their available
+width, including inside narrow application panels. An explicit named
+`.syn-region` container remains the contract for components using
+`@container syn-region`. Do not set implausible minimum widths or nonlength
+values: a CSS variable with an invalid value can invalidate its entire
+declaration despite the `var()` fallback.
+
+## Native state styling and accessibility
+
+The classed `.syn-field` adds a focus-within label cue. Its label switches to
+the danger color when it contains an `aria-invalid="true"` control or a
+user-invalid native control. `.syn-input-group` highlights its addon border
+when a child receives focus. Core `.syn-panel[inert]` uses a dashed border and
+recessed surface to indicate unavailability, while the browser supplies inert
+interaction semantics. Use `inert` on the actual unavailable subtree, not as
+a substitute for server authorization; when not native or when unsupported,
+styling alone cannot disable behavior.
+
+Always preserve real labels, associated error text and focus outlines. For
+invalid fields, provide an error message and connect it with
+`aria-describedby`. The styling does not perform validation, keyboard
+management, popover activation or announcements, and accessibility requires
+manual keyboard, zoom, forced-colors and assistive-technology testing.
+
+## Experimental opt-in OKLCH mixing
+
+Syntyr's seven palette primitives and text/foreground contrast pairs remain
+unchanged. To compare perceptual color mixing on an individual theme region,
+opt in to `data-syn-color-space="oklch"`:
+
+```html
+<section class="syn-root" data-syn-theme="studio"
+         data-syn-color-space="oklch">
+  <button class="syn-button">Perceptual surface hover</button>
+  <aside data-syn-theme="grid" data-syn-color-space="oklch">
+    Nested themes must opt in independently.
+  </aside>
+</section>
+```
+
+Only the **`--syn-surface-hover`** role uses OKLCH mixing in this experiment.
+The default stays in sRGB. Browser engines lacking the required
+`color-mix(in oklch, ...)` support retain the existing sRGB role. **Nested themes**
+recompute their own tokens; add the opt-in attribute to each theme scope
+you intentionally want to compare. Do not generalize this experiment to text
+colors or primary buttons without a contrast audit, and check the resulting
+hover backgrounds against text across all palettes and browser engines.

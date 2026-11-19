@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CRM interface recipes: accessible filters, a scrollable pipeline and account details without required JavaScript.">
+  <title>Syntyr — CRM patterns</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-density="compact">
+  <div class="syn-app-shell">
+    <aside class="syn-app-rail" aria-label="Application sidebar">
+      <a class="syn-logo" href="../index.html">SYNTYR / CRM</a>
+      <nav class="syn-app-nav" aria-label="Primary navigation">
+        <a href="saas.html">Dashboard</a>
+        <a href="crm.html" aria-current="page">Opportunities</a>
+        <a href="saas-workflows.html">Records</a>
+      </nav>
+      <p class="syn-caption">Example data only. No backend or automatic updates.</p>
+    </aside>
+    <main id="main" class="syn-workspace syn-flow">
+      <header class="syn-page-header">
+        <div>
+          <p class="syn-eyebrow">OPERATIONS / PIPELINE</p>
+          <h1>Opportunities</h1>
+          <p class="syn-muted">Compact operational data with accessible, native HTML patterns.</p>
+        </div>
+        <div class="syn-page-header__actions">
+          <a class="syn-button syn-button--outline" href="../docs/recipes.html">View recipes</a>
+        </div>
+      </header>
+      <section class="syn-app-card" aria-labelledby="filters-heading">
+        <h2 id="filters-heading" class="syn-heading">Search opportunities</h2>
+        <p id="filter-help" class="syn-caption">This static example does not filter results. Applications must apply GET parameters server-side and preserve selected values.</p>
+        <search aria-label="Opportunity search">
+          <form class="syn-filter-bar" method="get" action="crm.html#pipeline" aria-describedby="filter-help">
+            <label class="syn-label syn-filter-field syn-filter-field--query" for="query">Search
+              <input class="syn-input" id="query" name="query" type="search" placeholder="Account or opportunity">
+            </label>
+            <label class="syn-label syn-filter-field" for="status">Stage
+              <select class="syn-select" id="status" name="status">
+                <option value="">Any stage</option>
+                <option value="qualified">Qualified</option>
+                <option value="proposal">Proposal</option>
+              </select>
+            </label>
+            <div class="syn-filter-actions">
+              <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
+              <a class="syn-button syn-button--outline" href="crm.html#pipeline">Clear</a>
+            </div>
+          </form>
+        </search>
+      </section>
+      <section aria-labelledby="pipeline-heading" id="pipeline">
+        <div class="syn-page-header">
+          <div><h2 id="pipeline-heading" class="syn-heading">Pipeline</h2><p class="syn-caption">Illustrative opportunities; no drag-and-drop or stage changes are implemented.</p></div>
+        </div>
+        <div class="syn-pipeline" tabindex="0" role="group" aria-label="Opportunity stages, scroll horizontally for additional columns">
+          <section class="syn-pipeline-lane" aria-labelledby="qualified-heading">
+            <h3 id="qualified-heading" class="syn-heading">Qualified <span class="syn-caption">(2)</span></h3>
+            <ul class="syn-pipeline-list">
+              <li class="syn-pipeline-card">
+                <a href="#account-details">Westside Media</a>
+                <p class="syn-caption">14 outdoor faces</p>
+                <p class="syn-cell--numeric">$18,400</p>
+                <span class="syn-status syn-status--success">On track</span>
+              </li>
+              <li class="syn-pipeline-card">
+                <a href="#account-details">Metro Displays</a>
+                <p class="syn-caption">Renewal review</p>
+                <p class="syn-cell--numeric">$9,800</p>
+              </li>
+            </ul>
+          </section>
+          <section class="syn-pipeline-lane" aria-labelledby="proposal-heading">
+            <h3 id="proposal-heading" class="syn-heading">Proposal <span class="syn-caption">(1)</span></h3>
+            <ul class="syn-pipeline-list">
+              <li class="syn-pipeline-card">
+                <a href="#account-details">City Partners</a>
+                <p class="syn-caption">Regional network</p>
+                <p class="syn-cell--numeric">$42,000</p>
+                <span class="syn-status syn-status--warning">Needs review</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </section>
+      <section class="syn-app-card" id="account-details" data-syn-density="comfortable" aria-labelledby="account-heading">
+        <h2 id="account-heading" class="syn-heading">Account details</h2>
+        <p class="syn-caption">This region opts out of its compact parent's density.</p>
+        <dl class="syn-record-fields">
+          <div><dt>Account</dt><dd>Westside Media</dd></div>
+          <div><dt>Account owner</dt><dd>Operations team</dd></div>
+          <div><dt>Next action</dt><dd>Review proposed inventory and availability</dd></div>
+          <div><dt>Last activity</dt><dd><time datetime="2026-11-12">12 November 2026</time></dd></div>
+        </dl>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

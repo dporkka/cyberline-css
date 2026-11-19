@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SYNTYR is a static website and CSS library. It does not need a server, database, JavaScript runtime, Node install, NPM install, or a CDN SDK.">
+  <meta name="syntyr-source-sha256" content="cb2a30e94dac3f9f9cef43d3dbaffe5c93cc498fd45cedf095bfb415c72f8355">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Hosting SYNTYR on Cloudflare — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/cloudflare-hosting">
+  <link rel="alternate" type="text/markdown" href="cloudflare-hosting.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Hosting SYNTYR on Cloudflare</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="cloudflare-hosting.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Hosting SYNTYR on Cloudflare">
+<h1 id="hosting-syntyr-on-cloudflare">Hosting SYNTYR on Cloudflare</h1>
+<p>SYNTYR is a static website and CSS library. It does not need a server,
+database, JavaScript runtime, Node install, NPM install, or a CDN SDK.</p>
+<h2 id="reproducible-allowlisted-output">Reproducible, allowlisted output</h2>
+<p>From the repository root:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 scripts/build_cloudflare_site.py
+python3 scripts/build_cloudflare_site.py --check
+</code></pre>
+<p>The generated <code>.cloudflare-public/</code> directory is the <strong>only</strong> directory
+that may be published. Never deploy the repository root: it contains tests,
+scripts, experiments, and business planning material.</p>
+<p>The site retains relative HTML links, component examples, Markdown guides,
+terminal palette JSON, and public CSS assets. The optional documentation-only theme editor has its
+own small JavaScript file; consuming apps and other demos require none.</p>
+<p>See <a href="nulang-cloud-hosting.html">the provider-neutral staging and experimental Nulang Cloud guide</a> for an optional portable artifact workflow. This does not replace the existing production Cloudflare hosting path.</p>
+<h2 id="cloudflare-hosting">Cloudflare hosting</h2>
+<p>Preferred for new deployments: Cloudflare Workers Static Assets. A simple
+existing Cloudflare Pages project also serves these files globally without a
+Worker runtime; use Pages when its Git integration is already in place.</p>
+<p>For a Git-connected static deployment, use:</p>
+<ul>
+<li>Repository: <code>dporkka/syntyr-css</code>, production branch <code>main</code></li>
+<li>Build command: <code>python3 scripts/build.py --check &amp;&amp; python3 -m unittest discover -s tests -q &amp;&amp; python3 scripts/build_cloudflare_site.py</code></li>
+<li>Output directory: <code>.cloudflare-public</code></li>
+<li>Project root: repository root</li>
+<li>No server-side functions and no install command</li>
+</ul>
+<p>Cloudflare Pages project: <code>syntyr-css</code>, configured for <code>main</code> and the
+<code>.cloudflare-public</code> output, with hostname <code>syntyr-css.pages.dev</code>. This
+project uses Git-connected builds, and its live production deployment was
+verified with HTTP 200 responses for public pages/assets and HTTP 404 for
+non-public paths. Cloudflare builds run the Python test suite as a release gate.</p>
+<p>Configure a custom domain only after DNS and trademark/name clearance.
+Keep the existing GitHub Pages site as a rollback until production checks pass.</p>
+<h2 id="browser-security-policy">Browser security policy</h2>
+<p>The generated <code>_headers</code> file applies a site-wide enforced
+<code>Content-Security-Policy</code>, <code>Strict-Transport-Security</code>, <code>Permissions-Policy</code>,
+<code>X-Frame-Options: DENY</code>, <code>X-Content-Type-Options: nosniff</code>, and the
+<code>Referrer-Policy</code>. It disallows inline scripts, script evaluation, third-party
+script sources, object embedding, and cross-origin framing. <code>frame-src 'self'</code>
+is needed for the docs-only sandboxed <code>about:srcdoc</code> component playground.
+<code>img-src 'self' data:</code> and <code>connect-src 'self'</code> prevent unsolicited remote
+asset loads or fetches from compromised page code.</p>
+<p><strong>Known tradeoff:</strong> <code>style-src 'self' 'unsafe-inline'</code> remains necessary because
+existing human-facing documentation uses inline style attributes and a few
+inline <code>&lt;style&gt;</code> elements. This does <em>not</em> permit inline JavaScript. To tighten
+it, migrate presentational attributes to classes/external stylesheets, remove
+inline style elements, exercise the playground and all published pages in
+Chromium/Firefox/WebKit, then evaluate <code>style-src 'self'</code> in a report-only
+policy before enforcing. Do not simply drop <code>unsafe-inline</code> and break the
+live documentation.</p>
+<p>These headers secure the <em>Syntyr website</em>, not software using <code>@syntyr/css</code>.
+Applications embedding the stylesheet must configure their own CSP and
+server-side authentication, authorization, CSRF, and billing protections.
+The CSP also does not make user-controlled HTML safe; applications still
+need contextual escaping and safe DOM APIs.</p>
+<p>Validate the deployed origin after every production publish:</p>
+<pre tabindex="0"><code class="language-sh">curl -fsSI https://syntyr-css.pages.dev/docs/playground | grep -iE 'content-security-policy|strict-transport-security|permissions-policy|x-frame-options'
+</code></pre>
+<p>An HTTP header check must inspect the <strong>deployed</strong> site, not just <code>_headers</code>
+in the built artifact. Avoid making security claims based only on configuration
+or a GitHub check. HSTS affects the Syntyr origin, not third-party consumers.</p>
+<h2 id="immutable-stylesheets-for-the-live-documentation-site">Immutable stylesheets for the live documentation site</h2>
+<p>The Cloudflare publish builder rewrites its <strong>own HTML stylesheet links</strong>
+to content-addressed <code>/_assets/css/&lt;sha256&gt;.css</code> copies. Cloudflare serves
+these with <code>Cache-Control: public, max-age=31536000, immutable</code>, so
+repeat visits avoid unnecessary stylesheet revalidation. A change to any
+CSS asset changes the hash and the generated HTML reference in the same
+deployment. The original source HTML files are <strong>not</strong> edited.</p>
+<p>The regular <code>/dist/*</code> preview and download URLs remain available,
+mutable and revalidated (<code>max-age=0, must-revalidate</code>); never mark
+unversioned preview CSS immutable. Frozen public <code>/v/&lt;version&gt;/*</code>
+releases remain byte-for-byte unchanged. Third-party applications should
+still self-host or pin versioned assets, rather than copy the hashed
+documentation-only URLs.</p>
+<p>Before adding a new frozen CDN version, follow the <a href="release-freeze.html">release freeze review
+procedure</a> and run <code>python3 scripts/freeze_site_release.py --check</code>. The <code>--apply</code> freeze operation requires an exact-commit human evidence record
+and a fresh deterministic CSS build; the read-only technical preflight,
+routine CI and candidate ZIP creation do not grant publication approval.</p>
+<p>The builder recognizes local linked stylesheet files that are included
+in the public allowlist. It rejects CSS containing unresolved <code>@import</code>
+or <code>url()</code> dependencies rather than silently moving it to a different
+relative path. If a new CSS file needs relative assets, explicitly add
+and test a relocation strategy before publishing.</p>
+<h2 id="css-cdn-urls">CSS CDN URLs</h2>
+<p>Unversioned CSS: <code>/dist/syntyr.core.css</code> for previews and quick starts.</p>
+<p>Frozen CSS: <code>/v/0.3.0-alpha.4/syntyr.core.css</code> for pinned consumers.
+Every version under <code>site-releases/</code> is copied to <code>/v/&lt;version&gt;/</code>.
+Published snapshots have SHA-256 hashes in <code>site-releases/manifest.json</code>.
+Do not modify, reuse, or delete a published version; release a new version.
+The build refuses mismatched hashes, and the <code>_headers</code> file marks only
+<code>/v/*</code> assets as immutable.</p>
+<p><strong>Self-host CSS in the consuming application's own origin when possible.</strong>
+A separate CDN hostname can cost an additional DNS lookup, connection, and
+TLS negotiation even when Cloudflare serves it from a nearby edge.</p>
+<h2 id="http-validation-after-deploy">HTTP validation after deploy</h2>
+<pre tabindex="0"><code class="language-sh">BASE=https://&lt;your-cloudflare-site&gt;
+curl -fsSI &quot;$BASE/&quot;
+curl -fsSI &quot;$BASE/docs/&quot;
+curl -fsSI &quot;$BASE/dist/syntyr.core.css&quot;
+curl -fsSI &quot;$BASE/v/0.3.0-alpha.4/syntyr.core.css&quot;
+curl -fsS -o /dev/null -w '%{http_code}\n' &quot;$BASE/business/strategy.md&quot;
+</code></pre>
+<p>Expected: HTML and CSS 200; internal business document 404. The published
+root <code>404.html</code> is required: without it, Cloudflare Pages serves unknown
+paths as an SPA fallback with HTTP 200.
+Check MIME types (<code>text/html</code>, <code>text/css</code>), Cache-Control,
+<code>cf-cache-status</code> where present, and gzip/Brotli transfer behavior.</p>
+<p>Cloudflare routing may normalize trailing-slash URLs. Check for 301/308
+redirects as well as final 200 responses. The <code>_headers</code> file applies
+security and cache policy without adding application JavaScript.</p>
+<h2 id="ci-release-checks">CI release checks</h2>
+<p><code>.woodpecker/quality.yaml</code> gates pull requests and <code>main</code> pushes with
+Python-only CSS verification, the repository contract tests, the allowlisted
+Cloudflare output and deterministic release packaging. The existing Cloudflare
+build command independently runs the same Python tests.</p>
+<p><code>.woodpecker/browser.yaml</code> is a manual/tag release gate using Playwright's
+pinned browser image (Chromium, Firefox and WebKit), enlarged-text reflow and
+the theme editor. The CI images are pinned to registry manifest digests; update
+them deliberately after reviewing upstream security patches.</p>
+<p><code>.woodpecker/security.yaml</code> audits the committed npm lockfiles of the optional
+Lit example and framework benchmark against high/critical advisories on PRs,
+main pushes and manual runs. This is <strong>not</strong> a claim that all optional examples
+are covered: the Astro, Tailwind, and React adapters must gain committed locks
+or be audited separately before they become release artifacts. The CSS library
+itself ships no npm runtime dependencies.</p>
+<p>Configuring a pipeline is <strong>not</strong> proof that the Woodpecker repository is
+activated or a pipeline executed. Require a real successful
+run on the exact proposed commit before declaring CI green.</p>
+<h2 id="performance-validation">Performance validation</h2>
+<p>Measure WebPageTest/Lighthouse in several regions and on mobile.
+Track LCP, CLS, INP, transfer bytes, and first-load connection overhead.
+Cloudflare reduces distance to content but does not fix CSS render costs.</p>
+<p>For comparative measurement rules, see <a href="performance-validation.html">performance validation</a>.</p>
+<h2 id="safe-immutable-release-preflight">Safe immutable-release preflight</h2>
+<p>An unfrozen source candidate is <strong>not</strong> a published CDN release.
+Run these read-only checks before preparing a release:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+python3 -m unittest discover -s tests -q
+python3 scripts/freeze_site_release.py --check
+python3 scripts/package_release.py /tmp/syntyr-release-candidate.zip
+</code></pre>
+<p>The freeze script defaults to <strong>read-only preflight</strong>. It verifies the
+SHA-256 manifest of every previously published release, checks that generated
+CSS matches the current source, and previews the exact public CSS distributions.
+Non-allowlisted files in dist/ are excluded. It never tags or publishes.</p>
+<p><strong>Only after manual release approval</strong> (including accessibility evidence,
+real browser and assistive-technology testing, naming clearance, and exact-head
+CI), run <code>python3 scripts/freeze_site_release.py --apply</code>. This adds a
+new immutable snapshot and manifest entry without replacing existing versions.
+Then update installation links and version-specific tests, rebuild the static
+site, and verify the new <code>/v/&lt;version&gt;/</code> URLs before announcing the release.</p>
+<p>npm publication remains a <strong>separate authenticated operation</strong>; a frozen CDN
+asset or locally packaged ZIP does not establish npm publication.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#reproducible-allowlisted-output">Reproducible, allowlisted output</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#cloudflare-hosting">Cloudflare hosting</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#browser-security-policy">Browser security policy</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#immutable-stylesheets-for-the-live-documentation-site">Immutable stylesheets for the live documentation site</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#css-cdn-urls">CSS CDN URLs</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#http-validation-after-deploy">HTTP validation after deploy</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#ci-release-checks">CI release checks</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#performance-validation">Performance validation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#safe-immutable-release-preflight">Safe immutable-release preflight</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="cloudflare-hosting.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

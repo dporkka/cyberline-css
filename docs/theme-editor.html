@@ -6,6 +6,7 @@
   <meta name="description" content="Preview original SYNTYR themes and generate CSS-only color overrides, with an immediate WCAG text contrast check.">
   <title>Theme editor — SYNTYR CSS</title>
   <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.effects.css">
   <link rel="stylesheet" href="docs.css">
 </head>
 <body class="syn-root syn-page" data-syn-theme="studio">
@@ -17,13 +18,17 @@
     <section class="docs-section" aria-labelledby="editor-title">
       <p class="syn-eyebrow">DESIGN SYSTEM / OPTIONAL DOCUMENTATION TOOL</p>
       <h1 id="editor-title">Theme editor</h1>
-      <p class="syn-lede">Preview all seven SYNTYR themes and generate copyable CSS-variable overrides. The tool uses a small, standalone browser script; the SYNTYR CSS library remains JavaScript-free.</p>
+      <p class="syn-lede">Preview seven SYNTYR palettes with independent quiet, standard or cinematic effect intensity. Generate copyable CSS-variable overrides without adding JavaScript to your application.</p>
+      <p class="syn-caption">To see intensity changes in the live preview, the effect stylesheet is loaded; only the documentation editor uses a script.</p>
       <div class="docs-two">
         <section class="syn-panel" aria-labelledby="controls-title">
           <h2 id="controls-title" class="syn-heading">Palette controls</h2>
           <div class="syn-form">
             <label class="syn-label" for="theme">BASE THEME
               <select class="syn-select" id="theme" name="theme"><option value="grid">Grid</option><option value="noir">Noir</option><option value="studio">Studio</option><option value="industrial">Industrial</option><option value="terminal">Terminal</option><option value="corporate">Corporate</option><option value="minimal">Minimal</option></select>
+            </label>
+            <label class="syn-label" for="intensity">VISUAL INTENSITY
+              <select class="syn-select" id="intensity" name="intensity"><option value="quiet">Quiet</option><option value="standard" selected>Standard</option><option value="cinematic">Cinematic</option></select>
             </label>
             <label class="syn-label" for="accent">ACCENT / CONTROL BACKGROUND
               <input class="syn-input" id="accent" type="color" value="#76e7f7">
@@ -35,7 +40,7 @@
             <button class="syn-button" id="reset-theme" type="button">RESET SELECTED PALETTE</button>
           </div>
         </section>
-        <section class="syn-panel" id="preview" data-syn-theme="grid" aria-labelledby="preview-title">
+        <section class="syn-panel syn-glow syn-gradient-wash" id="preview" data-syn-theme="grid" data-syn-intensity="standard" aria-labelledby="preview-title">
           <span class="syn-eyebrow">LIVE / LOCAL PREVIEW</span>
           <h2 id="preview-title" class="syn-heading">System overview</h2>
           <p class="syn-lede">Colors change instantly without altering any CSS distribution files.</p>

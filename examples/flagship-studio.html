@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr Studio flagship: a responsive, zero-JavaScript operations dashboard built with ordinary HTML and Syntyr CSS.">
+  <title>Northstar operations — Studio / Syntyr showcase</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="flagship.css">
+</head>
+<body class="syn-root syn-page flagship" data-syn-theme="studio" data-syn-density="compact">
+  <a class="syn-button flagship-skip" href="#main">Skip to main content</a>
+  <div class="flagship-shell">
+    <header class="flagship-topbar">
+      <a class="flagship-wordmark" href="../index.html">NORTHSTAR <small>/ operations</small></a>
+      <nav class="flagship-navigation" aria-label="Demo sections">
+        <a href="#overview" aria-current="page">Overview</a><a href="#accounts">Accounts</a><a href="#activity">Activity</a>
+      </nav>
+      <a class="flagship-back" href="../index.html#showcase">Explore Syntyr</a>
+    </header>
+    <main id="main">
+      <section class="flagship-hero" id="overview" aria-labelledby="overview-title">
+        <div class="flagship-section-header">
+          <div>
+            <span class="flagship-eyebrow">Studio / operational clarity</span>
+            <h1 class="flagship-display" id="overview-title">Your work,<br><em>in focus.</em></h1>
+            <p class="flagship-lede">A calm workspace for accounts, projects and decisions. Dense where it helps; quiet where it doesn't.</p>
+          </div>
+          <div>
+            <span class="syn-badge">DEMONSTRATION · FICTIONAL DATA</span>
+            <p class="flagship-note">Presentational HTML only. No live CRM, payment processing or automated actions.</p>
+            <a class="syn-button syn-button--primary" href="#accounts">Review accounts</a>
+          </div>
+        </div>
+        <div class="flagship-card-grid" role="group" aria-label="Illustrative performance">
+          <article class="syn-app-card flagship-card"><small>Booked revenue</small><strong class="flagship-figure">$248,900</strong><span class="flagship-muted">Quarter-to-date · sample</span></article>
+          <article class="syn-app-card flagship-card"><small>Active accounts</small><strong class="flagship-figure">32</strong><span class="flagship-muted">Across four regions</span></article>
+          <article class="syn-app-card flagship-card"><small>Open actions</small><strong class="flagship-figure">07</strong><span class="flagship-muted">Three awaiting review</span></article>
+        </div>
+      </section>
+      <section class="flagship-section" id="accounts" aria-labelledby="accounts-title">
+        <div class="flagship-section-header">
+          <div><span class="flagship-eyebrow">Portfolio / 02</span><h2 class="flagship-section-title" id="accounts-title">Accounts that need attention</h2><p>Dates, owners and pipeline status in one readable place.</p></div>
+          <a class="syn-button syn-button--outline" href="#activity">View activity</a>
+        </div>
+        <div class="flagship-split">
+          <article class="syn-app-card">
+            <div class="flagship-row"><h3 class="syn-heading">Account pipeline</h3><span class="syn-caption">FICTIONAL RECORDS</span></div>
+            <div class="flagship-scroll" tabindex="0" role="region" aria-label="Scrollable account pipeline table">
+              <table class="syn-table">
+                <caption>Sample account pipeline — amounts are illustrative</caption>
+                <thead><tr><th scope="col">Account</th><th scope="col">Owner</th><th scope="col">Stage</th><th scope="col">Value</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Aster Supply</th><td>Marina R.</td><td><span class="syn-badge">Proposal</span></td><td>$18,400</td></tr>
+                  <tr><th scope="row">Summit Works</th><td>Daniel K.</td><td><span class="syn-badge">Review</span></td><td>$12,600</td></tr>
+                  <tr><th scope="row">Harbor Labs</th><td>Alex P.</td><td><span class="syn-badge">Approved</span></td><td>$9,800</td></tr>
+                  <tr><th scope="row">Cedar Group</th><td>Priya S.</td><td><span class="syn-badge">Discovery</span></td><td>$6,200</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <aside class="syn-app-card" aria-labelledby="priority-title">
+            <span class="flagship-eyebrow">Weekly focus</span><h3 id="priority-title" class="syn-heading">Keep the signal clear.</h3>
+            <p class="flagship-muted">Quarterly target completion</p>
+            <progress class="flagship-meter" value="74" max="100" aria-label="Illustrative quarterly target completion: 74 percent">74%</progress>
+            <div class="flagship-row"><strong>74%</strong><span class="syn-caption">SAMPLE TARGET</span></div>
+            <hr class="flagship-rule">
+            <h4>Next action</h4><p>Review Summit Works proposal before assigning follow-up.</p>
+            <details class="syn-details"><summary>Why this layout?</summary><p>Compact spacing preserves readable type and uses borders only where they separate actions or data.</p></details>
+          </aside>
+        </div>
+      </section>
+      <section class="flagship-section" id="activity" aria-labelledby="activity-title">
+        <div class="flagship-section-header"><div><span class="flagship-eyebrow">Activity / 03</span><h2 class="flagship-section-title" id="activity-title">A useful rhythm</h2><p>No ambient animation. Real hierarchy for information that changes.</p></div></div>
+        <div class="flagship-split">
+          <article class="syn-app-card"><h3 class="syn-heading">Illustrative weekly volume</h3><div class="flagship-chart" role="img" aria-label="Sample activity increased during the week with six bars"><span style="--bar:34%"></span><span style="--bar:53%"></span><span style="--bar:49%"></span><span style="--bar:72%"></span><span style="--bar:62%"></span><span style="--bar:88%"></span></div><p class="syn-caption">SAMPLE DATA — NOT LIVE METRICS</p></article>
+          <article class="syn-app-card"><h3 class="syn-heading">Recent changes</h3><ul class="flagship-timeline"><li><span>Proposal updated</span><time datetime="2026-11-13">Nov 13</time></li><li><span>Account reviewed</span><time datetime="2026-11-12">Nov 12</time></li><li><span>New lead qualified</span><time datetime="2026-11-11">Nov 11</time></li></ul></article>
+        </div>
+      </section>
+    </main>
+    <footer class="flagship-footer"><span>Syntyr Studio / original demonstration</span><a href="../docs/visual-composition.md">View composition guidelines</a></footer>
+  </div>
+</body>
+</html>

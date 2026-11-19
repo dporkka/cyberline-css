@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Optional Syntyr CSS icon styling, Unicode markers and ASCII / box-drawing layouts, with no JavaScript.">
+  <title>SYNTYR — Icons, Unicode &amp; ASCII</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.symbols.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="grid">
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="../docs/index.html">SYNTYR / SYMBOL LAB</a>
+      <nav class="syn-nav" aria-label="Example navigation">
+        <a href="#icons">ICONS</a>
+        <a href="#unicode">UNICODE</a>
+        <a href="#ascii">TEXT ART</a>
+        <a href="../docs/index.html">GALLERY</a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="syn-stage" aria-labelledby="page-title">
+        <p class="syn-eyebrow">OPT-IN MODULE / ZERO RUNTIME DEPENDENCIES</p>
+        <h1 class="syn-title" id="page-title">Small symbols, clear interfaces.</h1>
+        <p class="syn-lede">SVG icons, literal Unicode characters, and carefully aligned ASCII / box-drawing interfaces. Everything below is static, original, and rendered without JavaScript or remote assets.</p>
+        <p class="syn-caption">Visual examples only. These controls don't connect to a backend.</p>
+      </section>
+      <section id="icons" class="syn-stack" aria-labelledby="icons-title">
+        <h2 class="syn-heading" id="icons-title">01 / Your own SVG icon assets</h2>
+        <article class="syn-panel">
+          <p class="syn-muted">The icon contract changes size and alignment, never the path, stroke width, or fill. It accepts an SVG directly or inside a wrapper.</p>
+          <div class="syn-actions">
+            <button class="syn-button syn-button--primary" type="button" disabled>
+              <svg class="syn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false">
+                <path d="M20 7v5h-5M4 17v-5h5M5.8 9a7 7 0 0 1 12.8-1.8L20 12M4 12l1.4 4.8A7 7 0 0 0 18.2 15"/>
+              </svg>
+              Sync example (disabled)
+            </button>
+            <button class="syn-button syn-button--outline" type="button" aria-label="Search example (disabled)" disabled>
+              <span class="syn-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg></span>
+            </button>
+          </div>
+          <p class="syn-caption" style="margin-block-start:var(--syn-space-2)">Buttons are disabled because this is a static illustration, not an interactive search or sync application.</p>
+        </article>
+      </section>
+      <section id="unicode" class="syn-stack" aria-labelledby="unicode-title">
+        <h2 class="syn-heading" id="unicode-title">02 / Literal Unicode typography</h2>
+        <div class="syn-grid">
+          <article class="syn-panel">
+            <p class="syn-eyebrow">GRID / STATUS</p>
+            <p><span class="syn-symbol syn-symbol--accent" aria-hidden="true">◆</span> Network healthy</p>
+            <p><span class="syn-symbol syn-symbol--muted" aria-hidden="true">◇</span> Scheduled review</p>
+            <p><span class="syn-symbol syn-symbol--accent" aria-hidden="true">→</span> Proceed to summary</p>
+          </article>
+          <article class="syn-panel" data-syn-theme="studio">
+            <p class="syn-eyebrow">STUDIO / NAVIGATION</p>
+            <p><span class="syn-symbol syn-symbol--muted" aria-hidden="true">▸</span> Usage analytics</p>
+            <p><span class="syn-symbol syn-symbol--accent" aria-hidden="true">●</span> Service available</p>
+            <p><span class="syn-symbol syn-symbol--muted" aria-hidden="true">›</span> Billing settings</p>
+          </article>
+        </div>
+      </section>
+      <section id="ascii" class="syn-stack" aria-labelledby="ascii-title">
+        <h2 class="syn-heading" id="ascii-title">03 / Text art that keeps its columns</h2>
+        <p>Illustrative gateway status: API online and jobs online. Text art is decorative; this sentence preserves the same status for assistive technology.</p>
+        <section class="syn-terminal" aria-label="Decorative ASCII display">
+          <div class="syn-terminal-bar"><span>OPERATIONS / ASCII</span><span>STATIC</span></div>
+          <div class="syn-terminal-body">
+            <pre class="syn-ascii syn-ascii--accent" aria-hidden="true">+------------------------+
+|   SYSTEM: ONLINE       |
++------------------------+
+|   API  [OK]            |
+|   JOBS [OK]            |
++------------------------+</pre>
+          </div>
+        </section>
+        <p class="syn-caption">The frame above uses ASCII characters only. The one below uses Unicode box-drawing glyphs and may vary by font.</p>
+        <p>Gateway healthy and queue connected. The box drawing below is decorative; this paragraph conveys its status in ordinary text.</p>
+        <section class="syn-terminal" aria-label="Decorative Unicode box drawing">
+          <div class="syn-terminal-bar"><span>OPERATIONS / UNICODE</span><span>STATIC</span></div>
+          <div class="syn-terminal-body">
+            <pre class="syn-ascii" aria-hidden="true">┌────────────────────────┐
+│  SYNTYR / CONTROLLER   │
+├────────────────────────┤
+│  Gateway: healthy      │
+│  Queue: connected      │
+└────────────────────────┘</pre>
+          </div>
+        </section>
+      </section>
+      <p class="syn-caption" style="padding-block:var(--syn-space-4)"><a href="../docs/symbols.md">Read integration and accessibility guidance</a> · Original MIT-licensed examples · No icon packs bundled.</p>
+    </main>
+  </div>
+</body>
+</html>

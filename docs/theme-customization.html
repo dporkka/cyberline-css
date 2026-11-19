@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Customize Syntyr CSS themes and design tokens for SaaS dashboards, accessible business applications, and futuristic interfaces.">
+  <meta name="syntyr-source-sha256" content="ebe4c8e29c8c45f8cae19b04345e27adf238b83f7f7dce183dbbdcfede739209">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr theme customization — copy, override, ship — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/theme-customization">
+  <link rel="alternate" type="text/markdown" href="theme-customization.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr theme customization — copy, override, ship</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="theme-customization.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr theme customization — copy, override, ship">
+<h1 id="syntyr-theme-customization-copy-override-ship">Syntyr theme customization — copy, override, ship</h1>
+<p>Syntyr themes are <strong>CSS custom properties</strong>, not JavaScript configuration.
+The MIT core already includes Grid and Noir palettes, responsive primitives,
+accessible focus styling and semantic element options.</p>
+<h2 id="1-choose-a-theme">1. Choose a theme</h2>
+<p>Without a <code>data-syn-theme</code> attribute, <code>.syn-root</code> now uses Studio. Select Grid or Noir explicitly for technical/cinematic styles. This change is only in the unreleased alpha.5 candidate; version-pinned alpha.4 assets remain unchanged.</p>
+<p>Load the published <code>syntyr.core.css</code> in your application and use regular HTML:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;grid&quot;&gt;
+  &lt;article class=&quot;syn-panel syn-panel--cut&quot;&gt;
+    &lt;h2 class=&quot;syn-heading&quot;&gt;Sector status&lt;/h2&gt;
+    &lt;button class=&quot;syn-button syn-button--primary&quot;&gt;Open&lt;/button&gt;
+  &lt;/article&gt;
+  &lt;aside data-syn-theme=&quot;noir&quot; class=&quot;syn-panel&quot;&gt;
+    Nested Noir preview
+  &lt;/aside&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Use <code>data-syn-theme=&quot;noir&quot;</code> for warm amber. Native HTML features
+such as <code>details</code>, <code>dialog</code> and <code>popover</code> don't need framework JavaScript.</p>
+<h2 id="2-override-tokens-using-application-css">2. Override tokens using application CSS</h2>
+<p>Syntyr declares its defaults in named cascade layers. App CSS without a
+layer takes precedence over layered author rules regardless of selector specificity.
+Load application overrides <strong>after</strong> the Syntyr stylesheet to reduce surprises:</p>
+<pre tabindex="0"><code class="language-css">/* app.css: original tokens, not copied from existing entertainment IP. */
+.syn-root[data-syn-theme=&quot;grid&quot;] {
+  --syn-accent: #80dfef;
+  --syn-on-accent: #07121a;
+  --syn-accent-soft: rgb(128 223 239 / 10%);
+  --syn-frame: #34576c;
+}
+
+/* Override one nested region without affecting the rest of the site. */
+.my-warning-panel {
+  --syn-surface: #1b232d;
+  --syn-warning: #ffe2aa;
+}
+</code></pre>
+<p>Important: <code>--syn-accent</code> is the most visible token, but <code>--syn-on-accent</code>
+is the contrasting <strong>foreground on primary buttons</strong>. Change both when
+necessary. Verify 4.5:1 contrast for body text and 3:1 for essential non-text
+graphics; don't assume arbitrary overrides remain accessible.</p>
+<p>Primary-button hover backgrounds default to the unchanged accent. On hover,
+the border switches to the contrasting foreground for a visible affordance.
+To customize the hover fill, set <code>--syn-primary-hover-bg</code> on the desired
+theme/root and test its contrast with <code>--syn-on-accent</code> in both rest and hover
+states. Syntyr does not automatically invent a contrast-safe hover color.</p>
+<p>Use <code>.syn-panel--raised</code> for opt-in elevation. The <code>.syn-title</code>/<code>.syn-display</code>
+and <code>.syn-section-heading</code> roles use native <code>text-wrap: balance</code> when
+supported; unsupported browsers fall back to ordinary line wrapping.
+Syntyr leaves platform font smoothing untouched.</p>
+<p>Useful tokens:</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--syn-bg</code></td>
+<td>Main background</td>
+</tr>
+<tr>
+<td><code>--syn-surface</code>, <code>--syn-surface-hi</code></td>
+<td>Cards and controls</td>
+</tr>
+<tr>
+<td><code>--syn-text</code>, <code>--syn-muted</code></td>
+<td>Main and secondary text</td>
+</tr>
+<tr>
+<td><code>--syn-accent</code>, <code>--syn-on-accent</code>, <code>--syn-accent-soft</code></td>
+<td>Brand accent, its foreground, soft fill</td>
+</tr>
+<tr>
+<td><code>--syn-frame</code>, <code>--syn-danger</code>, <code>--syn-success</code>, <code>--syn-warning</code></td>
+<td>Borders and status</td>
+</tr>
+<tr>
+<td><code>--syn-font</code>, <code>--syn-mono</code>, <code>--syn-font-ui</code>, <code>--syn-font-display</code></td>
+<td>Body, technical, control, and display typography</td>
+</tr>
+<tr>
+<td><code>--syn-type-xs</code>, <code>--syn-type-sm</code>, <code>--syn-type-base</code></td>
+<td>Typography sizes</td>
+</tr>
+<tr>
+<td><code>--syn-surface-recessed</code>, <code>--syn-surface-raised</code>, <code>--syn-border-subtle</code></td>
+<td>Derived surfaces and quiet separators</td>
+</tr>
+<tr>
+<td><code>--syn-text-subtle</code>, <code>--syn-border-default</code>, <code>--syn-border-hover</code>, <code>--syn-border-focus</code>, <code>--syn-focus-ring</code></td>
+<td>Semantic text, borders, and focus</td>
+</tr>
+<tr>
+<td><code>--syn-surface-interactive</code>, <code>--syn-surface-hover</code>, <code>--syn-surface-pressed</code></td>
+<td>Theme-aware interactive control states</td>
+</tr>
+<tr>
+<td><code>--syn-primary-hover-bg</code></td>
+<td>Primary-button hover background; defaults to the accent so foreground contrast does not regress</td>
+</tr>
+<tr>
+<td><code>--syn-shadow-sm</code>, <code>--syn-shadow-raised</code>, <code>--syn-shadow-overlay</code></td>
+<td>Semantic elevation (small surfaces, raised panels, floating overlays)</td>
+</tr>
+<tr>
+<td><code>--syn-type-display</code>, <code>--syn-type-section</code>, <code>--syn-type-heading</code>, <code>--syn-type-body</code>, <code>--syn-leading-body</code>, <code>--syn-tracking-display</code></td>
+<td>Composable typography roles</td>
+</tr>
+<tr>
+<td><code>--syn-row-padding-block</code>, <code>--syn-card-padding</code>, <code>--syn-control-padding-block</code></td>
+<td>Density-aware spacing</td>
+</tr>
+<tr>
+<td><code>--syn-space-1</code> … <code>--syn-space-5</code></td>
+<td>Spacing</td>
+</tr>
+<tr>
+<td><code>--syn-cut</code>, <code>--syn-radius</code>, <code>--syn-control-height</code></td>
+<td>Geometry</td>
+</tr>
+<tr>
+<td><code>--syn-duration-fast</code>, <code>--syn-duration-standard</code>, <code>--syn-ease</code>, <code>--syn-ease-enter</code></td>
+<td>Optional transitions</td>
+</tr>
+<tr>
+<td><code>--syn-panel-padding</code>, <code>--syn-panel-radius</code>, <code>--syn-panel-border-width</code></td>
+<td>Local panel customization</td>
+</tr>
+<tr>
+<td><code>--syn-button-padding-inline</code>, <code>--syn-button-border-width</code></td>
+<td>Local button customization</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-independent-visual-intensity">3. Independent visual intensity</h2>
+<p>Use <code>data-syn-intensity=&quot;quiet&quot;</code> on a dense dashboard, the default <code>standard</code> for a balanced presentation, or <code>cinematic</code> on a limited hero region. Intensity controls only opt-in decoration in <code>syntyr.effects.css</code>; it does not alter palette, density, typography or control contrast. Nested regions can override an inherited value. See the <a href="visual-intensity.html">visual-intensity guide</a> and <a href="../examples/intensity-geometry.html">live comparison</a>.</p>
+<h2 id="4-css-component-mode-versus-native-semantic-mode">4. CSS component mode versus native semantic mode</h2>
+<p>Scoped component classes: <code>.syn-panel</code>, <code>.syn-button</code>, <code>.syn-table</code>.
+They work with only <code>syntyr.core.css</code>.</p>
+<p>For classless HTML resembling Pico CSS, load <strong>both</strong> files and opt in:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic.css&quot;&gt;
+&lt;div class=&quot;syn-root syn-semantic&quot; data-syn-theme=&quot;noir&quot;&gt;
+  &lt;article&gt;
+    &lt;h2&gt;Operator access&lt;/h2&gt;
+    &lt;label for=&quot;operator&quot;&gt;Operator ID&lt;/label&gt;
+    &lt;input id=&quot;operator&quot; name=&quot;operator&quot; required&gt;
+    &lt;button&gt;Continue&lt;/button&gt;
+  &lt;/article&gt;
+&lt;/div&gt;
+</code></pre>
+<p>Unclassed controls outside <code>.syn-semantic</code> are not restyled.
+If you need glows or static grid effects, add <code>syntyr.effects.css</code>
+as a third optional file. Don't load <code>syntyr.all.css</code> <strong>and</strong> its
+individual component files at the same time.</p>
+<h2 id="5-responsive-applications-and-accessibility">5. Responsive applications and accessibility</h2>
+<p>Use <code>.syn-region</code> as the parent for container-responsive patterns such as
+<code>.syn-stats</code>, <code>.syn-split</code>, <code>.syn-pricing</code>; width comes from the container,
+not the whole viewport. Use <code>.syn-page</code> only for a full-page experience.</p>
+<p>Syntyr also honors <code>prefers-contrast: more</code> by strengthening tokenized borders
+and suppressing nonessential decorative effects, including inside nested
+themes and explicit cinematic-intensity regions. This is a preference-aware
+visual enhancement, not a substitute for actual high-contrast/forced-colors,
+zoom, and screen-reader testing.</p>
+<p>Syntyr honors <code>prefers-reduced-motion: reduce</code>. Theme overrides
+must not remove focus outlines, fake disabled states, or communicate state
+only through color. Test keyboard navigation, 200%/400% browser zoom,
+high-contrast/forced-colors, and relevant screen readers in the target app.</p>
+<p><strong>No runtime JavaScript is required for styling.</strong> Search, authentication,
+live data, and server-side form handling are intentionally application
+responsibilities; optional advanced widgets are outside the CSS core.</p>
+<h2 id="seven-theme-palettes-unreleased-alpha5-candidate">Seven theme palettes (unreleased alpha.5 candidate)</h2>
+<p>The published alpha.4 tag offers Grid, Noir and Studio. This candidate adds Industrial, Terminal, Corporate and Minimal. Use the same HTML and change only the theme attribute:</p>
+<ul>
+<li><code>data-syn-theme=&quot;grid&quot;</code></li>
+<li><code>data-syn-theme=&quot;noir&quot;</code></li>
+<li><code>data-syn-theme=&quot;studio&quot;</code></li>
+<li><code>data-syn-theme=&quot;industrial&quot;</code></li>
+<li><code>data-syn-theme=&quot;terminal&quot;</code></li>
+<li><code>data-syn-theme=&quot;corporate&quot;</code></li>
+<li><code>data-syn-theme=&quot;minimal&quot;</code></li>
+</ul>
+<p>To use finite opt-in layout utilities, load <code>syntyr.utilities.css</code> after <code>syntyr.core.css</code> (or use the all bundle). Utilities include <code>.syn-u-flex</code>, <code>.syn-u-grid</code>, <code>.syn-u-between</code>, spacing helpers and a visually hidden helper. No compiler or runtime JavaScript is required.</p>
+<h2 id="system-palette-no-javascript-experimental">System palette, no JavaScript (experimental)</h2>
+<p><code>data-syn-theme=&quot;auto&quot;</code> on <code>.syn-root</code> or a nested themed region
+uses Studio colors for light system preference and Grid colors for dark
+system preference. It relies on native <code>color-scheme: light dark</code> and
+CSS <code>light-dark()</code>, supported by current Chromium, Firefox and WebKit.
+Older engines that lack <code>light-dark()</code> retain the inherited/default
+palette. No preference is stored or read by Syntyr.</p>
+<pre tabindex="0"><code class="language-html">&lt;body class=&quot;syn-root syn-page&quot; data-syn-theme=&quot;auto&quot;&gt;
+  &lt;section data-syn-theme=&quot;noir&quot;&gt;This remains Noir regardless of OS theme.&lt;/section&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Explicit palettes are unchanged. For sensitive applications, test nested
+themes, native form controls, and contrast in both OS preference modes.</p>
+<h2 id="typography-density-and-quiet-surfaces">Typography, density, and quiet surfaces</h2>
+<p>Control and navigation text uses <code>--syn-font-ui</code>. Display headings use
+<code>--syn-font-display</code>, while code and CLI regions retain <code>--syn-mono</code>.
+Grid and Terminal choose monospace UI explicitly; Studio is the implicit default; light themes and Noir use
+system sans-serif controls. Replace the font variables if a product has its
+own typeface, without introducing required external fonts.</p>
+<p>The <code>--syn-surface-recessed</code>, <code>--syn-surface-raised</code>, and
+<code>--syn-border-subtle</code> tokens derive from the active theme palette and
+recompute in nested themed regions. Strong borders remain available for
+focus and essential controls. Avoid treating subtle separators as a substitute
+for accessible non-text contrast where boundaries are required.</p>
+<p>To opt into compact operational layouts:</p>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;minimal&quot; data-syn-density=&quot;compact&quot;&gt;
+  &lt;table class=&quot;syn-table&quot;&gt;&lt;!-- ... semantic rows ... --&gt;&lt;/table&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Compact density reduces padding and control heights, <strong>not font sizes</strong>.
+Use the default density for content-heavy business pages or touch-first forms.
+For an optional editorial hero, combine <code>syn-site-heading--editorial</code> from
+<code>syntyr.recipes.css</code> with <code>syn-gradient-wash</code> from <code>syntyr.effects.css</code>.
+Both use local fonts and static CSS without runtime dependencies.</p>
+<h2 id="semantic-roles-states-and-content-rhythm">Semantic roles, states, and content rhythm</h2>
+<p>Use <code>.syn-display</code> (also available as <code>.syn-title</code>), <code>.syn-section-heading</code> for section titles, <code>.syn-heading</code> for card headings,
+<code>.syn-body</code>, <code>.syn-text-support</code>, and the opt-in <code>.syn-prose</code> content
+container. Typography roles inherit theme fonts and allow applications to
+override type scale without rewriting individual component selectors.</p>
+<p>Semantic aliases are derived separately in each nested <code>data-syn-theme</code>
+scope, so a Grid panel inside a Studio page retains Grid's own contrast and
+control appearance. To override theme colors, prefer changing the primitive
+palette (<code>--syn-accent</code>, <code>--syn-frame</code>, <code>--syn-surface</code>, etc.). Override a
+semantic role only when the change is intentional and contrast has been checked.</p>
+<p>Native <code>disabled</code>, <code>aria-invalid</code>, <code>aria-pressed</code>, <code>aria-busy</code>,
+<code>:focus-visible</code>, and <code>:active</code> styles are presentation only. <code>aria-busy</code>
+does not stop clicks or run a task. Use actual <code>disabled</code> for disabled form
+controls; <code>aria-disabled</code> requires the application to suppress activation.
+For errors, pair <code>aria-invalid=&quot;true&quot;</code> with an associated error message
+(<code>aria-describedby</code>); never rely on border color alone.</p>
+<p>See <a href="../examples/design-states.html">the live design-state example</a> for
+semantic typography, nested themes, compact layout and form states.</p>
+<h2 id="component-local-layouts-without-compilation-experimental-alpha5">Component-local layouts without compilation (experimental alpha.5)</h2>
+<p>Modern CSS custom properties allow Syntyr to expose a small set of layout
+adjustments without inventing more utility classes. The default styles remain
+unchanged when you do not provide an override. Consumers need <strong>no build step</strong>,
+Tailwind compiler or JavaScript: use a normal stylesheet and optional application
+CSS, or put a local variable on a single component.</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-grid&quot; style=&quot;--syn-grid-min: 14rem; --syn-grid-gap: 1.25rem&quot;&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;Summary&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;Campaigns&lt;/article&gt;
+    &lt;article class=&quot;syn-panel&quot;&gt;Revenue&lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Core layout hooks (each can also be set in application CSS):</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Local token</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-grid</code></td>
+<td><code>--syn-grid-min</code> / <code>--syn-grid-gap</code></td>
+<td><code>17rem</code> / <code>1rem</code></td>
+</tr>
+<tr>
+<td><code>.syn-layout</code></td>
+<td><code>--syn-layout-min</code> / <code>--syn-layout-gap</code></td>
+<td><code>21rem</code> / <code>1.25rem</code></td>
+</tr>
+<tr>
+<td><code>.syn-stack</code></td>
+<td><code>--syn-stack-gap</code></td>
+<td><code>--syn-space-3</code></td>
+</tr>
+<tr>
+<td><code>.syn-inline</code></td>
+<td><code>--syn-inline-gap</code></td>
+<td><code>--syn-space-2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Optional <code>syntyr.recipes.css</code> adds <code>.syn-kpi-grid</code>
+(<code>--syn-kpi-min</code>, <code>--syn-kpi-gap</code>), <code>.syn-filter-bar</code>
+(<code>--syn-filter-gap</code>), <code>.syn-filter-field</code>
+(<code>--syn-filter-field-min</code>, <code>--syn-filter-query-min</code> on query variants),
+and the <code>.syn-detail-layout</code> shell (<code>--syn-detail-gap</code>,
+<code>--syn-detail-main-basis</code>, <code>--syn-detail-main-min</code>,
+<code>--syn-detail-aside-basis</code>, <code>--syn-detail-aside-min</code>).</p>
+<pre tabindex="0"><code class="language-html">&lt;form class=&quot;syn-filter-bar&quot; action=&quot;/campaigns&quot; method=&quot;get&quot;
+      style=&quot;--syn-filter-gap: 1rem; --syn-filter-field-min: 9rem&quot;&gt;
+  &lt;label class=&quot;syn-filter-field&quot;&gt;
+    Status
+    &lt;select class=&quot;syn-select&quot; name=&quot;status&quot;&gt;
+      &lt;option value=&quot;&quot;&gt;All statuses&lt;/option&gt;
+      &lt;option&gt;Active&lt;/option&gt;
+    &lt;/select&gt;
+  &lt;/label&gt;
+  &lt;button class=&quot;syn-button&quot; type=&quot;submit&quot;&gt;Filter&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+<p>Intrinsic grids and wrapping filter/detail layouts respond to their available
+width, including inside narrow application panels. An explicit named
+<code>.syn-region</code> container remains the contract for components using
+<code>@container syn-region</code>. Do not set implausible minimum widths or nonlength
+values: a CSS variable with an invalid value can invalidate its entire
+declaration despite the <code>var()</code> fallback.</p>
+<h2 id="native-state-styling-and-accessibility">Native state styling and accessibility</h2>
+<p>The classed <code>.syn-field</code> adds a focus-within label cue. Its label switches to
+the danger color when it contains an <code>aria-invalid=&quot;true&quot;</code> control or a
+user-invalid native control. <code>.syn-input-group</code> highlights its addon border
+when a child receives focus. Core <code>.syn-panel[inert]</code> uses a dashed border and
+recessed surface to indicate unavailability, while the browser supplies inert
+interaction semantics. Use <code>inert</code> on the actual unavailable subtree, not as
+a substitute for server authorization; when not native or when unsupported,
+styling alone cannot disable behavior.</p>
+<p>Always preserve real labels, associated error text and focus outlines. For
+invalid fields, provide an error message and connect it with
+<code>aria-describedby</code>. The styling does not perform validation, keyboard
+management, popover activation or announcements, and accessibility requires
+manual keyboard, zoom, forced-colors and assistive-technology testing.</p>
+<h2 id="experimental-opt-in-oklch-mixing">Experimental opt-in OKLCH mixing</h2>
+<p>Syntyr's seven palette primitives and text/foreground contrast pairs remain
+unchanged. To compare perceptual color mixing on an individual theme region,
+opt in to <code>data-syn-color-space=&quot;oklch&quot;</code>:</p>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;
+         data-syn-color-space=&quot;oklch&quot;&gt;
+  &lt;button class=&quot;syn-button&quot;&gt;Perceptual surface hover&lt;/button&gt;
+  &lt;aside data-syn-theme=&quot;grid&quot; data-syn-color-space=&quot;oklch&quot;&gt;
+    Nested themes must opt in independently.
+  &lt;/aside&gt;
+&lt;/section&gt;
+</code></pre>
+<p>Only the <strong><code>--syn-surface-hover</code></strong> role uses OKLCH mixing in this experiment.
+The default stays in sRGB. Browser engines lacking the required
+<code>color-mix(in oklch, ...)</code> support retain the existing sRGB role. <strong>Nested themes</strong>
+recompute their own tokens; add the opt-in attribute to each theme scope
+you intentionally want to compare. Do not generalize this experiment to text
+colors or primary buttons without a contrast audit, and check the resulting
+hover backgrounds against text across all palettes and browser engines.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-choose-a-theme">1. Choose a theme</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-override-tokens-using-application-css">2. Override tokens using application CSS</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-independent-visual-intensity">3. Independent visual intensity</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#4-css-component-mode-versus-native-semantic-mode">4. CSS component mode versus native semantic mode</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#5-responsive-applications-and-accessibility">5. Responsive applications and accessibility</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#seven-theme-palettes-unreleased-alpha5-candidate">Seven theme palettes (unreleased alpha.5 candidate)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#system-palette-no-javascript-experimental">System palette, no JavaScript (experimental)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#typography-density-and-quiet-surfaces">Typography, density, and quiet surfaces</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#semantic-roles-states-and-content-rhythm">Semantic roles, states, and content rhythm</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#component-local-layouts-without-compilation-experimental-alpha5">Component-local layouts without compilation (experimental alpha.5)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-state-styling-and-accessibility">Native state styling and accessibility</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#experimental-opt-in-oklch-mixing">Experimental opt-in OKLCH mixing</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="theme-customization.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

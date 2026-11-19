@@ -9,19 +9,18 @@
   <style>
     .landing-hero { padding-block:clamp(4rem,12vw,10rem); border-block:1px solid var(--syn-frame); }
     .landing-eyebrow {display:flex;gap:1rem; align-items:center;letter-spacing:.2em;}
-    .landing-display {font-size:clamp(3.4rem,11vw,9rem);letter-spacing:-.07em;line-height:.94;max-width:11ch;margin-block:2rem;}
+    .landing-display {font-size:clamp(3.4rem,11vw,9rem);letter-spacing:-.07em;line-height:.94;max-width:11ch;margin-block:2rem;overflow-wrap:anywhere;}
     .landing-display em {color:var(--syn-accent);font-style:normal;}
     .landing-cards {margin-block:3rem;}
     .landing-feature {border-block-start:1px solid var(--syn-frame);padding-block:2rem;}
     .landing-footer {border-top:1px solid var(--syn-frame);padding-block:3rem;}
-    @media(max-width:42rem){.landing-display{overflow-wrap:normal}}
   </style>
 </head>
-<body class="syn-root syn-page" data-syn-theme="noir">
+<body class="syn-root syn-page" data-syn-theme="noir" data-syn-intensity="cinematic">
   <div class="syn-shell">
     <header class="syn-header"><a class="syn-logo" href="../docs/index.html">// SYNTYR</a><nav class="syn-nav" aria-label="Primary"><a href="#capabilities">CAPABILITIES</a><a href="#contact">CONTACT</a></nav></header>
     <main>
-      <section class="landing-hero syn-atmosphere" aria-labelledby="hero">
+      <section class="landing-hero syn-atmosphere syn-glow" aria-labelledby="hero">
         <span class="syn-eyebrow landing-eyebrow">AMBER / NOIR PROTOCOL 07</span>
         <h1 class="landing-display" id="hero">Build for a <em>different</em> future.</h1>
         <p class="syn-lede">Noir is an atmospheric theme for applications that still need to be legible, fast, and accessible.</p>

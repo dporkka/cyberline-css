@@ -2,6 +2,7 @@
 (() => {
   const theme = document.getElementById('theme');
   const accent = document.getElementById('accent');
+  const intensity = document.getElementById('intensity');
   const onAccent = document.getElementById('on-accent');
   const preview = document.getElementById('preview');
   const contrastResult = document.getElementById('contrast-result');
@@ -21,13 +22,14 @@
   }
 
   function render() {
+    preview.dataset.synIntensity = intensity.value;
     preview.style.setProperty('--syn-accent', accent.value);
     preview.style.setProperty('--syn-on-accent', onAccent.value);
     const ratio = contrastRatio(accent.value, onAccent.value);
     const passes = ratio >= 4.5;
     contrastResult.dataset.result = passes ? 'pass' : 'fail';
     contrastResult.textContent = `Primary button text contrast: ${ratio.toFixed(2)}:1 — ${passes ? 'meets' : 'below'} the WCAG AA normal-text 4.5:1 threshold.`;
-    generated.textContent = `.syn-root[data-syn-theme="${theme.value}"],\n.syn-root [data-syn-theme="${theme.value}"] {\n  --syn-accent: ${accent.value};\n  --syn-on-accent: ${onAccent.value};\n}`;
+    generated.textContent = `/* Set data-syn-intensity="${intensity.value}" on your Syntyr root or nested region. */\n.syn-root[data-syn-theme="${theme.value}"],\n.syn-root [data-syn-theme="${theme.value}"] {\n  --syn-accent: ${accent.value};\n  --syn-on-accent: ${onAccent.value};\n}`;
   }
 
   function loadThemeDefaults() {
@@ -41,6 +43,7 @@
   }
 
   theme.addEventListener('change', loadThemeDefaults);
+  intensity.addEventListener('change', render);
   accent.addEventListener('input', render);
   onAccent.addEventListener('input', render);
   reset.addEventListener('click', loadThemeDefaults);

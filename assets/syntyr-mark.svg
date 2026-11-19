@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Syntyr</title>
+  <rect width="64" height="64" rx="13" fill="#091522"/>
+  <path d="M17 18H47V25H25V30H42L48 36V45L42 50H16V43H40V37H22L16 31V23Z" fill="#72e0ef"/>
+  <path d="M13 12H23M41 52H51" stroke="#c6f8ff" stroke-width="2" stroke-linecap="square"/>
+</svg>

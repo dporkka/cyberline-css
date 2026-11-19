@@ -1,161 +1,741 @@
 /* Optional page-level compositions. Semantic HTML, no runtime JavaScript.
    These classes are separate from the small, stable core API. */
 @layer syn.recipes {
-  /* Small fluid type scale and intrinsic layouts (all opt-in). */
-  .syn-root {
-    --syn-fluid-display-size: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
-    --syn-type-lede: clamp(1.0625rem, 1rem + .4vw, 1.375rem);
-    --syn-reading-width: 65ch;
-  }
-  .syn-root .syn-fluid-display { font-size: var(--syn-fluid-display-size); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
-  .syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
-  .syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
-  /* First child is sidebar; second child is the flexible content region. */
-  .syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
-  .syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
-  .syn-root .syn-sidebar > :last-child { flex: 999 1 0; min-width: min(100%, var(--syn-sidebar-content-min, 28rem)); }
-  /* All children switch together from stacked to inline as space permits. */
-  .syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
-  .syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
+  /* All component rules match the root itself or a descendant, never a host sibling. */
+  :where(.syn-root, .syn-root *) {
+    /* Small fluid type scale and intrinsic layouts (all opt-in). */
+    &.syn-root {
+      --syn-fluid-display-size: clamp(2rem, 1.3rem + 2.8vw, 4.25rem);
+      --syn-type-lede: clamp(1.0625rem, 1rem + .4vw, 1.375rem);
+      --syn-reading-width: 65ch;
+    }
+    &.syn-root .syn-fluid-display { font-size: var(--syn-fluid-display-size); line-height: 1.08; letter-spacing: -.035em; overflow-wrap: anywhere; }
+    &.syn-root .syn-fluid-lede { font-size: var(--syn-type-lede); }
+    &.syn-root .syn-reading { max-inline-size: var(--syn-reading-width); }
+    /* A column flex layout blockifies inline direct children without changing their own display.
+       Child margins are preserved; use un-margined children for exact gap spacing. */
+    &.syn-flow { display: flex; flex-direction: column; gap: var(--syn-flow-gap, var(--syn-space-3)); min-width: 0; }
+    /* First child is sidebar; second child is the flexible content region. */
+    &.syn-root .syn-sidebar { display: flex; flex-wrap: wrap; align-items: start; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-root .syn-sidebar > :first-child { flex: 1 1 var(--syn-sidebar-width, 16rem); min-width: min(100%, var(--syn-sidebar-width, 16rem)); }
+    &.syn-root .syn-sidebar > :last-child { flex: 999 1 0; min-width: min(100%, var(--syn-sidebar-content-min, 28rem)); }
+    /* All children switch together from stacked to inline as space permits. */
+    &.syn-root .syn-switcher { display: flex; flex-wrap: wrap; gap: var(--syn-space-3); min-width: 0; }
+    &.syn-root .syn-switcher > * { flex-grow: 1; flex-basis: max(0px, calc((var(--syn-switcher-threshold, 40rem) - 100%) * 999)); min-width: 0; }
 
-  /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
-  .syn-app-shell {
-    display: grid; grid-template-columns: minmax(0, 1fr);
-    min-height: 100svh; min-width: 0;
-  }
-  .syn-app-rail {
-    display: flex; flex-direction: column; gap: var(--syn-space-2);
-    padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-frame);
-    background: var(--syn-surface-recessed); color: var(--syn-text);
-  }
-  .syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
-  .syn-app-nav a {
-    display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
-    color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
-  }
-  .syn-app-nav a:where(:hover, [aria-current="page"]) {
-    color: var(--syn-accent); background: var(--syn-accent-soft);
-  }
-  .syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
-  .syn-workspace { width: 100%; min-width: 0; padding: clamp(1rem, 3vw, 2.5rem); }
-  .syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
-  .syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--syn-space-2); }
-  .syn-app-card {
-    min-width: 0; padding: var(--syn-card-padding);
-    border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
-    background: var(--syn-surface); color: var(--syn-text);
-    box-shadow: var(--syn-shadow-sm);
-  }
-  .syn-app-card > :first-child { margin-block-start: 0; }
-  .syn-app-card > :last-child { margin-block-end: 0; }
-  .syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
-  .syn-app-card-header > :first-child { margin: 0; }
-  .syn-activity-list { list-style: none; margin: 0; padding: 0; }
-  .syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-frame); }
-  .syn-activity-list li:last-child { border-block-end: 0; }
-  /* Business/marketing: typography and hierarchy without forcing a dark look. */
-  .syn-site-hero {
-    position: relative; isolation: isolate; overflow: hidden;
-    border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
-    background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
-    color: var(--syn-text);
-    padding: clamp(2rem, 6vw, 5rem);
-  }
-  .syn-site-hero::before {
-    content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
-    width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
-  }
-  .syn-site-heading { font-family: var(--syn-font-display); font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
-  /* Optional editorial voice inspired by premium developer tooling; local serif only. */
-  .syn-site-heading--editorial { font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; }
-  .syn-site-heading strong { color: var(--syn-accent); }
-  .syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
-  .syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius); }
-  .syn-feature-card > :first-child { margin-block-start: 0; }
-  .syn-feature-card > :last-child { margin-block-end: 0; }
-  .syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
-  /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
-  .syn-terminal {
-    --syn-terminal-bg: #0b1625;
-    --syn-terminal-fg: #e6f4fa;
-    --syn-terminal-muted: #b6c8d8;
-    --syn-terminal-prompt: #85e7cf;
-    border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
-    background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
-    font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
-  }
-  .syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .73rem; }
-  .syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
-  .syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .syn-terminal-prompt { color: var(--syn-terminal-prompt); }
-  .syn-terminal-muted { color: var(--syn-terminal-muted); }
-  .syn-terminal-command { color: #f9dfad; }
-  .syn-terminal-success { color: #a1f1bf; }
-  .syn-terminal-error { color: #ffb6b2; }
-  .syn-terminal-warning { color: #ffe0a3; }
-  .syn-terminal-path { color: #b2dcff; }
-  .syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
-  .syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
-  .syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
-  .syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
-  .syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
-  .syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
-  .syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
-  /* A static, non-blinking caret; it never suggests fake live input. */
-  .syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+    /* Application shell: usable with server rendering, HTMX, React or plain HTML. */
+    &.syn-app-shell {
+      display: grid; grid-template-columns: minmax(0, 1fr);
+      min-height: 100svh; min-width: 0;
+    }
+    &.syn-app-rail {
+      display: flex; flex-direction: column; gap: var(--syn-space-2);
+      padding: var(--syn-space-3); border-block-end: 1px solid var(--syn-border-subtle);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+    }
+    &.syn-app-nav { display: flex; gap: .35rem; flex-wrap: wrap; }
+    &.syn-app-nav a {
+      display: block; padding: .55rem .75rem; border-radius: var(--syn-radius);
+      color: var(--syn-muted); text-decoration: none; font-size: .875rem; font-weight: 600;
+    }
+    &.syn-app-nav a:where(:hover, [aria-current="page"]) {
+      color: var(--syn-accent); background: var(--syn-accent-soft);
+    }
+    &.syn-app-nav a[aria-current="page"] { box-shadow: inset 3px 0 var(--syn-accent); }
+    &.syn-workspace { width: 100%; min-width: 0; overflow-wrap: anywhere; padding: clamp(1rem, 3vw, 2.5rem); }
+    /* Optional resizable split workspace. CSS owns only layout and state
+       presentation; a copied application module owns input and ARIA values.
+       Fallback without JS is two readable columns, without a fake handle. */
+    &.syn-resizable-workspace {
+      container-name: syn-resizable-workspace;
+      container-type: inline-size;
+      min-inline-size: 0;
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__panes {
+      --syn-workspace-leading: 35%;
+      display: grid;
+      grid-template-columns: minmax(0, var(--syn-workspace-leading)) minmax(0, 1fr);
+      min-inline-size: 0;
+      align-items: stretch;
+      gap: 0;
+    }
+    &.syn-resizable-workspace[data-syn-interactive] .syn-resizable-workspace__panes {
+      grid-template-columns: minmax(0, var(--syn-workspace-leading)) 2.75rem minmax(0, 1fr);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__pane {
+      min-inline-size: 0;
+      padding: min(var(--syn-space-3), 3vw);
+      overflow-wrap: anywhere;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface);
+      color: var(--syn-text);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__pane > :first-child { margin-block-start: 0; }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-inline-size: 2.75rem;
+      cursor: col-resize;
+      touch-action: none;
+      color: var(--syn-muted);
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator[hidden] { display: none; }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator::before {
+      content: "";
+      display: block;
+      inline-size: 3px;
+      block-size: min(4rem, 65%);
+      border-radius: 1rem;
+      background: currentColor;
+    }
+    &.syn-resizable-workspace .syn-resizable-workspace__separator:focus-visible {
+      outline: 3px solid var(--syn-focus-ring);
+      outline-offset: -3px;
+      border-radius: var(--syn-radius);
+    }
+    @container syn-resizable-workspace (max-width: 44rem) {
+      &.syn-resizable-workspace .syn-resizable-workspace__panes {
+        display: block;
+      }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator + .syn-resizable-workspace__pane {
+        margin-block-start: var(--syn-space-2);
+      }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator {
+        display: none;
+      }
+    }
+    @media (forced-colors: active) {
+      &.syn-resizable-workspace .syn-resizable-workspace__pane { border-color: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator { color: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator::before { background: CanvasText; }
+      &.syn-resizable-workspace .syn-resizable-workspace__separator:focus-visible { outline-color: Highlight; }
+    }
 
-  /* Composable surface geometry; themes control colors, modifiers control shape. */
-  .syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
-  .syn-frame--precision::before {
-    content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
-    width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
-  }
-  .syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
-  .syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+    &.syn-app-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-block-end: 1.5rem; }
+    &.syn-kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--syn-kpi-min, 13rem)), 1fr)); gap: var(--syn-kpi-gap, var(--syn-space-2)); }
+    &.syn-app-card {
+      min-width: 0; overflow-wrap: anywhere; padding: var(--syn-card-padding);
+      border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-sm);
+    }
+    &.syn-app-card > :first-child { margin-block-start: 0; }
+    &.syn-app-card > :last-child { margin-block-end: 0; }
+    &.syn-app-card-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .6rem; margin-block-end: 1rem; }
+    &.syn-app-card-header > :first-child { margin: 0; }
+    &.syn-activity-list { list-style: none; margin: 0; padding: 0; }
+    &.syn-activity-list li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; padding: .75rem 0; border-block-end: 1px solid var(--syn-border-subtle); }
+    &.syn-activity-list li:last-child { border-block-end: 0; }
+    /* CRM filters: wrapping, label-friendly controls and real GET forms. */
+    &.syn-filter-bar {
+      display: flex; align-items: end; flex-wrap: wrap;
+      gap: var(--syn-filter-gap, var(--syn-space-2)); min-width: 0;
+    }
+    &.syn-filter-field {
+      display: grid; gap: .35rem;
+      flex: 1 1 var(--syn-filter-field-min, 11rem);
+      min-inline-size: min(100%, var(--syn-filter-field-min, 11rem));
+    }
+    &.syn-filter-field--query { flex: 2 1 var(--syn-filter-query-min, 18rem); }
+    &.syn-filter-actions {
+      display: flex; align-items: center; flex-wrap: wrap;
+      gap: var(--syn-space-1); min-inline-size: 0;
+    }
 
-  /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
-  .syn-surface--accent {
-    border-color: var(--syn-frame-strong);
-    box-shadow: inset 0 3px var(--syn-accent);
-    background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
-  }
-  /* Use on small, interactive surfaces. No persistent will-change or transforms. */
-  .syn-surface--lift {
-    transition: border-color var(--syn-duration-fast) var(--syn-ease),
-                box-shadow var(--syn-duration-fast) var(--syn-ease);
-  }
-  @media (hover: hover) and (pointer: fine) {
-    .syn-surface--lift:where(:hover, :focus-within) {
+    /* Collection workspaces: combine with existing syn-filter-bar and syn-detail-layout.
+       No simulated selection, filtering or persistence behavior is implied. */
+    &.syn-collection-toolbar {
+      display: flex; flex-wrap: wrap; align-items: end;
+      justify-content: space-between; gap: var(--syn-space-2);
+      min-inline-size: 0; margin-block-end: var(--syn-space-2);
+    }
+    &.syn-collection-toolbar > :where(form, .syn-filter-bar) {
+      flex: 1 1 20rem; min-inline-size: min(100%, 20rem);
+    }
+    &.syn-collection-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: var(--syn-space-1); min-inline-size: 0;
+    }
+    &.syn-bulk-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      padding: var(--syn-space-2); min-inline-size: 0;
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+    }
+    /* Opt-in row density, never a global table override. */
+    &.syn-table--compact :where(th, td) { padding-block: .375rem; padding-inline: .5rem; }
+    &.syn-result-state {
+      padding: clamp(1rem, 3vw, 2rem); min-inline-size: 0;
+      border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-result-state > :first-child { margin-block-start: 0; }
+    &.syn-result-state > :last-child { margin-block-end: 0; }
+
+    /* Optional file lifecycle presentation. Native input[type=file] remains in
+       core. State, transport, progress, retries, validation and authorization
+       belong exclusively to the host application. */
+    &.syn-file-queue {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: 0; margin: 0; list-style: none;
+    }
+    &.syn-file-item {
+      --syn-file-edge: var(--syn-border-default);
+      display: grid; gap: .45rem; min-inline-size: 0;
+      padding: var(--syn-space-2); overflow-wrap: anywhere;
+      background: var(--syn-surface); color: var(--syn-text);
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-file-edge);
+      border-radius: var(--syn-radius);
+    }
+    &.syn-file-item-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: .25rem var(--syn-space-2); flex-wrap: wrap; min-inline-size: 0;
+    }
+    &.syn-file-item-header > * { min-inline-size: 0; overflow-wrap: anywhere; }
+    &.syn-file-item :is(progress, .syn-meter) { inline-size: 100%; max-inline-size: 100%; }
+    &.syn-file-item > :where(p, small) { margin-block: 0; }
+    &.syn-file-item[data-syn-state="queued"] { --syn-file-edge: var(--syn-muted); }
+    &.syn-file-item[data-syn-state="uploading"] { --syn-file-edge: var(--syn-accent); }
+    &.syn-file-item[data-syn-state="complete"] { --syn-file-edge: var(--syn-success); }
+    &.syn-file-item[data-syn-state="failed"] { --syn-file-edge: var(--syn-danger); }
+    @media (forced-colors: active) {
+      &.syn-file-item { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
+
+    /* Link each summary item to a field id; the server supplies actual errors
+       and must manage focus after a failed POST. */
+    &.syn-error-summary {
+      padding: var(--syn-space-3); margin-block-end: var(--syn-space-3);
+      border: 1px solid var(--syn-danger);
+      border-inline-start: 4px solid var(--syn-danger);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-error-summary > :first-child { margin-block-start: 0; }
+    &.syn-error-summary > :last-child { margin-block-end: 0; }
+    &.syn-error-summary a { color: var(--syn-text); text-decoration: underline; text-decoration-color: var(--syn-danger); text-underline-offset: .2em; }
+    &.syn-error-summary:focus-visible { outline: 3px solid var(--syn-focus-ring); outline-offset: 2px; }
+    @media (forced-colors: active) {
+      &.syn-error-summary, &.syn-result-state, &.syn-bulk-actions { border-color: CanvasText; }
+    }
+
+    /* Native form workflows: keep file input browser-owned and form actions
+       bound by the HTML form attribute, including when the footer is outside. */
+    &.syn-upload-field {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: min(var(--syn-space-3), 2vw); border: 1px dashed var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-upload-field :where(input[type="file"]) { max-inline-size: 100%; min-inline-size: 0; }
+    &.syn-upload-field :where(ul) { margin: 0; padding-inline-start: min(1.25rem, 3vw); }
+    &.syn-form-actions {
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: var(--syn-space-2);
+      position: sticky; inset-block-end: 0; z-index: 1; min-inline-size: 0;
+      margin-block-start: var(--syn-space-3); padding: var(--syn-space-2);
+      border-block-start: 1px solid var(--syn-border-default);
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-form-actions__buttons {
+      display: flex; flex-wrap: wrap; gap: var(--syn-space-1);
+      align-items: center; min-inline-size: 0;
+    }
+
+    @media (forced-colors: active) {
+      &.syn-upload-field, &.syn-form-actions { border-color: CanvasText; }
+    }
+
+    /* Native pipeline view: horizontal scroll only on the board, not the page.
+       A tabindex=0 and accessible name make overflow keyboard reachable. */
+    &.syn-pipeline {
+      display: grid; grid-auto-flow: column;
+      grid-auto-columns: minmax(min(100%, var(--syn-pipeline-column-width, 17rem)), 1fr);
+      align-items: start; gap: var(--syn-space-2);
+      max-inline-size: 100%; min-inline-size: 0;
+      overflow-x: auto; overscroll-behavior-inline: contain;
+      padding: .25rem .125rem var(--syn-space-2);
+    }
+    &.syn-pipeline:focus-visible {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: -2px;
+    }
+    &.syn-pipeline-lane {
+      display: grid; align-content: start; gap: var(--syn-space-2);
+      min-inline-size: 0; padding: var(--syn-space-2);
+      background: var(--syn-surface-recessed);
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+    }
+    &.syn-pipeline-lane > :first-child { margin-block: 0; }
+    &.syn-pipeline-list {
+      display: grid; gap: var(--syn-space-2);
+      margin: 0; padding: 0; list-style: none;
+    }
+    &.syn-pipeline-card {
+      min-inline-size: 0; padding: var(--syn-card-padding);
+      background: var(--syn-surface);
+      border: 1px solid var(--syn-border-subtle);
+      border-radius: var(--syn-radius);
+      overflow-wrap: anywhere;
+    }
+    &.syn-pipeline-card:focus-within {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-pipeline-card > :first-child { margin-block-start: 0; }
+    &.syn-pipeline-card > :last-child { margin-block-end: 0; }
+
+    /* Definition-list fields for account, asset and deal detail panels.
+       The original intrinsic row layout is the fallback without subgrid. */
+    &.syn-record-fields { display: grid; gap: 0; margin: 0; }
+    &.syn-record-fields > div {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
+      gap: .25rem var(--syn-space-2); padding-block: var(--syn-row-padding-block);
+      border-block-end: 1px solid var(--syn-border-subtle);
+    }
+    /* Share column tracks across every row without hard-coded label widths.
+       The list itself owns the container, so embedded sidebars also reflow. */
+    @supports (grid-template-columns: subgrid) {
+      &.syn-record-fields {
+        container-name: syn-record-fields;
+        container-type: inline-size;
+        grid-template-columns: minmax(0, min(35%, 14rem)) minmax(0, 1fr);
+      }
+      &.syn-record-fields > div {
+        grid-column: 1 / -1;
+        grid-template-columns: subgrid;
+      }
+      @container syn-record-fields (max-width: 24rem) {
+        &.syn-record-fields > div { grid-template-columns: minmax(0, 1fr); }
+      }
+    }
+    &.syn-record-fields > div:last-child { border-block-end: 0; }
+    &.syn-record-fields dt { color: var(--syn-muted); }
+    &.syn-record-fields dd { min-inline-size: 0; margin: 0; overflow-wrap: anywhere; }
+
+    /* Transaction feedback is presentation only. Hosts supply actual state,
+       announcements, recovery links and authorization for retry actions. */
+    &.syn-operation-feedback {
+      --syn-operation-edge: var(--syn-border-default);
+      display: grid; gap: var(--syn-space-1); min-inline-size: 0;
+      padding: var(--syn-space-2) var(--syn-space-3);
+      border: 1px solid var(--syn-border-default);
+      border-inline-start: 4px solid var(--syn-operation-edge);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-operation-feedback > :where(h2, h3, p) { margin-block: 0; }
+    &.syn-operation-feedback[data-syn-state="pending"] { --syn-operation-edge: var(--syn-accent); }
+    &.syn-operation-feedback[data-syn-state="saved"] { --syn-operation-edge: var(--syn-success); }
+    &.syn-operation-feedback[data-syn-state="failed"] { --syn-operation-edge: var(--syn-danger); }
+    &.syn-operation-feedback[data-syn-state="conflict"] { --syn-operation-edge: var(--syn-warning); }
+    &.syn-operation-feedback[data-syn-state="unsaved"] { --syn-operation-edge: var(--syn-muted); }
+
+    /* Before/after pairs nest in an existing dd, table cell or review panel.
+       Textual labels and native del/ins semantics carry meaning without color. */
+    &.syn-change-pair {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+      gap: var(--syn-space-2); min-inline-size: 0;
+    }
+    &.syn-change-before, &.syn-change-after {
+      display: grid; align-content: start; gap: .25rem;
+      min-inline-size: 0; padding: .55rem .7rem;
+      border: 1px solid var(--syn-border-subtle);
+      border-inline-start: 3px solid var(--syn-border-default);
+      border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      overflow-wrap: anywhere;
+    }
+    &.syn-change-after { border-inline-start-color: var(--syn-accent); }
+    &.syn-change-pair :is(del, ins) { text-decoration: none; overflow-wrap: anywhere; }
+    &.syn-change-pair small { color: var(--syn-muted); font-size: var(--syn-type-xs); }
+    @media (forced-colors: active) {
+      &.syn-operation-feedback { border-color: CanvasText; border-inline-start-color: Highlight; }
+      &.syn-change-before { border-color: CanvasText; }
+      &.syn-change-after { border-color: CanvasText; border-inline-start-color: Highlight; }
+    }
+
+    /* Business/marketing: typography and hierarchy without forcing a dark look. */
+    &.syn-site-hero {
+      position: relative; isolation: isolate; overflow: hidden;
+      border: 1px solid var(--syn-frame); border-radius: var(--syn-radius);
+      background: radial-gradient(ellipse at 80% 20%, var(--syn-accent-soft), transparent 56%), var(--syn-surface);
+      color: var(--syn-text);
+      padding: clamp(2rem, 6vw, 5rem);
+    }
+    &.syn-site-hero::before {
+      content: ""; position: absolute; inset-block-start: 0; inset-inline-start: 0;
+      width: min(9rem, 40%); height: 3px; background: var(--syn-accent); pointer-events: none;
+    }
+    &.syn-site-heading { font-family: var(--syn-font-display); font-size: clamp(2.3rem, 5.5vw, 4.7rem); line-height: 1.08; letter-spacing: -.055em; max-width: 16ch; }
+    /* Optional editorial voice inspired by premium developer tooling; local serif only. */
+    &.syn-site-heading--editorial { font-family: ui-serif, Georgia, Cambria, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; }
+    &.syn-site-heading strong { color: var(--syn-accent); }
+    &.syn-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: var(--syn-space-2); }
+    &.syn-feature-card { min-width: 0; padding: var(--syn-space-4); background: var(--syn-surface); color: var(--syn-text); border: 1px solid var(--syn-border-subtle); border-radius: var(--syn-radius); }
+    &.syn-feature-card > :first-child { margin-block-start: 0; }
+    &.syn-feature-card > :last-child { margin-block-end: 0; }
+    &.syn-cta-band { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: var(--syn-space-3); padding: var(--syn-space-4); background: var(--syn-accent-soft); color: var(--syn-text); border-inline-start: 3px solid var(--syn-accent); }
+    /* Browser-rendered CLI/documentation panels; true CLI uses separate ANSI tokens. */
+    &.syn-terminal {
+      --syn-terminal-bg: #0b1625;
+      --syn-terminal-fg: #e6f4fa;
+      --syn-terminal-muted: #b6c8d8;
+      --syn-terminal-prompt: #85e7cf;
+      border: 1px solid var(--syn-frame-strong); border-radius: var(--syn-radius);
+      background: var(--syn-terminal-bg); color: var(--syn-terminal-fg);
+      font: 400 .85rem/1.65 var(--syn-mono); min-width: 0; overflow: hidden;
+    }
+    &.syn-terminal-bar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; align-items: center; padding: .55rem 1rem; border-block-end: 1px solid #385265; color: var(--syn-terminal-muted); font-size: .8125rem; }
+    &.syn-terminal-body { margin: 0; padding: 1.1rem; overflow-x: auto; }
+    &.syn-terminal-line { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+    &.syn-terminal-prompt { color: var(--syn-terminal-prompt); }
+    &.syn-terminal-muted { color: var(--syn-terminal-muted); }
+    &.syn-terminal-command { color: #f9dfad; }
+    &.syn-terminal-success { color: #a1f1bf; }
+    &.syn-terminal-error { color: #ffb6b2; }
+    &.syn-terminal-warning { color: #ffe0a3; }
+    &.syn-terminal-path { color: #b2dcff; }
+    &.syn-terminal-meta { color: var(--syn-terminal-muted); font-size: .75em; letter-spacing: .06em; }
+    &.syn-terminal-title { font-weight: 650; color: var(--syn-terminal-fg); overflow-wrap: anywhere; }
+    &.syn-terminal-dots { display: inline-flex; gap: .35rem; align-items: center; }
+    &.syn-terminal-dots > span { display: block; width: .55rem; height: .55rem; border-radius: 50%; background: #ffb6b2; }
+    &.syn-terminal-dots > span:nth-child(2) { background: #ffe0a3; }
+    &.syn-terminal-dots > span:nth-child(3) { background: #a1f1bf; }
+    &.syn-terminal-output { display: block; white-space: pre-wrap; overflow-wrap: anywhere; }
+    /* A static, non-blinking caret; it never suggests fake live input. */
+    &.syn-terminal-cursor { display: inline-block; width: .6ch; height: 1em; vertical-align: -.16em; background: currentColor; }
+
+    /* Composable surface geometry; themes control colors, modifiers control shape. */
+    &.syn-frame--precision { position: relative; border: 1px solid var(--syn-frame-strong); }
+    &.syn-frame--precision::before {
+      content: ""; position: absolute; inset-block-start: -1px; inset-inline-start: -1px;
+      width: 3.5rem; height: 2px; background: var(--syn-accent); pointer-events: none;
+    }
+    &.syn-frame--industrial { border-inline-start: 3px solid var(--syn-accent); background: linear-gradient(110deg, var(--syn-accent-soft), transparent 55%), var(--syn-surface); color: var(--syn-text); }
+    &.syn-frame--soft { border-radius: .75rem; box-shadow: 0 8px 30px rgb(0 0 0 / 6%); }
+
+    /* Optional emphasis: a theme-colored accent line without extra markup or JS. */
+    &.syn-surface--accent {
       border-color: var(--syn-frame-strong);
-      box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+      box-shadow: inset 0 3px var(--syn-accent);
+      background: linear-gradient(160deg, var(--syn-accent-soft), transparent 45%), var(--syn-surface);
     }
-    .syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
-      box-shadow: inset 0 3px var(--syn-accent), 0 8px 24px rgb(0 0 0 / 12%);
+    /* Use on small, interactive surfaces. No persistent will-change or transforms. */
+    &.syn-surface--lift {
+      transition: border-color var(--syn-duration-fast) var(--syn-ease),
+                  box-shadow var(--syn-duration-standard) var(--syn-ease-enter);
     }
-  }
-  .syn-surface--lift:focus-within { border-color: var(--syn-accent); }
+    @media (hover: hover) and (pointer: fine) {
+      &.syn-surface--lift:where(:hover, :focus-within) {
+        border-color: var(--syn-frame-strong);
+        box-shadow: var(--syn-shadow-raised);
+      }
+      &.syn-surface--accent.syn-surface--lift:where(:hover, :focus-within) {
+        box-shadow: inset 0 3px var(--syn-accent), var(--syn-shadow-raised);
+      }
+    }
+    &.syn-surface--lift:focus-within { border-color: var(--syn-accent); }
 
-  /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
-  .syn-defer-section {
-    content-visibility: auto;
-    contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
-  }
-  @media print {
-    .syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .syn-surface--lift { transition: none; }
-  }
-  @media (min-width: 53rem) {
-    .syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
-    .syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-frame); }
-    .syn-app-nav { display: grid; }
-  }
-  @media (forced-colors: active) {
-    .syn-app-card, .syn-site-hero, .syn-feature-card, .syn-terminal, .syn-frame--precision, .syn-frame--industrial { border-color: CanvasText; }
-    .syn-frame--precision::before, .syn-site-hero::before { display: none; }
-    .syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
-    .syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
-    .syn-terminal { forced-color-adjust: auto; }
+    /* Layered materials stay optional. Themes supply all colors and geometry. */
+    &.syn-surface--recessed {
+      background: var(--syn-surface-recessed); color: var(--syn-text);
+      border: 1px solid var(--syn-border-subtle);
+    }
+    &.syn-surface--raised {
+      background: var(--syn-surface-raised); color: var(--syn-text);
+      border: 1px solid var(--syn-border-default); box-shadow: var(--syn-shadow-raised);
+    }
+    &.syn-surface--floating {
+      background: var(--syn-surface-floating); color: var(--syn-text);
+      border: 1px solid var(--syn-border-floating); box-shadow: var(--syn-shadow-overlay);
+    }
+
+    /* A shared heading anatomy for operational detail and settings screens. */
+    &.syn-page-header {
+      display: flex; flex-wrap: wrap; align-items: start; justify-content: space-between;
+      gap: var(--syn-space-2) var(--syn-space-4); margin-block-end: var(--syn-space-4);
+      min-width: 0; overflow-wrap: anywhere;
+    }
+    &.syn-page-header > :first-child { min-width: min(100%, 18rem); flex: 1 1 24rem; }
+    &.syn-page-header__meta {
+      display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1rem;
+      color: var(--syn-muted); font-size: var(--syn-type-sm);
+    }
+    &.syn-page-header__actions {
+      display: flex; align-items: center; flex-wrap: wrap; gap: var(--syn-space-1);
+    }
+
+    /* A content-first detail shell. The inspector wraps naturally at narrow widths. */
+    &.syn-detail-layout {
+      display: flex; flex-wrap: wrap; align-items: start;
+      gap: var(--syn-detail-gap, var(--syn-space-3)); min-width: 0;
+    }
+    &.syn-detail-main {
+      flex: 999 1 var(--syn-detail-main-basis, 32rem);
+      min-width: min(100%, var(--syn-detail-main-min, 22rem));
+    }
+    &.syn-detail-aside {
+      flex: 1 1 var(--syn-detail-aside-basis, 17rem);
+      min-width: min(100%, var(--syn-detail-aside-min, 17rem));
+    }
+
+    /* Search/command presentation only: the application owns actual commands. */
+    &.syn-command-panel {
+      width: min(100%, var(--syn-command-width, 36rem));
+      overflow: hidden; border: 1px solid var(--syn-border-floating);
+      border-radius: var(--syn-radius); background: var(--syn-surface-floating);
+      color: var(--syn-text); box-shadow: var(--syn-shadow-overlay);
+    }
+    /* Reuse visual command styles in an opt-in native dialog. No default JS. */
+    &.syn-command-panel:where(dialog) {
+      box-sizing: border-box; max-inline-size: calc(100% - 2rem);
+      max-block-size: min(80dvh, 44rem); overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    &.syn-command-panel:where(dialog)::backdrop { background: rgb(0 0 0 / .55); }
+    &.syn-command-panel .syn-command-search {
+      padding: var(--syn-space-2); border-block-end: 1px solid var(--syn-border-subtle);
+    }
+    &.syn-command-group { margin: 0; padding: .4rem; list-style: none; }
+    &.syn-command-group-label {
+      margin: 0; padding: .4rem .65rem; color: var(--syn-muted);
+      font-size: var(--syn-type-xs); font-weight: 650; letter-spacing: .035em;
+    }
+    &.syn-command-row {
+      display: flex; align-items: center; gap: var(--syn-space-2);
+      min-width: 0; padding: .7rem .65rem; border: 1px solid transparent;
+      border-radius: var(--syn-radius); text-decoration: none;
+      background: transparent; color: var(--syn-text);
+      transition: background-color var(--syn-duration-fast) var(--syn-ease),
+                  border-color var(--syn-duration-fast) var(--syn-ease);
+    }
+    &.syn-command-row > :first-child { min-width: 0; flex: 1; }
+    &.syn-command-row:where([aria-current="true"], [aria-selected="true"]) {
+      background: var(--syn-surface-pressed); border-color: var(--syn-border-hover);
+    }
+    &.syn-command-row:focus-visible {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: -2px;
+    }
+    &.syn-command-row .syn-command-description {
+      display: block; color: var(--syn-muted); font-size: var(--syn-type-xs);
+    }
+    &.syn-command-key {
+      display: inline-block; font: 500 var(--syn-type-xs)/1.3 var(--syn-mono);
+      color: var(--syn-muted); padding: .25rem .4rem;
+      border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius);
+      background: var(--syn-surface-recessed); white-space: nowrap;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      &.syn-command-row:hover { background: var(--syn-surface-hover); }
+    }
+
+    /* An ordered activity stream: markers and lines are decoration, text is truth. */
+    &.syn-activity-timeline { margin: 0; padding: 0; list-style: none; }
+    &.syn-activity-timeline > li {
+      position: relative;
+      padding-block-end: var(--syn-space-3); padding-inline-start: 1.75rem;
+      min-inline-size: 0; overflow-wrap: anywhere;
+    }
+    &.syn-activity-timeline > li:last-child { padding-block-end: 0; }
+    &.syn-activity-timeline > li::before {
+      content: ""; position: absolute; inset-block-start: .35em; inset-inline-start: .25rem;
+      inline-size: .65rem; block-size: .65rem; border: 2px solid var(--syn-accent);
+      border-radius: 50%; background: var(--syn-surface);
+    }
+    &.syn-activity-timeline > li:not(:last-child)::after {
+      content: ""; position: absolute;
+      inset-block-start: 1.35em; inset-block-end: 0; inset-inline-start: .56rem;
+      inline-size: 1px; background: var(--syn-border-default);
+    }
+    &.syn-activity-timeline time {
+      display: block; color: var(--syn-muted); font-size: var(--syn-type-sm);
+    }
+
+    /* Product storytelling without canvas, filter blur, or automatic animation. */
+    &.syn-showcase {
+      display: flex; flex-wrap: wrap; align-items: center; gap: var(--syn-space-4);
+      padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--syn-border-subtle);
+      background: var(--syn-surface); color: var(--syn-text);
+      border-radius: var(--syn-radius); min-width: 0;
+    }
+    &.syn-showcase-copy { flex: 1 1 18rem; min-width: min(100%, 18rem); }
+    &.syn-showcase-visual {
+      position: relative; isolation: isolate; flex: 1 1 24rem; min-width: min(100%, 18rem);
+      padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background:
+        radial-gradient(ellipse at 80% 10%, var(--syn-accent-soft), transparent 70%),
+        var(--syn-surface-recessed);
+    }
+    &.syn-showcase-visual > * { position: relative; z-index: 1; }
+    /* Protect readable space at narrow widths, including browser/text zoom. */
+    @media (max-width: 40rem) {
+      &.syn-showcase { padding: min(12px, var(--syn-space-2)); overflow-wrap: anywhere; }
+      &.syn-showcase-copy, &.syn-showcase-visual { min-width: 0; overflow-wrap: anywhere; }
+      &.syn-showcase-visual { padding: min(12px, var(--syn-space-2)); }
+      &.syn-command-row { flex-wrap: wrap; overflow-wrap: anywhere; }
+      &.syn-command-row > :first-child { flex: 1 1 100%; overflow-wrap: anywhere; }
+      &.syn-command-group-label { overflow-wrap: anywhere; }
+      &.syn-command-panel .syn-input-group { flex-wrap: wrap; }
+      &.syn-command-panel .syn-input-group > * { flex: 1 1 100%; min-width: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      &.syn-command-row { transition: none; }
+    }
+
+    /* Opt in only on long, below-fold sections. A placeholder height avoids jumps. */
+    &.syn-defer-section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto var(--syn-defer-size, 36rem);
+    }
+    @media print {
+      &.syn-defer-section { content-visibility: visible; contain-intrinsic-size: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      &.syn-surface--lift { transition: none; }
+    }
+    @media (min-width: 53rem) {
+      &.syn-app-shell { grid-template-columns: minmax(12.5rem, 15.5rem) minmax(0, 1fr); }
+      &.syn-app-rail { border-block-end: 0; border-inline-end: 1px solid var(--syn-border-subtle); }
+      &.syn-app-nav { display: grid; }
+    }
+    @media (forced-colors: active) {
+      &.syn-app-card, &.syn-site-hero, &.syn-feature-card, &.syn-terminal, &.syn-frame--precision, &.syn-frame--industrial { border-color: CanvasText; }
+      &.syn-frame--precision::before, &.syn-site-hero::before { display: none; }
+      &.syn-surface--accent { box-shadow: none; border-block-start: 3px solid Highlight; background: Canvas; }
+      &.syn-surface--lift:where(:hover, :focus-within) { box-shadow: none; }
+      &.syn-terminal { forced-color-adjust: auto; }
+    }
+
+    /* Native collection-view navigation: server owns which view is current. */
+    &.syn-view-switcher {
+      display: inline-flex; flex-wrap: wrap; align-items: center;
+      gap: .2rem; min-inline-size: 0; padding: .2rem;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface-recessed);
+    }
+    &.syn-view-switcher > :is(a, button) {
+      display: inline-flex; justify-content: center; align-items: center;
+      min-inline-size: 0; overflow-wrap: anywhere;
+      min-block-size: 2.75rem; padding: .45rem .8rem;
+      border: 1px solid transparent; border-radius: var(--syn-radius);
+      background: transparent; color: var(--syn-muted);
+      font: 600 var(--syn-type-sm)/1.35 var(--syn-font-ui);
+      text-align: center; text-decoration: none; cursor: pointer;
+    }
+    &.syn-view-switcher > :is(a[aria-current="page"], button[aria-pressed="true"]) {
+      border-color: var(--syn-border-default); background: var(--syn-surface);
+      color: var(--syn-text); box-shadow: var(--syn-shadow-sm);
+    }
+    &.syn-view-switcher > :is(a, button):focus-visible {
+      outline: 3px solid var(--syn-focus-ring); outline-offset: 1px;
+    }
+    &.syn-view-switcher > button:disabled { cursor: not-allowed; opacity: .55; }
+
+    /* Off-canvas presentation for native popover or dialog. No JS focus trap. */
+    &.syn-sheet {
+      position: fixed; inset: 0 0 0 auto; margin: 0 0 0 auto;
+      box-sizing: border-box; inline-size: min(100%, var(--syn-sheet-width, 30rem));
+      max-inline-size: 100%; block-size: 100dvh; max-block-size: 100dvh;
+      padding: 0; overflow-x: hidden; overflow-y: auto; overscroll-behavior-y: contain;
+      border: 1px solid var(--syn-border-default); border-inline-start-width: 2px;
+      border-radius: 0; background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-overlay);
+    }
+    &.syn-sheet:is(dialog:not([open]), [popover]:not(:popover-open)) { display: none; }
+    &.syn-sheet:is(dialog[open], :popover-open) {
+      /* Reserve a usable scroll region even when zoomed header/footer exceed the viewport.
+         The sheet itself scrolls to keep the footer reachable in that case. */
+      display: grid; grid-template-rows: auto minmax(min(12rem, 50dvh), 1fr) auto;
+    }
+    &.syn-sheet::backdrop { background: rgb(0 0 0 / .5); }
+    &.syn-sheet-header, &.syn-sheet-footer {
+      display: flex; align-items: start; justify-content: space-between;
+      flex-wrap: wrap; gap: var(--syn-space-2);
+      padding: var(--syn-space-3); min-inline-size: 0;
+      background: var(--syn-surface); color: var(--syn-text);
+    }
+    &.syn-sheet-header { border-block-end: 1px solid var(--syn-border-subtle); }
+    &.syn-sheet-header > :first-child { min-inline-size: 0; flex: 1 1 12rem; }
+    &.syn-sheet-header :is(h2, h3, p) { margin-block: 0 .3rem; overflow-wrap: anywhere; }
+    &.syn-sheet-body {
+      overflow-y: auto; min-block-size: 0; min-inline-size: 0;
+      padding: var(--syn-space-3);
+    }
+    &.syn-sheet-body:focus-visible {
+      outline: 3px solid var(--syn-focus-ring); outline-offset: -3px;
+    }
+    &.syn-sheet-footer {
+      align-items: center; border-block-start: 1px solid var(--syn-border-subtle);
+    }
+
+    /* Evidence records: useful for inspections, reviews and asset previews. */
+    &.syn-evidence-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+      align-items: stretch; gap: var(--syn-space-3); min-inline-size: 0;
+    }
+    &.syn-evidence-card {
+      display: flex; flex-direction: column; min-inline-size: 0; margin: 0;
+      border: 1px solid var(--syn-border-default);
+      border-radius: var(--syn-radius); background: var(--syn-surface);
+      color: var(--syn-text); overflow: hidden;
+    }
+    &.syn-evidence-card:focus-within {
+      outline: 2px solid var(--syn-focus-ring); outline-offset: 2px;
+    }
+    &.syn-evidence-media {
+      display: grid; place-items: center; aspect-ratio: 16 / 9;
+      min-inline-size: 0; overflow: hidden;
+      overflow-wrap: anywhere; background: var(--syn-surface-recessed);
+      color: var(--syn-muted); text-align: center; font-size: var(--syn-type-sm);
+    }
+    &.syn-evidence-media--placeholder {
+      aspect-ratio: auto; min-block-size: 8rem;
+      padding: clamp(.5rem, 2vw, var(--syn-space-2));
+      overflow-wrap: anywhere; box-sizing: border-box;
+    }
+    &.syn-evidence-media :is(img, svg) {
+      display: block; inline-size: 100%; block-size: 100%; object-fit: cover;
+    }
+    &.syn-evidence-body {
+      display: grid; gap: var(--syn-space-2); min-inline-size: 0;
+      padding: clamp(.5rem, 2vw, var(--syn-space-3)); overflow-wrap: anywhere;
+    }
+    &.syn-evidence-body .syn-status { white-space: normal; overflow-wrap: anywhere; }
+    &.syn-evidence-body > :first-child { margin-block-start: 0; }
+    &.syn-evidence-body > :last-child { margin-block-end: 0; }
+    &.syn-evidence-meta { display: grid; gap: .4rem; min-inline-size: 0; margin: 0; }
+    &.syn-evidence-meta > div {
+      display: grid; grid-template-columns: minmax(0, 6rem) minmax(0, 1fr);
+      gap: var(--syn-space-1); min-inline-size: 0; overflow-wrap: anywhere;
+    }
+    &.syn-evidence-meta dt { color: var(--syn-muted); }
+    &.syn-evidence-meta dd { min-inline-size: 0; margin: 0; font-weight: 600; }
+    &.syn-evidence-actions { display: flex; flex-wrap: wrap; gap: var(--syn-space-1); }
+    @media (max-width: 30rem) {
+      &.syn-sheet { inline-size: 100%; }
+      &.syn-evidence-meta > div { grid-template-columns: minmax(0, 1fr); }
+      &.syn-view-switcher { max-inline-size: 100%; }
+      &.syn-view-switcher > :is(a, button) {
+        flex: 1 1 100%; padding-inline: min(.8rem, 10px);
+      }
+    }
+    @media (forced-colors: active) {
+      &.syn-sheet, &.syn-evidence-card, &.syn-view-switcher {
+        border-color: CanvasText; box-shadow: none;
+      }
+      &.syn-view-switcher > :is(a[aria-current="page"], button[aria-pressed="true"]) {
+        border-color: Highlight; box-shadow: inset 0 -3px Highlight;
+      }
+    }
   }
 }

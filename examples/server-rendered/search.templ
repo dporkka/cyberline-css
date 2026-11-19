@@ -1,0 +1,22 @@
+package views
+
+// Provide the /campaigns/search GET handler separately. Go templ escapes text.
+templ Search(query string, results []string) {
+    <section class="syn-root" data-syn-theme="studio">
+        <article class="syn-panel">
+            <h2 class="syn-heading">Campaign search</h2>
+            <form class="syn-form" action="/campaigns/search" method="get">
+                <div class="syn-field">
+                    <label class="syn-label" for="campaign-search">Campaign name</label>
+                    <input id="campaign-search" class="syn-input" name="q" type="search" value={ query }/>
+                </div>
+                <button type="submit" class="syn-button syn-button--primary">Search</button>
+            </form>
+            <ul>
+                for _, result := range results {
+                    <li>{ result }</li>
+                }
+            </ul>
+        </article>
+    </section>
+}

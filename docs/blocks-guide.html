@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: Experimental alpha.5 source gallery, not an immutable release or published npm package.">
+  <meta name="syntyr-source-sha256" content="df986860399bf6d10e2bea08ac6cc144b18f8162546609baf1884ae3c32c9c61">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr Blocks &amp; Assets — integration guide — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/blocks-guide">
+  <link rel="alternate" type="text/markdown" href="blocks-guide.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr Blocks &amp; Assets — integration guide</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="blocks-guide.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr Blocks &amp; Assets — integration guide">
+<h1 id="syntyr-blocks-assets-integration-guide">Syntyr Blocks &amp; Assets — integration guide</h1>
+<p><strong>Status:</strong> Experimental alpha.5 source gallery, not an immutable release or published npm package.</p>
+<p><a href="blocks.html">Browse 50 blocks</a> | <a href="catalog.html">Component catalog</a> | <a href="theme-customization.html">Themes</a> | <a href="accessibility.html">Accessibility</a></p>
+<h2 id="contract">Contract</h2>
+<p>The 50 copy-owned HTML compositions cover marketing, application, services, portfolio, editorial, navigation, publishing, commerce and technical use
+cases. Each contains its own Syntyr root, uses accessible native markup and requires
+no application JavaScript. The data, testimonials and prices are illustrative, not live.</p>
+<p>The gallery script powers optional documentation search, theme switching and copy
+buttons. Disable JavaScript and all 50 static previews remain visible, with
+selectable source under native disclosure elements. No scripts are included in
+application CSS, and the core Syntyr build is unchanged.</p>
+<h2 id="safe-local-registry-installation-experimental-alpha5-source">Safe local registry installation (experimental alpha.5 source)</h2>
+<p>The static <a href="../registry/registry.json">universal registry</a> contains the 50 MIT
+HTML blocks and nine CSS module entries. Every item includes its exact
+source-tree version, SHA-256 content hashes, declared CSS dependencies, files,
+and destination paths. This is <strong>not</strong> a published immutable alpha.5 release.</p>
+<p>A no-network, optional Python standard-library helper can preview a block's
+complete dependency plan (the core CSS, any optional modules, the HTML file and
+one MIT license notice) without modifying a project:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/registry_install.py resource-workspace --project /path/to/app
+# After reviewing every path/digest, opt in to copying missing files only:
+python3 scripts/registry_install.py resource-workspace --project /path/to/app --apply
+</code></pre>
+<p>The script refuses incompatible versions, mismatched hashes, untrusted
+registry URLs, unsafe/symlinked paths, and changed existing files. It never
+executes installed markup or installs JavaScript dependencies. Re-running an
+identical installation is safe. The helper intentionally does <strong>not</strong> offer
+a force-overwrite mode; manage customization and upgrades through your own
+source control. Syntyr still works by copying a prebuilt CSS file directly,
+without Python in the consuming application.</p>
+<p>For reproducible developer-only checks (without shipping a browser runtime),
+run <code>node tests/registry_form_workflows_browser.cjs</code> with
+<code>SYNTYR_PLAYWRIGHT_MODULE</code> pointing to an installed Playwright package and
+optionally <code>SYNTYR_CHROME_BIN</code> pointing to Chromium. The checks verify real
+computed component token styles and the form/workflow gallery at 320, 390
+and 1280 CSS pixels, plus browser-emulated forced colors. These do not replace
+manual keyboard, screen-reader or actual browser zoom review.</p>
+<p>The three complete application compositions in this source candidate are:
+<code>resource-workspace</code> (GET search and records),
+<code>crm-workspace</code> (accessible, keyboard-scrollable pipeline), and
+<code>billing-workspace</code> (server-owned billing contact and invoices). They
+contain <strong>illustrative data and placeholder host routes</strong>. Their host
+application must supply authorization, data queries, CSRF protection,
+validation and persistence. See <a href="component-recipes.html">form state contracts</a>.</p>
+<h2 id="native-html-and-framework-integration">Native HTML and framework integration</h2>
+<p>Load the specific CSS modules shown on each block, from the same pinned version.
+For example, blocks using both core and recipes:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+&lt;!-- Paste a copied HTML block here. --&gt;
+</code></pre>
+<p>Do not load all.css alongside individual CSS files. Most snippets have their own
+root class and default Studio theme. If the application already has a Syntyr root,
+you may remove a redundant nested root while retaining the necessary theme scope.</p>
+<p>Three supported approaches:</p>
+<ol>
+<li><strong>Server HTML / Go templ / Django / PHP / Rust Askama:</strong> Paste snippets into
+templates and bind actual data and routes, with server-side escaping,
+authorization, CSRF protection for writes, and validation.</li>
+<li><strong>HTMX / Datastar:</strong> Keep native forms, links and server fallbacks working.
+Add progressive enhancement attributes only in the application; Syntyr
+does not bundle those JavaScript libraries.</li>
+<li><strong>React / Astro / Vue / Svelte:</strong> Convert HTML syntax where required, e.g.
+class to className and for to htmlFor in JSX. Bind interactive state and
+event handlers in the host app, not in Syntyr.</li>
+</ol>
+<p>Routes like /settings and /checkout/team are example host-app routes. Replace
+them before using in production. Static samples do not implement authentication,
+filtering, payments, sorting, persistence or actual monitoring.</p>
+<h2 id="optional-scroll-parallax-and-hover-effects">Optional scroll, parallax, and hover effects</h2>
+<p>Any copied block can opt into decorative animation by loading
+<a href="animation.html#website-block-effects-css-only">syntyr.motion.css</a> alongside its
+existing CSS. Add <code>data-syn-scroll=&quot;rise&quot;</code> or <code>data-syn-scroll=&quot;fade&quot;</code> directly
+to a heading or card in its original HTML; do not clone the block to create
+an animation variant. A decorative background can use <code>data-syn-parallax</code>
+with a separate media layer, and image tiles can use <code>data-syn-hover=&quot;zoom&quot;</code>.</p>
+<p>These are CSS-first progressive enhancements: unsupported browser versions
+and users requesting reduced motion retain visible, static content. See the
+<a href="animation.html#website-block-effects-css-only">block effects guide and examples</a>
+and the <a href="../examples/animation.html">live animation gallery</a>.</p>
+<p>Use the existing static gradient wash with the optional motion module to
+add a gentle animated background without inventing a new block variant.
+<code>data-syn-gradient=&quot;drift&quot;</code> works on <code>syn-gradient-wash</code> with a
+<code>data-syn-gradient-content</code> foreground wrapper. Short editorial headings
+may opt into <code>data-syn-text=&quot;underline&quot;</code> or
+<code>data-syn-text=&quot;glint&quot;</code>. Motion and high-contrast fallbacks are explained
+in the <a href="animation.html#animated-gradient-wash-composable-css">animation guide</a>.</p>
+<h2 id="12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</h2>
+<p>The complete source is <a href="blocks-assets.css">blocks-assets.css</a>. It includes:
+fine-grid, dot-field, radar, ambient-glow, glass, blueprint, signal-stripes,
+diagonal, beam, corners, horizon and circuit. The gallery displays all twelve.</p>
+<p>The CSS is <strong>docs-only</strong> and outside Syntyr's core and all-in-one builds.
+You may copy individual modifiers with their necessary base rules into your
+application-owned stylesheet. It contains no images, external fonts, canvas,
+JavaScript or network imports. Scanning beam animation respects reduced-motion
+preferences, and effects disable in forced-colors mode.</p>
+<p>Existing Syntyr geometry and effects modules should be the default choice when
+they already provide the desired result.</p>
+<h2 id="six-font-recipes-and-24-original-svg-icons">Six font recipes and 24 original SVG icons</h2>
+<p>Six system-font typography directions are displayed in the gallery:
+Studio sans, Editorial serif, Terminal mono, Technical sans, Reading serif
+and Compact system. They do not bundle or download font files. Customize
+CSS tokens for UI, display and monospace type, preserving readable fallbacks.</p>
+<p>The gallery now provides 24 original, copyable inline SVG examples using
+Syntyr's existing generic icon sizing contract. These are not a dependency,
+icon font or stand-alone icon runtime. You may also use appropriately licensed
+provider packs such as Lucide, Tabler and Heroicons; none are vendored here. Icon-only controls need accessible
+names. See <a href="symbols.html">symbols</a> for supported integration patterns.</p>
+<h2 id="source-build-and-maintenance">Source, build and maintenance</h2>
+<p>Editable fragments live in the blocks/snippets directory. Metadata and module
+dependencies live in blocks/manifest.json. The gallery is generated, not hand
+edited, by the Python standard-library script:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_blocks.py
+python3 scripts/build_blocks.py --check
+python3 -m unittest discover -s tests -p test_blocks_assets.py -v
+python3 -m unittest discover -s tests -v
+
+# Optional developer-only browser checks (Playwright plus browser engines):
+python tests/blocks_browser.py --browsers chromium firefox webkit --axe-file /tmp/axe.min.js
+</code></pre>
+<p>Only the rendered gallery and its reviewed documentation assets are publicly
+allowlisted by Cloudflare; raw authoring files are not published.</p>
+<h2 id="accessibility-fidelity-and-licensing">Accessibility, fidelity and licensing</h2>
+<p>Test all adapted blocks with keyboard-only navigation, mobile widths, 200% and
+400% zoom, forced colors and an actual screen reader. Check contrast with the
+real application theme. Do not announce static sample status as live system
+state or retain fabricated customer endorsements in production.</p>
+<p>All new snippets, original CSS assets and documentation are MIT licensed.
+No premium Tailwind, commercial UI kit or third-party icon artwork has been
+copied into the public project. The separate private Console Kit is unaffected.</p>
+<h2 id="experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</h2>
+<p>The source candidate can generate a <strong>copy-owned, framework-independent</strong>
+shadcn-compatible universal-item registry from the same 50 MIT blocks and
+checked-in CSS distributions. It neither replaces nor duplicates the native
+block installer from PR #104. Universal files use explicit project-relative
+targets, so no React, Tailwind, or Syntyr runtime JavaScript is required.</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+python3 scripts/build_shadcn_registry.py       # generate registry/registry.json and registry/r/*
+python3 scripts/build_shadcn_registry.py --check
+# Optional, developer-only shadcn 4.23.0 integration smoke (requires npm):
+python3 tests/shadcn_registry_cli_smoke.py --package shadcn@4.23.0
+</code></pre>
+<p>Each <code>registry/r/&lt;block-id&gt;.json</code> contains the source HTML at
+<code>~/syntyr/blocks/&lt;block-id&gt;.html</code> and absolute same-origin registry dependencies for
+the required stylesheets at <code>~/syntyr/css/</code>. Each registry item also installs
+the original MIT <code>LICENSE</code> at <code>~/syntyr/LICENSE</code>. Install in an existing project
+only after reviewing the exact files, license and project configuration. For
+example, <strong>after publishing the reviewed candidate site</strong>, a shadcn CLI may
+consume <code>https://syntyr-css.pages.dev/registry/r/faq.json</code>. This is a
+candidate endpoint, not a claim that it is currently deployed. The independent
+local-mirror smoke verifies that CLI 4.23.0 can install both core-only and
+core-plus-recipes blocks without a consumer package.json or runtime dependencies.</p>
+<p>The generated index is intended for editor/agent inspection. The generator
+never reads private Console Kit assets or executes downloaded code. No dynamic
+service, telemetry, npm dependency, or customer license is introduced.
+Published alpha.4 assets remain immutable; registry payloads declare their
+source-candidate Syntyr version and must not be confused with a tagged release.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#contract">Contract</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#safe-local-registry-installation-experimental-alpha5-source">Safe local registry installation (experimental alpha.5 source)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#native-html-and-framework-integration">Native HTML and framework integration</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#optional-scroll-parallax-and-hover-effects">Optional scroll, parallax, and hover effects</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#12-original-optional-css-asset-recipes">12 original, optional CSS asset recipes</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#six-font-recipes-and-24-original-svg-icons">Six font recipes and 24 original SVG icons</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#source-build-and-maintenance">Source, build and maintenance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-fidelity-and-licensing">Accessibility, fidelity and licensing</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#experimental-shadcn-universal-item-registry">Experimental shadcn universal-item registry</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="blocks-guide.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

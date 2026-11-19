@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr Viz: seven themed, static SVG and CSS analytics dashboards.">
+  <title>Syntyr Viz — seven-theme analytics gallery</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.viz.css">
+  <style>
+    /* Page layout for this demonstration only; not part of Syntyr Viz. */
+    body.syn-root { min-height: 100svh; padding: clamp(1rem, 3vw, 3rem); background: var(--syn-bg); color: var(--syn-text); }
+    .viz-page { max-width: 95rem; margin-inline: auto; }
+    .viz-intro { max-width: 68ch; margin-block-end: 2rem; overflow-wrap: anywhere; }
+    .viz-intro h1 { font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.12; margin: .7rem 0; }
+    .viz-intro p { line-height: 1.65; }
+    .viz-intro a { color: var(--syn-accent); }
+    .viz-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 1.25rem; }
+    .viz-card { min-width: 0; --syn-viz-columns: 12; padding: clamp(1rem, 2vw, 1.5rem); border: 1px solid var(--syn-frame);
+      border-radius: var(--syn-radius); background: var(--syn-surface); color: var(--syn-text);
+      box-shadow: var(--syn-shadow-sm); }
+    .viz-card h2 { font-size: 1.18rem; margin: 0; letter-spacing: -.02em; }
+    .viz-eyebrow { color: var(--syn-muted); font: 650 .7rem/1.5 var(--syn-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .viz-card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem;
+      justify-content: space-between; margin-block-end: 1.25rem; }
+    .viz-section { margin-block-start: 1.3rem; }
+    .viz-section h3 { margin: 0 0 .65rem; font-size: .88rem; }
+    .viz-total { display: flex; align-items: baseline; gap: .6rem; margin-block: .4rem .75rem; flex-wrap: wrap; }
+    .viz-number { font: 750 clamp(1.35rem, 2vw, 1.8rem)/1.2 var(--syn-font-ui); font-variant-numeric: tabular-nums; }
+    .viz-change { font: 600 .78rem/1.4 var(--syn-font-ui); color: var(--syn-success); }
+    .viz-tracker-legend { display: flex; flex-wrap: wrap; gap: .4rem .8rem; padding: 0;
+      margin: .65rem 0 0; list-style: none; font-size: .7rem; color: var(--syn-muted); }
+    .viz-legend-mark { display: inline-block; inline-size: .65rem; block-size: .65rem;
+      margin-inline-end: .3rem; vertical-align: -.03rem; border: 1px solid var(--syn-frame); }
+    .viz-legend-mark[data-syn-state="healthy"] { background: var(--syn-success); }
+    .viz-legend-mark[data-syn-state="degraded"] { background: var(--syn-warning); }
+    .viz-legend-mark[data-syn-state="down"] { background: var(--syn-danger); }
+    .viz-heatmap-description { font-size: .72rem; line-height: 1.5; color: var(--syn-muted); margin: .5rem 0 0; }
+    .viz-values { border-block-start: 1px solid var(--syn-border-subtle); margin-block-start: 1.35rem; padding-block-start: .6rem; overflow-x: auto; }
+    .viz-values summary {
+      cursor: pointer;
+      color: var(--syn-text);
+      font-size: .78rem;
+      font-weight: 600;
+      min-block-size: 2.75rem;
+      padding-block: .5rem;
+      align-content: center;
+    }
+    .viz-values summary:focus-visible { outline: 2px solid var(--syn-focus-ring); outline-offset: 3px; }
+    .viz-values table { width: 100%; margin-block-start: .7rem; border-collapse: collapse; font-size: .75rem; }
+    .viz-values th, .viz-values td { text-align: start; padding: .2rem .45rem; border-bottom: 1px solid var(--syn-border-subtle); }
+    .viz-values td { text-align: end; font-variant-numeric: tabular-nums; }
+    .viz-footer { margin-block-start: 2rem; color: var(--syn-muted); line-height: 1.5; }
+    @media (max-width: 40rem) {
+      .viz-card { --syn-viz-columns: 6; }
+      .viz-card .syn-viz-heatmap { grid-template-columns: repeat(var(--syn-viz-columns), minmax(0, 1fr)); }
+      .viz-card .syn-viz-cell { min-inline-size: 0; }
+    }
+    @media (forced-colors: active) {
+      .viz-card { border-color: CanvasText; }
+      .viz-tracker-legend .viz-legend-mark { border-color: CanvasText; }
+    }
+  </style>
+</head>
+<body class="syn-root" data-syn-theme="grid">
+  <main class="viz-page" id="top">
+    <header class="viz-intro">
+      <span class="viz-eyebrow">Syntyr / optional visualization module</span>
+      <h1>Analytics in every theme, without a chart runtime.</h1>
+      <p>Seven themed dashboards, four CSS-first microvisualizations, inline SVG, visible data labels, and native HTML value tables. All data below is illustrative. No JavaScript, packages, remote fonts, or network assets.</p>
+      <p><a href="../docs/index.html">Back to gallery</a> · <a href="../docs/viz.md">Visualization guide</a> · <a href="#viz-grid">Explore all themes</a></p>
+    </header>
+    <section id="viz-grid" class="viz-gallery" aria-label="Seven Syntyr visualization themes">
+      <article class="viz-card" data-syn-theme="grid" aria-labelledby="grid-title">
+        <header class="viz-card-head"><h2 id="grid-title">Signal Grid</h2><span class="viz-eyebrow">grid / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$54,000</strong><span class="viz-change">+170% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="grid-spark-title" preserveAspectRatio="none">
+            <title id="grid-spark-title">Revenue in thousands of dollars: 20, 26, 24, 36, 43, 54, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 45 L49 40 L95 42 L141 32 L187 25 L233 16 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,45 49,40 95,42 141,32 187,25 233,16"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="grid-channels">
+          <h3 id="grid-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="grid-status">
+          <h3 id="grid-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="grid-activity">
+          <h3 id="grid-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>20</td></tr>
+              <tr><th scope="row">Feb</th><td>26</td></tr>
+              <tr><th scope="row">Mar</th><td>24</td></tr>
+              <tr><th scope="row">Apr</th><td>36</td></tr>
+              <tr><th scope="row">May</th><td>43</td></tr>
+              <tr><th scope="row">Jun</th><td>54</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="noir" aria-labelledby="noir-title">
+        <header class="viz-card-head"><h2 id="noir-title">Noir</h2><span class="viz-eyebrow">noir / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$56,000</strong><span class="viz-change">+124% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="noir-spark-title" preserveAspectRatio="none">
+            <title id="noir-spark-title">Revenue in thousands of dollars: 25, 32, 30, 40, 45, 56, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 41 L49 35 L95 37 L141 28 L187 24 L233 14 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,41 49,35 95,37 141,28 187,24 233,14"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="noir-channels">
+          <h3 id="noir-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="noir-status">
+          <h3 id="noir-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="noir-activity">
+          <h3 id="noir-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>25</td></tr>
+              <tr><th scope="row">Feb</th><td>32</td></tr>
+              <tr><th scope="row">Mar</th><td>30</td></tr>
+              <tr><th scope="row">Apr</th><td>40</td></tr>
+              <tr><th scope="row">May</th><td>45</td></tr>
+              <tr><th scope="row">Jun</th><td>56</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="studio" aria-labelledby="studio-title">
+        <header class="viz-card-head"><h2 id="studio-title">Studio</h2><span class="viz-eyebrow">studio / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$51,000</strong><span class="viz-change">+168% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="studio-spark-title" preserveAspectRatio="none">
+            <title id="studio-spark-title">Revenue in thousands of dollars: 19, 25, 29, 38, 42, 51, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 46 L49 41 L95 38 L141 30 L187 26 L233 19 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,46 49,41 95,38 141,30 187,26 233,19"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="studio-channels">
+          <h3 id="studio-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="studio-status">
+          <h3 id="studio-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="studio-activity">
+          <h3 id="studio-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>19</td></tr>
+              <tr><th scope="row">Feb</th><td>25</td></tr>
+              <tr><th scope="row">Mar</th><td>29</td></tr>
+              <tr><th scope="row">Apr</th><td>38</td></tr>
+              <tr><th scope="row">May</th><td>42</td></tr>
+              <tr><th scope="row">Jun</th><td>51</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="industrial" aria-labelledby="industrial-title">
+        <header class="viz-card-head"><h2 id="industrial-title">Industrial</h2><span class="viz-eyebrow">industrial / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$53,000</strong><span class="viz-change">+141% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="industrial-spark-title" preserveAspectRatio="none">
+            <title id="industrial-spark-title">Revenue in thousands of dollars: 22, 24, 32, 36, 46, 53, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 44 L49 42 L95 35 L141 32 L187 23 L233 17 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,44 49,42 95,35 141,32 187,23 233,17"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="industrial-channels">
+          <h3 id="industrial-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="industrial-status">
+          <h3 id="industrial-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="industrial-activity">
+          <h3 id="industrial-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>22</td></tr>
+              <tr><th scope="row">Feb</th><td>24</td></tr>
+              <tr><th scope="row">Mar</th><td>32</td></tr>
+              <tr><th scope="row">Apr</th><td>36</td></tr>
+              <tr><th scope="row">May</th><td>46</td></tr>
+              <tr><th scope="row">Jun</th><td>53</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="terminal" aria-labelledby="terminal-title">
+        <header class="viz-card-head"><h2 id="terminal-title">Terminal</h2><span class="viz-eyebrow">terminal / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$50,000</strong><span class="viz-change">+212% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="terminal-spark-title" preserveAspectRatio="none">
+            <title id="terminal-spark-title">Revenue in thousands of dollars: 16, 22, 28, 33, 41, 50, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 49 L49 44 L95 38 L141 34 L187 27 L233 19 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,49 49,44 95,38 141,34 187,27 233,19"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="terminal-channels">
+          <h3 id="terminal-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="terminal-status">
+          <h3 id="terminal-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="terminal-activity">
+          <h3 id="terminal-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>16</td></tr>
+              <tr><th scope="row">Feb</th><td>22</td></tr>
+              <tr><th scope="row">Mar</th><td>28</td></tr>
+              <tr><th scope="row">Apr</th><td>33</td></tr>
+              <tr><th scope="row">May</th><td>41</td></tr>
+              <tr><th scope="row">Jun</th><td>50</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="corporate" aria-labelledby="corporate-title">
+        <header class="viz-card-head"><h2 id="corporate-title">Corporate</h2><span class="viz-eyebrow">corporate / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$58,000</strong><span class="viz-change">+93% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="corporate-spark-title" preserveAspectRatio="none">
+            <title id="corporate-spark-title">Revenue in thousands of dollars: 30, 35, 38, 41, 48, 58, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 37 L49 32 L95 30 L141 27 L187 21 L233 12 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,37 49,32 95,30 141,27 187,21 233,12"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="corporate-channels">
+          <h3 id="corporate-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="corporate-status">
+          <h3 id="corporate-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="corporate-activity">
+          <h3 id="corporate-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>30</td></tr>
+              <tr><th scope="row">Feb</th><td>35</td></tr>
+              <tr><th scope="row">Mar</th><td>38</td></tr>
+              <tr><th scope="row">Apr</th><td>41</td></tr>
+              <tr><th scope="row">May</th><td>48</td></tr>
+              <tr><th scope="row">Jun</th><td>58</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <article class="viz-card" data-syn-theme="minimal" aria-labelledby="minimal-title">
+        <header class="viz-card-head"><h2 id="minimal-title">Minimal</h2><span class="viz-eyebrow">minimal / demo</span></header>
+        <figure class="syn-chart">
+          <figcaption class="syn-chart-title">Revenue · January–June</figcaption>
+          <div class="viz-total"><strong class="viz-number">$50,000</strong><span class="viz-change">+150% vs. January</span></div>
+          <svg class="syn-viz-sparkline" viewBox="0 0 236 60" role="img"
+               aria-labelledby="minimal-spark-title" preserveAspectRatio="none">
+            <title id="minimal-spark-title">Revenue in thousands of dollars: 20, 23, 33, 36, 40, 50, January through June</title>
+            <path class="syn-viz-sparkline-area" d="M3 45 L49 43 L95 34 L141 32 L187 28 L233 19 L233 58 L3 58 Z"></path>
+            <polyline class="syn-viz-sparkline-path" points="3,45 49,43 95,34 141,32 187,28 233,19"></polyline>
+          </svg>
+        </figure>
+        <section class="viz-section" aria-labelledby="minimal-channels">
+          <h3 id="minimal-channels">Channel distribution</h3>
+          <ol class="syn-viz-bars" aria-label="Illustrative channel share">
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Direct</span><data value="54">54%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 54"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Agency</span><data value="31">31%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 31"></span></div>
+            </li>
+            <li class="syn-viz-bar">
+              <div class="syn-viz-bar-label"><span>Programmatic</span><data value="15">15%</data></div>
+              <div class="syn-viz-bar-track" aria-hidden="true"><span class="syn-viz-bar-fill" style="--syn-viz-value: 15"></span></div>
+            </li>
+          </ol>
+        </section>
+        <section class="viz-section" aria-labelledby="minimal-status">
+          <h3 id="minimal-status">14-day service history</h3>
+          <ol class="syn-viz-tracker" aria-label="Service status, oldest to newest">
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 1: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 2: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 3: Healthy</span></li>
+            <li data-syn-state="degraded"><span class="syn-viz-sr-only">Day 4: Degraded</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 5: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 6: Healthy</span></li>
+            <li data-syn-state="down"><span class="syn-viz-sr-only">Day 7: Down</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 8: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 9: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 10: Healthy</span></li>
+            <li data-syn-state="unknown"><span class="syn-viz-sr-only">Day 11: Unknown</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 12: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 13: Healthy</span></li>
+            <li data-syn-state="healthy"><span class="syn-viz-sr-only">Day 14: Healthy</span></li>
+          </ol>
+          <ul class="viz-tracker-legend" aria-label="Status legend">
+            <li><span class="viz-legend-mark" data-syn-state="healthy" aria-hidden="true"></span>Healthy</li>
+            <li><span class="viz-legend-mark" data-syn-state="degraded" aria-hidden="true"></span>Degraded</li>
+            <li><span class="viz-legend-mark" data-syn-state="down" aria-hidden="true"></span>Down</li>
+            <li>Unknown: unfilled</li>
+          </ul>
+        </section>
+        <section class="viz-section" aria-labelledby="minimal-activity">
+          <h3 id="minimal-activity">24-day activity heatmap</h3>
+          <div class="syn-viz-heatmap" role="group" aria-label="Activity intensity, day one through twenty-four">
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 1: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 2: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 3: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 4: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 5: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 6: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 7: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 8: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 9: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 10: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 11: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 12: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 13: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 14: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 15: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 16: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 17: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 18: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="4"><span class="syn-viz-sr-only">Day 19: activity level 4 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 20: activity level 3 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="2"><span class="syn-viz-sr-only">Day 21: activity level 2 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="1"><span class="syn-viz-sr-only">Day 22: activity level 1 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="0"><span class="syn-viz-sr-only">Day 23: activity level 0 of 4</span></span>
+            <span class="syn-viz-cell" data-syn-level="3"><span class="syn-viz-sr-only">Day 24: activity level 3 of 4</span></span>
+          </div>
+          <p class="viz-heatmap-description">Activity levels range from 0 (none) to 4 (highest). Text equivalents accompany each cell.</p>
+        </section>
+        <details class="viz-values">
+          <summary>View underlying revenue values</summary>
+          <table>
+            <caption>Monthly revenue in thousands of dollars</caption>
+            <thead><tr><th scope="col">Month</th><th scope="col">Revenue (USD thousands)</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Jan</th><td>20</td></tr>
+              <tr><th scope="row">Feb</th><td>23</td></tr>
+              <tr><th scope="row">Mar</th><td>33</td></tr>
+              <tr><th scope="row">Apr</th><td>36</td></tr>
+              <tr><th scope="row">May</th><td>40</td></tr>
+              <tr><th scope="row">Jun</th><td>50</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+    </section>
+    <footer class="viz-footer">
+      <p>These are static, original, CSS-styled examples, not live charts. For screen readers, use the native data-table disclosures and descriptive SVG titles. SVG points are calculated before delivery; any renderer can supply equivalent markup.</p>
+      <p><a href="#top">Return to top</a></p>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,46 @@
+/* Standalone documentation-only playground layout. Never included in dist. */
+@layer docs {
+  .playground-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1.25rem; align-items: start; }
+  .playground-editor, .playground-view { display: grid; gap: 1rem; min-width: 0; }
+  .playground-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+  .playground-code { width: 100%; min-height: 23rem; resize: vertical; font: .84rem/1.55 var(--syn-mono); tab-size: 2; }
+  .playground-view-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  #playground-preview { display: block; width: 100%; height: min(65vh, 35rem); min-height: 21rem; background: var(--syn-surface); border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); }
+  .playground-footer { margin-block: 1.5rem 3rem; }
+  @media (max-width: 60rem) { .playground-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 35rem) { .playground-controls { grid-template-columns: minmax(0, 1fr); } }
+  @media (forced-colors: active) { #playground-preview { border-color: CanvasText; } }
+}
+
+@layer docs {
+  .playground-geometry { display: grid; gap: 1rem; margin-block: 1.5rem; }
+  .playground-geometry-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 1.5rem; align-items: start; }
+  .playground-geometry-controls, .playground-geometry-result { display: grid; gap: 1rem; min-width: 0; }
+  .geometry-corner-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .geometry-corner-grid label { min-width: 0; }
+  .geometry-corner-grid input, .playground-geometry-controls input[type="range"] { display: block; width: 100%; min-height: 2.75rem; }
+  .geometry-corner-grid output, .playground-geometry-controls output { float: right; font-variant-numeric: tabular-nums; }
+  .geometry-preview-shell { padding: clamp(1rem, 4vw, 2.25rem); background: var(--syn-bg); color: var(--syn-text); }
+  #geometry-preview { min-height: 16rem; }
+  .playground-geometry-code { width: 100%; font: .82rem/1.5 var(--syn-mono); resize: vertical; }
+  @media (max-width: 60rem) { .playground-geometry-layout { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 25rem) { .geometry-corner-grid { grid-template-columns: minmax(0, 1fr); } }
+}
+
+@layer docs {
+  .playground-discovery { display: grid; gap: .75rem; }
+  .playground-discovery .syn-caption, .playground-reference p { margin: 0; }
+  .playground-reference { display: grid; gap: .5rem; padding: 1rem; border: 1px solid var(--syn-border-default); border-radius: var(--syn-radius); background: var(--syn-surface); }
+  .playground-reference h3 { margin: 0; }
+  .playground-token-controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .playground-token-controls label { min-width: 0; }
+  .playground-token-controls input { display: block; width: 100%; margin-top: .4rem; }
+  .playground-token-controls output { float: right; font-variant-numeric: tabular-nums; }
+  .playground-canvas { width: 100%; overflow-x: auto; padding: .25rem; }
+  .playground-canvas #playground-preview { max-width: none; margin-inline: 0; }
+  #playground-copy-fallback { width: 100%; max-height: 18rem; font: .82rem/1.5 var(--syn-mono); resize: vertical; }
+  #playground-copy-fallback[hidden] { display: none; }
+  .playground-reference code { overflow-wrap: anywhere; }
+  @media (max-width: 35rem) { .playground-token-controls { grid-template-columns: minmax(0, 1fr); } }
+  @media (forced-colors: active) { .playground-reference { border-color: CanvasText; } }
+}

@@ -1,0 +1,11 @@
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-settings-heading">
+  <h2 id="syn-settings-heading" class="syn-heading">Workspace settings</h2>
+  <form class="syn-panel syn-form" method="post" action="/settings">
+    <label class="syn-label" for="syn-block-name">Workspace name</label>
+    <input class="syn-input" id="syn-block-name" name="name" autocomplete="organization" value="Northstar Operations" required>
+    <label class="syn-label" for="syn-block-timezone">Timezone</label>
+    <select class="syn-select" id="syn-block-timezone" name="timezone"><option value="UTC">UTC</option><option value="America/Sao_Paulo">Brasília</option></select>
+    <p class="syn-help">Connect your actual validation, CSRF protection and persistence.</p>
+    <button class="syn-button syn-button--primary" type="submit">Save settings</button>
+  </form>
+</section>

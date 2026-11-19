@@ -155,7 +155,7 @@ class DesignSystemContract(unittest.TestCase):
                 self.classes = []
             def handle_starttag(self, tag, attrs):
                 attributes = dict(attrs)
-                if tag == "a" and attributes.get("href") == "saas-cli-business.md":
+                if tag == "a" and attributes.get("href") == "saas-cli-business.html":
                     self.classes.append(attributes.get("class", ""))
         parser = GuideLink()
         parser.feed((ROOT / "docs/index.html").read_text())

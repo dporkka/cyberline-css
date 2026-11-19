@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr is a styling system, not a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser&#x27;s built-in semantics and…">
+  <meta name="syntyr-source-sha256" content="2c75acc9b417208c269b3fe0425dfbaceead5bf0d3d9edd6b7d0adde9e8255d6">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Native browser APIs in Syntyr — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/native-browser-apis">
+  <link rel="alternate" type="text/markdown" href="native-browser-apis.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Native browser APIs in Syntyr</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="native-browser-apis.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Native browser APIs in Syntyr">
+<h1 id="native-browser-apis-in-syntyr">Native browser APIs in Syntyr</h1>
+<p>Syntyr is a styling system, <strong>not</strong> a browser API abstraction layer. It ships no runtime JavaScript or polyfill. Use the browser's built-in semantics and state before adding host-owned JavaScript. See the <a href="https://syntyr-css.pages.dev/examples/native-apis.html">scriptless integration demo</a> (source: <code>examples/native-apis.html</code>).</p>
+<p>For framework-free custom elements and server-rendered Shadow DOM, see the
+<a href="https://github.com/dporkka/syntyr-css/tree/main/examples/web-components">native Web Components fixture</a> and
+<a href="component-authoring.html">component-authoring contract</a>. Syntyr still requires
+no Custom Elements runtime for ordinary HTML components.</p>
+<h2 id="supported-integrations">Supported integrations</h2>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Syntyr integration</th>
+<th>Fallback / requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML Popover API</td>
+<td><code>.syn-popover</code> on <code>[popover]</code> with <code>popovertarget</code>/<code>popovertargetaction</code> controls</td>
+<td>Native API requires modern browser; critical content should remain reachable another way for older browsers</td>
+</tr>
+<tr>
+<td>Invoker Commands</td>
+<td><code>commandfor</code> and <code>command=&quot;show-modal&quot;</code> on buttons targeting <code>.syn-dialog</code></td>
+<td>Older browsers may not support commands; give an ordinary link or <code>&lt;details&gt;</code> alternative</td>
+</tr>
+<tr>
+<td>Native <code>&lt;dialog&gt;</code></td>
+<td><code>.syn-dialog</code>, <code>form method=&quot;dialog&quot;</code>, <code>closedby</code> or app-owned <code>requestClose()</code></td>
+<td>Never replace modal semantics with a popover; handle focus on open/close in real-app tests</td>
+</tr>
+<tr>
+<td>CSS anchor positioning</td>
+<td><code>.syn-popover--anchored</code> alongside <code>.syn-popover</code></td>
+<td>With <code>position-area: bottom</code>, place near its invoking button; otherwise default to visible corner popover</td>
+</tr>
+<tr>
+<td>Content-sized fields</td>
+<td><code>.syn-textarea--autosize</code> alongside <code>.syn-textarea</code></td>
+<td><code>field-sizing: content</code> grows to a maximum height; normal resizable textarea remains functional without support</td>
+</tr>
+<tr>
+<td>CSS scroll-driven animation</td>
+<td><code>.syn-reading-progress</code> in optional motion stylesheet</td>
+<td>Decorative, hidden without support or with <code>prefers-reduced-motion: reduce</code></td>
+</tr>
+<tr>
+<td>Discrete overlay transitions</td>
+<td><code>.syn-popover--transition</code> in optional motion stylesheet</td>
+<td>Uses <code>@starting-style</code> and <code>transition-behavior: allow-discrete</code>; no animation without support or when reduced motion is requested</td>
+</tr>
+<tr>
+<td>Container queries</td>
+<td><code>.syn-region</code> with scoped layout patterns</td>
+<td>Native responsive CSS replaces ResizeObserver for layout</td>
+</tr>
+<tr>
+<td>Form constraint validation</td>
+<td><code>required</code>, native types, <code>:user-invalid</code> and optional <code>aria-invalid</code></td>
+<td>Application must provide meaningful feedback and accessible error text</td>
+</tr>
+</tbody>
+</table>
+<p>All new classes are <strong>opt-in</strong>. Core styles only add the anchor and textarea declarations; optional motion requires <code>syntyr.motion.css</code> (included in <code>syntyr.all.css</code>). Do not load <code>syntyr.all.css</code> alongside component files.</p>
+<p>For practical scriptless action panels and an optional enhanced menu adapter, see <a href="dropdowns.html">dropdown patterns</a>.</p>
+<h2 id="example-popover-near-its-invoker">Example: popover near its invoker</h2>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.motion.css&quot;&gt;
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;button type=&quot;button&quot; class=&quot;syn-button&quot; popovertarget=&quot;account-menu&quot;&gt;Account&lt;/button&gt;
+  &lt;div id=&quot;account-menu&quot; popover class=&quot;syn-popover syn-popover--anchored syn-popover--transition&quot;&gt;
+    &lt;a href=&quot;/profile&quot;&gt;Profile&lt;/a&gt;
+    &lt;button type=&quot;button&quot; popovertarget=&quot;account-menu&quot; popovertargetaction=&quot;hide&quot;&gt;Close&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The invoker creates an implicit CSS anchor. Do not apply <code>position-anchor: auto</code> to unrelated floating elements; supply an explicit anchor relationship or use normal document positioning. The default <code>.syn-popover</code> remains visible in browsers without anchor positioning. Make sure production menus have sensible keyboard navigation and screen-reader labeling.</p>
+<h2 id="example-a-dialog-without-an-event-handler">Example: a dialog without an event handler</h2>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;button type=&quot;button&quot; commandfor=&quot;confirm-dialog&quot; command=&quot;show-modal&quot;&gt;Review&lt;/button&gt;
+  &lt;dialog id=&quot;confirm-dialog&quot; class=&quot;syn-dialog&quot; aria-labelledby=&quot;confirm-title&quot;&gt;
+    &lt;h2 id=&quot;confirm-title&quot;&gt;Review changes&lt;/h2&gt;
+    &lt;form method=&quot;dialog&quot;&gt;&lt;button type=&quot;submit&quot;&gt;Close&lt;/button&gt;&lt;/form&gt;
+  &lt;/dialog&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The HTML Invoker Commands API is progressively available; don't assume the opener works in legacy browsers. A normal link to a review page or a <code>&lt;details&gt;</code> fallback gives users an accessible path even without it. Use <code>dialog.requestClose()</code> from host JavaScript when a cancelable close request is needed; unlike <code>dialog.close()</code>, <code>requestClose()</code> fires <code>cancel</code> first.</p>
+<h2 id="application-owned-javascript-optional">Application-owned JavaScript (optional)</h2>
+<p>The following browser APIs are <strong>not</strong> included as Syntyr runtime dependencies. Use them only for capabilities CSS and HTML cannot provide:</p>
+<ul>
+<li><strong>View Transition API</strong>: for same-document updates, use <code>document.startViewTransition(updateDOM)</code> only if present and if reduced-motion is not preferred; otherwise run <code>updateDOM()</code> directly. Cross-document navigation requires explicit <code>@view-transition { navigation: auto; }</code> in <em>both</em> same-origin documents, not in a global Syntyr bundle. Preserve focus, history, and scrolling semantics during navigation.</li>
+<li><strong>Clipboard API</strong>: <code>navigator.clipboard.writeText(text)</code> requires a secure context and permissions/user activation; catch rejections and provide a selectable text/link fallback.</li>
+<li><strong>Web Share API</strong>: check <code>navigator.share</code>, invoke it from a click handler, catch cancellation or errors, and retain an ordinary shareable URL when unavailable. Do not assume mobile-only availability or guaranteed success.</li>
+<li><strong>ResizeObserver</strong>: reserve for application logic that must know measured dimensions; use CSS container queries for styling. Avoid synchronous DOM changes from observers that trigger resize loops.</li>
+<li><strong>IntersectionObserver</strong>: use to defer expensive application work, not for effects already supported by <code>animation-timeline: scroll(root block)</code>. Prefer native <code>loading=&quot;lazy&quot;</code> for offscreen images and iframes.</li>
+<li><strong>Web Animations API</strong>: suitable for interruptible, imperative application animations; use CSS transitions and scroll-driven animations for presentation-only changes and honor reduced motion.</li>
+<li><strong>Navigation API</strong>: potentially helpful to app routers, but it changes navigation ownership. Do not add it to Syntyr just to style links; ordinary links work without it.</li>
+</ul>
+<p>A safe view transition wrapper in application code, not the Syntyr library:</p>
+<pre tabindex="0"><code class="language-js">function updateWithViewTransition(updateDOM) {
+  if (!document.startViewTransition ||
+      matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateDOM();
+    return;
+  }
+  document.startViewTransition(updateDOM);
+}
+</code></pre>
+<h2 id="static-semantic-validation-for-native-controls">Static semantic validation for native controls</h2>
+<p>The opt-in Syntyr checker can catch broken HTML relationships before browser testing:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/syntyr_check.py --semantic examples/native-apis.html
+</code></pre>
+<p>In complete, literal HTML documents it verifies explicit <code>&lt;label for&gt;</code> targets
+are labelable, native <code>popovertarget</code>/<code>commandfor</code> targets exist, and
+<code>input[list]</code> points to <code>&lt;datalist&gt;</code>. Built-in dialog commands must target
+<code>&lt;dialog&gt;</code>. Popover command events may dispatch on HTML targets without a
+<code>popover</code> attribute; unlike <code>popovertarget</code>, this is not an error. It also catches
+<code>&lt;summary&gt;</code> outside a direct <code>&lt;details&gt;</code> parent and image submit controls
+without an accessible name. These are <strong>HTML correctness</strong> checks; no Syntyr
+class is necessary. The checker deliberately leaves references in fragments
+and dynamic templates to the consuming application, and allows custom-element
+commands without guessing their behavior.</p>
+<p>This is not a full HTML, ARIA, accessibility, or browser-conformance validator.
+Use the <a href="https://html.spec.whatwg.org/">WHATWG HTML Standard</a>, an HTML validator,
+real browser keyboard and assistive-technology tests, and application-level
+validation for server-rendered templates. For a popover, use the declarative
+invoker rather than manually adding ARIA expansion state that the browser
+already manages; for modal content, use <code>&lt;dialog&gt;</code> and a real accessible name.</p>
+<h2 id="browser-compatibility-policy">Browser-compatibility policy</h2>
+<p>Test Chromium, Firefox, and WebKit at narrow widths and 200%/400% zoom. CSS feature queries guard anchor placement and scroll-driven timelines. Without the advanced feature, the controls remain styled, dismissible, and operable <strong>where the underlying HTML primitive is supported</strong>. For genuinely older browsers that lack the HTML primitive entirely, provide an alternative interaction or a conditionally loaded host-app polyfill; Syntyr never silently installs one.</p>
+<p>Always verify keyboard focus, Escape dismissal, forced-colors mode, native validation, and <code>prefers-reduced-motion</code>. Avoid animated content that conveys information unavailable as text. The scroll indicator uses <code>aria-hidden=&quot;true&quot;</code> and must not replace a semantic progress bar for tasks.</p>
+<p>Compatibility references: <a href="https://developer.mozilla.org/en-US/docs/Web/API/Popover_API">Popover API</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Invoker_Commands_API">Invoker Commands</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_anchor_positioning">CSS anchor positioning</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/field-sizing">field-sizing</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll-driven_animations">scroll-driven animations</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/View_Transition_API">View Transition API</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#supported-integrations">Supported integrations</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#example-popover-near-its-invoker">Example: popover near its invoker</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#example-a-dialog-without-an-event-handler">Example: a dialog without an event handler</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#application-owned-javascript-optional">Application-owned JavaScript (optional)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#static-semantic-validation-for-native-controls">Static semantic validation for native controls</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#browser-compatibility-policy">Browser-compatibility policy</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="native-browser-apis.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

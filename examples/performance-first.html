@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical Syntyr progressive-loading page with native image priorities and zero JavaScript.">
+  <meta name="color-scheme" content="light">
+  <title>Performance-first landing page — Syntyr CSS</title>
+  <!-- A small cacheable core is usually better than a bespoke critical-CSS pipeline. -->
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <!-- Page-only layout: not an automatically extracted critical stylesheet. -->
+  <style>
+    .perf-intro { display:grid; gap:clamp(1.25rem,4vw,3rem); align-items:center; }
+    .perf-image { width:100%; height:auto; border-radius:var(--syn-radius-lg, .75rem); }
+    .perf-section { margin-block:clamp(3rem,8vw,7rem); }
+    .perf-footer { padding-block:2rem; border-top:1px solid var(--syn-frame); }
+    @media (min-width:52rem) {
+      .perf-intro { grid-template-columns:minmax(0,1fr) minmax(0,.9fr); }
+    }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button" href="#content">Skip to content</a>
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a href="../docs/index.html" class="syn-logo">SYNTYR / PERFORMANCE</a>
+      <nav class="syn-nav" aria-label="Main navigation">
+        <a href="#features">Features</a>
+        <a href="#details">Details</a>
+        <a href="../docs/progressive-loading.md">Loading guide</a>
+      </nav>
+    </header>
+    <main id="content">
+      <section class="syn-site-hero perf-intro" aria-labelledby="hero-heading">
+        <div>
+          <p class="syn-eyebrow">NATIVE HTML / OPTIMIZED DELIVERY</p>
+          <h1 class="syn-site-heading" id="hero-heading">Make the important content visible first.</h1>
+          <p class="syn-lede">An example of sensible initial resource priorities: early CSS, one important image and deferred offscreen media. No JavaScript required.</p>
+          <div class="syn-actions">
+            <a class="syn-button syn-button--primary" href="#features">Explore the example</a>
+            <a class="syn-button syn-button--outline" href="../docs/guides.html">Read guides</a>
+          </div>
+        </div>
+        <!-- This image is intentionally above the fold at the tested desktop viewport.
+             For each real application, confirm the actual LCP element in a trace. -->
+        <img id="hero-image" class="perf-image" src="../assets/og-syntyr.png"
+             width="1200" height="630"
+             alt="Syntyr design-system preview in a dark technical palette"
+             loading="eager" fetchpriority="high" decoding="async">
+      </section>
+      <section id="features" class="perf-section" aria-labelledby="features-heading">
+        <p class="syn-eyebrow">01 / BASELINE</p>
+        <h2 class="syn-section-heading" id="features-heading">Prefer reliable defaults.</h2>
+        <div class="syn-feature-grid">
+          <article class="syn-feature-card">
+            <h3>Cacheable CSS</h3>
+            <p>Core and recipes are separate, with regular stylesheets and no duplicate preload.</p>
+          </article>
+          <article class="syn-feature-card">
+            <h3>Stable geometry</h3>
+            <p>Image dimensions reserve space and reduce avoidable layout shift.</p>
+          </article>
+          <article class="syn-feature-card">
+            <h3>Native priorities</h3>
+            <p>The likely hero image is eager; later imagery uses the browser's native lazy loading.</p>
+          </article>
+        </div>
+      </section>
+      <section id="details" class="perf-section" aria-labelledby="details-heading">
+        <p class="syn-eyebrow">02 / FURTHER DOWN THE PAGE</p>
+        <h2 class="syn-section-heading" id="details-heading">Load media when it is useful.</h2>
+        <p class="syn-lede">The illustrative operations preview is not required for the first viewport. Lazy loading is appropriate here, rather than on the hero.</p>
+        <img class="perf-image" src="../docs/previews/studio-overview.webp"
+             width="1120" height="700"
+             alt="Illustrative Studio-theme operations dashboard"
+             loading="lazy" decoding="async">
+      </section>
+    </main>
+    <footer class="syn-header perf-footer">
+      <span class="syn-caption">DEMONSTRATION / NOT A PERFORMANCE CLAIM</span>
+      <a href="../docs/progressive-loading.md">Read the measurement and critical CSS guide</a>
+    </footer>
+  </div>
+</body>
+</html>

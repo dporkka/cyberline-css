@@ -1,0 +1,12 @@
+---
+import '@syntyr/css/core.css';
+const metrics = [{label:'Active campaigns',value:'12'}, {label:'Assets reviewed',value:'148'}];
+---
+<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Syntyr + Astro</title></head>
+<body><main class="syn-root syn-page" data-syn-theme="studio">
+<section class="syn-region syn-panel"><h1 class="syn-display">Operations overview</h1>
+<p class="syn-body">Astro-rendered markup styled with dependency-free Syntyr CSS.</p>
+<div class="syn-stats" aria-label="Operations indicators">
+{metrics.map(({label,value}) => (<article class="syn-panel"><h2 class="syn-heading">{label}</h2><p class="syn-display">{value}</p></article>))}
+</div><a class="syn-button syn-button--primary" href="https://github.com/dporkka/syntyr-css">Explore Syntyr</a>
+</section></main></body></html>

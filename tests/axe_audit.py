@@ -9,6 +9,7 @@ a temporary test environment and supply a local axe-core script, e.g.:
 Automated checks do not replace screen reader, keyboard or zoom verification.
 """
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import os
@@ -17,13 +18,16 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ("index.html", "docs/index.html", "examples/console.html",
+PAGES = ("index.html", "docs/index.html", "docs/catalog.html", "docs/blocks.html", "docs/guides.html", "docs/design-principles.html", "examples/console.html",
           "examples/resources.html", "examples/pricing.html", "docs/console-kit.html",
          "examples/saas.html", "examples/business.html", "examples/terminal.html",
          "examples/geometry-terminal.html",
          "examples/operations-console.html", "examples/themes.html",
-         "examples/vertigo-admin.html", "examples/saas-workflows.html", "examples/minimalist-patterns.html", "examples/design-states.html")
-
+         "examples/vertigo-admin.html", "examples/vertigo-resource-workflow.html", "examples/saas-workflows.html", "examples/data-tables.html", "examples/resource-workspace.html", "examples/native-workflows.html", "examples/crm.html", "examples/minimalist-patterns.html",
+         "examples/design-states.html", "examples/symbols.html", "examples/native-elements.html",
+         "examples/flagship-studio.html", "examples/flagship-noir.html", "examples/flagship-grid.html",
+         "examples/semantic-starter.html", "examples/native-apis.html", "examples/dropdowns.html", "examples/workflow-steps.html", "examples/enterprise-compositions.html", "examples/premium-compositions.html", "examples/operation-revisions.html",
+)
 
 def normalize_findings(page_path: str, result: dict) -> dict:
     """Keep actionable axe targets for manual review without shipping a browser tool."""
@@ -41,6 +45,25 @@ def normalize_findings(page_path: str, result: dict) -> dict:
                     "failure_summary": node.get("failureSummary"),
                 })
     return findings
+
+
+def summarize_findings(pages: list[dict]) -> dict:
+    """Count affected elements, not merely axe rule instances.
+
+    An axe incomplete rule can contain dozens of targets, none of which
+    should be silently counted as a verified pass or a proven violation.
+    """
+    incomplete = [node for page in pages for node in page['incomplete']]
+    return {
+        'pages': len(pages),
+        'confirmed_violation_nodes': sum(len(page['violations']) for page in pages),
+        'incomplete_nodes': len(incomplete),
+        'incomplete_rules': dict(sorted(Counter(node['rule'] for node in incomplete).items())),
+        'incomplete_by_page': {
+            page['page']: len(page['incomplete'])
+            for page in pages if page['incomplete']
+        },
+    }
 
 
 def main() -> int:
@@ -79,10 +102,14 @@ def main() -> int:
                       ", ".join(str(n["target"]) for n in item["nodes"][:4]))
             page.close()
         browser.close()
+    summary = summarize_findings(findings)
     if args.report:
-        args.report.write_text(json.dumps({"schema_version": 1, "pages": findings}, indent=2) + "\n", encoding="utf-8")
+        args.report.write_text(json.dumps({"schema_version": 1, "summary": summary, "pages": findings}, indent=2) + "\n", encoding="utf-8")
         print(f"WROTE manual review targets: {args.report}")
-    print(f"TOTAL: {violations} violations, {manual_review} incomplete checks requiring review")
+    print(f"TOTAL: {violations} confirmed violation rules, "
+          f"{summary['confirmed_violation_nodes']} confirmed violation nodes, "
+          f"{manual_review} incomplete rule results, "
+          f"{summary['incomplete_nodes']} inconclusive element targets requiring review")
     return int(bool(violations))
 
 

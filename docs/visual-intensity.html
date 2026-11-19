@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Customize Syntyr&#x27;s cyberpunk frames, decorative intensity, density, and palettes independently with CSS attributes and no runtime JavaScript.">
+  <meta name="syntyr-source-sha256" content="01153fc951bebde72c6f063114bda0af92746c6f364254cadad5cb8391406671">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Visual intensity and composable cyberpunk frames — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/visual-intensity">
+  <link rel="alternate" type="text/markdown" href="visual-intensity.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Visual intensity and composable cyberpunk frames</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="visual-intensity.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Visual intensity and composable cyberpunk frames">
+<h1 id="visual-intensity-and-composable-cyberpunk-frames">Visual intensity and composable cyberpunk frames</h1>
+<p>SYNTYR separates <strong>palette</strong> (<code>data-syn-theme</code>), <strong>decorative intensity</strong>
+(<code>data-syn-intensity</code>), <strong>density</strong> (<code>data-syn-density</code>) and optional geometry
+(<code>.syn-frame</code> plus one shape). These are independent controls and do not load
+JavaScript, fonts, sprites or third-party assets.</p>
+<h2 id="choose-the-right-intensity">Choose the right intensity</h2>
+<p>Use <code>data-syn-intensity</code> on <code>.syn-root</code> or any descendant element. It is
+inherited, so a child can opt into a different intensity without switching
+palette. Omitting the attribute is equivalent to <code>standard</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Effects</th>
+<th>Good for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>quiet</code></td>
+<td>Nearly invisible grids/washes; no visible glow/scanline overlay</td>
+<td>Data-heavy SaaS, forms, accessibility-sensitive dashboards</td>
+</tr>
+<tr>
+<td><code>standard</code></td>
+<td>Existing effect strengths and opt-in behavior (default)</td>
+<td>Marketing sites, documentation</td>
+</tr>
+<tr>
+<td><code>cinematic</code></td>
+<td>Stronger washes, luminous shadows and optional scanlines</td>
+<td>Demos, editorial hero sections, limited promotional panels</td>
+</tr>
+</tbody>
+</table>
+<p>Intensity changes <strong>only opt-in decorative effects</strong> from
+<code>syntyr.effects.css</code>. It does not change status colors, border contrast,
+focus rings, typography, form affordances or any theme's underlying palette.
+For zero decoration, simply do not load effects.</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.effects.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.geometry.css&quot;&gt;
+
+&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;grid&quot; data-syn-intensity=&quot;quiet&quot;&gt;
+  &lt;article class=&quot;syn-panel syn-glow&quot;&gt;
+    &lt;h2&gt;Operational view&lt;/h2&gt;
+    &lt;p&gt;Quiet default for dense data.&lt;/p&gt;
+  &lt;/article&gt;
+  &lt;section data-syn-intensity=&quot;cinematic&quot;&gt;
+    &lt;article class=&quot;syn-panel syn-glow syn-frame syn-frame--bevel syn-frame--accent&quot;&gt;
+      &lt;h2&gt;Featured transmission&lt;/h2&gt;
+      &lt;p&gt;A localized visual accent without changing colors or density.&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+<p>For custom presets, override <code>--syn-grid-alpha</code>, <code>--syn-glow-alpha</code>,
+<code>--syn-wash-alpha</code>, <code>--syn-wash-secondary-alpha</code>,
+<code>--syn-horizon-alpha</code>, and <code>--syn-scanline-alpha</code> on a region.
+Values are percentages used in color interpolation, not animation speed.
+Cinematic does <strong>not</strong> animate automatically; use optional motion modules
+separately and respect <code>prefers-reduced-motion</code>.</p>
+<h2 id="geometry-that-composes">Geometry that composes</h2>
+<p>The optional <code>syntyr.geometry.css</code> stylesheet supports five shapes:
+<code>bevel</code>, <code>notch</code>, <code>bracket</code>, <code>inset</code> and <code>circuit</code>.
+Use exactly one shape on <code>.syn-frame</code>, optionally adding
+<code>.syn-frame--accent</code> for a stronger outline (2px accent-colored border).
+The geometry layer explicitly resets pseudo-element dimensions and clipping
+from earlier CSS layers, so <code>.syn-panel--cut</code> on the <strong>same host</strong> is safely
+superseded by the selected frame geometry rather than corrupting it.</p>
+<pre tabindex="0"><code class="language-html">&lt;article class=&quot;syn-panel syn-panel--cut syn-frame syn-frame--notch syn-frame--accent&quot;&gt;
+  &lt;h2&gt;System status&lt;/h2&gt;
+  &lt;p&gt;The notch frame takes precedence over the simpler panel cut.&lt;/p&gt;
+&lt;/article&gt;
+</code></pre>
+<p><code>syn-frame--accent</code> is an <em>optional</em> style modifier, not an additional
+shape. Set <code>--syn-frame-cut</code>, <code>--syn-frame-stroke</code>,
+<code>--syn-frame-fill</code> or <code>--syn-frame-outline</code> on the host to customize
+one frame. Avoid combining two shape modifiers.</p>
+<p><strong>Remaining composability boundary:</strong> both <code>syn-frame</code> geometry and the
+older <code>syn-frame--precision</code> recipe own <code>::before</code>. Applying both
+to the same host still supersedes the precision accent; nest separate
+elements when both treatments are needed. Likewise, geometry intentionally
+uses a transparent host background so gradients painted on the <strong>host</strong>
+may spill into its cut corners. Apply complex host backgrounds on an inner
+element, or set <code>--syn-frame-fill</code> to a solid value.</p>
+<h2 id="accessibility-and-performance">Accessibility and performance</h2>
+<ul>
+<li>Always keep readable status text; never communicate errors only by glow or color.</li>
+<li>In forced-colors mode, frames fall back to solid system borders and effects
+suppress nonessential backgrounds.</li>
+<li>Prefer <code>quiet</code> for long operational pages; reserve <code>cinematic</code> for a few
+deliberate accents. Measure paint and scrolling on actual devices.</li>
+<li>The library core does not require any script. The optional docs theme editor
+can preview intensity but is not shipped as an application dependency.</li>
+<li>Test with 200% and 400% zoom, keyboard input, forced colors and all three
+browser engines before relying on a theme in production.</li>
+</ul>
+<p>See <a href="../examples/intensity-geometry.html">live intensity comparison</a>,
+<a href="geometry-terminal.html">advanced geometry</a> and
+<a href="theme-customization.html">theme customization</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#choose-the-right-intensity">Choose the right intensity</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#geometry-that-composes">Geometry that composes</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="visual-intensity.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -3,118 +3,491 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="dark">
-  <meta name="description" content="Syntyr: a zero-JavaScript, dependency-free cyberpunk CSS starter.">
-  <title>Syntyr CSS — Zero-JS Interface System</title>
-  <link rel="stylesheet" href="dist/syntyr.css">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="MIT-licensed CSS framework for SaaS dashboards, business websites and futuristic interfaces. Semantic HTML, no required JavaScript runtime or build step.">
+  <title>Syntyr CSS — Lightweight CSS Framework for SaaS Dashboards</title>
+  <link rel="icon" href="assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://syntyr-css.pages.dev/">
+  <meta property="og:url" content="https://syntyr-css.pages.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Syntyr CSS — Lightweight CSS Framework for SaaS Dashboards">
+  <meta property="og:description" content="Build SaaS dashboards and modern websites with Syntyr CSS: lightweight, MIT-licensed, framework-neutral styles for native HTML.">
+  <meta property="og:image" content="https://syntyr-css.pages.dev/assets/og-syntyr.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Syntyr CSS with a sample SaaS dashboard in a cyan technical visual system">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="dist/syntyr.core.css">
   <link rel="stylesheet" href="dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="dist/syntyr.effects.css">
+  <style>
+    /* Marketing-site layout only. The reusable styling contract stays in src/. */
+    .site-skip { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 20; }
+    .site-skip:focus-visible { inset-block-start: 1rem; }
+    .site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.5rem; border-block-end: 1px solid var(--syn-border-subtle); }
+    .site-brand { display: inline-flex; align-items: center; min-block-size: 2rem; font: 750 1.15rem/1 var(--syn-font); letter-spacing: -.055em; }
+    .site-brand span { color: var(--syn-muted); font-weight: 500; font-size: .8em; letter-spacing: 0; }
+    .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; }
+    .site-nav a { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--syn-muted); text-decoration: none; font: 600 var(--syn-type-sm)/1.4 var(--syn-font-ui); }
+    .site-nav a:hover, .site-nav a:focus-visible { color: var(--syn-text); }
+    .site-nav a:last-child { color: var(--syn-accent); }
+    .site-tertiary-link { display: inline-flex; align-items: center; min-block-size: 2rem; align-self: center; color: var(--syn-muted); text-underline-offset: .2em; font-size: .9rem; }
+    .site-mobile-menu { display: none; position: relative; margin-inline-start: auto; }
+    .site-mobile-menu summary { cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 44px; min-width: 5rem; padding: .55rem .85rem; border: 1px solid var(--syn-border-subtle); border-radius: .4rem; background: var(--syn-surface); list-style: none; color: var(--syn-text); font-weight: 650; }
+    .site-mobile-menu summary::-webkit-details-marker { display: none; }
+    .site-mobile-menu summary::after { content: "⌄"; margin-inline-start: .65rem; }
+    .site-mobile-menu[open] summary::after { content: "⌃"; }
+    .site-mobile-menu nav { position: absolute; inset-block-start: calc(100% + .45rem); inset-inline-end: 0; z-index: 10; min-width: min(17rem, 84vw); display: grid; gap: .15rem; padding: .55rem; border: 1px solid var(--syn-border-subtle); border-radius: .55rem; background: var(--syn-surface); box-shadow: 0 20px 50px rgb(0 0 0 / 16%); }
+    .site-mobile-menu nav a { display: flex; align-items: center; min-height: 44px; padding: .55rem .75rem; border-radius: .25rem; text-decoration: none; color: var(--syn-text); }
+    .site-mobile-menu nav a:hover, .site-mobile-menu nav a:focus-visible { background: var(--syn-surface-hi); }
+    .site-hero { padding-block: clamp(3.5rem, 8vw, 7rem) clamp(3rem, 6vw, 5rem); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: clamp(2rem, 6vw, 5rem); }
+    .site-kicker { display: inline-flex; flex-wrap: wrap; max-inline-size: 100%; overflow-wrap: anywhere; align-items: center; gap: .65rem; color: var(--syn-accent); font: 700 .78rem/1.5 var(--syn-font-ui); letter-spacing: .11em; text-transform: uppercase; }
+    .site-kicker::before { content: ""; display: inline-block; inline-size: 1.25rem; block-size: 2px; background: currentColor; }
+    .site-hero h1 { margin-block: 1.1rem 1.3rem; max-inline-size: 12ch; font: 690 clamp(3.1rem, 5vw + 1rem, 5.8rem)/1.02 var(--syn-font-display); letter-spacing: -.075em; overflow-wrap: anywhere; }
+    .site-hero h1 em { color: var(--syn-accent); font-style: normal; }
+    .site-lede { max-inline-size: 52ch; color: var(--syn-muted); font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem); line-height: 1.65; }
+    .site-hero .syn-actions { margin-block: 1.75rem 1.2rem; }
+    .site-trust { display: flex; flex-wrap: wrap; gap: .6rem 1.25rem; padding: 0; list-style: none; color: var(--syn-muted); font-size: .85rem; }
+    .site-trust li { display: flex; align-items: center; gap: .4rem; }
+    .site-trust li::before { content: ""; inline-size: .4rem; block-size: .4rem; border-radius: 100%; background: var(--syn-success); }
+    .site-preview-source { border: 1px solid var(--syn-border-subtle); border-radius: .6rem; background: var(--syn-surface); padding: .7rem 1rem 1rem; }
+    .site-preview-source summary { cursor: pointer; font: 650 .85rem/1.5 var(--syn-font-ui); color: var(--syn-text); min-height: 2.3rem; padding-block: .4rem; }
+    .site-preview-source summary:hover, .site-preview-source summary:focus-visible { color: var(--syn-accent); }
+    .site-preview-source pre { margin-block: .7rem; font-size: .75rem; line-height: 1.6; }
+    .site-preview-code { padding: 1rem; background: var(--syn-surface-recessed); color: var(--syn-text); overflow-x: auto; white-space: pre-wrap; overflow-wrap: anywhere; border: 1px solid var(--syn-border-subtle); font-family: var(--syn-mono); }
+    .site-preview-source .syn-caption { margin: 0; }
+    .site-hero-gallery { min-width: 0; display: grid; gap: .75rem; }
+    .site-hero-palette-nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+    .site-palette-link { min-width: 0; display: flex; align-items: center; gap: .55rem; padding: .65rem .75rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); color: var(--syn-text); text-decoration: none; font: 650 .8rem/1.3 var(--syn-font-ui); }
+    .site-palette-link::before { content: ""; flex: none; inline-size: .65rem; block-size: .65rem; border-radius: .15rem; background: var(--syn-accent); box-shadow: 0 0 0 2px var(--syn-bg); }
+    .site-palette-link:hover { border-color: var(--syn-accent); }
+    .site-palette-link:focus-visible { outline-color: var(--syn-accent); }
+    .site-preview-board { min-width: 0; border: 1px solid var(--syn-frame); border-radius: .9rem; background: var(--syn-surface); box-shadow: 0 18px 60px rgb(15 35 60 / 9%); overflow: hidden; }
+    .site-window-top { padding: .85rem 1rem; border-block-end: 1px solid var(--syn-border-subtle); display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: .8rem; color: var(--syn-muted); }
+    .site-window-dots { display: flex; gap: .4rem; }
+    .site-window-dots span { inline-size: .55rem; block-size: .55rem; border-radius: 50%; background: var(--syn-frame); }
+    .site-window-dots span:first-child { background: var(--syn-accent); }
+    .site-preview-body { display: grid; grid-template-columns: 6rem minmax(0, 1fr); min-height: 20rem; }
+    .site-preview-rail { padding: 1rem .6rem; border-inline-end: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); }
+    .site-preview-rail span { display: block; block-size: .45rem; margin: .85rem .2rem 1.35rem; background: var(--syn-frame); opacity: .6; border-radius: 1rem; }
+    .site-preview-rail span:nth-child(2) { background: var(--syn-accent); opacity: 1; }
+    .site-preview-main { min-width: 0; padding: clamp(.85rem, 3vw, 1.5rem); }
+    .site-preview-main > p { margin-block-end: .75rem; }
+    .site-preview-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .site-mini-metric { border: 1px solid var(--syn-border-subtle); border-radius: .45rem; padding: .9rem; min-width: 0; }
+    .site-mini-metric strong { display: block; font: 680 clamp(1.1rem, 2.7vw, 1.75rem)/1.2 var(--syn-font-ui); letter-spacing: -.03em; }
+    .site-mini-metric small { color: var(--syn-muted); }
+    .site-chart { margin-block-start: 1rem; display: flex; gap: .45rem; align-items: end; block-size: 6.3rem; border-block-end: 1px solid var(--syn-border-subtle); padding: .5rem .25rem 0; }
+    .site-chart span { flex: 1; block-size: var(--bar); background: color-mix(in srgb, var(--syn-accent) 45%, var(--syn-surface-hi)); border-radius: .2rem .2rem 0 0; }
+    .site-chart span:last-child { background: var(--syn-accent); }
+    .site-section { padding-block: clamp(2.5rem, 6vw, 5rem); border-block-start: 1px solid var(--syn-border-subtle); scroll-margin-block-start: 1.5rem; }
+    .site-section-head { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: .75rem 2rem; margin-block-end: 2rem; }
+    .site-section-head > div { min-inline-size: 0; max-inline-size: 100%; }
+    .site-section-title { margin: .5rem 0 0; font: 660 clamp(1.9rem, 1.35rem + 2.5vw, 3rem)/1.14 var(--syn-font-display); letter-spacing: -.055em; }
+    .site-section-intro { margin: .65rem 0 0; max-inline-size: 55ch; color: var(--syn-muted); }
+    .site-kit-grid { display:grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items:center; gap: clamp(1.4rem, 4vw, 3.5rem); }
+    .site-kit-figure { margin:0; min-width:0; border:1px solid var(--syn-frame); border-radius:.75rem; background:var(--syn-surface); overflow:hidden; }
+    .site-kit-figure img { display:block; max-width:100%; width:100%; height:auto; aspect-ratio:8/5; object-fit:cover; }
+    .site-kit-figure figcaption { padding:.8rem 1rem; font-size:.8rem; color:var(--syn-muted); }
+    .site-kit-copy { display:grid; gap:.9rem; justify-items:start; }
+    .site-kit-copy p { margin:0; }
+    .site-kit-copy .site-section-title { margin:.25rem 0; }
+    .site-kit-meta { color:var(--syn-muted); font:600 .8rem/1.5 var(--syn-font-ui); }
+    @media (max-width: 50rem) { .site-kit-grid { grid-template-columns:minmax(0,1fr); } }
+    .site-showcase-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; align-items: stretch; }
+    .site-showcase-card { display: flex; flex-direction: column; gap: .75rem; min-width: 0; border-radius: .65rem; padding: 1.25rem; }
+    .site-showcase-card h3 { margin: 0; font: 650 1.3rem/1.22 var(--syn-font-display); letter-spacing: -.025em; }
+    .site-showcase-card p { margin: 0; color: var(--syn-muted); }
+    .site-showcase-card > .syn-button { align-self: flex-start; margin-block-start: auto; }
+    .site-showcase-card > .site-secondary-link { display: inline-flex; align-items: center; min-block-size: 2rem; align-self: flex-start; color: var(--syn-accent); font: 600 .83rem/1.5 var(--syn-font-ui); text-underline-offset: .2em; }
+    .site-section-links { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem 1.2rem; }
+    .site-preview { margin-block: .5rem 1rem; border: 1px solid var(--syn-border-subtle); border-radius: .45rem; min-width: 0; min-height: 10rem; padding: 1.1rem; background: var(--syn-bg); display: grid; align-content: center; gap: .6rem; overflow: hidden; }
+    .site-preview-title { font-size: .8rem; color: var(--syn-muted); }
+    .site-preview-number { font: 680 2.3rem/1.1 var(--syn-font-display); letter-spacing: -.06em; }
+    .site-preview-bars { display: flex; gap: .35rem; align-items: end; block-size: 2.6rem; }
+    .site-preview-bars span { inline-size: 12%; block-size: var(--bar); background: var(--syn-accent); opacity: .65; border-radius: .2rem .2rem 0 0; }
+    .site-preview-bars span:last-child { opacity: 1; }
+    .site-business-headline { font: 500 clamp(1.4rem, 2.5vw, 2rem)/1.1 ui-serif, Georgia, serif; letter-spacing: -.045em; max-inline-size: 15ch; }
+    .site-preview-rule { inline-size: 2.8rem; block-size: 3px; background: var(--syn-accent); }
+    .site-console-line { font: .78rem/1.8 var(--syn-mono); white-space: nowrap; }
+    .site-console-line strong { color: var(--syn-accent); font-weight: 700; }
+    .site-theme-comparison { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-block: 1.7rem 1.25rem; }
+    .site-compare-card { min-width: 0; padding: 1rem; border: 1px solid var(--syn-frame); border-radius: .7rem; background: var(--syn-bg); color: var(--syn-text); }
+    .site-compare-card h3 { font: 650 1rem/1.25 var(--syn-font-ui); margin: 0; }
+    .site-compare-card header { display: flex; justify-content: space-between; gap: .5rem; align-items: center; margin-block-end: .85rem; }
+    .site-compare-main { padding: 1rem; border: 1px solid var(--syn-frame); border-radius: .45rem; background: var(--syn-surface); }
+    .site-compare-main small { color: var(--syn-muted); }
+    .site-compare-main strong { display: block; font: 690 1.75rem/1.4 var(--syn-font-display); margin-block: .15rem .8rem; overflow-wrap: anywhere; }
+    .site-compare-bars { display: flex; align-items: end; gap: .35rem; height: 2.4rem; }
+    .site-compare-bars i { flex: 1; height: var(--bar); background: var(--syn-accent); border-radius: .15rem .15rem 0 0; }
+    .site-theme-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: .65rem; }
+    .site-theme-swatch { display: grid; gap: .7rem; padding: .8rem; border: 1px solid var(--syn-frame); background: var(--syn-bg); color: var(--syn-text); border-radius: .45rem; font: 650 .85rem/1.3 var(--syn-font-ui); }
+    .site-theme-swatch::before { content: ""; display: block; block-size: 2.4rem; border-radius: .2rem; background: linear-gradient(110deg, var(--syn-surface) 0 60%, var(--syn-accent) 60%); border: 1px solid var(--syn-frame); }
+    .site-foundation { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.5rem; }
+    .site-foundation h3 { font-size: 1.07rem; margin-block: .65rem; }
+    .site-foundation p { color: var(--syn-muted); }
+    .site-quickstart { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: center; }
+    .site-quickstart .site-section-title { max-inline-size: 18ch; }
+    .site-quickstart-copy { min-width: 0; }
+    .site-quickstart-example { min-width: 0; display: grid; gap: .65rem; }
+    .site-quickstart-example .site-code { margin-block-end: .8rem; }
+    .site-quickstart-label { display: flex; gap: .6rem; align-items: baseline; margin: 0; font: 700 .72rem/1.5 var(--syn-font-ui); letter-spacing: .07em; text-transform: uppercase; color: var(--syn-muted); }
+    .site-quickstart-label strong { color: var(--syn-accent); }
+    .site-release-note { margin-block: 1.25rem; padding-inline-start: 1rem; border-inline-start: 3px solid var(--syn-accent); color: var(--syn-muted); font-size: .9rem; }
+    .site-release-note strong { color: var(--syn-text); }
+    .site-try { margin-block-start: 2rem; padding: clamp(1.1rem, 3vw, 2rem); border: 1px solid var(--syn-border-subtle); border-radius: .75rem; background: var(--syn-surface); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); align-items: center; gap: 2rem; }
+    .site-code code { white-space: pre-wrap; overflow-wrap: anywhere; }
+    .site-code { border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-recessed); color: var(--syn-text); padding: 1.2rem; margin: 0; max-inline-size: 100%; overflow-x: auto; font: .8rem/1.9 var(--syn-mono); }
+    .site-native { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; }
+    .site-native .syn-details { flex-basis: 100%; }
+    .site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 2rem 3rem; border-block-start: 1px solid var(--syn-border-subtle); }
+    .site-footer nav { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; }
+    .site-footer a { display: inline-flex; align-items: center; min-block-size: 2rem; color: var(--syn-muted); font-size: var(--syn-type-sm); }
+    @media (max-width: 45rem) {
+      .site-nav { display: none; }
+      .site-mobile-menu { display: block; }
+      .site-theme-comparison { grid-template-columns: minmax(0, 1fr); }
+    }
+    @media (max-width: 53rem) {
+      .site-hero, .site-try, .site-quickstart { grid-template-columns: minmax(0, 1fr); }
+      .site-hero { padding-block: clamp(2.25rem, 5vw, 3.5rem) 2.5rem; gap: 1.5rem; }
+      .site-preview-board { max-inline-size: 38rem; }
+    }
+    @media (max-width: 32rem) {
+      .site-header { align-items: flex-start; }
+      .site-hero h1 { font-size: clamp(2.65rem, 12vw, 4rem); }
+      .site-preview-body { grid-template-columns: 3.3rem minmax(0, 1fr); }
+      .site-preview-rail { padding-inline: .35rem; }
+      .site-mini-metric { padding: .6rem; }
+      .site-trust { gap: .4rem .85rem; font-size: .8rem; }
+      .site-palette-link { justify-content: center; padding: .55rem .35rem; gap: .35rem; font-size: .75rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .site-skip { scroll-behavior: auto; } }
+    @media (forced-colors: active) {
+      .site-kicker::before, .site-trust li::before, .site-preview-rule { background: CanvasText; }
+      .site-palette-link { border-color: CanvasText; }
+      .site-palette-link::before { background: Highlight; box-shadow: none; }
+      .site-preview-board, .site-showcase-card, .site-preview, .site-mini-metric, .site-theme-swatch, .site-compare-card, .site-compare-main, .site-try, .site-code, .site-mobile-menu nav { border-color: CanvasText; }
+      .site-chart span, .site-preview-bars span, .site-compare-bars i, .site-theme-swatch::before { background: Highlight; }
+    }
+  </style>
 </head>
-<body class="syn-root syn-page" data-syn-theme="grid">
+<body class="syn-root syn-page" data-syn-theme="studio" id="top">
+  <a href="#main" class="syn-button site-skip">Skip to main content</a>
   <div class="syn-shell">
-    <header class="syn-header">
-      <a class="syn-logo" href="#top" aria-label="Syntyr home">// SYNTYR</a>
-      <nav class="syn-nav" aria-label="Page navigation">
-        <a href="#grid">GRID</a>
-        <a href="#noir">NOIR</a>
-        <a href="#studio">STUDIO</a>
-        <a href="#components">COMPONENTS</a>
-        <a href="docs/">COMPONENT GALLERY</a>
-        <a href="https://github.com/dporkka/syntyr-css/issues/3">DEVELOPER FEEDBACK</a>
+    <header class="site-header">
+      <a class="site-brand" href="#top" aria-label="Syntyr CSS home">SYNTYR <span>/ CSS</span></a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#quickstart">Get started</a>
+        <a href="docs/catalog.html">Components</a>
+        <a href="docs/blocks.html">Blocks</a>
+        <a href="docs/products.html">Products</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog</a>
+        <a href="docs/compare.html">Compare</a>
+        <a href="docs/faq.html">FAQ</a>
+        <a href="#themes">Themes</a>
+        <a href="#showcase">Examples</a>
+        <a href="docs/console-kit.html">Console Kit</a>
+        <a href="examples/semantic-starter.html">Semantic starter</a>
+        <a href="docs/semantic-components.html">Semantic HTML recipes</a>
+        <a href="examples/semantic-compositions.html">Semantic HTML gallery: forms, docs, MathML</a>
+        <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
       </nav>
+      <details class="site-mobile-menu">
+        <summary>Menu</summary>
+        <nav aria-label="Mobile navigation">
+          <a href="#quickstart">Get started</a>
+          <a href="docs/catalog.html">Components</a>
+        <a href="docs/blocks.html">Blocks</a>
+        <a href="docs/products.html">Products</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog</a>
+        <a href="docs/compare.html">Compare</a>
+        <a href="docs/faq.html">FAQ</a>
+          <a href="#themes">Themes</a>
+          <a href="#showcase">Examples</a>
+          <a href="docs/console-kit.html">Console Kit</a>
+          <a href="examples/semantic-starter.html">Semantic starter</a>
+        <a href="docs/semantic-components.html">Semantic HTML recipes</a>
+        <a href="examples/semantic-compositions.html">Semantic HTML gallery: forms, docs, MathML</a>
+          <a href="https://github.com/dporkka/syntyr-css">GitHub</a>
+        </nav>
+      </details>
     </header>
-    <main id="top">
-      <section id="grid" class="syn-stage syn-horizon" data-syn-theme="grid" aria-labelledby="grid-title">
-        <div class="syn-stage-header"><span class="syn-eyebrow">01 / GRID PROTOCOL</span><span class="syn-badge">SYSTEM ONLINE</span></div>
-        <div class="syn-layout">
-          <div>
-            <p class="syn-eyebrow">HUMAN INTERFACE / REDEFINED</p>
-            <h1 id="grid-title" class="syn-title">The future is semantic.</h1>
-            <p class="syn-lede">Ultra-lightweight futuristic interface components. Native browser controls. Zero runtime JavaScript. No build required.</p>
-            <p><a class="syn-button syn-button--primary" href="docs/">EXPLORE THE COMPONENT GALLERY</a></p>
-            <div class="syn-actions">
-              <button type="button" class="syn-button syn-button--primary" commandfor="grid-dialog" command="show-modal">OPEN SYSTEM DIALOG</button>
-              <button type="button" class="syn-button" popovertarget="grid-popover">SHOW COMMAND</button>
-            </div>
-            <dialog id="grid-dialog" class="syn-dialog" aria-labelledby="dialog-title">
-              <h2 id="dialog-title" class="syn-heading">System dialog</h2>
-              <p class="syn-lede">Native HTML dialog, opened without JavaScript using invoker commands.</p>
-              <form method="dialog"><button class="syn-button syn-button--primary">ACKNOWLEDGE</button></form>
-            </dialog>
-            <div id="grid-popover" class="syn-popover" popover>
-              <p class="syn-eyebrow">COMMAND PALETTE / DEMO</p>
-              <p>Native popover with light-dismiss and Escape handling.</p>
-              <button type="button" class="syn-button" popovertarget="grid-popover" popovertargetaction="hide">CLOSE</button>
+
+    <main id="main">
+      <section class="site-hero" aria-labelledby="hero-title">
+        <div>
+          <span class="site-kicker">Native HTML. Intentional design.</span>
+          <h1 id="hero-title">Modern CSS. <em>Less machinery.</em></h1>
+          <p class="site-lede">Beautiful, customizable interfaces for SaaS, business sites and futuristic consoles. Use semantic HTML with any framework—or none. No required runtime JavaScript.</p>
+          <div class="syn-actions">
+            <a class="syn-button syn-button--primary" href="#quickstart">Get started</a>
+            <a class="syn-button syn-button--outline" href="docs/catalog.html">Explore components</a>
+            <a class="syn-button syn-button--ghost" href="docs/site-builders.html">Use on WordPress, Shopify & more</a>
+            <a class="syn-button" href="docs/console-kit.html">Preview Console Kit</a>
+            <a class="site-tertiary-link" href="docs/#install">Installation guide</a>
+          </div>
+          <p class="syn-caption">Considering a switch? <a href="docs/tailwind-alternative.html">Compare Syntyr, Tailwind and plain CSS</a> before choosing.</p>
+          <ul class="site-trust" aria-label="Library characteristics">
+            <li>MIT-licensed core</li>
+            <li>Zero required runtime JavaScript</li>
+            <li>No external fonts or assets</li>
+          </ul>
+        </div>
+
+        <div class="site-hero-gallery">
+          <nav class="site-hero-palette-nav" aria-label="Explore published themes">
+            <a class="site-palette-link" data-syn-theme="studio" href="#theme-comparison">Studio</a>
+            <a class="site-palette-link" data-syn-theme="grid" href="#theme-comparison">Grid</a>
+            <a class="site-palette-link" data-syn-theme="noir" href="#theme-comparison">Noir</a>
+          </nav>
+          <div class="site-preview-board" data-syn-theme="grid" role="img" aria-label="Illustrative Grid-themed SaaS dashboard with navigation, key metrics and a chart. No live data.">
+          <div class="site-window-top"><span class="site-window-dots" aria-hidden="true"><span></span><span></span><span></span></span><span>GRID / SAMPLE INTERFACE</span></div>
+          <div class="site-preview-body" aria-hidden="true">
+            <div class="site-preview-rail"><span></span><span></span><span></span><span></span></div>
+            <div class="site-preview-main">
+              <p class="syn-heading">Overview</p>
+              <div class="syn-kpi-grid site-preview-metrics">
+                <article class="syn-app-card site-mini-metric"><small>Revenue</small><strong>$24,680</strong></article>
+                <article class="syn-app-card site-mini-metric"><small>Active projects</small><strong>18</strong></article>
+              </div>
+              <div class="site-chart">
+                <span style="--bar:40%"></span><span style="--bar:58%"></span><span style="--bar:48%"></span>
+                <span style="--bar:75%"></span><span style="--bar:62%"></span><span style="--bar:91%"></span>
+              </div>
+              <progress class="syn-meter" value="82" max="100">82%</progress>
+              <p class="syn-caption">ILLUSTRATIVE SAMPLE · NO LIVE DATA</p>
             </div>
           </div>
-          <div class="syn-panel syn-panel--cut syn-glow">
-            <span class="syn-eyebrow">TELEMETRY / 07</span>
-            <h2 class="syn-heading">Network integrity</h2>
-            <p class="syn-metric">98.7<span style="font-size:.45em">%</span></p>
-            <p class="syn-caption">REAL-TIME STATUS / NOMINAL</p>
-            <progress class="syn-meter" value="98.7" max="100" aria-label="Network integrity">98.7%</progress>
-            <hr class="syn-rule">
-            <div class="syn-grid">
-              <div><span class="syn-caption">UPLINK</span><p class="syn-mono">ACTIVE</p></div>
-              <div><span class="syn-caption">LATENCY</span><p class="syn-mono">12 MS</p></div>
-            </div>
+          </div>
+          <details class="site-preview-source" data-syn-theme="grid">
+            <summary>View the HTML for these cards</summary>
+            <pre class="site-preview-code"><code>&lt;link rel="stylesheet" href="syntyr.core.css"&gt;
+&lt;link rel="stylesheet" href="syntyr.recipes.css"&gt;
+&lt;section class="syn-root" data-syn-theme="grid"&gt;
+  &lt;div class="syn-kpi-grid"&gt;
+    &lt;article class="syn-app-card"&gt;
+      &lt;small&gt;Revenue&lt;/small&gt;
+      &lt;strong&gt;$24,680&lt;/strong&gt;
+    &lt;/article&gt;
+    &lt;article class="syn-app-card"&gt;
+      &lt;small&gt;Active projects&lt;/small&gt;
+      &lt;strong&gt;18&lt;/strong&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+            <p class="syn-caption">Uses the actual Syntyr card and grid recipes, with example-specific preview styling. Copy the HTML, then bind your own data.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="site-section site-quickstart" id="quickstart" aria-labelledby="quickstart-title">
+        <div class="site-quickstart-copy">
+          <span class="site-kicker">Install in two steps</span>
+          <h2 class="site-section-title" id="quickstart-title">From plain HTML to polished UI.</h2>
+          <p class="site-section-intro">Download the published, version-pinned core CSS, then add the stylesheet and Syntyr classes to your page. No build tool or component runtime required.</p>
+          <p class="site-release-note"><strong>Release status:</strong> alpha.4 is the published download. This website also previews the unreleased alpha.5 source candidate, so not every showcased style is in alpha.4. Self-host the pinned CSS in production.</p>
+          <div class="syn-actions">
+            <a class="syn-button syn-button--primary" href="https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css" download="syntyr.core.css">Download alpha.4 CSS</a>
+            <a class="syn-button syn-button--outline" href="docs/#install">Full installation guide</a>
+          </div>
+        </div>
+        <div class="site-quickstart-example" role="group" aria-label="Minimal Syntyr installation example">
+          <p class="site-quickstart-label"><strong>01</strong> Download the pinned stylesheet</p>
+          <pre class="site-code"><code>curl -fsSLo syntyr.core.css https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css</code></pre>
+          <p class="site-quickstart-label"><strong>02</strong> Include it alongside your HTML</p>
+          <pre class="site-code"><code>&lt;link rel="stylesheet" href="./syntyr.core.css"&gt;
+&lt;main class="syn-root" data-syn-theme="studio"&gt;
+  &lt;button class="syn-button syn-button--primary"&gt;
+    Continue
+  &lt;/button&gt;
+&lt;/main&gt;</code></pre>
+          <p class="syn-caption">Example assumes the HTML file and downloaded CSS file share a directory. See the guide for other hosting layouts.</p>
+        </div>
+      </section>
+
+      <section class="site-section" id="console-kit" aria-labelledby="console-kit-title">
+        <div class="site-kit-grid">
+          <figure class="site-kit-figure">
+            <a href="docs/console-kit.html" aria-label="See original Syntyr Console Kit prototype previews">
+              <img src="docs/previews/studio-overview.webp" loading="lazy" decoding="async" width="1120" height="700" alt="Studio dashboard prototype screenshot with fictional operational metrics and navigation">
+            </a>
+            <figcaption>Studio dashboard / genuine screenshot / fictional data</figcaption>
+          </figure>
+          <div class="site-kit-copy">
+            <span class="site-kicker">Separate commercial product research</span>
+            <h2 class="site-section-title" id="console-kit-title">A complete console, not just components.</h2>
+            <p class="site-section-intro">Syntyr Console Kit is a PRIVATE PROTOTYPE: eight original static SaaS screen layouts in Studio, Grid and Noir. Built for developers integrating server-rendered HTML, Go templates, HTMX, Astro or other backends.</p>
+            <p class="site-kit-meta">NOT FOR SALE · $59 introductory price hypothesis · no checkout or preorder</p>
+            <a class="syn-button syn-button--primary" href="docs/console-kit.html">See the Console Kit concept</a>
+            <p class="syn-caption">All current Syntyr CSS, free themes, components and examples remain MIT licensed. The proposed kit is separately authored and not available for purchase.</p>
           </div>
         </div>
       </section>
 
-      <section id="noir" class="syn-stage syn-atmosphere" data-syn-theme="noir" aria-labelledby="noir-title">
-        <div class="syn-stage-header"><span class="syn-eyebrow">02 / NOIR DISTRICT</span><span class="syn-badge">SECTOR 09</span></div>
-        <div class="syn-layout">
-          <div>
-            <p class="syn-eyebrow">ARCHIVE SYSTEM / NIGHT DIVISION</p>
-            <h2 id="noir-title" class="syn-title">Built for the night.</h2>
-            <p class="syn-lede">Warm tungsten highlights, cinematic depth and precise industrial controls. Same markup. Different identity.</p>
-            <div class="syn-actions"><a class="syn-button syn-button--primary" href="#components">EXPLORE COMPONENTS</a><a class="syn-button" href="#grid">BACK TO GRID</a></div>
-          </div>
-          <div class="syn-panel syn-panel--cut">
-            <p class="syn-eyebrow">RECORDS / ACCESS</p>
-            <h3 class="syn-heading">Identify operator</h3>
-            <form class="syn-form" action="#noir" method="get">
-              <label class="syn-label" for="operator">OPERATOR ID<input class="syn-input" id="operator" name="operator" autocomplete="username" placeholder="e.g. W42" required></label>
-              <button type="submit" class="syn-button syn-button--primary">REQUEST ACCESS</button>
-            </form>
-            <p class="syn-caption">DEMO FORM — NO BACKEND CONNECTED</p>
-          </div>
+      <section class="site-section" id="showcase" aria-labelledby="showcase-title">
+        <div class="site-section-head">
+          <div><span class="site-kicker">Use cases</span><h2 class="site-section-title" id="showcase-title">One foundation. Three directions.</h2>
+          <p class="site-section-intro">Each demo uses the same semantic HTML and CSS building blocks. The visual identity is a theme choice, not a framework rewrite. <a href="docs/how-to.html">Follow practical How-To guides</a> to build your own.</p></div>
+          <a href="docs/catalog.html">Search and copy components</a>
         </div>
-      </section>
-
-      <section id="studio" class="syn-stage" data-syn-theme="studio" aria-labelledby="studio-title">
-        <div class="syn-stage-header"><span class="syn-eyebrow">03 / STUDIO WORKSPACE</span><span class="syn-badge">PROFESSIONAL UI</span></div>
-        <div class="syn-layout">
-          <div>
-            <p class="syn-eyebrow">MODERN BUSINESS / LOW DEPENDENCY</p>
-            <h2 class="syn-title" id="studio-title">Professional by design.</h2>
-            <p class="syn-lede">A restrained, readable light theme for SaaS interfaces, operations tools and business websites.</p>
-            <div class="syn-actions">
-              <a class="syn-button syn-button--primary" href="examples/saas.html">VIEW SAAS EXAMPLE</a>
-              <a class="syn-button syn-button--outline" href="examples/business.html">VIEW BUSINESS WEBSITE</a>
-              <a class="syn-button" href="examples/terminal.html">CLI + TERMINAL</a>
+        <div class="site-showcase-grid">
+          <article class="site-showcase-card syn-panel" id="studio" data-syn-theme="studio" aria-labelledby="studio-title">
+            <span class="syn-eyebrow">01 / Studio · SaaS</span>
+            <h3 id="studio-title">Operational clarity</h3>
+            <p>Professional dashboards, records, filters and density-aware workspaces.</p>
+            <div class="site-preview" aria-hidden="true">
+              <span class="site-preview-title">Monthly activity</span>
+              <span class="site-preview-number">24,680</span>
+              <div class="site-preview-bars"><span style="--bar:45%"></span><span style="--bar:75%"></span><span style="--bar:55%"></span><span style="--bar:92%"></span><span style="--bar:68%"></span><span style="--bar:100%"></span></div>
             </div>
-          </div>
-          <article class="syn-app-card syn-frame--soft" aria-label="Illustrative team metrics">
-            <p class="syn-eyebrow">OPERATIONS / DAILY VIEW</p>
-            <h3 class="syn-heading">Workspace status</h3>
-            <p class="syn-stat-value">99.9%</p><span class="syn-status syn-status--success">Healthy</span>
-            <hr class="syn-rule">
-            <p class="syn-muted">Native CSS components, container-friendly layouts and zero client-side JavaScript.</p>
+            <a class="syn-button syn-button--primary" href="examples/flagship-studio.html">Open Studio showcase</a>
+            <a class="site-secondary-link" href="examples/saas-workflows.html">See workflow example</a>
+          </article>
+          <article class="site-showcase-card syn-panel" id="business" data-syn-theme="minimal" aria-labelledby="business-title">
+            <span class="syn-eyebrow">02 / Minimal · Business</span>
+            <h3 id="business-title">Quiet confidence</h3>
+            <p>Readable marketing pages with strong typography and restrained surfaces.</p>
+            <div class="site-preview" aria-hidden="true">
+              <span class="site-preview-title">NORTHSTAR / SYSTEMS</span>
+              <span class="site-business-headline">Good software, thoughtfully made.</span>
+              <span class="site-preview-rule"></span>
+            </div>
+            <a class="syn-button syn-button--primary" href="examples/business.html">View business website</a>
+            <a class="site-secondary-link" href="examples/flagship-noir.html">Explore Noir editorial showcase</a>
+          </article>
+          <article class="site-showcase-card syn-panel" id="grid" data-syn-theme="grid" aria-labelledby="grid-title">
+            <span class="syn-eyebrow">03 / Grid · Futuristic</span>
+            <h3 id="grid-title">Technical character</h3>
+            <p>Bold command surfaces and cinematic cyberpunk treatments, always opt-in.</p>
+            <div class="site-preview syn-horizon" aria-hidden="true">
+              <span class="site-console-line"><strong>SYS://</strong> NETWORK STATUS</span>
+              <span class="site-console-line"><strong>98.7%</strong> / INTEGRITY</span>
+              <span class="site-console-line">UPLINK <strong>ACTIVE</strong></span>
+              <span class="site-console-line">LATENCY 12MS</span>
+            </div>
+            <a class="syn-button syn-button--primary" href="examples/flagship-grid.html">Open Grid showcase</a>
+            <a class="site-secondary-link" href="examples/console.html">See original console</a>
           </article>
         </div>
       </section>
 
-      <section id="components" class="syn-stage" aria-labelledby="components-title">
-        <p class="syn-eyebrow">04 / PRIMITIVE COMPONENTS</p>
-        <h2 id="components-title" class="syn-heading">The foundation</h2>
-        <div class="syn-grid">
-          <div class="syn-panel syn-panel--cut"><p class="syn-eyebrow">DATA / NATIVE TABLE</p><div class="syn-table-wrap"><table class="syn-table"><thead><tr><th scope="col">NODE</th><th scope="col">STATUS</th></tr></thead><tbody><tr><td>AX-92</td><td>ONLINE</td></tr><tr><td>KX-14</td><td>READY</td></tr><tr><td>TR-08</td><td>ONLINE</td></tr></tbody></table></div></div>
-          <div class="syn-panel syn-panel--cut"><p class="syn-eyebrow">DISCLOSURE / NATIVE</p><details class="syn-details"><summary>Why semantic HTML?</summary><p>Keyboard navigation, forms, browser semantics, and progressive enhancement arrive as built-in platform features.</p></details><details class="syn-details"><summary>Does this need React?</summary><p>No. It also works with React, Go templ, HTMX, Astro, and other HTML-rendering tools.</p></details></div>
+      <section class="site-section" id="themes" aria-labelledby="themes-title">
+        <div class="site-section-head">
+          <div><span class="site-kicker">Customizable appearance</span><h2 class="site-section-title" id="themes-title">Seven palettes. One HTML contract.</h2>
+          <p class="site-section-intro">Studio, Grid and Noir are in the published alpha.4 release. All seven palettes shown below belong to the unreleased alpha.5 source candidate. Select themes explicitly for different sections.</p></div>
+          <div class="site-section-links"><a href="#theme-comparison">Compare three themes</a><a href="examples/themes.html">Explore the theme gallery</a></div>
+        </div>
+        <div id="theme-comparison" class="site-theme-comparison" role="group" aria-label="The same sample dashboard in three themes">
+          <article class="site-compare-card" data-syn-theme="studio">
+            <header><h3>Studio</h3><span class="syn-badge">Professional</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+          <article class="site-compare-card" data-syn-theme="grid">
+            <header><h3>Grid</h3><span class="syn-badge">Futuristic</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+          <article class="site-compare-card" data-syn-theme="noir">
+            <header><h3>Noir</h3><span class="syn-badge">Cinematic</span></header>
+            <div class="site-compare-main"><small>Monthly revenue · Sample</small><strong>$24,680</strong><div class="site-compare-bars" aria-hidden="true"><i style="--bar:45%"></i><i style="--bar:70%"></i><i style="--bar:58%"></i><i style="--bar:88%"></i><i style="--bar:100%"></i></div></div>
+          </article>
+        </div>
+        <div class="site-theme-grid" role="group" aria-label="Seven visual palettes">
+          <div class="site-theme-swatch" data-syn-theme="studio">Studio</div>
+          <div class="site-theme-swatch" data-syn-theme="minimal">Minimal</div>
+          <div class="site-theme-swatch" data-syn-theme="corporate">Corporate</div>
+          <div class="site-theme-swatch" data-syn-theme="grid">Grid</div>
+          <div class="site-theme-swatch" data-syn-theme="noir" id="noir">Noir</div>
+          <div class="site-theme-swatch" data-syn-theme="industrial">Industrial</div>
+          <div class="site-theme-swatch" data-syn-theme="terminal">Terminal</div>
+        </div>
+        <p class="site-section-intro">Prefer warm cinematic styling? <a href="examples/landing.html">Explore the Noir landing page</a>. For real command-line applications, use the separate ANSI palette tokens; CSS cannot style terminal emulators.</p>
+      </section>
+
+      <section class="site-section" id="components" aria-labelledby="components-title">
+        <div class="site-section-head">
+          <div><span class="site-kicker">Web standards first</span><h2 class="site-section-title" id="components-title">A smaller surface to maintain.</h2>
+          <p class="site-section-intro">Native controls, progressive enhancement and modular CSS. No JavaScript widget runtime is required for these primitives.</p></div>
+        </div>
+        <div class="site-foundation">
+          <div><span class="syn-eyebrow">01 / Composition</span><h3>Own the markup</h3><p>Use ordinary HTML, HTMX, React, Go templates or server-rendered pages without learning a custom component runtime.</p></div>
+          <div><span class="syn-eyebrow">02 / Presentation</span><h3>Theme with tokens</h3><p>Color roles, responsive layouts and optional geometry work together without compiling styles in the consumer app.</p></div>
+          <div><span class="syn-eyebrow">03 / Interaction</span><h3>Keep native behavior</h3><p>Dialogs, disclosures and popovers use browser features. Provide progressive fallbacks for newer invoker commands.</p></div>
+        </div>
+        <div class="site-try">
+          <div>
+            <h3 class="syn-section-heading">Start with a stylesheet.</h3>
+            <p class="syn-muted">Load the core CSS and opt into a root. Customize the palette, density and component classes when needed.</p>
+            <pre class="site-code"><code>&lt;link rel="stylesheet" href="syntyr.core.css"&gt;
+&lt;main class="syn-root" data-syn-theme="studio"&gt;
+  &lt;button class="syn-button syn-button--primary"&gt;
+    Continue
+  &lt;/button&gt;
+&lt;/main&gt;</code></pre>
+            <p class="syn-caption">Alpha.5 is not published yet. Pin a tagged release or self-host CSS when deploying.</p>
+          </div>
+          <div class="site-native">
+            <button class="syn-button" type="button" commandfor="grid-dialog" command="show-modal">Try native dialog</button>
+            <button class="syn-button syn-button--outline" type="button" popovertarget="grid-popover">Try native popover</button>
+            <details class="syn-details"><summary>What works without JavaScript?</summary><p>Native disclosures, links, buttons, HTML form submission, and supported popover/dialog commands. Advanced application widgets remain the application's responsibility.</p></details>
+            <p class="syn-caption">Dialog invoker commands require supporting browsers. The <a href="docs/guides.html#progressive-enhancement">progressive-enhancement guide</a> describes fallbacks.</p>
+            <dialog id="grid-dialog" class="syn-dialog" aria-labelledby="dialog-title">
+              <h3 id="dialog-title" class="syn-heading">A native dialog</h3>
+              <p>No Syntyr JavaScript is needed for this native interaction in browsers supporting dialog invoker commands.</p>
+              <form method="dialog"><button class="syn-button syn-button--primary" type="submit">Close dialog</button></form>
+            </dialog>
+            <div id="grid-popover" class="syn-popover" popover>
+              <p class="syn-heading">Browser-powered popover</p>
+              <p>Light-dismiss and Escape handling are native.</p>
+              <button class="syn-button" type="button" popovertarget="grid-popover" popovertargetaction="hide">Close popover</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="site-section" id="faq" aria-labelledby="faq-title">
+        <div class="site-section-head">
+          <div>
+            <span class="site-kicker">Syntyr CSS / FAQ</span>
+            <h2 class="site-section-title" id="faq-title">Frequently asked questions</h2>
+            <p class="site-section-intro">Clear answers about using a CSS-first design system, release compatibility and where other tools may fit better.</p>
+          </div>
+        </div>
+        <div class="site-foundation">
+          <details class="syn-details"><summary>What is Syntyr CSS?</summary><p>An MIT-licensed CSS-first design system for scoped, semantic HTML components and reusable SaaS interfaces. It is not an application or widget runtime. <a href="docs/catalog.html">Browse components</a>.</p></details>
+          <details class="syn-details"><summary>Does Syntyr require JavaScript or a build tool?</summary><p>No. You can self-host prebuilt CSS and use native HTML. Rich interactive widgets, state and application logic still need the browser or application framework. <a href="docs/progressive-enhancement.html">Read the integration guidance</a>.</p></details>
+          <details class="syn-details"><summary>Can I use it with React, WordPress, Shopify or Astro?</summary><p>Yes where the platform allows custom CSS and HTML, but hosting constraints and framework resets must be checked. <a href="docs/framework-integrations.html">Framework guide</a> and <a href="docs/site-builders.html">site-builder guide</a>.</p></details>
+          <details class="syn-details"><summary>Is Syntyr free for commercial websites?</summary><p>The core is MIT-licensed. Optional commercial products are separate. Check the <a href="LICENSE">license</a> and <a href="docs/products.html">products and roadmap</a>.</p></details>
+          <details class="syn-details"><summary>Which version should I install?</summary><p>v0.3.0-alpha.4 is the published immutable release. The alpha.5 source candidate is unreleased; pin a tagged stylesheet and verify classes against that version. <a href="docs/distribution.html">Installation details</a>.</p></details>
+          <details class="syn-details"><summary>How is it different from Tailwind or Bootstrap?</summary><p>Syntyr supplies scoped components and design tokens; Tailwind emphasizes utilities, while Bootstrap provides a mature component ecosystem. The right fit depends on your build and interaction needs. <a href="docs/compare.html">Compare alternatives</a>.</p></details>
+        </div>
+        <div class="site-section-links" style="margin-top: 1.5rem">
+          <a href="docs/faq.html">Read the complete Syntyr FAQ</a>
+          <a href="docs/compare.html">Explore all CSS framework comparisons</a>
+          <a href="docs/compare-tailwind.html">Syntyr vs Tailwind CSS</a>
         </div>
       </section>
     </main>
-    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS / MIT / ZERO RUNTIME JS</span><a href="#top" class="syn-caption">BACK TO TOP</a></footer>
+
+    <footer class="site-footer">
+      <span class="syn-caption">SYNTYR CSS · MIT-LICENSED · NO REQUIRED RUNTIME JAVASCRIPT</span>
+      <nav aria-label="Footer navigation">
+        <a href="docs/">Documentation</a>
+        <a href="docs/catalog.html">Component catalog</a>
+        <a href="docs/how-to.html">How-To guides</a>
+        <a href="docs/products.html">Products &amp; roadmap</a>
+        <a href="docs/design-resources.html">Design resources</a>
+        <a href="blog/">Blog &amp; articles</a>
+        <a href="docs/faq.html">FAQ</a>
+        <a href="docs/compare.html">Compare CSS frameworks</a>
+        <a href="docs/console-kit.html">Console Kit concept</a>
+        <a href="docs/#install">Installation</a>
+        <a href="https://github.com/dporkka/syntyr-css">Source</a>
+        <a href="https://github.com/dporkka/syntyr-css/issues/3">Developer feedback</a>
+        <a href="#top">Back to top</a>
+      </nav>
+    </footer>
   </div>
 </body>
 </html>

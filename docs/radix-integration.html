@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr core remains plain CSS with zero runtime JavaScript and zero React dependencies. Radix is a separate application choice . Its components own the…">
+  <meta name="syntyr-source-sha256" content="00782d663eaa9ea71ac11ccda4ac383d2ac4d035659440627549563bd121e995">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Radix Primitives visual adapter — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/radix-integration">
+  <link rel="alternate" type="text/markdown" href="radix-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Radix Primitives visual adapter</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="radix-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Radix Primitives visual adapter">
+<h1 id="optional-radix-primitives-visual-adapter">Optional Radix Primitives visual adapter</h1>
+<p>Syntyr core remains plain CSS with zero runtime JavaScript and zero React dependencies. Radix is a <strong>separate application choice</strong>. Its components own the accessible name, <strong>ARIA</strong> attributes, focus management, keyboard controls and state updates. Syntyr only adds styling.</p>
+<h2 id="install-and-opt-in">Install and opt in</h2>
+<p>In a React project using Radix Primitives, add a link <strong>after</strong> the core CSS:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/radix/states.css&quot;&gt;
+</code></pre>
+<p>Copy <a href="../integrations/radix/states.css">the adapter</a> into your project, or reference its repository source. Do not load it when you do not use Radix. It is <strong>not</strong> included in <code>syntyr.all.css</code>, either.</p>
+<p>Wrap the relevant app area in <code>.syn-root</code>. Apply <code>.syn-radix</code> on that root, on a container inside it, <strong>or directly on a stateful Syntyr control</strong> to opt in only that control. If Radix portals content to the document body, set that portal's <code>container</code> inside the styled root, or style the portal explicitly. Do not assume portal content inherits Syntyr tokens when it is mounted outside the root.</p>
+<h2 id="example-controlled-behavior-css-presentation">Example: controlled behavior, CSS presentation</h2>
+<pre tabindex="0"><code class="language-jsx">import * as Accordion from &quot;@radix-ui/react-accordion&quot;;
+import * as Toggle from &quot;@radix-ui/react-toggle&quot;;
+
+export function Controls() {
+  return (
+    &lt;section className=&quot;syn-root syn-radix&quot; data-syn-theme=&quot;studio&quot;&gt;
+      &lt;Toggle.Root className=&quot;syn-button&quot; aria-label=&quot;Pin dashboard&quot;&gt;
+        Pin dashboard
+      &lt;/Toggle.Root&gt;
+      &lt;Accordion.Root type=&quot;single&quot; collapsible&gt;
+        &lt;Accordion.Item value=&quot;filters&quot;&gt;
+          &lt;Accordion.Header&gt;
+            &lt;Accordion.Trigger className=&quot;syn-button syn-accordion-trigger&quot;&gt;
+              Advanced filters
+            &lt;/Accordion.Trigger&gt;
+          &lt;/Accordion.Header&gt;
+          &lt;Accordion.Content className=&quot;syn-accordion-content&quot;&gt;
+            &lt;p&gt;Additional filters belong here.&lt;/p&gt;
+          &lt;/Accordion.Content&gt;
+        &lt;/Accordion.Item&gt;
+      &lt;/Accordion.Root&gt;
+    &lt;/section&gt;
+  );
+}
+</code></pre>
+<p>Radix supplies <code>data-state=&quot;on&quot;</code>, <code>data-state=&quot;open&quot;</code>, <code>data-state=&quot;closed&quot;</code>, and <code>data-disabled</code> where applicable. The adapter consumes only those documented state hooks on <strong>explicit Syntyr component classes</strong>. It does not create a generic <code>data-state</code> styling API, and it does not replace Radix behavior.</p>
+<h2 id="accessibility-and-compatibility-boundaries">Accessibility and compatibility boundaries</h2>
+<ul>
+<li>Test with keyboard only (Enter, Space, Arrow keys where appropriate, Escape) and screen readers; CSS passing a contract test is <strong>not</strong> an accessibility certification.</li>
+<li>Use a native button or Radix trigger for actions. Visual <code>[data-disabled]</code> states do not prevent click handlers from running; Radix/application logic must enforce disabled behavior.</li>
+<li>Preserve the focus-visible indication from Syntyr core and verify contrasts for all themes and custom token overrides.</li>
+<li>Avoid CSS-only emulations of focus traps, listbox navigation, complex comboboxes or dialogs.</li>
+<li>The adapter does not guarantee complete styling for every Radix primitive. Extend it with component-specific classes only when real use cases justify maintenance.</li>
+</ul>
+<p>Related: <a href="component-recipes.html">copy-owned component recipes</a>, <a href="framework-integrations.html">framework integrations</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#install-and-opt-in">Install and opt in</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#example-controlled-behavior-css-presentation">Example: controlled behavior, CSS presentation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-compatibility-boundaries">Accessibility and compatibility boundaries</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="radix-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

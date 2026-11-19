@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: original MIT styling demonstration, not an installed Vertigo plugin or an end-to-end Vertigo deployment. No Vertigo database, auth, billing or…">
+  <meta name="syntyr-source-sha256" content="d4a9c6884e63e72dafa56ae5e702b359289f6cb068ce83a91893d2e569a65814">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional Syntyr CSS skin for Vertigo admin — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/vertigo-integration">
+  <link rel="alternate" type="text/markdown" href="vertigo-integration.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional Syntyr CSS skin for Vertigo admin</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="vertigo-integration.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional Syntyr CSS skin for Vertigo admin">
+<h1 id="optional-syntyr-css-skin-for-vertigo-admin">Optional Syntyr CSS skin for Vertigo admin</h1>
+<p><strong>Status: original MIT styling demonstration, not an installed Vertigo
+plugin or an end-to-end Vertigo deployment.</strong> No Vertigo database, auth,
+billing or tenant state was invoked to render the static example.</p>
+<p>The live example is at
+https://dporkka.github.io/syntyr-css/examples/vertigo-admin.html</p>
+<p>A separate <strong>private</strong> Vertigo integration has been exercised against a
+local, disposable Go/PostGIS application with two authenticated tenant sessions
+and real generated task CRUD. This is owner-run development evidence, <strong>not</strong>
+a public hosted demo, production certification, shipped Vertigo plugin, or
+commercial bundle. The public example above remains a static illustration;
+no auth, tenant routing, billing, or CRUD backend runs in that page.</p>
+<p>We are researching whether separately authored premium application compositions
+would help developers using Go and server-rendered HTML. The existing MIT
+Syntyr CSS and adapters remain free. No paid Vertigo/Syntyr product or checkout
+is currently offered.</p>
+<h2 id="why-optional-not-a-hard-dependency">Why optional, not a hard dependency</h2>
+<p>Vertigo's Go admin templates in kit/admin/admin.go use an inline stylesheet
+and classes such as .row, .cards, .card, .button, .search, .tablewrap and
+.notice. Syntyr includes a separate opt-in stylesheet that targets these
+existing class names, scoped to the body class syn-vertigo-admin.</p>
+<p>No user of Vertigo must install Syntyr. No user of Syntyr must install
+Vertigo. This adapter is an optional presentation layer only.</p>
+<h2 id="integration-outline-on-your-vertigo-application-branch">Integration outline (on your Vertigo application branch)</h2>
+<ol>
+<li>Copy Syntyr's MIT-licensed compiled core CSS and
+integrations/vertigo/admin.css into assets served <strong>locally</strong> by the
+Vertigo application, for example at /assets/syntyr.core.css and
+/assets/syntyr.vertigo.css. Keep license attribution.</li>
+<li>Mount a public read-only static asset handler for those exact paths
+using Go's net/http or your existing static server. Do not add CDN or
+authentication requirements for public CSS files.</li>
+<li>The current Vertigo admin pageShell helper builds a common HTML shell
+with an inline default CSS block. Change the <em>application-specific</em>
+shell only if you choose to enable Syntyr; link both CSS files
+<strong>after</strong> its existing inline style, and add body classes and a theme:</li>
+</ol>
+<pre tabindex="0"><code class="language-html">&lt;!-- After Vertigo's existing &lt;style&gt;...&lt;/style&gt; in &lt;head&gt; --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/syntyr.vertigo.css&quot;&gt;
+&lt;!-- In the shared body tag --&gt;
+&lt;body class=&quot;syn-root syn-vertigo-admin&quot; data-syn-theme=&quot;studio&quot;&gt;
+</code></pre>
+<ol start="4">
+<li>Leave the default Vertigo HTML templates and security middleware intact.
+Test admin index, list, edit/create, errors, confirmations, tenant
+boundaries, keyboard navigation and forms against your real application.</li>
+<li>For the dark themes, switch the body to data-syn-theme=&quot;grid&quot; or
+data-syn-theme=&quot;noir&quot;. Both palettes are in the same CSS core.</li>
+</ol>
+<p><strong>This repository does not modify Vertigo pageShell automatically.</strong> The
+current Vertigo function compiles templates with a hard-coded shell; a
+production-quality opt-in shell configuration belongs in Vertigo, with its
+own tests, if enough customers request it.</p>
+<h2 id="boundaries-and-accessibility">Boundaries and accessibility</h2>
+<ul>
+<li>CSS changes presentation, not route authorization, CSRF validation,
+RLS, tenant routing, billing entitlements or input validation.</li>
+<li>The default Vertigo admin template includes native form controls; some
+search fields and data tables should still be audited for accessible
+labels, headings, error references and table headers in their real state.</li>
+<li>Vertigo's own dangerous-action confirmation currently uses inline
+JavaScript in some admin templates. Syntyr's adapter adds <strong>zero</strong>
+JavaScript but does not remove script used elsewhere in Vertigo.</li>
+<li>In a production app, load from your own server, pin the Syntyr
+stylesheet version, test with a CSP, and verify focus, reduced motion,
+real zoom and high-contrast modes.</li>
+</ul>
+<p>The styling adapter is independent of Hugo and Zola. Syntyr's static
+site does not need a Vertigo process to use this CSS.</p>
+<h2 id="verified-scope-november-14-2026">Verified scope (November 14, 2026)</h2>
+<ul>
+<li>Chromium, Firefox and WebKit passed browser interaction/viewport checks
+on the optional static admin preview at 320, 390 and 1280px.</li>
+<li>Automated tests checked that the existing Vertigo-style card and button
+class names actually render Syntyr surface/accent tokens in Studio and
+Noir, then checked that removing the optional stylesheet removes its paint.</li>
+<li>Enlarged-text reflow cases passed in Chromium, Firefox and WebKit.</li>
+<li>axe-core 4.10.3 recorded no confirmed automated WCAG-tagged violations on
+the static adapter demo, but one inconclusive check requires manual review.
+Actual screen-reader and browser zoom testing remain incomplete.</li>
+</ul>
+<p>These are presentation-level checks of a standalone HTML example, not
+end-to-end verification of Vertigo's authenticated resource CRUD screens.</p>
+<h2 id="current-vertigo-shared-shell-integration-separate-opt-in-branch">Current Vertigo shared-shell integration (separate opt-in branch)</h2>
+<p>Syntyr additionally provides <code>integrations/vertigo/shell.css</code>, a token bridge
+for Vertigo's newer <code>kit/ui</code> <code>.vg-*</code> components. The <code>feat/optional-syntyr-skin</code>
+branch in <code>dporkka/vertigo</code> vendors the <strong>published alpha.4 core</strong> plus this
+bridge and the legacy <code>admin.css</code> adapter, and enables it only with
+<code>VERTIGO_UI_SKIN=syntyr</code>. CSS is served locally from a versioned path. Its
+Go regression tests do not establish end-to-end database-backed UI approval.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#why-optional-not-a-hard-dependency">Why optional, not a hard dependency</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#integration-outline-on-your-vertigo-application-branch">Integration outline (on your Vertigo application branch)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#boundaries-and-accessibility">Boundaries and accessibility</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#verified-scope-november-14-2026">Verified scope (November 14, 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#current-vertigo-shared-shell-integration-separate-opt-in-branch">Current Vertigo shared-shell integration (separate opt-in branch)</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="vertigo-integration.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

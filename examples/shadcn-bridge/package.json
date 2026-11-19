@@ -1,0 +1,15 @@
+{
+  "name": "syntyr-shadcn-token-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tailwindcss -i ./src/app.css -o ./dist/app.css --minify"
+  },
+  "dependencies": {
+    "@syntyr/css": "file:../.."
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.0",
+    "@tailwindcss/cli": "^4.1.0"
+  }
+}

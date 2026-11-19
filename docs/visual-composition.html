@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore Syntyr&#x27;s principles for layout hierarchy, typography, surfaces, visual restraint, and original product-led SaaS interface design.">
+  <meta name="syntyr-source-sha256" content="0ed5069b6d426ff004ccab3f1198c37331935ccadaef8e9bff9e80d758c69574">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr visual composition — premium restraint, distinct character — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/visual-composition">
+  <link rel="alternate" type="text/markdown" href="visual-composition.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr visual composition — premium restraint, distinct character</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="visual-composition.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr visual composition — premium restraint, distinct character">
+<h1 id="syntyr-visual-composition-premium-restraint-distinct-character">Syntyr visual composition — premium restraint, distinct character</h1>
+<p>This guide applies original layout decisions informed by the <strong>principles</strong>
+publicly described by Resend, Vercel, Linear, Raycast and PostHog. Do not copy
+their proprietary brand marks, code, fonts, illustrations, components or layouts.
+The Syntyr CSS public contract stays independent and MIT licensed.</p>
+<h2 id="product-led-presentation">Product-led presentation</h2>
+<ul>
+<li>Show a real HTML/CSS component next to the markup used to construct it.
+Annotate fictional data honestly; never imply a static mockup is a live app.</li>
+<li>Use one dominant action and one secondary action in the first viewport.
+Move tertiary exploration paths to the next relevant section.</li>
+<li>Give each page one descriptive <code>h1</code>, readable section headings, and a clear
+keyboard-first navigation path. Do not rely on visual headings alone.</li>
+</ul>
+<h2 id="surface-and-typography-rules">Surface and typography rules</h2>
+<ol>
+<li>Prefer <strong>one visible boundary per edge</strong>. When nested surfaces both have
+borders, use <code>--syn-border-subtle</code> for internal dividers and reserve
+<code>--syn-frame</code> / <code>--syn-frame-strong</code> for controls and meaningful edges.</li>
+<li>Apply depth sparingly. A raised overlay may use <code>--syn-shadow-overlay</code>;
+routine dashboard cards should rely on spacing and role separation first.</li>
+<li>Use <code>--syn-font-ui</code> for ordinary controls, <code>--syn-font-display</code> for
+headings and <code>--syn-mono</code> for technical data. The optional system-serif
+editorial recipe should not bleed into operational controls.</li>
+<li>Prefer sentence case for Studio, Minimal and Corporate UI. Technical
+uppercase labels are intentional in Grid and Terminal, not the default.</li>
+<li>Use <code>--syn-accent</code> for real actions, selection, and a few signature
+details. Do not color every title, border, metric and icon at once.</li>
+</ol>
+<h2 id="same-components-three-visual-directions">Same components, three visual directions</h2>
+<ul>
+<li><a href="../examples/flagship-studio.html">Studio operations</a>: compact density,
+unambiguous tables, quiet cards and a clear action order.</li>
+<li><a href="../examples/flagship-noir.html">Noir editorial</a>: system serif, atmospheric
+background on one section, generous white space, restrained warm accents.</li>
+<li><a href="../examples/flagship-grid.html">Grid control</a>: precise geometric framing,
+sparse cyan highlights, legible operational records and explicitly simulated
+output. Opt into cinematic effects only on a contained hero.</li>
+</ul>
+<p>These are <strong>documentation-only compositions</strong>. Their <code>flagship.css</code> file is
+application-owned showcase styling, not an additional required Syntyr module.</p>
+<h2 id="accessibility-motion-and-maintenance">Accessibility, motion and maintenance</h2>
+<ul>
+<li>Maintain visible focus indicators and appropriate contrast for meaningful
+text and control boundaries; never depend on color, glow, or tiny labels alone.</li>
+<li>The data or state must still make sense at 320px and 400% zoom. Wide tables
+may scroll in a labeled, keyboard-focusable region.</li>
+<li>Suppress nonessential effects under forced-colors; respect reduced motion.
+Avoid perpetual <code>will-change</code>, large blur layers and decorative timers.</li>
+<li>Favor CSS custom properties and existing <code>syn-*</code> classes over bespoke
+component forks. Keep theme, density, intensity, and geometry independent.</li>
+<li>Measure real browser rendering and review screenshots before making
+visual regressions a release gate.</li>
+</ul>
+<h2 id="references">References</h2>
+<p>Public design reading:</p>
+<ul>
+<li><a href="https://resend.com/handbook/design/what-are-our-brand-guidelines">Resend brand guidelines</a></li>
+<li><a href="https://linear.app/now/behind-the-latest-design-refresh">Linear design refresh</a></li>
+<li><a href="https://vercel.com/geist/introduction">Vercel Geist design system</a></li>
+</ul>
+<p>See also <a href="theme-customization.html">theme customization</a>,
+<a href="visual-intensity.html">visual intensity</a>, and
+<a href="design-research-linear-resend.html">design research</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#product-led-presentation">Product-led presentation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#surface-and-typography-rules">Surface and typography rules</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#same-components-three-visual-directions">Same components, three visual directions</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-motion-and-maintenance">Accessibility, motion and maintenance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#references">References</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="visual-composition.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+/*
+ * Optional shadcn/ui semantic token adapter. No JavaScript or Tailwind required.
+ * Load AFTER Syntyr core, only opt into sections with .syn-shadcn.
+ * Reapply tokens on nested theme boundaries so derived aliases don't freeze
+ * to an outer theme's computed custom-property value.
+ * This deliberately does NOT style components or change global :root/.dark.
+ */
+:where(
+  .syn-root.syn-shadcn,
+  .syn-root .syn-shadcn,
+  .syn-root.syn-shadcn [data-syn-theme],
+  .syn-root .syn-shadcn [data-syn-theme]
+) {
+  --background: var(--syn-bg);
+  --foreground: var(--syn-text);
+  --card: var(--syn-surface);
+  --card-foreground: var(--syn-text);
+  --popover: var(--syn-surface);
+  --popover-foreground: var(--syn-text);
+  --primary: var(--syn-accent);
+  --primary-foreground: var(--syn-on-accent);
+  --secondary: var(--syn-surface-hi);
+  --secondary-foreground: var(--syn-text);
+  --muted: var(--syn-surface-recessed);
+  --muted-foreground: var(--syn-muted);
+  --accent: var(--syn-surface-hover);
+  --accent-foreground: var(--syn-text);
+  --destructive: var(--syn-danger);
+  --border: var(--syn-border-default);
+  --input: var(--syn-border-default);
+  --ring: var(--syn-focus-ring);
+  --radius: var(--syn-radius);
+  --sidebar: var(--syn-surface);
+  --sidebar-foreground: var(--syn-text);
+  --sidebar-primary: var(--syn-accent);
+  --sidebar-primary-foreground: var(--syn-on-accent);
+  --sidebar-accent: var(--syn-surface-hover);
+  --sidebar-accent-foreground: var(--syn-text);
+  --sidebar-border: var(--syn-border-subtle);
+  --sidebar-ring: var(--syn-focus-ring);
+}

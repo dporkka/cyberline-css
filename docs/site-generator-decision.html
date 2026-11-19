@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Decision (November 14, 2026): keep the existing static GitHub Pages website, with an isolated Hugo proof-of-concept. No migration of the production site.">
+  <meta name="syntyr-source-sha256" content="8bb7b00fb140daec3bb6779e850b503875974da3650b7425db2338e0a2b365eb">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr website strategy: static HTML vs Hugo vs Zola — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/site-generator-decision">
+  <link rel="alternate" type="text/markdown" href="site-generator-decision.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr website strategy: static HTML vs Hugo vs Zola</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="site-generator-decision.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr website strategy: static HTML vs Hugo vs Zola">
+<h1 id="syntyr-website-strategy-static-html-vs-hugo-vs-zola">Syntyr website strategy: static HTML vs Hugo vs Zola</h1>
+<p><strong>Decision (November 14, 2026): keep the existing static GitHub Pages
+website, with an isolated Hugo proof-of-concept. No migration of the production site.</strong></p>
+<p>Syntyr is an MIT-licensed CSS library; its user-facing demo gallery already
+works without runtime JavaScript. The current site consists of original
+standalone HTML demos, a component gallery, and Markdown engineering guides.
+Its value is the styling and copyable source, not a content-management system.</p>
+<h2 id="decision-matrix">Decision matrix</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Current static HTML</th>
+<th>Hugo</th>
+<th>Zola</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generator required to deploy</td>
+<td>None</td>
+<td>Single build-time binary</td>
+<td>Single build-time binary</td>
+</tr>
+<tr>
+<td>Runtime JavaScript</td>
+<td>None</td>
+<td>None, unless intentionally added</td>
+<td>None, unless intentionally added</td>
+</tr>
+<tr>
+<td>Docs authored in Markdown</td>
+<td>GitHub renders files, not an integrated site</td>
+<td>Native: templates, menus, taxonomies, render hooks</td>
+<td>Native: sections, templates, taxonomies</td>
+</tr>
+<tr>
+<td>Templates</td>
+<td>Direct HTML</td>
+<td>Go templates</td>
+<td>Tera (Jinja-like)</td>
+</tr>
+<tr>
+<td>Theme and module ecosystem</td>
+<td>Own CSS only</td>
+<td>Mature site themes and modules; optional Go-based modules</td>
+<td>Smaller/simple theme model</td>
+</tr>
+<tr>
+<td>Deployment on existing Pages main /</td>
+<td>Native</td>
+<td>Build output must be deployed instead</td>
+<td>Build output must be deployed instead</td>
+</tr>
+<tr>
+<td>URL/stylesheet migration risk</td>
+<td>None</td>
+<td>Real, needs parity tests</td>
+<td>Real, needs parity tests</td>
+</tr>
+<tr>
+<td>Maintenance overhead now</td>
+<td>Lowest</td>
+<td>Additional pinned tool + templates + CI</td>
+<td>Additional pinned tool + templates + CI</td>
+</tr>
+<tr>
+<td>Relevance to Syntyr</td>
+<td>Best now</td>
+<td>Best later for extensive documentation</td>
+<td>Good lightweight alternative</td>
+</tr>
+</tbody>
+</table>
+<p>Official primary references:</p>
+<ul>
+<li>https://gohugo.io/about/features/</li>
+<li>https://gohugo.io/templates/types/</li>
+<li>https://gohugo.io/configuration/module/</li>
+<li>https://gohugo.io/host-and-deploy/deploy-to-github-pages/</li>
+<li>https://www.getzola.org/documentation/getting-started/</li>
+<li>https://www.getzola.org/documentation/content/overview/</li>
+<li>https://www.getzola.org/documentation/deployment/github-pages/</li>
+</ul>
+<p>Both options are permissively licensed and generate static files. Zola is
+Rust-based with Tera templates and a self-contained executable. Hugo is Go-
+based with rich Markdown processing, output formats, template reuse, and a
+well-developed documentation/content ecosystem. Neither is a replacement for
+Vertigo: Vertigo handles stateful application logic; these tools only build
+content pages ahead of time.</p>
+<h2 id="why-hugo-wins-if-content-becomes-complex">Why Hugo wins if content becomes complex</h2>
+<p>Syntyr has growing engineering documentation (API conventions, tokens,
+accessibility, recipes, CLI, integration guides) and may eventually need
+versioned documentation, multilingual landing pages, release notes and
+taxonomy navigation. Hugo is the better long-term fit for these requirements,
+particularly because the related Vertigo ecosystem uses Go. It supports
+modern native template layouts and content-mount workflows.</p>
+<p>Zola would be preferable if the site stayed small and a developer valued
+Tera's simpler templating experience more than Hugo's content features.
+Neither generator's final asset size is intrinsically smaller; delivered CSS
+is still defined by Syntyr itself, not by the SSG.</p>
+<h2 id="direct-cost-and-hidden-costs">Direct cost and hidden costs</h2>
+<p>A migration would require:</p>
+<ul>
+<li>moving/copying roughly ten carefully crafted HTML showcase/demo pages;</li>
+<li>testing every old GitHub Pages URL, relative asset reference and filename;</li>
+<li>changing Pages deployment (currently main /) to a generated artifact;</li>
+<li>pinning and regularly updating a new binary and template API;</li>
+<li>avoiding duplicated documentation sources and broken relative Markdown links;</li>
+<li>retaining the same zero-JavaScript runtime and MIT source availability.</li>
+</ul>
+<p>It is not worth it today because a generator does not fix a demonstrated
+customer problem yet. The isolated Hugo experiment uses existing Markdown and
+CSS to test actual templates without changing the public site.</p>
+<h2 id="proposed-trigger-to-revisit">Proposed trigger to revisit</h2>
+<p>Reevaluate after roughly <strong>20–30 regularly maintained documentation pages</strong>,
+a genuine versioned documentation requirement, or recurring manual
+navigation/link-editing pain. These are heuristic triggers, not a framework
+performance threshold.</p>
+<p>If migration is approved, use Hugo for the <strong>documentation section first</strong>,
+not the component gallery and live CSS demos. Build locally or in CI, prove
+output parity including the /docs/ and /examples/ paths, then cut over with
+a rollback plan. Existing MIT stylesheet artifacts remain independent of
+whatever generates the website.</p>
+<h2 id="vertigo-boundary">Vertigo boundary</h2>
+<p>Use Syntyr to style Vertigo's Go admin pages via an <strong>opt-in CSS adapter</strong>.
+Keep static marketing, docs and free downloads publicly accessible. Add
+Vertigo to Syntyr's customer portal only if buyers need retained
+entitlements, team licenses, or authenticated download management.
+One-time hosted checkout and private delivery should be validated before
+adding a persistent application stack.</p>
+<h2 id="verified-hugo-preview-result">Verified Hugo preview result</h2>
+<p>Using official Hugo <strong>v0.170.0</strong>, the isolated build rendered <strong>11 HTML
+pages</strong> directly from the existing Syntyr Markdown guides and its two
+preview landing/section pages. The verification script checked <strong>67 local
+links</strong> and rejected browser JavaScript and unintended copied Python files.
+The input uses the live repository CSS and example HTML through native Hugo
+module mounts. The preview is not a public Pages deployment.</p>
+<p>Repeat the check with a pinned Hugo binary:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/verify_hugo_preview.py --hugo /path/to/hugo
+</code></pre>
+<p>This establishes feasibility, not a benefit large enough to justify migrating
+the current live site or its existing permalink structure.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#decision-matrix">Decision matrix</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#why-hugo-wins-if-content-becomes-complex">Why Hugo wins if content becomes complex</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#direct-cost-and-hidden-costs">Direct cost and hidden costs</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#proposed-trigger-to-revisit">Proposed trigger to revisit</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#vertigo-boundary">Vertigo boundary</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#verified-hugo-preview-result">Verified Hugo preview result</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="site-generator-decision.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

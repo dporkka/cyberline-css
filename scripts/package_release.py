@@ -10,20 +10,76 @@ import sys
 from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 if __package__:
-    from .build import distributions
+    from .build import all_distributions, javascript_distributions
 else:
-    from build import distributions
+    from build import all_distributions, javascript_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 # One source of truth: scripts/build.py defines public CSS entrypoints.
 FILES = (
     "LICENSE",
     "README.md",
+    "DESIGN.md",
     "ARCHITECTURE.md",
     "docs/distribution.md",
     "docs/api-stability.md",
-) + tuple(f"dist/{name}" for name in distributions()) + (
+    "docs/animation.md",
+    "docs/clipboard.md",
+    "docs/ai-quickstart.md",
+    "docs/agent-integration.md",
+    "docs/components.md",
+    "docs/recipes.md",
+    "docs/component-recipes.md",
+    "docs/component-recipes.html",  # Offline integration guide for packaged form-state example.
+    "docs/email-components.md",
+    "examples/email.html",
+    "examples/saas.html",  # Offline-openable, no external assets or scripts.
+    "examples/form-state-contracts.html",  # Native server-supplied form states.
+    "examples/preset-preview.html",
+    "examples/resource-outline.html",  # Script-free native navigation demo.
+    "examples/command-launcher.html",
+    "examples/command-launcher.mjs",  # Optional copy-owned navigation adapter.
+    "examples/query-review.html",  # Native server-rendered filter/review composition.
+    "examples/resizable-workspace.html",
+    "examples/resizable-workspace.mjs",
+    "examples/animation.html",
+    "examples/animation-demo.mjs",  # One local CSS file per named preset.
+    "examples/copy.html",
+    "examples/copy-demo.mjs",
+    "docs/native-patterns.md",
+    "docs/radix-integration.md",
+    "docs/framework-integrations.md",
+    "docs/site-builders.md",
+    "examples/platform-embed.html",
+    "integrations/wordpress/syntyr-enqueue.php",
+    "integrations/shopify/sections/syntyr-feature.liquid",
+    "docs/headless-interactions.md",
+    "integrations/headless/interactions.css",
+    "docs/native-browser-apis.md",
+    "docs/dropdowns.md",
+    "docs/theme-customization.md",
+    "docs/visual-intensity.md",
+    "docs/accessibility.md",
+    "docs/viz.md",
+    "docs/geo.md",
+    "examples/geo.html",
+    "llms.txt",
+    "llms-full.txt",
+    "metadata/components.json",
+    "metadata/component-gallery.v1.json",
+    "metadata/css-contract.v1.json",
+    "agents/syntyr/SKILL.md",
+    "docs/editor-integration.md",
+    "metadata/syntyr-api.json",
+    "metadata/syntyr.html-custom-data.json",
+    "metadata/syntyr.css-custom-data.json",
+    "metadata/syntyr.code-snippets",
+
+) + tuple(f"dist/{name}" for name in all_distributions()) + tuple(
+    f"dist/{name}" for name in javascript_distributions()
+) + (
     "terminal/palettes.json",
+    "integrations/dropdown/menu.mjs",
 )
 
 
@@ -32,6 +88,14 @@ def package(output: Path) -> None:
     if not version or "/" in version or "\\" in version:
         raise ValueError("Invalid VERSION")
     subprocess.run([sys.executable, str(ROOT / "scripts/build.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_agent_docs.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/sync_design_md.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/export_api_metadata.py"), "--check"],
+                   cwd=ROOT, check=True, capture_output=True, text=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_component_gallery.py"), "--check"],
                    cwd=ROOT, check=True, capture_output=True, text=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     with ZipFile(output, mode="w", compression=ZIP_DEFLATED, compresslevel=9) as archive:

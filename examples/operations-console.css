@@ -30,7 +30,7 @@
 .ops-section-title > h2 { margin: 0; }
 .ops-split { display: grid; gap: var(--syn-space-3); grid-template-columns: minmax(0,1fr); }
 .ops-split > * { min-width: 0; }
-.ops-panel { padding: clamp(1rem, 2.4vw, 1.6rem); }
+.ops-panel { padding: clamp(1rem, 2.4vw, 1.6rem); overflow-wrap: anywhere; }
 .ops-panel > :last-child { margin-block-end: 0; }
 .ops-progresses { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.25rem; }
 .ops-progresses li { min-width: 0; }
@@ -57,3 +57,56 @@
 /* Give keyboard and touch users an affordance for intentionally scrollable tables. */
 .ops-scroll-hint { display: none; margin: .55rem 0; font: .76rem/1.5 var(--syn-mono); color: var(--syn-muted); }
 @media (max-width: 50rem) { .ops-scroll-hint { display: block; } }
+
+/* Application-level native popover patterns; no JavaScript or CSS core dependency. */
+.ops-action-popover {
+  box-sizing: border-box;
+  inline-size: min(26rem, calc(100vw - 2rem));
+  max-block-size: min(75dvh, 35rem);
+  overflow: auto;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--syn-frame-strong);
+  border-radius: .65rem;
+  background: var(--syn-surface);
+  color: var(--syn-text);
+  box-shadow: 0 1rem 2.5rem rgb(0 0 0 / .25);
+}
+.ops-action-popover h3 { margin: .45rem 0; }
+.ops-action-list { list-style: none; display: grid; gap: .3rem; padding: 0; margin: 1rem 0; }
+.ops-action-link {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  justify-content: space-between;
+  min-block-size: 2.6rem;
+  padding: .65rem .8rem;
+  color: var(--syn-text);
+  border: 1px solid var(--syn-frame);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.ops-action-link:hover { color: var(--syn-accent); border-color: var(--syn-accent); }
+.ops-action-link:focus-visible, .ops-resource-trigger:focus-visible {
+  outline: 2px solid var(--syn-focus-ring);
+  outline-offset: 3px;
+}
+.ops-action-popover .syn-button { margin-block-start: .8rem; }
+.ops-resource-trigger {
+  display: inline-block;
+  margin-inline-start: .4rem;
+  padding: .15rem .35rem;
+  color: var(--syn-accent);
+  background: transparent;
+  border: 1px solid var(--syn-frame-strong);
+  font: inherit;
+  cursor: pointer;
+}
+.ops-resource-trigger:hover { border-color: var(--syn-accent); }
+.ops-resource-metadata { display: grid; gap: .5rem; margin: 1rem 0; }
+.ops-resource-metadata > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .25rem 1rem; border-block-end: 1px solid var(--syn-frame); padding-block: .3rem; }
+.ops-resource-metadata dt { color: var(--syn-muted); }
+.ops-resource-metadata dd { margin: 0; font: .85rem/1.5 var(--syn-mono); overflow-wrap: anywhere; }
+@media (forced-colors: active) {
+  .ops-action-popover, .ops-action-link, .ops-resource-trigger { border-color: CanvasText; }
+  .ops-action-link:hover { text-decoration: underline; }
+}

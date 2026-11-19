@@ -19,6 +19,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class BrowserCoverageContract(unittest.TestCase):
+    def test_blocks_gallery_is_in_browser_reflow_and_axe_inventories(self):
+        for name in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
+            with self.subTest(script=name):
+                source = (ROOT / "tests" / name).read_text(encoding="utf-8")
+                self.assertIn('"docs/blocks.html"', source)
+
     def test_new_theme_gallery_is_in_cross_engine_and_axe_audits(self):
         for script in ("browser_matrix.py", "axe_audit.py"):
             with self.subTest(script=script):
@@ -26,6 +32,12 @@ class BrowserCoverageContract(unittest.TestCase):
                 for page in ('"examples/themes.html"', '"examples/saas.html"',
                              '"examples/business.html"', '"examples/terminal.html"'):
                     self.assertIn(page, source)
+
+    def test_new_onboarding_guides_are_in_browser_reflow_and_axe_audits(self):
+        for script in ("browser_matrix.py", "reflow_test.py", "axe_audit.py"):
+            with self.subTest(script=script):
+                self.assertIn('"docs/guides.html"',
+                              (ROOT / "tests" / script).read_text())
 
     def test_design_state_example_is_checked_in_every_browser_and_a11y_matrix(self):
         for script in ("browser_matrix.py", "axe_audit.py", "reflow_test.py"):
@@ -40,6 +52,11 @@ class BrowserCoverageContract(unittest.TestCase):
         self.assertIn('aria-selected="true"', source)
         self.assertIn("getBoundingClientRect().height", source)
         self.assertIn("row.hover()", source)
+
+    def test_reflow_ignores_controls_inside_closed_native_disclosures(self):
+        script = (ROOT / "tests/reflow_test.py").read_text()
+        self.assertIn("details:not([open])", script)
+        self.assertIn("closest('summary')", script)
 
     def test_nested_theme_probes_use_the_current_dataset_contract(self):
         source = (ROOT / "tests/browser_matrix.py").read_text()

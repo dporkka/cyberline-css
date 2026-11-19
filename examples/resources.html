@@ -76,7 +76,8 @@
           <button class="syn-button syn-button--primary" type="submit">APPLY FILTERS</button>
         </form>
         <p class="syn-help">Static demo: filter values appear in the URL; an application server must implement result filtering. No data is submitted remotely.</p>
-        <div class="syn-table-wrap resource-table">
+        <p class="syn-help" id="resource-table-scroll-hint">The resource table scrolls horizontally on narrow screens. Focus the table region and use the arrow keys to view more columns.</p>
+        <div class="syn-table-wrap resource-table" role="region" aria-label="Resource registry table" aria-describedby="resource-table-scroll-hint" tabindex="0">
           <table class="syn-table">
             <caption style="text-align:left">Illustrative resource registry (6 fictional entries)</caption>
             <thead><tr><th scope="col">RESOURCE ID</th><th scope="col">ASSET</th><th scope="col">SECTOR</th><th scope="col">UPDATED</th><th scope="col">STATUS</th></tr></thead>

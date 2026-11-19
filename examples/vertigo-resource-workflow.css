@@ -1,0 +1,50 @@
+/* Example-only composition: reuse public syn-* components; no core API additions. */
+.vrw-shell { min-width:0; }
+.vrw-main { min-width:0; }
+.vrw-skip { position:absolute; z-index:20; inset-block-start:-8rem; inset-inline-start:1rem; }
+.vrw-skip:focus { inset-block-start:.5rem; }
+.vrw-rail-note { margin-block-start:auto; padding-block-start:1.5rem; }
+.vrw-intro { max-inline-size:65ch; }
+.vrw-section { margin-block:clamp(1.1rem,3vw,2rem); }
+.vrw-filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr)); gap:.85rem; align-items:end; margin-block:1rem; }
+.vrw-filter-actions { display:flex; align-items:center; flex-wrap:wrap; gap:.5rem; }
+.vrw-filter-actions .syn-button { flex:1 0 auto; }
+.vrw-table-scroll { max-width:100%; }
+.vrw-caption { text-align:start; padding-block:.4rem; }
+.vrw-properties { margin:0; display:grid; gap:.75rem; }
+.vrw-properties > div { display:grid; grid-template-columns:minmax(6rem,1fr) minmax(0,1.5fr); gap:.8rem; border-block-end:1px solid var(--syn-border-subtle); padding-block:.5rem; }
+.vrw-properties dt { color:var(--syn-muted); }
+.vrw-properties dd { margin:0; overflow-wrap:anywhere; font-weight:600; }
+.vrw-inspector { padding:1rem; min-width:0; }
+.vrw-inspector h3 { margin-block-start:0; }
+.vrw-inspector .syn-button { margin-block-start:1rem; }
+.vrw-form { max-inline-size:64rem; }
+.vrw-fieldset { border:0; padding:0; margin:0; min-inline-size:0; }
+.vrw-fieldset > legend { padding:0; margin-block-end:.8rem; }
+.vrw-fieldset .syn-field { margin-block:.8rem; }
+.vrw-form-columns { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr)); gap:.8rem; }
+.vrw-form-actions { display:flex; flex-wrap:wrap; gap:.65rem; padding-block-start:.6rem; }
+.vrw-settings { max-inline-size:38rem; margin-block:1.2rem; }
+@media (max-width:40rem) {
+  .vrw-form-actions > * { width:100%; }
+  .vrw-properties > div { grid-template-columns:minmax(0,1fr); gap:.15rem; }
+}
+@media (forced-colors:active) {
+  .vrw-inspector { border:1px solid CanvasText; }
+}
+
+/* Keep long labels and metadata inside their allocated areas when text is
+   enlarged. This is example-only; the MIT core API and shared recipes stay
+   unchanged. */
+.vrw-rail :is(.syn-logo, .syn-app-nav a) { min-inline-size:0; overflow-wrap:anywhere; }
+.vrw-main :is(.syn-page-header, .syn-breadcrumbs, .syn-app-card, .syn-detail-main,
+  .syn-detail-aside, .syn-empty, .syn-activity-timeline, .syn-field, .syn-fieldset) {
+  min-inline-size:0;
+  overflow-wrap:anywhere;
+}
+.vrw-main .syn-activity-timeline > li { overflow-wrap:anywhere; }
+.vrw-fieldset > legend { max-inline-size:100%; overflow-wrap:anywhere; }
+@media (max-width:40rem) {
+  .vrw-main { padding-inline:clamp(12px, 3vw, 2rem); }
+  .vrw-main .syn-empty { padding:clamp(8px, 2vw, 1rem); }
+}

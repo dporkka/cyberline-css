@@ -1,0 +1,51 @@
+{
+  "name": "syntyr-css",
+  "displayName": "Syntyr CSS (local preview)",
+  "description": "Syntyr HTML/CSS custom data and snippets, with no extension runtime.",
+  "version": "0.3.0-alpha.5",
+  "publisher": "syntyr-local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dporkka/syntyr-css.git"
+  },
+  "files": [
+    "metadata/",
+    "snippets/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "contributes": {
+    "html": {
+      "customData": [
+        "./metadata/syntyr.html-custom-data.json"
+      ]
+    },
+    "css": {
+      "customData": [
+        "./metadata/syntyr.css-custom-data.json"
+      ]
+    },
+    "snippets": [
+      {
+        "language": "html",
+        "path": "./snippets/syntyr.code-snippets"
+      },
+      {
+        "language": "javascriptreact",
+        "path": "./snippets/syntyr.code-snippets"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./snippets/syntyr.code-snippets"
+      }
+    ]
+  }
+}

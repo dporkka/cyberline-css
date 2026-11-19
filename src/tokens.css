@@ -1,18 +1,17 @@
-@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.utilities;
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.viz, syn.utilities;
 
 @layer syn.tokens {
   :where(.syn-root) {
-    color-scheme: dark;
+    color-scheme: light;
     --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
-    --syn-font-ui: var(--syn-font);
-    --syn-font-display: var(--syn-font);
     --syn-type-xs: .75rem;
     --syn-type-sm: .875rem;
     --syn-type-base: 1rem;
     /* Type roles are independent from theme palettes and optional font loading. */
     --syn-type-body: var(--syn-type-base);
     --syn-type-heading: clamp(1.15rem, 2.4vw, 1.55rem);
+    --syn-type-section: clamp(1.5rem, 1.25rem + 1.25vw, 2.125rem);
     --syn-type-display: clamp(2rem, 5.5vw, 4rem);
     --syn-leading-body: 1.55;
     --syn-tracking-display: -.045em;
@@ -29,13 +28,20 @@
     --syn-row-padding-block: .7rem;
     --syn-card-padding: var(--syn-space-3);
     --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
+    --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
+    --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
     --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-ease-enter: cubic-bezier(.16, 1, .3, 1);
     --syn-duration-fast: 150ms;
+    --syn-duration-standard: 240ms;
   }
   /* Derived surfaces recompute inside nested themes, not just on the parent. */
   :where(.syn-root, .syn-root [data-syn-theme]) {
     --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
     --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
+    /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
+    --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
+    --syn-border-floating: var(--syn-frame-strong);
     --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
     /* These aliases recompute in nested themed regions. */
     --syn-text-subtle: var(--syn-muted);
@@ -46,6 +52,8 @@
     --syn-surface-interactive: var(--syn-surface-hi);
     --syn-surface-hover: color-mix(in srgb, var(--syn-surface-hi) 83%, var(--syn-accent));
     --syn-surface-pressed: var(--syn-accent-soft);
+    /* Keep hover contrast identical to the approved accent/foreground pair by default. */
+    --syn-primary-hover-bg: var(--syn-accent);
     --syn-font-ui: var(--syn-font);
     --syn-font-display: var(--syn-font);
   }
@@ -56,7 +64,67 @@
     --syn-row-padding-block: .4rem;
     --syn-card-padding: var(--syn-space-2);
   }
-  :where(.syn-root), :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
+  /* Explicit default restores regular spacing inside a compact ancestor. */
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+  }
+  /* Spacious is for form-heavy or review contexts, without scaling typography. */
+  :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
+    --syn-control-height: 3.25rem;
+    --syn-control-padding-block: .95rem;
+    --syn-row-padding-block: 1rem;
+    --syn-card-padding: var(--syn-space-4);
+  }
+  /* Visual richness is independent of palette, geometry and density.
+     Explicit values on descendants reset the inherited presentation profile. */
+  :where(.syn-root, .syn-root [data-syn-intensity="standard"]) {
+    --syn-grid-alpha: 5%;
+    --syn-glow-alpha: 12%;
+    --syn-wash-alpha: 15%;
+    --syn-wash-secondary-alpha: 10%;
+    --syn-horizon-alpha: 10%;
+    --syn-scanline-alpha: 10%;
+  }
+  :where(.syn-root[data-syn-intensity="quiet"], .syn-root [data-syn-intensity="quiet"]) {
+    --syn-grid-alpha: 1%;
+    --syn-glow-alpha: 0%;
+    --syn-wash-alpha: 4%;
+    --syn-wash-secondary-alpha: 3%;
+    --syn-horizon-alpha: 2%;
+    --syn-scanline-alpha: 0%;
+  }
+  :where(.syn-root[data-syn-intensity="cinematic"], .syn-root [data-syn-intensity="cinematic"]) {
+    --syn-grid-alpha: 10%;
+    --syn-glow-alpha: 25%;
+    --syn-wash-alpha: 26%;
+    --syn-wash-secondary-alpha: 18%;
+    --syn-horizon-alpha: 17%;
+    --syn-scanline-alpha: 12%;
+  }
+  /* Neutral default; named palettes override it independently. */
+  :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    color-scheme: light;
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
     color-scheme: dark;
     --syn-bg: #080f19;
     --syn-surface: #111f2c;
@@ -170,28 +238,10 @@
     --syn-radius: .375rem;
     --syn-cut: 0;
   }
-    :where(.syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
-    color-scheme: light;
-    --syn-bg: #f5f7fb;
-    --syn-surface: #ffffff;
-    --syn-surface-hi: #eaf0f8;
-    --syn-text: #15233a;
-    --syn-muted: #4b5d76;
-    --syn-accent: #2458c6;
-    --syn-accent-2: #176b80;
-    --syn-on-accent: #ffffff;
-    --syn-frame: #b8c6d8;
-    --syn-frame-strong: #6685b2;
-    --syn-danger: #ad2637;
-    --syn-success: #17694b;
-    --syn-warning: #92500a;
-    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
-    --syn-radius: .25rem;
-    --syn-cut: .9rem;
-  }
+
 
   /* Opt-in system palette: Studio in light mode, Grid in dark mode.
-     The guard preserves the original dark defaults in older browsers. */
+     Engines without light-dark() fall back to the neutral Studio palette. */
   @supports (color: light-dark(white, black)) {
     :where(.syn-root[data-syn-theme="auto"], .syn-root [data-syn-theme="auto"]) {
       color-scheme: light dark;
@@ -213,12 +263,37 @@
       --syn-cut: .9rem;
     }
   }
-  /* Technical typography only for the fallback and explicit technical themes.
-     Do not force monospace on Studio/Minimal/Corporate roots. */
-  :where(.syn-root:not([data-syn-theme]), .syn-root[data-syn-theme="grid"],
+  /* Experimental perceptual mixing: explicitly enable per root or themed region.
+     The default sRGB role remains intact on unsupported engines and elsewhere.
+     Do not recolor semantic text/accent pairings without a contrast audit. */
+  @supports (color: color-mix(in oklch, red, blue)) {
+    :where(.syn-root[data-syn-color-space="oklch"],
+           .syn-root [data-syn-color-space="oklch"]) {
+      --syn-surface-hover: color-mix(in oklch, var(--syn-surface-hi) 83%, var(--syn-accent));
+    }
+  }
+
+  /* Technical typography is an explicit choice, not the neutral root default. */
+  :where(.syn-root[data-syn-theme="grid"],
          .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
          .syn-root [data-syn-theme="terminal"]) {
     --syn-font-ui: var(--syn-mono);
     --syn-font-display: var(--syn-mono);
+  }
+
+  /* Higher contrast preserves nested theme and intensity overrides.
+     Custom application CSS can still override these layered defaults. */
+  @media (prefers-contrast: more) {
+    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity]) {
+      --syn-border-subtle: var(--syn-frame-strong);
+      --syn-border-default: var(--syn-frame-strong);
+      --syn-shadow-raised: 0 0 0 transparent;
+      --syn-grid-alpha: 0%;
+      --syn-glow-alpha: 0%;
+      --syn-wash-alpha: 0%;
+      --syn-wash-secondary-alpha: 0%;
+      --syn-horizon-alpha: 0%;
+      --syn-scanline-alpha: 0%;
+    }
   }
 }

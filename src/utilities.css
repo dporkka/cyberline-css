@@ -16,6 +16,13 @@
   .syn-root :where(.syn-u-mt-1) { margin-block-start: var(--syn-space-1); }
   .syn-root :where(.syn-u-mt-2) { margin-block-start: var(--syn-space-2); }
   .syn-root :where(.syn-u-mt-3) { margin-block-start: var(--syn-space-3); }
+  /* Common composition glue: additive, fixed vocabulary, no utility compiler. */
+  .syn-root :where(.syn-u-w-full) { width: 100%; }
+  .syn-root :where(.syn-u-max-reading) { max-inline-size: var(--syn-reading-width, 68ch); }
+  .syn-root :where(.syn-u-overflow-auto) { overflow: auto; }
+  .syn-root :where(.syn-u-text-center) { text-align: center; }
+  .syn-root :where(.syn-u-min-w-0) { min-width: 0; }
+  .syn-root :where(.syn-u-wrap) { flex-wrap: wrap; }
   .syn-root :where(.syn-u-sr-only) {
     position: absolute; width: 1px; height: 1px; padding: 0;
     margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0);

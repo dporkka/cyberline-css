@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Three zero-JavaScript SYNTYR visual-intensity profiles with composable cyberpunk frames.">
+  <title>SYNTYR — Visual intensity and geometry lab</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.effects.css">
+  <link rel="stylesheet" href="../dist/syntyr.geometry.css">
+  <style>
+    .intensity-wrap { padding-block: clamp(1.5rem, 4vw, 3.5rem); }
+    .intensity-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr)); gap:var(--syn-space-3); }
+    .intensity-region { min-width:0; padding:var(--syn-space-2); border:1px solid var(--syn-frame); }
+    .intensity-preview { min-height:16rem; padding:1.5rem; }
+    .intensity-preview h3 { margin-block:.5rem 1rem; }
+    .intensity-meta { margin-block:1rem; }
+    .intensity-footer { margin-block-start:3rem; padding-block:1.5rem; border-block-start:1px solid var(--syn-frame); }
+    .intensity-skip { position:absolute; inset-block-start:-10rem; }
+    .intensity-skip:focus-visible { inset-block-start:1rem; z-index:10; }
+  </style>
+</head>
+<body class="syn-root syn-page" data-syn-theme="grid" data-syn-intensity="standard">
+  <a class="syn-button intensity-skip" href="#main">Skip to examples</a>
+  <div class="syn-shell intensity-wrap">
+    <header class="syn-header">
+      <a class="syn-logo" href="../docs/index.html">// SYNTYR</a>
+      <nav class="syn-nav" aria-label="Examples"><a href="../docs/visual-intensity.md">DESIGN GUIDE</a><a href="../docs/theme-editor.html">THEME EDITOR</a></nav>
+    </header>
+    <main id="main">
+      <p class="syn-eyebrow">VISUAL SYSTEM / EFFECT INTENSITY</p>
+      <h1 class="syn-title">One palette. Three intensities.</h1>
+      <p class="syn-lede">All three regions use the same Grid palette, CSS modules and semantic markup. Only their local decoration tokens change. This is a static showcase, not a connected dashboard.</p>
+      <section class="intensity-grid" aria-label="Intensity comparison">
+        <article class="intensity-region syn-grid-effect" data-syn-intensity="quiet" aria-labelledby="quiet-title">
+          <p class="syn-eyebrow">01 / QUIET</p>
+          <div class="intensity-preview syn-frame syn-frame--notch">
+            <h2 id="quiet-title" class="syn-heading">Operator workspace</h2>
+            <p class="syn-muted">High information density without decorative glow.</p>
+            <p class="syn-status syn-status--success">System operational</p>
+            <a class="syn-button syn-button--primary" href="../examples/operations-console.html">View console</a>
+          </div>
+          <p class="syn-caption intensity-meta">Low visual noise · critical status remains readable</p>
+        </article>
+        <article class="intensity-region syn-grid-effect" data-syn-intensity="standard" aria-labelledby="standard-title">
+          <p class="syn-eyebrow">02 / STANDARD</p>
+          <div class="intensity-preview syn-frame syn-frame--bevel syn-glow">
+            <h2 id="standard-title" class="syn-heading">Design workspace</h2>
+            <p class="syn-muted">Balanced illumination for everyday promotional surfaces.</p>
+            <p class="syn-status">Design preview</p>
+            <a class="syn-button syn-button--outline" href="../docs/index.html">See components</a>
+          </div>
+          <p class="syn-caption intensity-meta">Baseline opt-in effects · no automatic animation</p>
+        </article>
+        <article class="intensity-region syn-grid-effect" data-syn-intensity="cinematic" aria-labelledby="cinematic-title">
+          <p class="syn-eyebrow">03 / CINEMATIC</p>
+          <div class="intensity-preview syn-frame syn-frame--bevel syn-frame--accent syn-glow">
+            <h2 id="cinematic-title" class="syn-heading">Featured transmission</h2>
+            <p class="syn-muted">Concentrated accents for hero sections and technical exhibitions.</p>
+            <p class="syn-status">Fictional presentation</p>
+            <a class="syn-button syn-button--primary" href="../examples/landing.html">View landing</a>
+          </div>
+          <p class="syn-caption intensity-meta">Stronger decorative illumination · reserve for accents</p>
+        </article>
+      </section>
+      <section class="syn-panel intensity-meta" aria-labelledby="compose-title">
+        <h2 id="compose-title" class="syn-heading">Composable frame precedence</h2>
+        <p>These panels intentionally combine the legacy cut class with newer geometry. The geometry shape takes priority, without collapsing its pseudo-element dimensions.</p>
+        <div class="intensity-grid">
+          <article class="syn-panel syn-panel--cut syn-frame syn-frame--notch syn-frame--accent"><h3 class="syn-heading">Accent notch</h3><p>One shape + accent border.</p></article>
+          <article class="syn-panel syn-panel--cut syn-frame syn-frame--bracket"><h3 class="syn-heading">Bracket panel</h3><p>Legacy cut safely superseded.</p></article>
+        </div>
+      </section>
+    </main>
+    <footer class="intensity-footer syn-caption">Original MIT-licensed styling · No JavaScript, remote fonts or external assets.</footer>
+  </div>
+</body>
+</html>

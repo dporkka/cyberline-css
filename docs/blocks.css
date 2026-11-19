@@ -1,0 +1,55 @@
+/* Documentation-only layouts: not part of Syntyr's CSS distribution. */
+.syn-root .blocks-skip {position:absolute;inset-block-start:-10rem;inset-inline-start:1rem;z-index:30}
+.syn-root .blocks-skip:focus-visible {inset-block-start:1rem}
+.syn-root .blocks-controls {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.9rem;margin-block:1.5rem}
+.syn-root .blocks-controls>div {min-width:0}
+.syn-root .blocks-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,30rem),1fr));gap:1.25rem;align-items:start}
+.syn-root .blocks-card {display:grid;gap:.9rem;min-width:0;align-content:start}
+.syn-root .blocks-card[hidden],.syn-root #blocks-empty[hidden],.syn-root #blocks-controls[hidden],.syn-root .blocks-copy[hidden] {display:none}
+.syn-root .blocks-card-heading {display:flex;flex-wrap:wrap;align-items:start;justify-content:space-between;gap:.75rem}
+.syn-root .blocks-card-heading h2 {margin:0}
+.syn-root .blocks-card-heading .syn-badge {max-inline-size:100%;font-size:.7rem;overflow-wrap:anywhere}
+.syn-root .blocks-card .syn-muted {margin:0}
+.syn-root .blocks-preview {min-width:0;overflow-x:auto;border:1px solid var(--syn-border-subtle);border-radius:var(--syn-radius);background:var(--syn-bg)}
+.syn-root .blocks-preview-disabled {border:0;min-inline-size:0;margin:0;padding:0}
+.syn-root .syn-form>.blocks-preview-disabled {display:grid;grid-template-columns:inherit;gap:inherit;align-items:inherit}
+.syn-root .syn-filter-bar>.blocks-preview-disabled {display:flex;flex-wrap:wrap;gap:inherit;align-items:inherit;flex-grow:1}
+.syn-root .blocks-preview>.syn-root {padding:clamp(.85rem,3vw,1.65rem);min-width:0;min-height:12rem;font-size:.9rem}
+.syn-root .blocks-preview .syn-site-heading {font-size:clamp(1.7rem,3.5vw,3rem)}
+.syn-root .blocks-preview .syn-site-hero {padding:clamp(1.1rem,3vw,2rem)}
+.syn-root .blocks-preview .syn-pricing {gap:.6rem}
+.syn-root .blocks-preview .syn-price-card {padding:.9rem}
+.syn-root .blocks-preview .syn-price-value {font-size:clamp(1.3rem,2.6vw,2rem)}
+.syn-root .blocks-preview .syn-feature-grid {gap:.6rem}
+.syn-root .blocks-preview .syn-feature-card {padding:.85rem}
+.syn-root .blocks-preview .syn-stat-value {font-size:clamp(1.5rem,2.5vw,2rem)}
+.syn-root .blocks-details summary {cursor:pointer;font-weight:650;min-height:2.5rem;align-content:center}
+.syn-root .blocks-source {margin:.65rem 0 0;padding:1rem;border:1px solid var(--syn-border-subtle);border-radius:.3rem;max-width:100%;max-height:22rem;overflow:auto;background:var(--syn-surface-recessed);color:var(--syn-text);font:.78rem/1.55 var(--syn-mono);white-space:pre}
+.syn-root .blocks-copy {justify-self:start}
+.syn-root .blocks-assets-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:.85rem;margin-block:1.4rem}
+.syn-root .blocks-icons-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:.75rem;margin-block:1.4rem}
+.syn-root .blocks-icon-card {min-width:0;padding:1rem;border:1px solid var(--syn-frame);border-radius:var(--syn-radius);background:var(--syn-surface)}
+.syn-root .blocks-icon-preview {display:flex;align-items:center;gap:.7rem;min-height:3rem}
+.syn-root .blocks-icon-preview .syn-icon {flex-shrink:0;color:var(--syn-accent);--syn-icon-size:1.5rem}
+.syn-root .blocks-icon-preview strong {min-width:0;overflow-wrap:anywhere}
+.syn-root .blocks-icon-card details {margin-block-start:.7rem}
+.syn-root .blocks-icon-card summary {cursor:pointer;min-height:2rem;font-size:.8rem}
+.syn-root .blocks-icon-card pre {font:.72rem/1.5 var(--syn-mono);padding:.5rem;overflow:auto;max-height:10rem;background:var(--syn-surface-recessed)}
+.syn-root .blocks-type-grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.85rem;margin-block:1.4rem}
+.syn-root .blocks-type {display:grid;grid-template-columns:minmax(0,1fr);gap:.45rem;padding:1.25rem;min-width:0;overflow-wrap:anywhere;border:1px solid var(--syn-frame);background:var(--syn-surface);border-radius:var(--syn-radius)}
+.syn-root .blocks-type strong {font-size:1.25rem;line-height:1.25;letter-spacing:-.03em;overflow-wrap:anywhere}
+.syn-root .blocks-type small {color:var(--syn-muted)}
+.syn-root .blocks-type--studio {font-family:system-ui,sans-serif}
+.syn-root .blocks-type--editorial {font-family:ui-serif,Georgia,serif}
+.syn-root .blocks-type--mono {font-family:ui-monospace,monospace}
+.syn-root .blocks-type--technical {font-family:Arial,Helvetica,sans-serif;letter-spacing:.03em}
+.syn-root .blocks-type--reading {font-family:Georgia,serif;line-height:1.65}
+.syn-root .blocks-type--compact {font-family:system-ui,sans-serif;font-stretch:condensed;letter-spacing:-.035em}
+.syn-root .blocks-footer {display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-block:2rem 4rem}
+@media (max-width:35rem) {
+ .syn-root .blocks-card {padding:1rem}
+ .syn-root .blocks-card-heading {display:grid}
+}
+@media (forced-colors:active) {
+ .syn-root .blocks-preview,.syn-root .blocks-source,.syn-root .blocks-type {border-color:CanvasText}
+}

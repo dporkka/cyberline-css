@@ -30,6 +30,16 @@ def check(browser, viewport):
     preview = page.locator('#preview')
     assert page.locator('script').count() == 1
     assert preview.get_attribute('data-syn-theme') == 'grid'
+    assert preview.get_attribute('data-syn-intensity') == 'standard'
+    default_shadow = preview.evaluate("e => getComputedStyle(e).boxShadow")
+    page.locator('#intensity').select_option('quiet')
+    assert preview.get_attribute('data-syn-intensity') == 'quiet'
+    quiet_shadow = preview.evaluate("e => getComputedStyle(e).boxShadow")
+    assert default_shadow != quiet_shadow, (default_shadow, quiet_shadow)
+    page.locator('#intensity').select_option('cinematic')
+    assert preview.get_attribute('data-syn-intensity') == 'cinematic'
+    assert 'data-syn-intensity="cinematic"' in page.locator('#generated-css').inner_text()
+    page.locator('#intensity').select_option('standard')
     assert page.locator('#accent').input_value() == '#76e7f7'
     assert page.locator('#contrast-result').get_attribute('data-result') == 'pass'
     assert '--syn-accent: #76e7f7' in page.locator('#generated-css').inner_text()

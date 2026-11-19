@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="These are original, MIT-licensed SYNTYR CSS components. They do not replicate entertainment franchise assets or require JavaScript.">
+  <meta name="syntyr-source-sha256" content="d4fe40bf23120396089c4ac5b8c8c386bb33e11ca5091adc5efc88c845643ba3">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Advanced frames and terminal presentation — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/geometry-terminal">
+  <link rel="alternate" type="text/markdown" href="geometry-terminal.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Advanced frames and terminal presentation</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="geometry-terminal.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Advanced frames and terminal presentation">
+<h1 id="advanced-frames-and-terminal-presentation">Advanced frames and terminal presentation</h1>
+<p>These are original, MIT-licensed SYNTYR CSS components. They do not replicate entertainment franchise assets or require JavaScript.</p>
+<h2 id="installation">Installation</h2>
+<p>Load only the modules you need. Advanced geometry is separate so ordinary pages do not load its CSS:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.geometry.css&quot;&gt;
+&lt;!-- Only for the optional application/terminal layouts: --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+</code></pre>
+<p>The all-in-one stylesheet includes geometry and recipes already. Do not load it alongside the individual modules.</p>
+<h2 id="seven-independent-frame-profiles">Seven independent frame profiles</h2>
+<p>Use <code>.syn-frame</code> with exactly <strong>one</strong> shape modifier. These can decorate an article, section, or any normal element. The surrounding content stays semantic:</p>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;grid&quot;&gt;
+  &lt;article class=&quot;syn-panel syn-frame syn-frame--bevel&quot; style=&quot;--syn-frame-cut: 1.5rem&quot;&gt;
+    &lt;h2&gt;Monitoring&lt;/h2&gt;
+    &lt;p&gt;All systems operational.&lt;/p&gt;
+    &lt;a href=&quot;/status&quot;&gt;See status&lt;/a&gt;
+  &lt;/article&gt;
+&lt;/section&gt;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-frame--bevel</code></td>
+<td>Diagonal cut on all four corners</td>
+</tr>
+<tr>
+<td><code>.syn-frame--notch</code></td>
+<td>Asymmetric top-right and bottom-left cuts</td>
+</tr>
+<tr>
+<td><code>.syn-frame--step</code></td>
+<td>Square stepped cuts on top-right and bottom-left</td>
+</tr>
+<tr>
+<td><code>.syn-frame--facet</code></td>
+<td>Diagonal cuts on top-left and bottom-right</td>
+</tr>
+<tr>
+<td><code>.syn-frame--bracket</code></td>
+<td>Four HUD-style L-shaped corner markers</td>
+</tr>
+<tr>
+<td><code>.syn-frame--inset</code></td>
+<td>Nested technical border</td>
+</tr>
+<tr>
+<td><code>.syn-frame--circuit</code></td>
+<td>Subtle corner trace bars</td>
+</tr>
+</tbody>
+</table>
+<p>These style variables are inherited and can be overridden on a specific panel:</p>
+<ul>
+<li><code>--syn-frame-cut</code>: default <code>1rem</code>; fallback size for all cuts (backwards-compatible)</li>
+<li><code>--syn-frame-cut-tl</code>, <code>--syn-frame-cut-tr</code>, <code>--syn-frame-cut-br</code>, <code>--syn-frame-cut-bl</code>: optional <strong>Per-corner</strong> overrides; use explicit CSS lengths</li>
+<li><code>--syn-frame-stroke</code>: default <code>1px</code>; border thickness for clipped shapes</li>
+<li><code>--syn-frame-fill</code>: default <code>var(--syn-surface)</code>; interior background</li>
+<li><code>--syn-frame-outline</code>: default <code>var(--syn-frame-strong)</code>; solid border fallback</li>
+<li><code>--syn-frame-border-paint</code>: optional color or CSS gradient for the complete border</li>
+<li><code>--syn-frame-inlay-paint</code>: optional CSS gradient layered over the inner fill; use a translucent wash</li>
+</ul>
+<p>The clipped shapes use individually corrected inner polygons to keep diagonal borders closer to their specified perpendicular stroke width. Square steps use the same step size for both polygons. These are <strong>painted frames</strong>, not clipped interactive hit regions; the native element remains a rectangle for layout and focus. Avoid cut sizes larger than the element can accommodate, or strokes as large as the cuts.</p>
+<h3 id="asymmetric-geometry-and-gradient-border-example">Asymmetric geometry and gradient border example</h3>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.geometry.css&quot;&gt;
+&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;grid&quot;&gt;
+  &lt;article class=&quot;syn-panel syn-frame syn-frame--facet&quot; style=&quot;
+    --syn-frame-cut-tl: 1.5rem; --syn-frame-cut-br: .75rem;
+    --syn-frame-stroke: 2px;
+    --syn-frame-border-paint: linear-gradient(120deg, var(--syn-accent), var(--syn-frame-strong));
+    --syn-frame-inlay-paint: linear-gradient(145deg, rgb(118 231 247 / 7%), transparent 65%);
+  &quot;&gt;
+    &lt;h2&gt;Signal analysis&lt;/h2&gt;
+    &lt;p&gt;Decorative geometry never replaces semantic content.&lt;/p&gt;
+  &lt;/article&gt;
+&lt;/section&gt;
+</code></pre>
+<p>For the interactive <strong>geometry editor</strong>, open <a href="playground.html#geometry-title">Syntyr's component playground</a>. The playground JavaScript is documentation-only; consumers load only CSS. Existing bevel/notch markup retains its original appearance unless new controls are set, apart from the improved diagonal stroke geometry.</p>
+<p><strong>Composition:</strong> Advanced frame profiles own both pseudo-elements of the host node. They now reset the prior layer's corner dimensions and clip-path, so <code>.syn-panel--cut</code> can be used on the same element: the selected frame shape <strong>supersedes</strong> its simpler corner decoration. Add <code>.syn-frame--accent</code> for a stronger outline without adding any pseudo-elements. Do not combine multiple shape variants. The older <code>.syn-frame--precision</code> also owns <code>::before</code>; nest those two treatments if both accents must remain visible. The clipped border geometry does not depend on matching the parent background, but background gradients on the host can bleed into cut corners; prefer solid <code>--syn-frame-fill</code> or an inner element.</p>
+<p>In forced-colors mode, decorative pseudo-elements disappear and a visible native border and Canvas background take over. Frames should not be the only way you communicate operational state.</p>
+<h2 id="browser-terminal">Browser terminal</h2>
+<p>Load <code>syntyr.recipes.css</code> for the existing <code>.syn-terminal</code> base and the additional presentation classes:</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.syn-terminal-bar</code>, <code>.syn-terminal-title</code>, <code>.syn-terminal-dots</code></td>
+<td>Window chrome; mark visual-only dots <code>aria-hidden=&quot;true&quot;</code></td>
+</tr>
+<tr>
+<td><code>.syn-terminal-body</code>, <code>.syn-terminal-line</code>, <code>.syn-terminal-output</code></td>
+<td>Readable lines, wrapped output</td>
+</tr>
+<tr>
+<td><code>.syn-terminal-command</code>, <code>.syn-terminal-path</code>, <code>.syn-terminal-prompt</code></td>
+<td>CLI command anatomy</td>
+</tr>
+<tr>
+<td><code>.syn-terminal-success</code>, <code>.syn-terminal-warning</code>, <code>.syn-terminal-error</code></td>
+<td>Colored output (with textual status)</td>
+</tr>
+<tr>
+<td><code>.syn-terminal-meta</code>, <code>.syn-terminal-muted</code></td>
+<td>Secondary readouts</td>
+</tr>
+<tr>
+<td><code>.syn-terminal-cursor</code></td>
+<td>Static decorative caret; hide from accessibility APIs</td>
+</tr>
+</tbody>
+</table>
+<p>The terminal is <strong>not</strong> a shell emulator. It performs no input capture or commands. Applications implement real interaction separately; native CLI applications use <code>terminal/palettes.json</code> rather than browser CSS.</p>
+<h2 id="table-and-button-behavior">Table and button behavior</h2>
+<p>The existing <code>.syn-table-emphasis</code> class highlights whichever cell you choose: there is no implicit highlight on the last column. Use <code>.syn-cell--numeric</code> on monetary or numeric cells for right-aligned tabular numbers.</p>
+<p>The native HTML <code>disabled</code> attribute blocks button activation. The ARIA <code>aria-disabled=&quot;true&quot;</code> attribute only communicates a disabled state; it <strong>does not block activation</strong>. Application/server code must enforce disabled behavior. CSS alone cannot guarantee it. For a disabled action that must remain discoverable to keyboard users, preserve focus and handle input appropriately.</p>
+<h2 id="validation">Validation</h2>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py
+python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+python3 tests/browser_matrix.py --browsers chromium firefox webkit
+</code></pre>
+<p>See <a href="../examples/geometry-terminal.html">the frame + terminal example</a>. Browser checks are developer-only; the distributed CSS still has zero runtime JS or dependencies.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#installation">Installation</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#seven-independent-frame-profiles">Seven independent frame profiles</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#asymmetric-geometry-and-gradient-border-example">Asymmetric geometry and gradient border example</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#browser-terminal">Browser terminal</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#table-and-button-behavior">Table and button behavior</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#validation">Validation</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="geometry-terminal.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

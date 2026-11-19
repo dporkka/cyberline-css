@@ -1,12 +1,26 @@
 name: Console Kit buyer feedback
-description: Evaluate the proposed $59 Console Kit (concept only; not available for purchase)
+description: Evaluate the proposed $59 Console Kit (research only; not available for purchase)
 title: "[Console Kit feedback] "
 labels: ["feedback"]
 body:
   - type: markdown
     attributes:
       value: |
-        **No sale or preorder is being taken.** Syntyr Core and both themes remain MIT-licensed and free. The proposed commercial kit would contain additional, separately authored page templates.
+        **No sale or preorder is being taken.** Syntyr Core and all existing free themes remain MIT-licensed. The proposed commercial kit contains additional, separately authored page templates.
+
+        **Your GitHub issue and answers will be public.** Please do not share private customer information, personal contact details, confidential product data or payment information. Responses are research feedback, **not paid commitments**.
+  - type: dropdown
+    id: current-project
+    attributes:
+      label: What are you currently building?
+      options:
+        - Shipping or maintaining a production SaaS/internal tool
+        - Building an MVP with an intended launch
+        - Client project at an agency or consultancy
+        - Evaluating options for a future project
+        - General interest / not working on a project
+    validations:
+      required: true
   - type: dropdown
     id: intended-stack
     attributes:
@@ -25,13 +39,24 @@ body:
     id: required
     attributes:
       label: Which complete screens would save you the most time?
-      description: Mention exact screen types, accessibility expectations and integration needs.
+      description: Name the workflows and screens from actual projects; avoid customer-identifying details.
     validations:
       required: true
   - type: dropdown
+    id: previous-ui-purchase
+    attributes:
+      label: Have you personally purchased a premium UI kit or template before?
+      options:
+        - Yes, for a commercial or client project
+        - Yes, for a personal project
+        - No
+        - Prefer not to say
+    validations:
+      required: false
+  - type: dropdown
     id: interest
     attributes:
-      label: At $59 one-time, what is your current intent?
+      label: At $59 one-time, what is your current intent? (No purchase available)
       options:
         - Would likely buy if the promised screens ship
         - Might buy after evaluating source and screenshots
@@ -39,6 +64,13 @@ body:
         - Would not buy
     validations:
       required: true
+  - type: textarea
+    id: integration-blocker
+    attributes:
+      label: What would block you from using these layouts in your real project?
+      description: Example—template partials, accessibility, forms, or coupling to a CSS framework.
+    validations:
+      required: false
   - type: textarea
     id: missing
     attributes:

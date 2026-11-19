@@ -1,7 +1,7 @@
 /* Example-only layouts; these do not add bytes to the SYNTYR distribution. */
 .workflow-skip { position: absolute; inset-block-start: -12rem; inset-inline-start: 1rem; z-index: 10; }
 .workflow-skip:focus { inset-block-start: 1rem; }
-.workflow-section { margin-block: 1.5rem; }
+.workflow-section { margin-block: 1.5rem; overflow-wrap: anywhere; }
 .workflow-breadcrumbs { margin-block-end: 1.5rem; }
 .workflow-filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr)); gap: var(--syn-space-2); align-items: end; }
 .workflow-filter-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }

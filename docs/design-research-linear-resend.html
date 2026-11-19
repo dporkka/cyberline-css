@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore the design principles Syntyr adapts from Linear, Resend, and other developer tools without copying proprietary interfaces or assets.">
+  <meta name="syntyr-source-sha256" content="beb3cfd56359b717c4b5cb02ae2b58b9082b26cbf84c83379bcd5373e0608a42">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Design research: Linear, Resend, and practical developer UI — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/design-research-linear-resend">
+  <link rel="alternate" type="text/markdown" href="design-research-linear-resend.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Design research: Linear, Resend, and practical developer UI</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="design-research-linear-resend.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Design research: Linear, Resend, and practical developer UI">
+<h1 id="design-research-linear-resend-and-practical-developer-ui">Design research: Linear, Resend, and practical developer UI</h1>
+<p>Syntyr borrows <strong>principles</strong>, not source code, brand tokens, trademarks, logos,
+screenshots, or company-specific component arrangements. Syntyr remains an
+independent MIT-licensed, CSS-first project.</p>
+<h2 id="findings-november-2026">Findings (November 2026)</h2>
+<h3 id="linear-quiet-structure-and-information-density">Linear: quiet structure and information density</h3>
+<p>Linear's <a href="https://linear.app/now/behind-the-latest-design-refresh">March 2026 UI refresh</a>
+describes a deliberate reduction in chrome: dimmer secondary navigation, fewer
+visible separators, smaller less-prominent icons, and content that gets visual
+priority. The company emphasizes preserving information density without
+making every control compete for attention. Its
+<a href="https://linear.app/now/how-we-redesigned-the-linear-ui">2024 redesign write-up</a>
+also discusses cross-view alignment, type hierarchy, and cohesive light/dark
+themes.</p>
+<p><strong>Applied in Syntyr:</strong> quieter derived borders for decorative card/table
+separators, recessed app navigation surfaces, opt-in compact density, readable
+UI fonts by role, and an explicit selected-table-row state. Stronger control
+borders and visible focus outlines remain available for accessibility.</p>
+<h3 id="resend-premium-restraint-and-editorial-presentation">Resend: premium restraint and editorial presentation</h3>
+<p>Resend's <a href="https://resend.com/handbook/design/what-are-our-brand-guidelines">July 2026 brand guidelines</a>
+describe the brand as simple, modern, and memorable, with dark-first styling,
+neutral material-inspired color scales, distinct product versus editorial type,
+and deliberate use of gradients. Its
+<a href="https://github.com/resend/design-skills">public brand skill</a>
+emphasizes semantic colors and separate display, UI, and code typography.</p>
+<p><strong>Applied in Syntyr:</strong> optional system-serif editorial headline recipe,
+static gradient wash in the optional effects stylesheet, explicit UI/display
+font tokens, and semantic states already present in Syntyr. Fonts are local
+system stacks only. We do not import Resend fonts, logos, colors, or assets.</p>
+<h3 id="earlier-references-vercel-stripe-apple-google-posthog-sentry-cloudflare">Earlier references: Vercel, Stripe, Apple, Google, PostHog, Sentry, Cloudflare</h3>
+<p>These remain reference points for precise controls, marketing composition,
+restrained depth, responsive themes, brand distinction, observability, and
+operational information hierarchy respectively. Their proprietary components
+and brand assets are not dependencies or templates for Syntyr.</p>
+<h2 id="architecture-choices">Architecture choices</h2>
+<ul>
+<li><strong>Seven existing themes, not seven more themes.</strong> Grid and Terminal retain
+monospace UI presentation; Studio, Corporate, Minimal, Noir, and Industrial
+use system UI fonts. Marketing hero typography can opt into a local serif.</li>
+<li><strong>Derived, theme-aware surface roles.</strong> <code>--syn-surface-recessed</code>,
+<code>--syn-surface-raised</code>, and <code>--syn-border-subtle</code> are recomputed in nested
+theme contexts, so a dark panel inside a light page is not stuck with its
+parent's palette. The original tokens remain stable.</li>
+<li><strong>Density is layout, not text scaling.</strong> Use <code>data-syn-density=&quot;compact&quot;</code>
+on a Syntyr root or nested region. It reduces padding and control height
+while leaving fonts readable. It does not imply any JavaScript widget state.</li>
+<li><strong>Effects are opt-in.</strong> <code>syn-gradient-wash</code> is a static decorative gradient
+in <code>syntyr.effects.css</code> and is disabled under forced-colors.
+<code>syn-site-heading--editorial</code> is a separate <code>syntyr.recipes.css</code> class.</li>
+<li><strong>No arbitrary CSS byte ceilings.</strong> The deterministic build reports raw and
+gzip bytes. Regressions are assessed via browser testing, not blocked by
+fixed 5 KiB/8 KiB numbers. Keep modules optional and CSS without runtime JS.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.recipes.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;syntyr.effects.css&quot;&gt;
+
+&lt;main class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;section class=&quot;syn-site-hero syn-gradient-wash&quot;&gt;
+    &lt;h1 class=&quot;syn-site-heading syn-site-heading--editorial&quot;&gt;
+      Sophisticated by default.
+    &lt;/h1&gt;
+    &lt;p&gt;Original editorial typography using system fonts only.&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;section data-syn-density=&quot;compact&quot; aria-label=&quot;Operational records&quot;&gt;
+    &lt;table class=&quot;syn-table&quot;&gt;&lt;!-- semantic data table --&gt;&lt;/table&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+</code></pre>
+<p>Live repository examples: <code>examples/business.html</code> for the restrained
+marketing direction, and <code>examples/operations-console.html</code> for compact
+operational density.</p>
+<h2 id="deliberately-not-borrowed">Deliberately not borrowed</h2>
+<p>We do not add complex tabs, combo boxes, custom menus, animation engines,
+external fonts, mandatory icon sets, design-system runtimes, company-branded
+palettes, or opaque theme generators. Native HTML semantics, CSS cascade
+layers, strong focus states, and application-controlled interaction remain
+Syntyr's long-term contract.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#findings-november-2026">Findings (November 2026)</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#linear-quiet-structure-and-information-density">Linear: quiet structure and information density</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#resend-premium-restraint-and-editorial-presentation">Resend: premium restraint and editorial presentation</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#earlier-references-vercel-stripe-apple-google-posthog-sentry-cloudflare">Earlier references: Vercel, Stripe, Apple, Google, PostHog, Sentry, Cloudflare</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#architecture-choices">Architecture choices</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#examples">Examples</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#deliberately-not-borrowed">Deliberately not borrowed</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="design-research-linear-resend.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

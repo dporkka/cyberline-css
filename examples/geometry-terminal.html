@@ -29,7 +29,7 @@
       <section class="syn-stage" aria-labelledby="lab-title">
         <p class="syn-eyebrow">INTERFACE RESEARCH / ORIGINAL CSS</p>
         <h1 id="lab-title" class="syn-title">Surfaces for the next interface.</h1>
-        <p class="syn-lede">Five combinable, theme-aware frame shapes. Browser terminal and operational data presentation. One HTML document, three opt-in stylesheets, zero runtime JavaScript.</p>
+        <p class="syn-lede">Seven optional, theme-aware frame shapes, with per-corner controls and gradient borders. Browser terminal and operational data presentation. One HTML document, three opt-in stylesheets, zero runtime JavaScript.</p>
         <p class="syn-caption">All values below are illustrative — no live services or interactive terminal are connected.</p>
       </section>
 
@@ -45,6 +45,24 @@
             <p class="syn-eyebrow">02 / NOTCH</p><h3 class="syn-heading">Asymmetric cut</h3>
             <p class="syn-muted">Adjust size using --syn-frame-cut on any component.</p>
             <span class="syn-status syn-status--warning">DEGRADED</span>
+          </article>
+          <article class="syn-panel syn-frame syn-frame--step" style="
+            --syn-frame-cut-tr: 2.25rem; --syn-frame-cut-bl: 1.5rem;
+            --syn-frame-stroke: 2px;
+            --syn-frame-border-paint: linear-gradient(120deg, var(--syn-accent), var(--syn-frame-strong));
+          ">
+            <p class="syn-eyebrow">06 / STEP</p><h3 class="syn-heading">Technical perimeter</h3>
+            <p class="syn-muted">Square steps pair with independent top-right and bottom-left cut sizes.</p>
+            <span class="syn-status syn-status--success">CONNECTED</span>
+          </article>
+          <article class="syn-panel syn-frame syn-frame--facet" data-syn-theme="noir" style="
+            --syn-frame-cut-tl: 1.75rem; --syn-frame-cut-br: 1rem;
+            --syn-frame-border-paint: linear-gradient(120deg, var(--syn-accent), var(--syn-frame-strong));
+            --syn-frame-inlay-paint: linear-gradient(140deg, rgb(241 181 116 / 8%), transparent 75%);
+          ">
+            <p class="syn-eyebrow">07 / FACET / NOIR</p><h3 class="syn-heading">Asymmetric inlay</h3>
+            <p class="syn-muted">Opposite cut corners with a gradient perimeter and restrained wash.</p>
+            <span class="syn-status">ILLUSTRATIVE</span>
           </article>
           <article class="syn-panel syn-frame syn-frame--bracket">
             <p class="syn-eyebrow">03 / BRACKET</p><h3 class="syn-heading">HUD corner marks</h3>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr Grid flagship: an original, CSS-only futuristic command center with native HTML, restrained visual effects and readable operational data.">
+  <title>Sector control — Grid / Syntyr showcase</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="../dist/syntyr.effects.css">
+  <link rel="stylesheet" href="../dist/syntyr.geometry.css">
+  <link rel="stylesheet" href="flagship.css">
+</head>
+<body class="syn-root syn-page flagship" data-syn-theme="grid" data-syn-intensity="quiet">
+  <a class="syn-button flagship-skip" href="#main">Skip to main content</a>
+  <div class="flagship-shell">
+    <header class="flagship-topbar">
+      <a class="flagship-wordmark" href="../index.html">SECTOR:// <small>CONTROL GRID</small></a>
+      <nav class="flagship-navigation" aria-label="Demo sections"><a href="#status" aria-current="page">Status</a><a href="#network">Network</a><a href="#telemetry">Telemetry</a></nav>
+      <a class="flagship-back" href="../index.html#showcase">Explore Syntyr</a>
+    </header>
+    <main id="main">
+      <section class="flagship-hero syn-horizon" data-syn-intensity="cinematic" aria-labelledby="status-title" id="status">
+        <div class="flagship-hero-grid">
+          <div>
+            <span class="flagship-eyebrow">Grid / cinematic systems</span>
+            <h1 class="flagship-display" id="status-title">See the <em>whole signal.</em></h1>
+            <p class="flagship-lede">A futuristic control room with clear status, useful telemetry and technical framing. Effects are opt-in; operational data stays readable.</p>
+            <div class="flagship-actions"><a class="syn-button syn-button--primary" href="#network">Review network</a><a class="syn-button syn-button--outline" href="#telemetry">Inspect telemetry</a></div>
+            <p class="flagship-note">DEMONSTRATION · FICTIONAL NETWORK / STATIC DATA</p>
+          </div>
+          <aside class="syn-app-card syn-frame syn-frame--bracket flagship-card" aria-label="Fictional network status">
+            <div class="flagship-row"><span class="flagship-eyebrow">SECTOR 07</span><span class="syn-badge">NOMINAL</span></div>
+            <strong class="flagship-figure">99.97%</strong>
+            <p class="flagship-muted">Simulated network integrity</p>
+            <progress class="flagship-meter" value="99.97" max="100" aria-label="Simulated network integrity 99.97 percent">99.97%</progress>
+            <hr class="flagship-rule">
+            <div class="flagship-row"><span>UPLINK</span><strong>ACTIVE</strong></div>
+            <div class="flagship-row"><span>NODES</span><strong>128 / 128</strong></div>
+            <div class="flagship-row"><span>MODE</span><strong>SIMULATION</strong></div>
+          </aside>
+        </div>
+      </section>
+      <section class="flagship-section" id="network" aria-labelledby="network-title">
+        <div class="flagship-section-header"><div><span class="flagship-eyebrow">01 / Network overview</span><h2 class="flagship-section-title" id="network-title">Status without spectacle.</h2><p>Signal emphasis is limited to values that deserve attention.</p></div></div>
+        <div class="flagship-card-grid">
+          <article class="syn-app-card flagship-card"><small>Active nodes</small><strong class="flagship-figure">128</strong><span class="flagship-muted">All operational · sample</span></article>
+          <article class="syn-app-card flagship-card"><small>Response window</small><strong class="flagship-figure">12 ms</strong><span class="flagship-muted">Static demonstration</span></article>
+          <article class="syn-app-card flagship-card"><small>Alerts requiring review</small><strong class="flagship-figure">02</strong><span class="flagship-muted">Simulated / non-critical</span></article>
+        </div>
+      </section>
+      <section class="flagship-section" id="telemetry" aria-labelledby="telemetry-title">
+        <div class="flagship-section-header"><div><span class="flagship-eyebrow">02 / Event log</span><h2 class="flagship-section-title" id="telemetry-title">Every event in context.</h2><p>Structured records, accessible tables and monospace output.</p></div></div>
+        <div class="flagship-split">
+          <article class="syn-app-card">
+            <h3 class="syn-heading">Sector events</h3>
+            <div class="flagship-scroll" tabindex="0" role="region" aria-label="Scrollable simulated events">
+              <table class="syn-table">
+                <caption>Illustrative system events, not live monitoring</caption>
+                <thead><tr><th scope="col">Node</th><th scope="col">Channel</th><th scope="col">Signal</th><th scope="col">State</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">SG-014</th><td>Primary</td><td>92%</td><td>Nominal</td></tr>
+                  <tr><th scope="row">SG-031</th><td>Relay</td><td>87%</td><td>Nominal</td></tr>
+                  <tr><th scope="row">SG-082</th><td>Primary</td><td>76%</td><td>Review</td></tr>
+                  <tr><th scope="row">SG-104</th><td>Backup</td><td>98%</td><td>Nominal</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <aside class="syn-app-card" aria-labelledby="console-title">
+            <h3 id="console-title" class="syn-heading">Output / simulation</h3>
+            <pre class="flagship-terminal" tabindex="0" role="region" aria-label="Simulated command output"><code>$ sector status --summary
+[OK]    128 nodes mapped
+[OK]    uplink established
+[NOTE]  2 review items
+MODE    simulated output</code></pre>
+            <p class="flagship-note">This is static text, not a terminal or a live command interface.</p>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <footer class="flagship-footer"><span>Syntyr Grid / original demonstration</span><a href="../docs/visual-composition.md">View composition guidelines</a></footer>
+  </div>
+</body>
+</html>

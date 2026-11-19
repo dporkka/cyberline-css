@@ -1,0 +1,210 @@
+/* Opt-in presentation for charts and small data visualizations.
+   Rendering and data are application concerns. No runtime JavaScript. */
+@layer syn.viz {
+  /* Recompute within nested themes instead of inheriting resolved parent colors. */
+  :where(.syn-root, .syn-root [data-syn-theme]) {
+    --syn-chart-1: var(--syn-accent);
+    --syn-chart-2: var(--syn-accent-2);
+    --syn-chart-3: var(--syn-success);
+    --syn-chart-4: var(--syn-warning);
+    --syn-chart-grid: var(--syn-border-subtle);
+    --syn-chart-axis: var(--syn-muted);
+    --syn-chart-tooltip-bg: var(--syn-surface-raised);
+  }
+
+  /* Renderer-neutral figure, SVG parts, legends and tooltip surfaces. */
+  :where(.syn-root .syn-chart, .syn-root.syn-chart) {
+    min-inline-size: 0;
+    margin: 0;
+    color: var(--syn-text);
+    font: var(--syn-type-sm)/1.5 var(--syn-font-ui);
+  }
+  .syn-root .syn-chart-title {
+    margin: 0 0 var(--syn-space-2);
+    color: var(--syn-text);
+    font-weight: 650;
+    line-height: 1.35;
+  }
+  .syn-root .syn-chart svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+  .syn-root .syn-chart-grid {
+    stroke: var(--syn-chart-grid);
+    fill: none;
+  }
+  .syn-root .syn-chart-axis {
+    color: var(--syn-chart-axis);
+    fill: var(--syn-chart-axis);
+    stroke: var(--syn-chart-axis);
+  }
+  .syn-root .syn-chart-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .45rem var(--syn-space-2);
+    margin: var(--syn-space-2) 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--syn-muted);
+    font-size: var(--syn-type-xs);
+  }
+  .syn-root .syn-chart-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    min-inline-size: 0;
+  }
+  .syn-root .syn-chart-key {
+    display: inline-block;
+    flex: none;
+    inline-size: .75rem;
+    block-size: .75rem;
+    background: var(--syn-chart-1);
+    border: 1px solid currentColor;
+    border-radius: .15rem;
+  }
+  .syn-root .syn-chart-tooltip {
+    max-inline-size: min(22rem, 100%);
+    padding: .65rem .85rem;
+    border: 1px solid var(--syn-frame-strong);
+    border-radius: var(--syn-radius);
+    background: var(--syn-chart-tooltip-bg);
+    color: var(--syn-text);
+    box-shadow: var(--syn-shadow-sm);
+  }
+
+  /* Tiny inline SVG trend; the application supplies an accessible name/data. */
+  :where(.syn-root .syn-viz-sparkline, .syn-root.syn-viz-sparkline) {
+    display: block;
+    inline-size: 100%;
+    block-size: var(--syn-viz-sparkline-height, 3.25rem);
+    overflow: visible;
+    color: var(--syn-chart-1);
+  }
+  .syn-root .syn-viz-sparkline-path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .syn-root .syn-viz-sparkline-area {
+    fill: color-mix(in srgb, var(--syn-chart-1) 17%, transparent);
+    stroke: none;
+  }
+
+  /* Ranked bars use a numeric CSS custom property (0..100) with no scripts. */
+  :where(.syn-root .syn-viz-bars, .syn-root.syn-viz-bars) {
+    display: grid;
+    gap: var(--syn-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .syn-root .syn-viz-bar {
+    min-inline-size: 0;
+  }
+  .syn-root .syn-viz-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: .25rem .7rem;
+    margin-block-end: .35rem;
+    color: var(--syn-text);
+    font-size: var(--syn-type-xs);
+  }
+  .syn-root .syn-viz-bar-label data {
+    color: var(--syn-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .syn-root .syn-viz-bar-track {
+    block-size: .55rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--syn-surface-hi);
+  }
+  .syn-root .syn-viz-bar-fill {
+    display: block;
+    inline-size: clamp(0%, calc(var(--syn-viz-value, 0) * 1%), 100%);
+    block-size: 100%;
+    border-radius: inherit;
+    background: var(--syn-chart-1);
+  }
+
+  /* Discrete status history; accessible state text belongs in the DOM. */
+  :where(.syn-root .syn-viz-tracker, .syn-root.syn-viz-tracker) {
+    display: flex;
+    gap: .2rem;
+    min-inline-size: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .syn-root .syn-viz-tracker > li {
+    flex: 1 1 0;
+    min-inline-size: 0;
+    block-size: .95rem;
+    border-radius: .125rem;
+    border: 1px solid transparent;
+    background: var(--syn-surface-hi);
+  }
+  .syn-root .syn-viz-tracker > [data-syn-state="healthy"] { background: var(--syn-success); }
+  .syn-root .syn-viz-tracker > [data-syn-state="degraded"] { background: var(--syn-warning); }
+  .syn-root .syn-viz-tracker > [data-syn-state="down"] { background: var(--syn-danger); }
+  .syn-root .syn-viz-tracker > [data-syn-state="unknown"] { background: var(--syn-surface-hi); border-color: var(--syn-frame); }
+
+  /* Finite heatmap intensity classes; 0 is visibly empty, 4 is strongest. */
+  :where(.syn-root .syn-viz-heatmap, .syn-root.syn-viz-heatmap) {
+    display: grid;
+    grid-template-columns: repeat(var(--syn-viz-columns, 12), minmax(.8rem, 1fr));
+    gap: .25rem;
+    max-inline-size: 100%;
+    overflow-x: auto;
+  }
+  .syn-root .syn-viz-cell {
+    display: block;
+    min-inline-size: .8rem;
+    aspect-ratio: 1;
+    border-radius: .15rem;
+    border: 1px solid var(--syn-chart-grid);
+    background: var(--syn-surface-hi);
+  }
+  .syn-root .syn-viz-cell[data-syn-level="0"] { background: var(--syn-surface-hi); }
+  .syn-root .syn-viz-cell[data-syn-level="1"] { background: color-mix(in srgb, var(--syn-chart-1) 23%, var(--syn-surface)); }
+  .syn-root .syn-viz-cell[data-syn-level="2"] { background: color-mix(in srgb, var(--syn-chart-1) 43%, var(--syn-surface)); }
+  .syn-root .syn-viz-cell[data-syn-level="3"] { background: color-mix(in srgb, var(--syn-chart-1) 70%, var(--syn-surface)); }
+  .syn-root .syn-viz-cell[data-syn-level="4"] { background: var(--syn-chart-1); }
+
+  /* Small reusable visually-hidden text for values and state descriptions. */
+  .syn-root .syn-viz-sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (forced-colors: active) {
+    /* Native palette may collapse intensity/hue. Preserve distinct shapes. */
+    .syn-root .syn-viz-bar-track { border: 1px solid CanvasText; }
+    .syn-root .syn-viz-bar-fill { background: Highlight; }
+    .syn-root .syn-viz-tracker > li { border: 1px solid CanvasText; background: Canvas; }
+    .syn-root .syn-viz-tracker > [data-syn-state="healthy"] { background: Highlight; }
+    .syn-root .syn-viz-tracker > [data-syn-state="degraded"] { background: Canvas; border-style: dashed; }
+    .syn-root .syn-viz-tracker > [data-syn-state="down"] { background: CanvasText; }
+    .syn-root .syn-viz-cell { border-color: CanvasText; background: Canvas; }
+    .syn-root .syn-viz-cell[data-syn-level="1"] { border-style: dotted; }
+    .syn-root .syn-viz-cell[data-syn-level="2"] { border-style: dashed; }
+    .syn-root .syn-viz-cell[data-syn-level="3"] { border-width: 2px; }
+    .syn-root .syn-viz-cell[data-syn-level="4"] { background: Highlight; }
+    .syn-root .syn-viz-sparkline-area { fill: none; }
+    .syn-root .syn-viz-sparkline-path { stroke: CanvasText; }
+  }
+}

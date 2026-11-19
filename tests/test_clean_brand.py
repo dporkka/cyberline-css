@@ -3,6 +3,7 @@ from pathlib import Path
 import subprocess
 import re
 import unittest
+from scripts.build import all_distributions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -28,8 +29,8 @@ class CleanBrandTests(unittest.TestCase):
 
     def test_only_syntyr_css_is_distributed(self):
         self.assertEqual(
-            {p.name for p in (ROOT / 'dist').glob('*.css')},
-            {f'syntyr{suffix}.css' for suffix in ('', '.core', '.semantic', '.recipes', '.effects', '.geometry', '.utilities', '.all')},
+            {p.relative_to(ROOT / 'dist').as_posix() for p in (ROOT / 'dist').rglob('*.css')},
+            set(all_distributions()),
         )
         css = (ROOT / 'dist/syntyr.core.css').read_text()
         self.assertIn('.syn-root', css)

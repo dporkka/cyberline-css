@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Style server-rendered charts with Syntyr Viz, an optional CSS-only module using theme-aware visualization tokens and native HTML.">
+  <meta name="syntyr-source-sha256" content="24dcf48c0b2fa3ef2732344e1e7dcf57a63330069b26e92e69e3f93eacc8c084">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Syntyr Viz: optional, renderer-neutral charts — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/viz">
+  <link rel="alternate" type="text/markdown" href="viz.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Syntyr Viz: optional, renderer-neutral charts</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="viz.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Syntyr Viz: optional, renderer-neutral charts">
+<h1 id="syntyr-viz-optional-renderer-neutral-charts">Syntyr Viz: optional, renderer-neutral charts</h1>
+<p><code>syntyr.viz.css</code> is an <strong>optional CSS-only presentation module</strong>. It styles
+charts and small, server-renderable data visualizations in all seven Syntyr
+themes. It does not compute chart geometry, ingest data, perform interactions,
+supply a JavaScript runtime, or require a frontend framework.</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.viz.css&quot;&gt;
+</code></pre>
+<p>Alternatively load <code>syntyr.all.css</code> by itself. Do <strong>not</strong> load the all-in-one
+bundle together with component modules: it already includes Viz. Core, the
+convenience <code>syntyr.css</code> bundle, and the optional recipes stylesheet do not
+contain Viz.</p>
+<h2 id="chart-token-api">Chart token API</h2>
+<p>All visualization colors are CSS variables. Their defaults recompute on
+<code>.syn-root</code> and nested <code>[data-syn-theme]</code> containers.</p>
+<table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--syn-chart-1</code> through <code>--syn-chart-4</code></td>
+<td>Data series colors, derived from theme accent, secondary accent, success, warning</td>
+</tr>
+<tr>
+<td><code>--syn-chart-grid</code></td>
+<td>Grid and chart cell border color</td>
+</tr>
+<tr>
+<td><code>--syn-chart-axis</code></td>
+<td>Axis labels and marks</td>
+</tr>
+<tr>
+<td><code>--syn-chart-tooltip-bg</code></td>
+<td>Noninteractive tooltip/popup surface</td>
+</tr>
+</tbody>
+</table>
+<p>Override the tokens on a specific themed chart or a nested dashboard area.
+Always check contrast and series distinguishability after palette changes.
+Color is not an adequate standalone representation of categories or status.
+Use text, patterns, line types, legends and accessible values.</p>
+<pre tabindex="0"><code class="language-html">&lt;section class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;figure class=&quot;syn-chart&quot; style=&quot;--syn-chart-1: #2458c6;&quot;&gt;
+    &lt;figcaption class=&quot;syn-chart-title&quot;&gt;Weekly signups&lt;/figcaption&gt;
+    &lt;!-- Supply SVG, a server-side renderer, or a client chart here. --&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;
+</code></pre>
+<h2 id="four-microvisualizations">Four microvisualizations</h2>
+<h3 id="1-svg-sparkline">1. SVG sparkline</h3>
+<p><code>syn-viz-sparkline</code> styles a precomputed inline SVG. Syntyr does not calculate
+points. For a time series, the HTML generator computes the polyline/area and
+includes an accessible name. Use SVG <code>&lt;title&gt;</code> or <code>aria-label</code> and make the
+numerical values inspectable in a nearby table or list.</p>
+<pre tabindex="0"><code class="language-html">&lt;figure class=&quot;syn-chart&quot;&gt;
+  &lt;figcaption class=&quot;syn-chart-title&quot;&gt;Revenue, Jan–Jun&lt;/figcaption&gt;
+  &lt;svg class=&quot;syn-viz-sparkline&quot; viewBox=&quot;0 0 240 60&quot; role=&quot;img&quot;
+       aria-label=&quot;Revenue increased from 20 to 54 thousand dollars&quot;&gt;
+    &lt;polyline class=&quot;syn-viz-sparkline-path&quot;
+              points=&quot;2,54 49,44 96,46 143,24 190,20 238,5&quot;/&gt;
+  &lt;/svg&gt;
+  &lt;table class=&quot;syn-table&quot;&gt;
+    &lt;caption&gt;Revenue by month, thousands of dollars&lt;/caption&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th scope=&quot;col&quot;&gt;Month&lt;/th&gt;&lt;th scope=&quot;col&quot;&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;&lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Jan&lt;/th&gt;&lt;td&gt;20&lt;/td&gt;&lt;/tr&gt;
+           &lt;tr&gt;&lt;th scope=&quot;row&quot;&gt;Jun&lt;/th&gt;&lt;td&gt;54&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;
+</code></pre>
+<h3 id="2-ranked-bar-list">2. Ranked bar list</h3>
+<p>Use real text for values; the bar widths are visual duplicates of the
+values. <code>--syn-viz-value</code> is a number on a 0–100 scale, not a percentage
+string. The CSS clamps it into that interval. <strong>Validate and escape values
+at the rendering boundary.</strong> This is presentation only, not a semantic
+<code>progress</code> or <code>meter</code> control.</p>
+<pre tabindex="0"><code class="language-html">&lt;ol class=&quot;syn-viz-bars&quot; aria-label=&quot;Revenue mix&quot;&gt;
+  &lt;li class=&quot;syn-viz-bar&quot;&gt;
+    &lt;div class=&quot;syn-viz-bar-label&quot;&gt;
+      &lt;span&gt;Direct&lt;/span&gt;&lt;data value=&quot;72&quot;&gt;72%&lt;/data&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;syn-viz-bar-track&quot; aria-hidden=&quot;true&quot;&gt;
+      &lt;span class=&quot;syn-viz-bar-fill&quot; style=&quot;--syn-viz-value: 72&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h3 id="3-status-tracker">3. Status tracker</h3>
+<p>This represents a series of discrete periods, not a live network monitor.
+Each segment needs <strong>real semantic text</strong> even when a screen reader reads
+its visual color differently.</p>
+<pre tabindex="0"><code class="language-html">&lt;ol class=&quot;syn-viz-tracker&quot; aria-label=&quot;Past three days&quot;&gt;
+  &lt;li data-syn-state=&quot;healthy&quot;&gt;&lt;span class=&quot;syn-viz-sr-only&quot;&gt;Mon: Healthy&lt;/span&gt;&lt;/li&gt;
+  &lt;li data-syn-state=&quot;degraded&quot;&gt;&lt;span class=&quot;syn-viz-sr-only&quot;&gt;Tue: Degraded&lt;/span&gt;&lt;/li&gt;
+  &lt;li data-syn-state=&quot;down&quot;&gt;&lt;span class=&quot;syn-viz-sr-only&quot;&gt;Wed: Down&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Healthy, degraded and down states appear in chronological order.&lt;/p&gt;
+</code></pre>
+<p>Supported state values are <code>healthy</code>, <code>degraded</code>, <code>down</code>, and <code>unknown</code>.
+Do not depend on color alone to convey a critical state.</p>
+<h3 id="4-activity-heatmap">4. Activity heatmap</h3>
+<p>The heatmap is a compact grid. Set <code>--syn-viz-columns</code> to the number of
+columns; each cell uses one of five levels, <code>0</code> through <code>4</code>.
+The default is twelve columns. For small screens, the grid scrolls rather
+than reducing each cell below its minimum width.</p>
+<pre tabindex="0"><code class="language-html">&lt;div class=&quot;syn-viz-heatmap&quot; style=&quot;--syn-viz-columns: 3;&quot;
+     role=&quot;group&quot; aria-label=&quot;Three days of activity&quot;&gt;
+  &lt;span class=&quot;syn-viz-cell&quot; data-syn-level=&quot;0&quot;&gt;
+    &lt;span class=&quot;syn-viz-sr-only&quot;&gt;Mon: no activity&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&quot;syn-viz-cell&quot; data-syn-level=&quot;2&quot;&gt;
+    &lt;span class=&quot;syn-viz-sr-only&quot;&gt;Tue: medium activity&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span class=&quot;syn-viz-cell&quot; data-syn-level=&quot;4&quot;&gt;
+    &lt;span class=&quot;syn-viz-sr-only&quot;&gt;Wed: very high activity&lt;/span&gt;
+  &lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="generic-chart-styling-and-integrations">Generic chart styling and integrations</h2>
+<p><code>syn-chart</code>, <code>syn-chart-title</code>, <code>syn-chart-grid</code>, <code>syn-chart-axis</code>,
+<code>syn-chart-legend</code>, <code>syn-chart-legend-item</code>, <code>syn-chart-key</code> and
+<code>syn-chart-tooltip</code> are <strong>styling hooks only</strong>. They never calculate axes,
+create a legend, open a tooltip, or attach event handlers.</p>
+<ul>
+<li><strong>SVG/server-side:</strong> generate SVG paths and visible, textual value tables
+with Go, Rust, HTMX, Python or any HTML renderer. All functionality remains
+available with no JavaScript.</li>
+<li><strong>Recharts:</strong> set <code>className=&quot;syn-chart&quot;</code> on your container and pass
+<code>var(--syn-chart-1)</code> etc. into the renderer's stroke/fill props. Use
+native Recharts tooltips/accessibility rather than expecting CSS to
+provide interactions.</li>
+<li><strong>ECharts:</strong> ECharts needs resolved color strings in its JavaScript
+options, not literal CSS <code>var()</code> strings (Canvas cannot interpret them).
+Resolve scoped computed custom properties <strong>inside an optional application
+adapter</strong> and update them if the theme changes. Syntyr does not ship that
+adapter or make it a dependency.</li>
+</ul>
+<h2 id="accessibility-and-performance">Accessibility and performance</h2>
+<p>Keep a visible title, visible value labels where possible, and a navigable
+HTML table, list, or accessible summary for the underlying values. Verify
+screen reader announcements, high-contrast/forced-colors mode, keyboard
+navigation, and 200–400% zoom. Decorative SVG should be <code>aria-hidden</code> only
+when equivalent numerical information exists elsewhere; meaningful SVG must
+have a readable accessible name. Labels and patterns must distinguish status
+independently of hue. The CSS includes forced-colors distinctions; test them
+on the target browser rather than assuming automatic compliance.</p>
+<p>All CSS is scoped under <code>.syn-root</code> and deliberately has no network assets,
+fonts, animations, script tags or client-side data transforms. Syntyr Viz does
+not impose arbitrary CSS size budgets. Use the library's existing deterministic
+build and performance tests and measure real browser behavior.</p>
+<p>Try the <a href="../examples/viz.html">seven-theme static Viz gallery</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#chart-token-api">Chart token API</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#four-microvisualizations">Four microvisualizations</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#1-svg-sparkline">1. SVG sparkline</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#2-ranked-bar-list">2. Ranked bar list</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#3-status-tracker">3. Status tracker</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#4-activity-heatmap">4. Activity heatmap</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#generic-chart-styling-and-integrations">Generic chart styling and integrations</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="viz.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="../dist/syntyr.geometry.css">
   <link rel="stylesheet" href="operations-console.css">
 </head>
-<body class="syn-root syn-page" data-syn-theme="grid" data-syn-density="compact">
+<body class="syn-root syn-page" data-syn-theme="grid" data-syn-density="compact" data-syn-intensity="quiet">
   <a class="syn-button ops-skip" href="#main">Skip to content</a>
   <div class="syn-app-shell">
     <aside class="syn-app-rail" aria-label="Console sidebar">
@@ -42,7 +42,21 @@
         </div>
         <div class="ops-topnote">
           <span class="syn-badge">SIMULATED ENVIRONMENT</span>
+          <button class="syn-button syn-button--outline" type="button" popovertarget="ops-quick-actions" aria-label="Open quick navigation">Quick navigation</button>
           <a class="syn-button syn-button--outline" href="../docs/index.html">Component reference</a>
+        </div>
+        <div id="ops-quick-actions" class="syn-popover ops-action-popover" popover role="dialog" aria-label="Quick navigation">
+          <p class="syn-eyebrow">NAVIGATION / STATIC EXAMPLE</p>
+          <p class="syn-muted">Jump to a console section. These links do not execute commands or search a backend.</p>
+          <nav aria-label="Quick navigation">
+            <ul class="ops-action-list">
+              <li><a class="ops-action-link" href="#deployments">View deployment health <span aria-hidden="true">↗</span></a></li>
+              <li><a class="ops-action-link" href="#capacity">Review capacity <span aria-hidden="true">↗</span></a></li>
+              <li><a class="ops-action-link" href="#activity">Inspect activity <span aria-hidden="true">↗</span></a></li>
+              <li><a class="ops-action-link" href="#diagnostics">Open diagnostics <span aria-hidden="true">↗</span></a></li>
+            </ul>
+          </nav>
+          <button class="syn-button syn-button--ghost" type="button" popovertarget="ops-quick-actions" popovertargetaction="hide">Close navigation</button>
         </div>
       </header>
 
@@ -98,13 +112,30 @@
                 <tr><th scope="col">SERVICE</th><th scope="col">REGION</th><th scope="col">LATENCY</th><th scope="col">STATE</th></tr>
               </thead>
               <tbody>
-                <tr><th scope="row">Gateway API</th><td>us-east</td><td class="syn-cell--numeric">18 ms</td><td><span class="syn-status syn-status--success">Healthy</span></td></tr>
+                <tr><th scope="row">Gateway API <button class="ops-resource-trigger" type="button" popovertarget="ops-resource-peek" aria-label="Show Gateway API resource details">Details</button></th><td>us-east</td><td class="syn-cell--numeric">18 ms</td><td><span class="syn-status syn-status--success">Healthy</span></td></tr>
                 <tr><th scope="row">Worker Queue</th><td>eu-west</td><td class="syn-cell--numeric">42 ms</td><td><span class="syn-status syn-status--success">Healthy</span></td></tr>
                 <tr><th scope="row">Metrics Store</th><td>sa-east</td><td class="syn-cell--numeric">79 ms</td><td><span class="syn-status syn-status--warning">Degraded</span></td></tr>
                 <tr><th scope="row">Edge Cache</th><td>ap-south</td><td class="syn-cell--numeric">26 ms</td><td><span class="syn-status syn-status--success">Healthy</span></td></tr>
               </tbody>
             </table>
           </div>
+          <aside id="ops-resource-peek" class="syn-popover ops-action-popover" popover aria-label="Gateway API resource details">
+            <p class="syn-eyebrow">Sample resource / NOT LIVE</p>
+            <h3 class="syn-heading">Gateway API</h3>
+            <p class="syn-status syn-status--success">Healthy (illustrative)</p>
+            <dl class="ops-resource-metadata">
+              <div><dt>Resource ID</dt><dd>gateway-001</dd></div>
+              <div><dt>Region</dt><dd>us-east</dd></div>
+              <div><dt>Owner</dt><dd>Platform team</dd></div>
+              <div><dt>Last observed</dt><dd>Sample snapshot only</dd></div>
+            </dl>
+            <p class="syn-caption">No live actions, authorization, or backend requests are provided by this example.</p>
+            <nav aria-label="Gateway API related sections">
+              <a class="ops-action-link" href="#diagnostics">Review sample diagnostics</a>
+              <a class="ops-action-link" href="#activity">See sample activity</a>
+            </nav>
+            <button class="syn-button syn-button--ghost" type="button" popovertarget="ops-resource-peek" popovertargetaction="hide">Close details</button>
+          </aside>
         </section>
 
         <section id="capacity" class="syn-app-card ops-panel" aria-labelledby="capacity-title">
@@ -170,6 +201,10 @@
         <details class="syn-details">
           <summary>Does this require a frontend framework?</summary>
           <p>No. The layout uses three standalone SYNTYR CSS modules and a local example stylesheet. Progressive enhancement with HTMX or Datastar is optional and belongs to the consuming application.</p>
+        </details>
+        <details class="syn-details">
+          <summary>How do quick navigation and resource details work?</summary>
+          <p>The buttons use the native HTML Popover API; Escape and explicit close buttons dismiss the panels without JavaScript. The persistent sidebar remains an ordinary-link fallback. Search, global shortcuts such as Ctrl+K, data freshness, permissions and mutations require application behavior and are intentionally absent.</p>
         </details>
         <details class="syn-details">
           <summary>Can I reuse this design commercially?</summary>

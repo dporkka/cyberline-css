@@ -1,0 +1,28 @@
+/* Opt-in Radix Primitives state presentation. No runtime or behavior.
+   Load after syntyr.core.css. Radix owns focus, keyboard and ARIA.
+   .syn-radix may be on .syn-root, a component, or a descendant subtree. */
+@layer syn.components {
+  :is(.syn-root.syn-radix, .syn-root .syn-radix):is(.syn-button[data-state="on"], .syn-button[data-state="checked"], .syn-accordion-trigger[data-state="open"]),
+  :is(.syn-root.syn-radix, .syn-root .syn-radix) :is(.syn-button[data-state="on"], .syn-button[data-state="checked"], .syn-accordion-trigger[data-state="open"]) {
+    border-color: var(--syn-border-focus);
+    background: var(--syn-surface-pressed);
+    color: var(--syn-text);
+  }
+  :is(.syn-root.syn-radix, .syn-root .syn-radix):is(.syn-button, .syn-accordion-trigger)[data-disabled],
+  :is(.syn-root.syn-radix, .syn-root .syn-radix) :is(.syn-button, .syn-accordion-trigger)[data-disabled] {
+    cursor: not-allowed;
+    opacity: .55;
+  }
+  /* Do not override Radix visibility, focus management or transitions. */
+  :is(.syn-root.syn-radix, .syn-root .syn-radix):is(.syn-accordion-content[data-state="open"]),
+  :is(.syn-root.syn-radix, .syn-root .syn-radix) .syn-accordion-content[data-state="open"] {
+    border-inline-start: 2px solid var(--syn-border-default);
+    padding-inline-start: var(--syn-space-2);
+  }
+  @media (forced-colors: active) {
+    :is(.syn-root.syn-radix, .syn-root .syn-radix):is(.syn-accordion-trigger[data-state="open"], .syn-button[data-state="on"], .syn-button[data-state="checked"]),
+    :is(.syn-root.syn-radix, .syn-root .syn-radix) :is(.syn-accordion-trigger[data-state="open"], .syn-button[data-state="on"], .syn-button[data-state="checked"]) {
+      border-color: Highlight;
+    }
+  }
+}

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Migrate from Pico CSS to Syntyr with semantic HTML, explicit component styling, theme tokens, and minimal runtime dependencies.">
+  <meta name="syntyr-source-sha256" content="923ea0b5a3449995aeec938203fb96740a92f1db0e0b001de86e02bfc687ce1d">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Moving from Pico.css to Syntyr — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/from-pico">
+  <link rel="alternate" type="text/markdown" href="from-pico.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Moving from Pico.css to Syntyr</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="from-pico.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Moving from Pico.css to Syntyr">
+<h1 id="moving-from-picocss-to-syntyr">Moving from Pico.css to Syntyr</h1>
+<p><strong>Syntyr is not a drop-in Pico replacement.</strong> Both can style native HTML without
+browser JavaScript, but they deliberately use different scoping, tokens and APIs.
+Choose Syntyr for a scoped semantic mode that can grow into more elaborate SaaS
+interfaces. Keep Pico (or use a compatible continuation) if globally classless
+markup or exact Pico token compatibility is more important.</p>
+<h2 id="try-a-plain-html-page">Try a plain HTML page</h2>
+<p>In the <strong>unreleased alpha.5 source candidate</strong>, copy
+<code>dist/syntyr.semantic-bundle.css</code> into your application's public CSS directory:</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.semantic-bundle.css&quot;&gt;
+&lt;body class=&quot;syn-root syn-page syn-semantic&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main class=&quot;syn-shell&quot;&gt;
+    &lt;article&gt;
+      &lt;h1&gt;Project settings&lt;/h1&gt;
+      &lt;form action=&quot;/settings&quot; method=&quot;post&quot;&gt;
+        &lt;label for=&quot;title&quot;&gt;Title &lt;input id=&quot;title&quot; name=&quot;title&quot; required&gt;&lt;/label&gt;
+        &lt;button type=&quot;submit&quot;&gt;Save settings&lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<p>The <code>/settings</code> action above is illustrative: your application must implement
+its own backend, CSRF handling and persistence. For a fully static, runnable
+example, see <a href="../examples/semantic-starter.html">the single-file starter</a>.</p>
+<p>The current <strong>published alpha.4</strong> does not include the one-file semantic bundle.
+For alpha.4, load <code>syntyr.core.css</code> followed by <code>syntyr.semantic.css</code> instead.
+Do not combine either of those with the new one-file bundle: this duplicates CSS.</p>
+<h2 id="key-differences">Key differences</h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Pico-style usage</th>
+<th>Syntyr usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Native HTML</td>
+<td>Unclassed elements typically styled page-wide</td>
+<td><code>.syn-semantic</code> opt-in inside <code>.syn-root</code></td>
+</tr>
+<tr>
+<td>Page width</td>
+<td>Conventional global container styles</td>
+<td><code>.syn-shell</code> on your layout container</td>
+</tr>
+<tr>
+<td>Components</td>
+<td>Small semantic-oriented API</td>
+<td>Explicit <code>syn-*</code> classes when more control is needed</td>
+</tr>
+<tr>
+<td>Themes</td>
+<td>Pico's theme and palette variables</td>
+<td><code>data-syn-theme</code> and documented <code>--syn-*</code> tokens</td>
+</tr>
+<tr>
+<td>Existing application CSS</td>
+<td>Global rules can overlap</td>
+<td>Scoped Syntyr selectors; check host/global resets</td>
+</tr>
+<tr>
+<td>Interactions</td>
+<td>HTML and application JavaScript</td>
+<td>Native HTML and application JavaScript; no Syntyr widget runtime</td>
+</tr>
+</tbody>
+</table>
+<h3 id="migration-sequence">Migration sequence</h3>
+<ol>
+<li>Choose a <strong>small page or region</strong>. Remove Pico's global stylesheet from
+that page where feasible, or carefully isolate the two frameworks.</li>
+<li>Load the pinned Syntyr stylesheet and opt into <code>.syn-root.syn-semantic</code>.
+Without these classes, no Syntyr semantic styling is applied.</li>
+<li>Keep real form labels, methods, actions, buttons, table headers, <code>details</code>
+and other native elements. Classless <code>form</code> and <code>fieldset</code> gain useful
+vertical layout in semantic mode; use <code>.syn-form</code> for the explicit class API.
+Add <code>.syn-shell</code> where a page-width constraint is useful.</li>
+<li>Translate existing <code>--pico-*</code> customizations <strong>by design role</strong>, not by
+search-and-replace. Syntyr's <code>--syn-*</code> tokens are not one-to-one aliases.</li>
+<li>If HTMX or another library adds temporary classes to formerly unclassed
+elements, prefer explicit <code>syn-*</code> component classes on published alpha.4.
+The <code>data-syn-semantic</code> marker is an <strong>alpha.5-only</strong> selector enhancement
+for retaining semantic styling through transient class changes; do not use
+it as an alpha.4 compatibility guarantee.</li>
+<li>Run the optional <code>python3 scripts/syntyr_check.py --semantic your-page.html</code>
+checker on literal HTML to catch labeling, reference and table-state mistakes.
+Dynamic templates still need rendered-page checks.</li>
+<li>Test keyboard navigation, light/dark behavior, small screens, 200%/400%
+browser zoom, forced colors, and screen readers in the actual application.</li>
+</ol>
+<h2 id="when-not-to-migrate">When not to migrate</h2>
+<p>Do not switch solely because Syntyr's stylesheet is small or has no JavaScript:
+Pico, Tailwind-generated CSS, and other alternatives may have similarly low
+browser runtime overhead. Syntyr's alpha status, unverified manual accessibility
+gates, and different public API carry real migration costs. No measured
+cross-framework performance advantage has been established.</p>
+<p>See <a href="distribution.html">distribution</a>, <a href="components.html">component contract</a>,
+<a href="framework-integrations.html">framework integrations</a>, and
+<a href="performance-validation.html">performance validation</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#try-a-plain-html-page">Try a plain HTML page</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#key-differences">Key differences</a>
+<a class="docs-article-toc-link docs-article-toc-3" href="#migration-sequence">Migration sequence</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#when-not-to-migrate">When not to migrate</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="from-pico.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

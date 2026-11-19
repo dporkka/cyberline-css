@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compose Syntyr page blocks visually, preview responsive themes and export portable HTML, CSS and versioned JSON without a framework.">
+  <title>Visual Page Builder — SYNTYR CSS</title>
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.all.css">
+  <link rel="stylesheet" href="docs.css">
+  <link rel="stylesheet" href="page-builder.css">
+  <script type="module" src="page-builder.js"></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a href="#builder-main" class="syn-button builder-skip">Skip to builder</a>
+  <div class="syn-shell">
+    <header class="syn-header">
+      <a class="syn-logo" href="index.html">SYNTYR <span class="syn-muted">/ BUILDER</span></a>
+      <nav class="syn-nav" aria-label="Builder navigation">
+        <a href="index.html">GALLERY</a>
+        <a href="blocks.html">BLOCKS</a>
+        <a href="playground.html">HTML PLAYGROUND</a>
+        <a href="page-builder-guide.html">HOW IT WORKS</a>
+      </nav>
+    </header>
+    <main id="builder-main">
+      <section class="syn-stage builder-intro" aria-labelledby="builder-title">
+        <span class="syn-eyebrow">FREE EXPERIMENT / LOCAL-FIRST</span>
+        <h1 id="builder-title" class="syn-title">Visual page builder</h1>
+        <p class="syn-lede">Compose real Syntyr blocks and catalog components, edit content, rearrange sections, preview themes and export portable HTML and JSON. No account or build tool.</p>
+      </section>
+
+      <section class="syn-panel builder-toolbar" aria-label="Page settings and export">
+        <label class="syn-label" for="builder-page-title">PAGE TITLE
+          <input class="syn-input" id="builder-page-title" maxlength="160" value="My Syntyr page">
+        </label>
+        <label class="syn-label" for="builder-theme">THEME
+          <select class="syn-select" id="builder-theme">
+            <option value="studio">Studio</option>
+            <option value="grid">Grid</option>
+            <option value="noir">Noir</option>
+            <option value="industrial">Industrial</option>
+            <option value="terminal">Terminal</option>
+            <option value="corporate">Corporate</option>
+            <option value="minimal">Minimal</option>
+            <option value="auto">System</option>
+          </select>
+        </label>
+        <label class="syn-label" for="builder-viewport">PREVIEW SIZE
+          <select class="syn-select" id="builder-viewport">
+            <option value="desktop">Desktop</option>
+            <option value="tablet">Tablet</option>
+            <option value="mobile">Mobile</option>
+          </select>
+        </label>
+        <div class="builder-export">
+          <button type="button" class="syn-button syn-button--primary" id="builder-export-html">DOWNLOAD HTML</button>
+          <a class="syn-button" href="../dist/syntyr.all.css" download="syntyr.all.css" id="builder-export-css">DOWNLOAD CSS</a>
+          <button type="button" class="syn-button" id="builder-export-json">SAVE PROJECT</button>
+          <label class="syn-button builder-file-label" for="builder-import">OPEN PROJECT
+            <input id="builder-import" type="file" accept=".json,application/json">
+          </label>
+        </div>
+      </section>
+
+      <div class="builder-workspace">
+        <aside class="syn-panel builder-sidebar" aria-labelledby="builder-blocks-title">
+          <h2 class="syn-heading" id="builder-blocks-title">Add a block</h2>
+          <p class="syn-caption">Choose a semantic section from Syntyr's core patterns.</p>
+          <div id="builder-palette" class="builder-palette" role="group" aria-label="Available blocks"></div>
+          <section aria-labelledby="builder-gallery-title" class="builder-gallery">
+            <h3 id="builder-gallery-title" class="syn-heading">Component gallery</h3>
+            <p class="syn-caption">Generated from the canonical Syntyr component manifest. Text, placeholders and links can be edited. No arbitrary HTML import.</p>
+            <label class="syn-label" for="builder-gallery-search">Find a component</label>
+            <input id="builder-gallery-search" class="syn-input" type="search" placeholder="Buttons, forms, tables…">
+            <p id="builder-gallery-count" class="syn-caption" role="status">Loading gallery examples…</p>
+            <div id="builder-gallery-palette" class="builder-palette builder-gallery-palette" role="group" aria-label="Catalog components"></div>
+          </section>
+          <div class="builder-outline-heading">
+            <h2 class="syn-heading" id="builder-outline-title">Page structure</h2>
+            <div class="syn-inline">
+              <button class="syn-button" type="button" id="builder-undo" title="Undo change" disabled>UNDO</button>
+              <button class="syn-button" type="button" id="builder-redo" title="Redo change" disabled>REDO</button>
+            </div>
+          </div>
+          <ol id="builder-outline" class="builder-outline" aria-labelledby="builder-outline-title"></ol>
+        </aside>
+
+        <section class="syn-panel builder-canvas-panel" aria-labelledby="builder-preview-title">
+          <div class="builder-panel-heading">
+            <h2 id="builder-preview-title" class="syn-heading">Live page preview</h2>
+            <span class="syn-badge">SANDBOXED / NO SCRIPTS</span>
+          </div>
+          <div class="builder-canvas" tabindex="0" role="region" aria-label="Scrollable page preview">
+            <div id="builder-viewport-frame" class="builder-viewport builder-viewport--desktop">
+              <iframe id="builder-preview" title="Sandboxed Syntyr page preview" sandbox="allow-same-origin" referrerpolicy="no-referrer"></iframe>
+            </div>
+          </div>
+          <p class="syn-caption">Select a section to edit it. Interactive links are disabled in the preview. HTML and CSS remain portable.</p>
+        </section>
+
+        <aside class="syn-panel builder-inspector-panel" aria-labelledby="builder-inspector-title">
+          <h2 class="syn-heading" id="builder-inspector-title">Properties</h2>
+          <p class="syn-caption" id="builder-inspector-help">Select a block to edit its content.</p>
+          <div id="builder-inspector" class="builder-inspector"></div>
+        </aside>
+      </div>
+      <p class="syn-caption builder-status" id="builder-status" role="status" aria-live="polite">Ready to compose.</p>
+      <section class="syn-panel builder-notes" aria-labelledby="builder-notes-title">
+        <h2 class="syn-heading" id="builder-notes-title">Own your output</h2>
+        <p>The HTML export references <code>syntyr.all.css</code> in the same directory. Download both files to publish a static site, or replace that stylesheet with a self-hosted Syntyr build. Save a JSON project to edit it later. A standalone HTML file is not a lossless project backup. Gallery components reference the versioned component catalog, so retain the matching stylesheet and project JSON for future editing.</p>
+        <p>This early composer intentionally provides content-first sections rather than arbitrary pixel positioning or a hosted CMS. It adds no JavaScript to Syntyr's distributed CSS core.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+/* Flagship demonstration pages. Application-owned CSS, never part of Syntyr's distribution.
+   Same Syntyr components across three visual directions; no external resources or JS. */
+.flagship .flagship-skip { position: absolute; inset-block-start: -10rem; inset-inline-start: 1rem; z-index: 50; }
+.flagship .flagship-skip:focus-visible { inset-block-start: 1rem; }
+.flagship { --flagship-width: 76rem; background: var(--syn-bg); color: var(--syn-text); }
+.flagship .flagship-shell { width: min(calc(100% - 2.5rem), var(--flagship-width)); margin-inline: auto; min-width: 0; }
+.flagship .flagship-topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-block: 1.1rem; border-block-end: 1px solid var(--syn-border-subtle); }
+.flagship .flagship-wordmark { font: 760 1rem/1.3 var(--syn-font-ui); letter-spacing: -.04em; color: var(--syn-text); text-decoration: none; }
+.flagship .flagship-wordmark small { color: var(--syn-muted); font-size: .75rem; margin-inline-start: .55rem; font-weight: 500; letter-spacing: .03em; }
+.flagship .flagship-navigation { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.3rem; }
+.flagship .flagship-navigation a { color: var(--syn-muted); text-decoration: none; font: 600 .85rem/1.5 var(--syn-font-ui); padding-block: .6rem; }
+.flagship .flagship-navigation a:hover, .flagship .flagship-navigation a:focus-visible, .flagship .flagship-navigation a[aria-current] { color: var(--syn-text); }
+.flagship .flagship-back { color: var(--syn-accent); text-underline-offset: .25em; font-size: .85rem; }
+.flagship .flagship-hero { padding-block: clamp(3.5rem, 8vw, 7rem); }
+.flagship .flagship-hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: center; }
+.flagship .flagship-eyebrow { display: inline-flex; flex-wrap: wrap; max-inline-size: 100%; overflow-wrap: anywhere; gap: .65rem; align-items: center; font: 700 .75rem/1.5 var(--syn-font-ui); color: var(--syn-accent); letter-spacing: .1em; text-transform: uppercase; }
+.flagship .flagship-eyebrow::before { content: ""; inline-size: 1.5rem; block-size: 2px; background: currentColor; }
+.flagship .flagship-display { max-inline-size: 13ch; margin-block: .8rem 1.5rem; font: 690 clamp(2.9rem, 5.4vw, 5.8rem)/1.02 var(--syn-font-display); letter-spacing: -.065em; overflow-wrap: anywhere; text-wrap: balance; }
+.flagship .flagship-display em { color: var(--syn-accent); font-style: normal; }
+.flagship .flagship-lede { max-inline-size: 54ch; font-size: clamp(1.025rem, 1rem + .3vw, 1.2rem); line-height: 1.7; color: var(--syn-muted); }
+.flagship .flagship-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-block-start: 1.7rem; }
+.flagship .flagship-note { color: var(--syn-muted); font-size: .78rem; line-height: 1.5; }
+.flagship .flagship-section { padding-block: clamp(2.5rem, 5vw, 4.5rem); border-block-start: 1px solid var(--syn-border-subtle); scroll-margin-block-start: 1rem; }
+.flagship .flagship-section-title { font: 650 clamp(1.6rem, 2.5vw, 2.55rem)/1.17 var(--syn-font-display); letter-spacing: -.045em; margin-block: .45rem 1rem; }
+.flagship .flagship-section-header { display: flex; align-items: end; justify-content: space-between; flex-wrap: wrap; gap: .75rem 2rem; margin-block-end: 1.5rem; }
+.flagship .flagship-section-header p { max-width: 54ch; color: var(--syn-muted); }
+.flagship .flagship-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.flagship .flagship-card { min-width: 0; overflow-wrap: anywhere; }
+.flagship .flagship-card > small { display: block; color: var(--syn-muted); font-weight: 550; }
+.flagship .flagship-figure { display: block; margin-block: .5rem; font: 690 clamp(1.6rem, 2.7vw, 2.5rem)/1.16 var(--syn-font-display); letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
+.flagship .flagship-split { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(15rem, .8fr); gap: 1rem; align-items: start; }
+.flagship .flagship-row { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: .5rem 1rem; }
+.flagship .flagship-muted { color: var(--syn-muted); }
+.flagship .flagship-rule { border: 0; border-block-start: 1px solid var(--syn-border-subtle); margin-block: 1.2rem; }
+.flagship .flagship-scroll { max-width: 100%; overflow-x: auto; }
+.flagship .flagship-scroll table { min-width: 31rem; }
+.flagship .flagship-scroll:focus-visible { outline: 2px solid var(--syn-focus-ring); outline-offset: 3px; }
+.flagship .flagship-meter { width: 100%; accent-color: var(--syn-accent); }
+.flagship .flagship-timeline { list-style: none; padding: 0; margin: 0; }
+.flagship .flagship-timeline li { display: flex; justify-content: space-between; gap: 1rem; padding-block: .85rem; border-block-end: 1px solid var(--syn-border-subtle); }
+.flagship .flagship-timeline li:last-child { border-block-end: 0; }
+.flagship .flagship-timeline time { color: var(--syn-muted); white-space: nowrap; font: .78rem var(--syn-mono); }
+.flagship .flagship-chart { display: flex; align-items: end; gap: .65rem; height: 10rem; padding-block: 1rem .5rem; border-block-end: 1px solid var(--syn-border-subtle); }
+.flagship .flagship-chart span { flex: 1; height: var(--bar); background: color-mix(in srgb, var(--syn-accent) 55%, var(--syn-surface-hi)); border-radius: .2rem .2rem 0 0; }
+.flagship .flagship-chart span:last-child { background: var(--syn-accent); }
+.flagship .flagship-quote { font: 500 clamp(1.5rem, 3vw, 2.8rem)/1.25 var(--syn-font-display); letter-spacing: -.045em; margin: 0; text-wrap: balance; }
+.flagship .flagship-copy { max-width: 65ch; color: var(--syn-muted); font-size: 1.02rem; line-height: 1.75; }
+.flagship .flagship-pillar { border-block-start: 2px solid var(--syn-accent); padding-block-start: 1.4rem; }
+.flagship .flagship-pillar h3 { font-size: 1.2rem; margin-block: 0 .5rem; }
+.flagship .flagship-pillar p { color: var(--syn-muted); }
+.flagship .flagship-terminal { margin-block: 0; border: 1px solid var(--syn-border-subtle); padding: clamp(1rem, 2vw, 1.5rem); background: var(--syn-surface-recessed); overflow-x: auto; font: .82rem/1.9 var(--syn-mono); color: var(--syn-text); }
+.flagship .flagship-terminal code { white-space: pre; }
+.flagship .flagship-terminal:focus-visible { outline: 2px solid var(--syn-focus-ring); outline-offset: 3px; }
+.flagship .flagship-footer { padding-block: 2rem 3rem; border-block-start: 1px solid var(--syn-border-subtle); display: flex; gap: 1rem; justify-content: space-between; flex-wrap: wrap; color: var(--syn-muted); font-size: .85rem; }
+.flagship[data-syn-theme="studio"] .flagship-card .flagship-figure { color: var(--syn-text); }
+.flagship[data-syn-theme="noir"] .flagship-display { font-family: ui-serif, Georgia, Cambria, serif; font-weight: 500; letter-spacing: -.055em; max-inline-size: 12ch; }
+.flagship[data-syn-theme="noir"] .flagship-hero { background: radial-gradient(ellipse at 88% 22%, var(--syn-accent-soft), transparent 55%); }
+.flagship[data-syn-theme="noir"] .flagship-quote { font-family: ui-serif, Georgia, Cambria, serif; font-weight: 500; }
+.flagship[data-syn-theme="grid"] .flagship-display { max-inline-size: 14ch; }
+.flagship[data-syn-theme="grid"] .flagship-navigation a[aria-current] { color: var(--syn-accent); }
+/* Prevent the bright horizon grid from crossing small body text. The
+   cinematic gradient remains visible outside this restrained reading scrim. */
+.flagship[data-syn-theme="grid"] .flagship-hero .flagship-lede {
+  background: color-mix(in srgb, var(--syn-bg) 96%, transparent);
+  padding: .2rem .4rem;
+  border-radius: .2rem;
+}
+.flagship .flagship-signal { background: var(--syn-surface); border: 1px solid var(--syn-border-subtle); padding: clamp(1.1rem, 2vw, 1.6rem); }
+@media (max-width: 56rem) {
+  .flagship .flagship-hero-grid, .flagship .flagship-split { grid-template-columns: minmax(0, 1fr); }
+  .flagship .flagship-card-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+}
+@media (max-width: 38rem) {
+  .flagship .flagship-shell { width: min(calc(100% - 1.5rem), var(--flagship-width)); }
+  .flagship .flagship-topbar { align-items: start; }
+  .flagship .flagship-navigation { gap: .25rem .8rem; }
+  .flagship .flagship-display { font-size: clamp(2.65rem, 12vw, 3.9rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flagship { scroll-behavior: auto; }
+}
+@media (forced-colors: active) {
+  .flagship .flagship-eyebrow::before { border-color: CanvasText; background: CanvasText; }
+  .flagship .flagship-pillar { border-color: CanvasText; background: Canvas; }
+  .flagship .flagship-chart span { background: Highlight; }
+  .flagship .flagship-terminal, .flagship .flagship-signal { border-color: CanvasText; background: Canvas; color: CanvasText; }
+}

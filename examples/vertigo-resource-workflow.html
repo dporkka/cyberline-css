@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr resource lifecycle reference inspired by Vertigo's schema-driven Go SaaS admin. Static, copyable, accessible HTML.">
+  <title>Syntyr × Vertigo — Resource lifecycle reference</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="../dist/syntyr.recipes.css">
+  <link rel="stylesheet" href="vertigo-resource-workflow.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio" data-syn-density="compact" data-syn-intensity="quiet">
+  <a class="syn-button vrw-skip" href="#main">Skip to main content</a>
+  <div class="syn-app-shell vrw-shell">
+    <aside class="syn-app-rail vrw-rail" aria-label="Workspace navigation">
+      <a class="syn-logo" href="../docs/index.html">SYNTYR <span class="syn-muted">/ VERTIGO</span></a>
+      <p class="syn-caption">RESOURCE ADMIN / COPYABLE DEMO</p>
+      <nav class="syn-app-nav" aria-label="Resource workflow">
+        <a href="#resources" aria-current="page">Resource index</a>
+        <a href="#resource-detail">Resource detail</a>
+        <a href="#resource-editor">Create / edit</a>
+        <a href="#workspace-settings">Workspace settings</a>
+      </nav>
+      <div class="vrw-rail-note"><span class="syn-status syn-status--success">CSS-only reference</span><p class="syn-caption">Fictional data. No backend, accounts, persistence, or permissions are connected.</p></div>
+    </aside>
+    <main class="syn-workspace vrw-main" id="main">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../docs/index.html">Syntyr</a></li><li><span aria-current="page">Resource workflows</span></li></ol></nav>
+      <header class="syn-page-header">
+        <div>
+          <p class="syn-eyebrow">STUDIO / VERTIGO-INSPIRED RESOURCE UI</p>
+          <h1>Manage resources without a client runtime.</h1>
+          <p class="syn-muted vrw-intro">One consistent visual language for an index, detail view, editor and tenant settings. Use ordinary GET/POST handling and your server's authorization, CSRF and validation.</p>
+        </div>
+        <div class="syn-page-header__actions"><a class="syn-button syn-button--outline" href="../docs/vertigo-integration.html">Integration guide</a><a class="syn-button syn-button--primary" href="#resource-editor">Review form</a></div>
+      </header>
+
+      <section class="syn-kpi-grid vrw-section" aria-label="Illustrative task metrics">
+        <article class="syn-app-card"><p class="syn-stat-label">TOTAL TASKS</p><p class="syn-stat-value">128</p><p class="syn-caption">Sample tenant / not live</p></article>
+        <article class="syn-app-card"><p class="syn-stat-label">IN PROGRESS</p><p class="syn-stat-value">34</p><span class="syn-status syn-status--success">On track</span></article>
+        <article class="syn-app-card"><p class="syn-stat-label">NEEDS REVIEW</p><p class="syn-stat-value">07</p><span class="syn-status syn-status--warning">Attention required</span></article>
+      </section>
+
+      <section class="syn-app-card vrw-section" id="resources" aria-labelledby="resources-title">
+        <div class="syn-app-card-header"><div><p class="syn-eyebrow">01 / INDEX</p><h2 id="resources-title" class="syn-heading">Task resources</h2></div><span class="syn-caption">3 FICTIONAL ROWS</span></div>
+        <p id="resource-filter-hint" class="syn-muted">The GET controls illustrate a server-rendered query. This static page does not filter its sample rows.</p>
+        <search aria-label="Search task resources">
+          <form class="vrw-filters" method="get" action="vertigo-resource-workflow.html#resources" aria-describedby="resource-filter-hint">
+            <div class="syn-field"><label class="syn-label" for="resource-query">Search tasks</label><input class="syn-input" id="resource-query" name="q" type="search" placeholder="Title or identifier"></div>
+            <div class="syn-field"><label class="syn-label" for="resource-status">Status</label><select class="syn-select" id="resource-status" name="status"><option value="">Any status</option><option value="active">In progress</option><option value="review">Review</option><option value="done">Done</option></select></div>
+            <div class="syn-field"><label class="syn-label" for="resource-owner">Owner</label><select class="syn-select" id="resource-owner" name="owner"><option value="">All owners</option><option value="operations">Operations</option><option value="finance">Finance</option></select></div>
+            <div class="vrw-filter-actions"><button class="syn-button syn-button--primary" type="submit">Apply query</button><a class="syn-button syn-button--outline" href="vertigo-resource-workflow.html#resources">Reset</a></div>
+          </form>
+        </search>
+        <div class="syn-table-wrap vrw-table-scroll" role="region" aria-label="Illustrative tasks table" tabindex="0">
+          <table class="syn-table">
+            <caption class="syn-caption vrw-caption">Task data is illustrative. A backend must apply tenant scoping, filtering and pagination.</caption>
+            <thead><tr><th scope="col">Task</th><th scope="col">Owner</th><th scope="col">Status</th><th scope="col">Due date</th><th scope="col">Budget</th></tr></thead>
+            <tbody>
+              <tr><th scope="row"><a href="#resource-detail">TK-104 / Review campaign</a></th><td>Operations</td><td><span class="syn-status syn-status--warning">Review</span></td><td><time datetime="2026-11-18">Nov 18</time></td><td class="syn-cell--numeric">$4,200</td></tr>
+              <tr><th scope="row"><a href="#resource-detail">TK-102 / Sync invoices</a></th><td>Finance</td><td><span class="syn-status syn-status--success">In progress</span></td><td><time datetime="2026-11-20">Nov 20</time></td><td class="syn-cell--numeric">$1,650</td></tr>
+              <tr><th scope="row"><a href="#resource-detail">TK-099 / Confirm posting</a></th><td>Operations</td><td><span class="syn-status">Done</span></td><td><time datetime="2026-11-12">Nov 12</time></td><td class="syn-cell--numeric">$950</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="syn-caption">Pagination, query persistence, authorization and actual record links belong to the server. Sample results never change on this static page.</p>
+        <details class="syn-details"><summary>View the empty-results state</summary><div class="syn-empty"><p>No tasks match your filters.</p><p class="syn-caption">Render this state only when the server returns zero results.</p></div></details>
+      </section>
+
+      <section class="syn-app-card vrw-section" id="resource-detail" aria-labelledby="detail-title">
+        <div class="syn-app-card-header"><div><p class="syn-eyebrow">02 / DETAIL</p><h2 id="detail-title" class="syn-heading">TK-104 / Review campaign</h2></div><span class="syn-status syn-status--warning">Review</span></div>
+        <div class="syn-detail-layout">
+          <div class="syn-detail-main">
+            <p class="syn-muted">Confirm campaign assets, posting photographs, and invoice references before release. This view demonstrates descriptive copy and a useful content hierarchy.</p>
+            <h3 class="syn-heading">Activity and audit history</h3>
+            <ol class="syn-activity-timeline">
+              <li><strong>Submitted for review</strong> <time datetime="2026-11-14T15:40:00Z">Nov 14, 15:40 UTC</time><p class="syn-caption">Fictional event / Operations</p></li>
+              <li><strong>Evidence uploaded</strong> <time datetime="2026-11-13T12:20:00Z">Nov 13, 12:20 UTC</time><p class="syn-caption">Fictional event / Field team</p></li>
+              <li><strong>Task created</strong> <time datetime="2026-11-12T10:00:00Z">Nov 12, 10:00 UTC</time><p class="syn-caption">Fictional event / Operations</p></li>
+            </ol>
+          </div>
+          <aside class="syn-detail-aside syn-surface--raised vrw-inspector" aria-label="Task metadata">
+            <h3 class="syn-heading">Properties</h3>
+            <dl class="vrw-properties"><div><dt>Owner</dt><dd>Operations</dd></div><div><dt>Priority</dt><dd>Normal</dd></div><div><dt>Due</dt><dd>Nov 18, 2026</dd></div><div><dt>Tenant</dt><dd>Example workspace</dd></div></dl>
+            <a class="syn-button syn-button--outline" href="#resource-editor">View editor layout</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="syn-app-card vrw-section" id="resource-editor" aria-labelledby="editor-title">
+        <div class="syn-app-card-header"><div><p class="syn-eyebrow">03 / CREATE &amp; EDIT</p><h2 class="syn-heading" id="editor-title">Resource form</h2></div><span class="syn-caption">SAVE DISABLED / NO ENDPOINT</span></div>
+        <p id="editor-demo-note" class="syn-muted">This illustrates the contract for server-rendered form fields. No backend is attached. Copy the markup into a CSRF-protected application before enabling submission.</p>
+        <form method="post" action="#" aria-describedby="editor-demo-note" class="vrw-form">
+          <fieldset disabled class="vrw-fieldset"><legend class="syn-heading">Task properties</legend>
+            <div class="syn-field"><label class="syn-label" for="task-title">Task title (required)</label><input class="syn-input" id="task-title" name="title" value="Review campaign" required aria-invalid="true" aria-describedby="resource-error"><p id="resource-error" class="syn-error">Example validation: this title must be unique within the workspace.</p></div>
+            <div class="vrw-form-columns">
+              <div class="syn-field"><label class="syn-label" for="task-owner">Owner</label><select class="syn-select" id="task-owner" name="owner"><option value="operations">Operations</option><option value="finance">Finance</option></select></div>
+              <div class="syn-field"><label class="syn-label" for="task-state">Status</label><select class="syn-select" id="task-state" name="status"><option value="review">Review</option><option value="active">In progress</option><option value="done">Done</option></select></div>
+            </div>
+            <div class="syn-field"><label class="syn-label" for="task-description">Description</label><textarea class="syn-textarea" id="task-description" name="description" rows="3">Confirm campaign assets before release.</textarea><p class="syn-help">Use business validation on the server, not CSS alone.</p></div>
+            <div class="vrw-form-actions"><button class="syn-button syn-button--primary" type="submit" disabled>Save (requires backend)</button><a class="syn-button syn-button--outline" href="#resources">Back to index</a></div>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="syn-app-card vrw-section" id="workspace-settings" aria-labelledby="settings-title">
+        <div class="syn-app-card-header"><div><p class="syn-eyebrow">04 / SETTINGS</p><h2 id="settings-title" class="syn-heading">Workspace preferences</h2></div><span class="syn-caption">NO PERSISTENCE</span></div>
+        <p class="syn-muted">Tenant identification, users and roles must come from the authenticated server session, never a client-provided hidden field.</p>
+        <dl class="vrw-properties vrw-settings"><div><dt>Workspace</dt><dd>Example operations</dd></div><div><dt>Preferred density</dt><dd>Compact</dd></div><div><dt>Policy</dt><dd>Permission checks required</dd></div></dl>
+        <details class="syn-details"><summary>Integration requirements</summary><p>Implement GET queries, form CSRF tokens, validation, role/tenant checks, POST/redirect/GET, and audit persistence in the application. Syntyr only styles the resulting HTML.</p></details>
+      </section>
+      <footer class="syn-caption vrw-section">SYNTYR / ORIGINAL MIT HTML + CSS / STATIC VERTIGO-INSPIRED REFERENCE — NO BACKEND</footer>
+    </main>
+  </div>
+</body>
+</html>

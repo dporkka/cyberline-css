@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syntyr + Lit — Optional Web Components Example</title>
+  <link rel="stylesheet" href="../../dist/syntyr.core.css">
+  <style>
+    .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1.5rem; }
+    .demo-grid > * { min-width: 0; }
+    syn-demo-status-panel, syn-demo-shadow-signal { display: block; margin-block: 1rem; }
+    syn-demo-shadow-signal::part(panel) { border-style: dashed; }
+  </style>
+  <script type="module" src="./dist/demo.js"></script>
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <main class="syn-shell">
+    <header class="syn-header">
+      <a href="../../docs/index.html" class="syn-logo">SYNTYR</a>
+      <span class="syn-badge">OPTIONAL LIT DEMO</span>
+    </header>
+    <h1 class="syn-title">Lit + Syntyr interoperability</h1>
+    <p class="syn-lede">Syntyr stays CSS-only. Lit is an optional dependency of this example, not of the design system.</p>
+    <section class="demo-grid" aria-label="Two Web Component styling approaches">
+      <div>
+        <h2 class="syn-heading">Light DOM: normal Syntyr classes</h2>
+        <p class="syn-muted">Lit renders into the document; the existing <code>.syn-*</code> rules apply.</p>
+        <syn-demo-status-panel service="North hub" online>
+          <article class="syn-panel" data-lit-fallback aria-label="Initial service status">
+            <h3 class="syn-heading">North hub</h3>
+            <p class="syn-status syn-status--success">Online</p>
+            <p class="syn-muted">Static status remains readable when JavaScript is unavailable.</p>
+          </article>
+        </syn-demo-status-panel>
+      </div>
+      <section data-syn-theme="noir" class="syn-panel" aria-label="Nested Noir theme">
+        <h2 class="syn-heading">Shadow DOM: inherited tokens</h2>
+        <p class="syn-muted">The component owns its internal styles and exposes CSS parts.</p>
+        <syn-demo-shadow-signal label="Relay gateway" active>
+          <p data-lit-fallback class="syn-status syn-status--success">Relay gateway: active. Static fallback.</p>
+        </syn-demo-shadow-signal>
+      </section>
+    </section>
+    <section class="syn-panel" aria-label="Demo events">
+      <h2 class="syn-heading">Composed event log</h2>
+      <p id="event-output" role="status" aria-live="polite">Toggle either enhanced component to inspect its event.</p>
+    </section>
+    <p class="syn-caption">The controls modify local demonstration state only. In a real application, backend changes must be performed by application-owned handlers.</p>
+    <nav class="syn-nav" aria-label="Additional Lit interoperability demos">
+      <a class="syn-button" href="./react-interop.html">Lit with React 19</a>
+      <a class="syn-button" href="./htmx-interop.html">Lit with HTMX and native GET</a>
+      <a class="syn-button" href="../../docs/lit-integration.md">Read integration guide</a>
+    </nav>
+  </main>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- Embed inside a Rails/Hotwire page. The server must return the matching
+     <turbo-frame id="campaign-results"> for /campaigns queries. -->
+<section class="syn-root" data-syn-theme="studio">
+  <article class="syn-panel">
+    <h2 class="syn-heading">Campaign search</h2>
+    <form class="syn-form" action="/campaigns" method="get" data-turbo-frame="campaign-results">
+      <div class="syn-field">
+        <label class="syn-label" for="campaign-search">Campaign name</label>
+        <input class="syn-input" id="campaign-search" name="q" type="search">
+      </div>
+      <button type="submit" class="syn-button syn-button--primary">Search</button>
+    </form>
+    <turbo-frame id="campaign-results">
+      <p aria-live="polite">Search results appear here.</p>
+    </turbo-frame>
+  </article>
+</section>

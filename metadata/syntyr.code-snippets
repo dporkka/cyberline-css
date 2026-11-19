@@ -1,0 +1,74 @@
+{
+  "Syntyr: syn-root": {
+    "prefix": "syn-root",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-root",
+    "description": "Required style scope for Syntyr components and themes."
+  },
+  "Syntyr: syn-panel": {
+    "prefix": "syn-panel",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-panel",
+    "description": "General-purpose surface; customize via --syn-panel-* properties."
+  },
+  "Syntyr: syn-button": {
+    "prefix": "syn-button",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-button",
+    "description": "Native button or link styling; use semantic HTML."
+  },
+  "Syntyr: syn-button--primary": {
+    "prefix": "syn-button--primary",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-button--primary",
+    "description": "Primary action appearance."
+  },
+  "Syntyr: syn-region": {
+    "prefix": "syn-region",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-region",
+    "description": "Container query boundary for responsive compositions."
+  },
+  "Syntyr: syn-grid": {
+    "prefix": "syn-grid",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-grid",
+    "description": "Responsive grid composition."
+  },
+  "Syntyr: syn-stats": {
+    "prefix": "syn-stats",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-stats",
+    "description": "Container-responsive metric composition."
+  },
+  "Syntyr: syn-form": {
+    "prefix": "syn-form",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-form",
+    "description": "Consistent spacing and structure for semantic HTML forms."
+  },
+  "Syntyr: syn-input": {
+    "prefix": "syn-input",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-input",
+    "description": "Native form input styling; use a real input with an associated label."
+  },
+  "Syntyr: syn-semantic": {
+    "prefix": "syn-semantic",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-semantic",
+    "description": "Opt-in styling of native HTML elements."
+  },
+  "Syntyr: syn-u-flex": {
+    "prefix": "syn-u-flex",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-u-flex",
+    "description": "Opt-in flexbox layout utility."
+  },
+  "Syntyr: syn-u-w-full": {
+    "prefix": "syn-u-w-full",
+    "scope": "html,javascriptreact,typescriptreact",
+    "body": "syn-u-w-full",
+    "description": "Opt-in full-width utility."
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "icons": [
+    {
+      "id": "search",
+      "label": "Search",
+      "body": "<circle cx=\"10.6\" cy=\"10.6\" r=\"6.6\"/><path d=\"m16 16 4.5 4.5\"/>"
+    },
+    {
+      "id": "close",
+      "label": "Close",
+      "body": "<path d=\"M5 5 19 19M19 5 5 19\"/>"
+    },
+    {
+      "id": "chevron-right",
+      "label": "Next",
+      "body": "<path d=\"m9 5 7 7-7 7\"/>"
+    },
+    {
+      "id": "chevron-left",
+      "label": "Previous",
+      "body": "<path d=\"m15 5-7 7 7 7\"/>"
+    },
+    {
+      "id": "check",
+      "label": "Confirm",
+      "body": "<path d=\"m4.5 12.5 5 5 10-11\"/>"
+    },
+    {
+      "id": "warning",
+      "label": "Warning",
+      "body": "<path d=\"M12 3 22 20H2L12 3Z\"/><path d=\"M12 9v5m0 3v.2\"/>"
+    },
+    {
+      "id": "info",
+      "label": "Information",
+      "body": "<circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"M12 11v6m0-10v.5\"/>"
+    },
+    {
+      "id": "settings",
+      "label": "Settings",
+      "body": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M10 2h4l.6 2.4 2 .9 2.1-1.2 2.8 2.8-1.2 2.1.9 2L23 11v3l-2.4.6-.9 2 1.2 2.1-2.8 2.8-2.1-1.2-2 .9L14 23h-4l-.6-2.4-2-.9-2.1 1.2-2.8-2.8 1.2-2.1-.9-2L1 14v-3l2.4-.6.9-2-1.2-2.1 2.8-2.8 2.1 1.2 2-.9L10 2Z\"/>"
+    },
+    {
+      "id": "notification",
+      "label": "Notifications",
+      "body": "<path d=\"M5 17h14l-2-2V10c0-3.2-2-5.5-5-5.5S7 6.8 7 10v5l-2 2Zm5 3h4\"/>"
+    },
+    {
+      "id": "person",
+      "label": "Account",
+      "body": "<circle cx=\"12\" cy=\"8\" r=\"3.7\"/><path d=\"M4.5 21v-2.2c0-3 3.4-5 7.5-5s7.5 2 7.5 5V21\"/>"
+    },
+    {
+      "id": "team",
+      "label": "Team",
+      "body": "<circle cx=\"8\" cy=\"9\" r=\"3\"/><circle cx=\"17\" cy=\"10\" r=\"2.5\"/><path d=\"M2.5 20v-1c0-3 2.3-5.2 5.5-5.2s5.5 2.2 5.5 5.2v1m1-5.5c3.8-.2 6.6 1.5 6.6 4.5v1\"/>"
+    },
+    {
+      "id": "calendar",
+      "label": "Calendar",
+      "body": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M7 2v6m10-6v6M3 10h18M8 14h3m2 0h3\"/>"
+    },
+    {
+      "id": "clock",
+      "label": "Time",
+      "body": "<circle cx=\"12\" cy=\"12\" r=\"9.5\"/><path d=\"M12 6.5V12l4.2 2.8\"/>"
+    },
+    {
+      "id": "external-link",
+      "label": "Open external",
+      "body": "<path d=\"M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7\"/><path d=\"M12 12 21 3M15 3h6v6\"/>"
+    },
+    {
+      "id": "download",
+      "label": "Download",
+      "body": "<path d=\"M12 3v13m-5-5 5 5 5-5M4 19v2h16v-2\"/>"
+    },
+    {
+      "id": "upload",
+      "label": "Upload",
+      "body": "<path d=\"M12 16V3m-5 5 5-5 5 5M4 19v2h16v-2\"/>"
+    },
+    {
+      "id": "terminal",
+      "label": "Terminal",
+      "body": "<rect x=\"2.5\" y=\"4\" width=\"19\" height=\"16\" rx=\"2\"/><path d=\"m6 9 4 3-4 3m6 0h6\"/>"
+    },
+    {
+      "id": "shield",
+      "label": "Protection",
+      "body": "<path d=\"M12 2.5 20 6v5.5c0 5-3.5 8.4-8 10-4.5-1.6-8-5-8-10V6l8-3.5Z\"/><path d=\"m8 12 2.5 2.5 5-5\"/>"
+    },
+    {
+      "id": "lock",
+      "label": "Private",
+      "body": "<rect x=\"5\" y=\"10.5\" width=\"14\" height=\"11\" rx=\"2\"/><path d=\"M8 10.5V7.8a4 4 0 0 1 8 0v2.7m-4 5v2\"/>"
+    },
+    {
+      "id": "database",
+      "label": "Database",
+      "body": "<ellipse cx=\"12\" cy=\"5\" rx=\"8.5\" ry=\"3\"/><path d=\"M3.5 5v14c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3V5M3.5 12c0 1.7 3.8 3 8.5 3s8.5-1.3 8.5-3\"/>"
+    },
+    {
+      "id": "bar-chart",
+      "label": "Bar chart",
+      "body": "<path d=\"M3 21h18M5.5 18v-6h3v6m4 0V5h3v13m4 0v-9h3v9\"/>"
+    },
+    {
+      "id": "line-chart",
+      "label": "Trend",
+      "body": "<path d=\"M3 21h18M3 21V3m3 13 5-5 4 2 5-8\"/>"
+    },
+    {
+      "id": "filter",
+      "label": "Filter",
+      "body": "<path d=\"M3 4h18l-7 8v7l-4 2v-9L3 4Z\"/>"
+    },
+    {
+      "id": "spark",
+      "label": "Highlight",
+      "body": "<path d=\"M12 2 14.2 9.8 22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2L12 2Z\"/>"
+    }
+  ]
+}

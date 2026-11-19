@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr CSS-first form field, addon and responsive field layout showcase.">
+  <title>Syntyr / Form compositions</title>
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <main id="main" class="syn-shell">
+    <nav class="syn-breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="../docs/index.html">Gallery</a></li>
+        <li><span aria-current="page">Form compositions</span></li>
+      </ol>
+    </nav>
+    <header class="syn-header">
+      <div>
+        <p class="syn-eyebrow">CSS FIRST / NATIVE FORMS</p>
+        <h1>Form compositions</h1>
+        <p class="syn-lede">Field groups, input addons and responsive rows. No JavaScript.</p>
+      </div>
+      <a class="syn-button" href="../docs/component-recipes.md">Copy HTML recipes</a>
+    </header>
+    <section class="syn-panel" aria-labelledby="search-heading">
+      <h2 id="search-heading" class="syn-heading">Search field</h2>
+      <p class="syn-muted">The GET form submits to this demonstration page. There is no search backend or filtering.</p>
+      <search aria-label="Demonstration search">
+        <form action="form-composition.html" method="get">
+          <div class="syn-field">
+            <label class="syn-label" for="search-q">Account name</label>
+            <div class="syn-input-group">
+              <input class="syn-input" id="search-q" name="q" type="search" placeholder="Search accounts">
+              <button class="syn-button syn-button--primary" type="submit">Search</button>
+            </div>
+          </div>
+        </form>
+      </search>
+    </section>
+    <section class="syn-panel syn-region" aria-labelledby="settings-heading">
+      <h2 id="settings-heading" class="syn-heading">Responsive settings row</h2>
+      <p class="syn-muted">Wider containers align labels beside inputs; narrow containers stack fields.</p>
+      <form class="syn-form" action="form-composition.html" method="get">
+        <div class="syn-field-row">
+          <label class="syn-label" for="workspace-name">Workspace name</label>
+          <div class="syn-field-body">
+            <input class="syn-input" id="workspace-name" name="workspace" aria-describedby="workspace-help" required>
+            <p class="syn-help" id="workspace-help">Required. The demo does not save this value.</p>
+          </div>
+        </div>
+        <div class="syn-field-row">
+          <label class="syn-label" for="budget">Monthly budget (USD)</label>
+          <div class="syn-field-body">
+            <div class="syn-input-group">
+              <span class="syn-input-addon" aria-hidden="true">$</span>
+              <input class="syn-input" id="budget" name="budget" type="number" min="0" step="0.01">
+              <span class="syn-input-addon" aria-hidden="true">USD</span>
+            </div>
+          </div>
+        </div>
+        <div class="syn-field-row">
+          <label class="syn-label" for="workspace-id">Workspace ID (read only)</label>
+          <div class="syn-field-body">
+            <input class="syn-input" id="workspace-id" name="workspace_id" value="WS-1042"
+                   aria-describedby="workspace-id-help" readonly>
+            <p class="syn-help" id="workspace-id-help">Select or copy this identifier. The native GET form includes it when submitted.</p>
+          </div>
+        </div>
+        <button class="syn-button syn-button--primary" type="submit">Preview values</button>
+      </form>
+    </section>
+    <p class="syn-caption">Static HTML only. Your server must validate inputs, authorize changes and render user-facing results.</p>
+  </main>
+</body>
+</html>

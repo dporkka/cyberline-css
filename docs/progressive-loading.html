@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr is a CSS-first, zero-required-JavaScript library. For most sites, a regular, self-hosted, cacheable syntyr.core.css loaded early is the baseline to…">
+  <meta name="syntyr-source-sha256" content="eefc29fff8cdea96f3bc196a3521701bf516864bb10cff9a6bd25ba970827dbe">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Progressive loading and critical CSS — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/progressive-loading">
+  <link rel="alternate" type="text/markdown" href="progressive-loading.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Progressive loading and critical CSS</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="progressive-loading.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Progressive loading and critical CSS">
+<h1 id="progressive-loading-and-critical-css">Progressive loading and critical CSS</h1>
+<p>Syntyr is a CSS-first, <strong>zero-required-JavaScript</strong> library. For most sites,
+a regular, self-hosted, cacheable <code>syntyr.core.css</code> loaded early is the
+baseline to beat. Do not add a critical CSS pipeline merely because it is
+available. Optimize <strong>LCP</strong>, <strong>CLS</strong>, browser style/layout/paint work and the
+repeat-visit experience, not only the apparent time of the first paint.</p>
+<p>See the <a href="../examples/performance-first.html">performance-first example</a>, the
+<a href="performance-and-polish.html">existing rendering benchmark</a> and the
+<a href="performance-validation.html">benchmark comparison protocol</a>.</p>
+<h2 id="recommended-default-early-css-selective-modules-native-image-priority">Recommended default: early CSS, selective modules, native image priority</h2>
+<pre tabindex="0"><code class="language-html">&lt;head&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+  &lt;!-- Include only optional modules actually used on this route. --&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+&lt;/head&gt;
+&lt;body class=&quot;syn-root&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;main&gt;
+    &lt;h1&gt;Real page content&lt;/h1&gt;
+    &lt;!-- Only assign high priority to a likely, verified LCP image. --&gt;
+    &lt;img src=&quot;/media/hero.webp&quot; alt=&quot;Preview of the product dashboard&quot;
+         width=&quot;1200&quot; height=&quot;700&quot; loading=&quot;eager&quot;
+         fetchpriority=&quot;high&quot; decoding=&quot;async&quot;&gt;
+    &lt;!-- Below the first viewport, if appropriate: --&gt;
+    &lt;img src=&quot;/media/details.webp&quot; alt=&quot;Detailed product view&quot;
+         width=&quot;1200&quot; height=&quot;700&quot; loading=&quot;lazy&quot; decoding=&quot;async&quot;&gt;
+  &lt;/main&gt;
+&lt;/body&gt;
+</code></pre>
+<ul>
+<li>Load core early as a regular render-blocking stylesheet. CSS is necessary
+for a correct first paint. Same-origin, versioned and cacheable assets
+commonly outperform adding a second CDN connection.</li>
+<li>Do <strong>not</strong> add <code>&lt;link rel=&quot;preload&quot; as=&quot;style&quot;&gt;</code> for CSS that the
+browser already discovers early in <code>&lt;head&gt;</code>. Duplicate preloads can
+compete for bandwidth, and preloading is not the same as inlining.</li>
+<li>Keep the likely LCP image eager and give it <code>fetchpriority=&quot;high&quot;</code> only
+if browser traces support that decision. Hero CSS background images are
+often discovered later than an actual HTML <code>&lt;img&gt;</code>; consider an HTML
+image for important content. For responsive images use <code>srcset</code> and
+<code>sizes</code>; reserve the correct aspect ratio at every breakpoint.</li>
+<li>Use <code>loading=&quot;lazy&quot;</code> for truly offscreen images and iframes, not for
+the first screen or the LCP element. Browser heuristics and viewport
+dimensions vary. A small page does not need lazy loading everywhere.</li>
+<li>Keep system fonts by default. If a brand font is necessary, self-host it,
+subset it, and consider <code>font-display</code> and selective font preloading
+<em>only</em> for a font actually used above the fold. Avoid preloading every
+weight. Fonts can change text geometry and CLS.</li>
+<li>Lazy video, heavy embeds, third-party scripts and hydration belong to the
+consuming application, not to Syntyr's CSS runtime. Supply accessible
+fallbacks and an actual server-rendered content path.</li>
+</ul>
+<h2 id="use-selective-builds-only-when-modules-really-matter">Use selective builds only when modules really matter</h2>
+<p>The optional standard-library builder selects explicit <strong>source modules</strong>,
+not CSS selectors. It never scans templates or purges dynamic classes:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build_selective.py \
+  --components layout,typography,buttons,forms \
+  --modules recipes \
+  --output /tmp/syntyr.marketing.css \
+  --report /tmp/syntyr.marketing.json
+</code></pre>
+<p>That file is a standalone stylesheet with the required tokens/base and
+canonical cascade order. It is <strong>not</strong> a critical CSS extractor: Syntyr
+cannot infer what is visible in the first viewport, and the consumer must
+select all components needed by its routes. If a route uses numerous
+components or themes, the prebuilt core may be simpler and faster.</p>
+<p>Avoid combining <code>syntyr.all.css</code> with modules already present in that bundle.
+Do not split dependencies in ways that break variables, cascade layers,
+nested themes or responsive rules.</p>
+<h2 id="critical-css-conditional-optional-and-measured">Critical CSS: conditional, optional and measured</h2>
+<p>Critical CSS means the subset of styles needed to render the <strong>initial
+viewport</strong>. It is typically <strong>inlined into the document head</strong>, not
+preloaded. Deferring the remaining stylesheet is a separate operation with
+correctness and accessibility consequences.</p>
+<p>Syntyr currently <strong>does not ship automatic above-the-fold extraction or a
+runtime CSS loader</strong>. A tool claiming that explicit source modules are
+necessarily &quot;critical&quot; would be misleading: real critical CSS varies with
+the document, viewport, device, color scheme, state, font loading and route.</p>
+<p>Before deploying a route-specific extraction integration:</p>
+<ol>
+<li>Measure a baseline with normal early core CSS, on both cold and warm
+navigations. Include a mobile-sized viewport, realistic image assets
+and representative slow networks and CPUs.</li>
+<li>Generate candidate critical CSS with an application build tool or a
+browser-aware extractor, <strong>without altering Syntyr's source</strong>.
+Preserve <code>@layer</code> ordering, custom property dependencies, <code>@media</code>,
+container queries, themes, focus and forced-colors styles.</li>
+<li>Include the rest of the stylesheet correctly and test no-script,
+failed-network, print, dynamic routes, zoom, dark/light and reduced
+motion. A standard <code>&lt;link rel=&quot;stylesheet&quot;&gt;</code> after inlining can still
+block rendering, negating the intended improvement. Nonblocking load
+patterns have extra failure modes; do not hide unstyled content or
+require client JavaScript for essential styling.</li>
+<li>Account for <strong>CSP</strong>: an inline <code>&lt;style&gt;</code> requires an authorized hash
+or nonce (or another explicitly allowed policy). Never recommend
+<code>unsafe-inline</code> just to make a build optimization work.</li>
+<li>Check CSS delivery <strong>and HTML cache duplication</strong>. Inline rules are
+sent again on each HTML response; external CSS can remain cached across
+pages. Count duplicated declarations and inspect cumulative CSS.</li>
+<li>Adopt only if the candidate improves <em>measured</em> LCP or related rendering
+work without worsening CLS, follow-up navigations, interactivity or
+visual/accessibility correctness. Otherwise retain normal stylesheets.</li>
+</ol>
+<p>Do not use <code>media=&quot;print&quot; onload=&quot;this.media='all'&quot;</code> as a universal
+recommendation: it depends on inline script execution, needs a fallback,
+changes priority and requires CSP handling. Adding JS solely to load the
+small Syntyr core contradicts its default performance contract.</p>
+<h2 id="compare-two-variants-reproducibly">Compare two variants reproducibly</h2>
+<p>The optional Playwright comparison tool accepts <strong>two actual HTTP(S)
+pages</strong>: a normal-stylesheet baseline and a candidate generated in the
+application. Both must contain equivalent DOM, images and text. This
+comparison tool generates <em>no</em> CSS and requires <em>no</em> JavaScript in the
+application. Its own instrumentation uses Playwright at development time.</p>
+<pre tabindex="0"><code class="language-sh"># Example only: serve the two application variants yourself.
+python3 scripts/perf_loading_compare.py \
+  --baseline http://localhost:8000/baseline.html \
+  --candidate http://localhost:8000/critical-candidate.html \
+  --browsers chromium,firefox,webkit \
+  --viewports mobile,desktop --runs 10 \
+  --screenshots /tmp/syntyr-loading-shots \
+  --output /tmp/syntyr-loading-comparison.json
+</code></pre>
+<p>Install optional Playwright browsers as described in
+<a href="performance-and-polish.html">performance and polish</a>.
+The tool reports median and nearest-rank p75 browser FCP, LCP,
+non-input CLS and stylesheet request counts, separately for <strong>cold</strong>
+(new browser context) and <strong>warm</strong> (repeat navigation) sessions.
+It reports unavailable browser metrics as <code>null</code>, not zero.
+Screenshots help detect a visually incorrect candidate; they are not
+a substitute for a11y, reflow or forced-color testing.</p>
+<p>A clean result on localhost cannot establish field Core Web Vitals, production
+network RTT, realistic HTTP transfer behavior, cache distributions or INP.
+The tool does not throttle networks or emulate slow CPUs; do that with
+appropriate browser/performance infrastructure and disclose the settings.
+A stylesheet request count is <strong>not</strong> the transferred CSS byte count.
+Run a real-user measurement where traffic permits.</p>
+<p>For measurements on actual deployed business and SaaS pages, see the
+<a href="live-performance-audit.html">mobile, cache and accessibility audit</a>.</p>
+<h2 id="rendering-and-release-decisions">Rendering and release decisions</h2>
+<p>Large independent below-the-fold regions may opt in to
+<code>.syn-defer-section</code> (<code>content-visibility: auto</code>). Do not defer the
+hero, sticky navigation, interactive controls that need focus, or the
+user's likely next interaction. See the caveats and engine-by-engine
+counterexample in <a href="performance-and-polish.html">the rendering benchmark</a>.</p>
+<p><strong>Release decision:</strong> keep Syntyr's core and CSS distributions unchanged.
+Only consider an optional external/adapter critical CSS extractor after
+repeatable LCP/CLS and visual evidence from realistic marketing and SaaS
+routes. No arbitrary gzip-size release gates are justified.</p>
+<h2 id="reproducible-route-specific-css-delivery-experiment-november-15-2026">Reproducible route-specific CSS delivery experiment (November 15, 2026)</h2>
+<p>To determine whether an additional optimization is justified, we compared
+three <strong>equivalent versions of the same static landing page</strong>:</p>
+<ol>
+<li><strong>Baseline:</strong> regular <code>syntyr.core.css</code> plus <code>syntyr.recipes.css</code> links.</li>
+<li><strong>Selective:</strong> explicit <code>tokens</code>, <code>base</code>, <code>layout</code>, <code>typography</code>,
+<code>buttons</code> and <code>recipes</code> source modules, assembled into one external CSS.</li>
+<li><strong>Inline:</strong> <strong>the same complete selected CSS</strong> copied into a <code>&lt;style&gt;</code>
+element in the document head, with no external stylesheet.</li>
+</ol>
+<p>This is a <strong>route-specific whole-stylesheet inlining test, not automatic
+critical CSS extraction</strong>. It does not dynamically determine above-fold rules
+or split a shared stylesheet into critical and deferred noncritical parts.
+All variants have the same body, images and actual visual styling. They
+require no application JavaScript.</p>
+<p>Generate the test fixture using the Python standard library:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/perf_loading_fixture.py \
+  --output /tmp/syntyr-loading-fixture
+python3 scripts/perf_loading_fixture.py \
+  --output /tmp/syntyr-loading-fixture --serve --port 8955 --css-delay-ms 150
+</code></pre>
+<p>The fixture server binds only to <code>127.0.0.1</code>, gzip-encodes HTML/CSS,
+responds with <code>Cache-Control: no-store</code> for HTML, caches CSS for one day,
+and optionally introduces a <strong>synthetic 150 ms delay to CSS responses</strong>.
+Run baseline comparisons from another terminal:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/perf_loading_compare.py \
+  --baseline http://127.0.0.1:8955/baseline.html \
+  --candidate http://127.0.0.1:8955/selective.html \
+  --browsers chromium,firefox --viewports mobile,desktop --runs 10 \
+  --output /tmp/selective-result.json
+python3 scripts/perf_loading_compare.py \
+  --baseline http://127.0.0.1:8955/baseline.html \
+  --candidate http://127.0.0.1:8955/inline.html \
+  --browsers chromium,firefox --viewports mobile,desktop --runs 10 \
+  --output /tmp/inline-result.json
+</code></pre>
+<p>The same comparisons were also executed against a simple localhost
+server <strong>without the artificial delay</strong>. Results below are median
+<strong>cold LCP, milliseconds</strong>, from 10 runs per variant on Gertrude,
+using the Syntyr source at commit <code>f32aaca</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Browser/viewport</th>
+<th style="text-align:right">No-delay baseline</th>
+<th style="text-align:right">No-delay selective</th>
+<th style="text-align:right">No-delay inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chromium mobile</td>
+<td style="text-align:right">24</td>
+<td style="text-align:right">24</td>
+<td style="text-align:right">28</td>
+</tr>
+<tr>
+<td>Chromium desktop</td>
+<td style="text-align:right">28</td>
+<td style="text-align:right">32</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td>Firefox mobile</td>
+<td style="text-align:right">32</td>
+<td style="text-align:right">30</td>
+<td style="text-align:right">29</td>
+</tr>
+<tr>
+<td>Firefox desktop</td>
+<td style="text-align:right">29.5</td>
+<td style="text-align:right">32.5</td>
+<td style="text-align:right">29.5</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Browser/viewport</th>
+<th style="text-align:right">150 ms CSS-delay baseline</th>
+<th style="text-align:right">150 ms CSS-delay selective</th>
+<th style="text-align:right">150 ms CSS-delay inline</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chromium mobile</td>
+<td style="text-align:right">176</td>
+<td style="text-align:right">180</td>
+<td style="text-align:right">28</td>
+</tr>
+<tr>
+<td>Chromium desktop</td>
+<td style="text-align:right">180</td>
+<td style="text-align:right">180</td>
+<td style="text-align:right">32</td>
+</tr>
+<tr>
+<td>Firefox mobile</td>
+<td style="text-align:right">183</td>
+<td style="text-align:right">185</td>
+<td style="text-align:right">27.5</td>
+</tr>
+<tr>
+<td>Firefox desktop</td>
+<td style="text-align:right">183.5</td>
+<td style="text-align:right">183</td>
+<td style="text-align:right">29</td>
+</tr>
+</tbody>
+</table>
+<p>Eight pairs of full-page screenshots (Chromium/Firefox, mobile/desktop,
+baseline compared with each CSS alternative) were <strong>pixel-identical</strong>.
+Chromium reported zero CLS in those runs; Firefox did not expose a
+comparable layout-shift measurement (<code>null</code>). This does not replace
+accessibility validation in other themes, interactions or reduced-motion
+states. WebKit validation was blocked on the development device by
+missing native system dependencies; it is <strong>not</strong> counted as passed.</p>
+<p><strong>Payload comparison:</strong> baseline CSS is 43,991 raw bytes across two files
+(10,145 combined gzip bytes); selective CSS is 31,300 raw / 7,117 gzip
+bytes. Inline HTML grows from roughly 4.6 KB to 35.8 KB raw. This
+particular static fixture lacks a production application's HTML variability.</p>
+<p><strong>Interpretation:</strong> with no simulated network delay, LCP differences are
+inconsistent and small. Under the artificial CSS delay, inline CSS
+predictably avoids the blocked request and improves the first-load LCP
+by approximately 148–155 ms. Warm LCP is approximately 14–16 ms for all
+three methods. These are <strong>synthetic local measurements</strong>, not real-user
+Core Web Vitals or a general latency prediction. The test does not emulate
+real-world mobile throughput, packet loss, HTTP/2 priorities or server-side
+HTML processing time. Extra inlined HTML is repeated on every uncached
+document response and cannot be independently shared across routes.</p>
+<p><strong>Decision:</strong> prefer small, cacheable, selective external CSS for ordinary
+apps; reserve inline route-specific CSS for a measured high-latency case.
+Do <strong>not</strong> add a required runtime loader or automatic critical CSS
+extractor to Syntyr core on this evidence. A genuine extractor would also
+need to preserve nested themes, all responsive breakpoints, accessibility
+states, cascade layers, changing HTML and CSP authorizations.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#recommended-default-early-css-selective-modules-native-image-priority">Recommended default: early CSS, selective modules, native image priority</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#use-selective-builds-only-when-modules-really-matter">Use selective builds only when modules really matter</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#critical-css-conditional-optional-and-measured">Critical CSS: conditional, optional and measured</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#compare-two-variants-reproducibly">Compare two variants reproducibly</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#rendering-and-release-decisions">Rendering and release decisions</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#reproducible-route-specific-css-delivery-experiment-november-15-2026">Reproducible route-specific CSS delivery experiment (November 15, 2026)</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="progressive-loading.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Status: prepared for distribution, not published to npm. @syntyr/css is the intended package name, pending registry ownership/availability verification…">
+  <meta name="syntyr-source-sha256" content="f4730e4cbd7908fde0b43a3d6814fedd67066540e5f8481fcbf7f27d86386277">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Optional package-manager installation (alpha.5 candidate) — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/package-managers">
+  <link rel="alternate" type="text/markdown" href="package-managers.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Optional package-manager installation (alpha.5 candidate)</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="package-managers.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Optional package-manager installation (alpha.5 candidate)">
+<h1 id="optional-package-manager-installation-alpha5-candidate">Optional package-manager installation (alpha.5 candidate)</h1>
+<p><strong>Status: prepared for distribution, not published to npm.</strong> <code>@syntyr/css</code> is the intended package name, pending registry ownership/availability verification and an approved prerelease. Until then, use the <a href="distribution.html">published alpha.4 release</a> or locally pack the alpha.5 candidate. Do not claim that <code>npm install @syntyr/css</code> currently succeeds.</p>
+<p>Syntyr's canonical artifact remains the ordinary CSS files in <code>dist/</code>. The npm package is a second <strong>distribution path</strong> for projects that already use a package manager; it adds <strong>no JavaScript code, runtime dependencies, compiler, provider, or CSS-in-JS runtime</strong>. Plain HTML and server templates can continue to self-host the versioned CSS with no toolchain.</p>
+<h2 id="local-verification-before-publication">Local verification before publication</h2>
+<p>From this repository checkout:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+python3 -m unittest discover -s tests -v
+npm pack --dry-run --json --ignore-scripts
+npm pack --ignore-scripts
+python3 scripts/audit_npm_package.py  # verifies the real tarball, requires npm only for this check
+</code></pre>
+<p>The <code>npm pack</code> command creates <code>syntyr-css-0.3.0-alpha.5.tgz</code> locally; it does not publish to a registry. The subsequent audit packs a <strong>separate temporary tarball</strong>, validates every exported CSS file and its bytes against source, rejects extra files (including secrets), links and archive traversal, and deletes the temporary archive. For an already-created tarball, run <code>python3 scripts/audit_npm_package.py --archive /path/to/package.tgz</code> without invoking npm. This maintainer check is not a consumer build step. For a real Vite/React/Astro/Next application using a package manager, install that local archive for testing:</p>
+<pre tabindex="0"><code class="language-sh">npm install /path/to/syntyr-css-0.3.0-alpha.5.tgz
+</code></pre>
+<p>After the scoped name is verified, the release is approved, and the package is actually published, consumers can use <code>npm install @syntyr/css@&lt;published-version&gt;</code> instead.</p>
+<h2 id="import-the-css">Import the CSS</h2>
+<p>In an application CSS entrypoint processed by a bundler that supports package CSS imports:</p>
+<pre tabindex="0"><code class="language-css">@import &quot;@syntyr/css/core.css&quot;;
+/* Optional application layout recipes: */
+@import &quot;@syntyr/css/recipes.css&quot;;
+</code></pre>
+<p>Alternatively, import once from a supported JavaScript application entrypoint:</p>
+<pre tabindex="0"><code class="language-js">import '@syntyr/css/core.css';
+</code></pre>
+<p>This is a <strong>build-time stylesheet import</strong> in the host application, not Syntyr JavaScript. For a browser <code>&lt;link&gt;</code> tag, serve a <strong>copied CSS asset</strong> at a real URL: browsers do not resolve the bare <code>@syntyr/css/...</code> package specifier in <code>href</code>.</p>
+<p>Available subpaths: <code>core.css</code> (default), <code>semantic.css</code>, <code>server.css</code> (optional server-HTML state bridge), <code>semantic-bundle.css</code> (one-file core + semantic), <code>recipes.css</code>, <code>effects.css</code>, <code>geometry.css</code>, <code>symbols.css</code>, <code>viz.css</code>, <code>utilities.css</code>, <code>print.css</code>, <code>syntyr.css</code> (core + effects), <code>all.css</code>, and the opt-in <strong>Tailwind v4 build-time</strong> bridge <code>tailwind.css</code> and scoped shadcn semantic bridge <code>shadcn.css</code>. These exports are tested against the standard-library <code>scripts/build.py</code> distribution registry. Future CSS modules must update the exports and their contract test.</p>
+<p>The default import is deliberately <code>core.css</code>; <code>all.css</code> is opt-in. Do not import <code>all.css</code> alongside its component stylesheets or import <code>syntyr.css</code> alongside <code>core.css</code> and <code>effects.css</code>: doing so duplicates CSS and can complicate cascade debugging.</p>
+<h2 id="release-safety">Release safety</h2>
+<ul>
+<li><strong>No package publication is performed by the repository build.</strong> Publishing is a separate release-owner action.</li>
+<li>The <code>VERSION</code> and <code>package.json</code> version must match. Tagged alpha.4 CDN assets remain immutable.</li>
+<li>npm package file inclusion is restricted to the generated <code>dist/</code> folder, the optional <code>integrations/tailwind/</code> and <code>integrations/shadcn/</code> CSS bridges, <code>README.md</code> and <code>LICENSE</code> (plus npm's required package metadata). It excludes business notes, local configuration, unpublished premium designs and tests.</li>
+<li>CSS exports and the published asset set are checked in the standard Python unit test suite. <code>npm pack --dry-run --json --ignore-scripts</code> confirms what the npm client would actually package.</li>
+<li>The package contains no runtime JavaScript and requires no npm lifecycle scripts to install or consume.</li>
+<li>The scoped name and release version must be verified before any publish command is attempted.</li>
+</ul>
+<p>Individual CSS component exports (alpha.5 source candidate) are described in <a href="native-patterns.html">native patterns</a>. Load tokens and base before selected components. Do not combine full core with individual component imports.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#local-verification-before-publication">Local verification before publication</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#import-the-css">Import the CSS</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#release-safety">Release safety</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="package-managers.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

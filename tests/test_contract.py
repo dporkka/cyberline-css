@@ -1,6 +1,7 @@
 """Dependency-free contract checks for the Syntyr starter."""
 from pathlib import Path
 from html.parser import HTMLParser
+import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,7 +22,9 @@ class DemoParser(HTMLParser):
         if 'popover' in attrs: self.popovers.add(attrs.get('id'))
         if 'popovertarget' in attrs: self.targets.append(attrs['popovertarget'])
         if 'commandfor' in attrs: self.commands.append((attrs['commandfor'], attrs.get('command')))
-        if tag in ('link', 'img'):
+        # Canonical URLs are search metadata, not fetched runtime resources.
+        if tag == 'img' or (tag == 'link' and attrs.get('rel') in
+                            ('stylesheet', 'icon', 'preload', 'modulepreload')):
             self.resources.append(attrs.get('href', attrs.get('src', '')))
 
 def luminance(color):
@@ -38,7 +41,7 @@ class ContractTests(unittest.TestCase):
     def test_built_css_exists_and_keeps_declared_layers(self):
         css = (ROOT/'dist/syntyr.css').read_bytes()
         self.assertGreater(len(css), 0)
-        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.effects, syn.utilities;', css[:400])
+        self.assertIn(b'@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.viz, syn.utilities;', css[:400])
 
     def test_theme_tokens_and_components(self):
         css = (ROOT/'dist/syntyr.css').read_text()
@@ -72,8 +75,14 @@ class ContractTests(unittest.TestCase):
                 with self.subTest(theme=name, label=label):
                     self.assertGreaterEqual(contrast(front, back),4.5)
 
-    def test_no_package_manager_or_remote_assets(self):
-        self.assertFalse((ROOT/'package.json').exists())
-        self.assertFalse((ROOT/'node_modules').exists())
+    def test_no_tracked_package_manager_installation_state(self):
+        # Cloudflare Pages runs npm install when it finds package.json even
+        # though Syntyr has no JS dependencies. That creates an *untracked*
+        # package-lock.json during CI, which must not fail CSS contract tests.
+        tracked = subprocess.run(
+            ['git', 'ls-files', '--', 'node_modules/', 'package-lock.json',
+             'pnpm-lock.yaml', 'yarn.lock'],
+            cwd=ROOT, capture_output=True, text=True, check=True)
+        self.assertEqual(tracked.stdout.strip(), '', 'Do not commit package-manager installation artifacts')
 
 if __name__ == '__main__': unittest.main()

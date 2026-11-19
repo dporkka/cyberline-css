@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Style SaaS dashboards, business websites, and CLI-inspired interfaces with Syntyr&#x27;s framework-neutral Grid, Noir, and Studio themes.">
+  <meta name="syntyr-source-sha256" content="6e5a749f8442e9f8beccab7dc6f40f225c8e423a2d649bcf582bc40daef3613d">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>SaaS, business websites, and native CLI applications — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/saas-cli-business">
+  <link rel="alternate" type="text/markdown" href="saas-cli-business.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">SaaS, business websites, and native CLI applications</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="saas-cli-business.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="SaaS, business websites, and native CLI applications">
+<h1 id="saas-business-websites-and-native-cli-applications">SaaS, business websites, and native CLI applications</h1>
+<p>Syntyr is a <strong>framework-neutral styling library</strong>. Its three themes are orthogonal to page structure:</p>
+<table>
+<thead>
+<tr>
+<th>Theme</th>
+<th>Default use</th>
+<th>Palette</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>grid</code></td>
+<td>technical interfaces, operations tooling</td>
+<td>dark/cyan</td>
+</tr>
+<tr>
+<td><code>noir</code></td>
+<td>cinematic product sites, experimental campaigns</td>
+<td>dark/amber</td>
+</tr>
+<tr>
+<td><code>studio</code></td>
+<td>SaaS dashboards, professional websites and documentation</td>
+<td>light/blue</td>
+</tr>
+</tbody>
+</table>
+<p>Use Grid/Noir selectively—most enterprise interfaces benefit more from Studio's low-noise hierarchy than extensive neon decoration. <strong>All themes remain MIT licensed.</strong></p>
+<h2 id="start-with-a-modern-business-or-saas-ui">Start with a modern business or SaaS UI</h2>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.recipes.css&quot;&gt;
+&lt;section class=&quot;syn-root syn-region&quot; data-syn-theme=&quot;studio&quot;&gt;
+  &lt;div class=&quot;syn-kpi-grid&quot;&gt;
+    &lt;article class=&quot;syn-app-card syn-frame--soft&quot;&gt;
+      &lt;span class=&quot;syn-stat-label&quot;&gt;ACTIVE PROJECTS&lt;/span&gt;
+      &lt;p class=&quot;syn-stat-value&quot;&gt;24&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+<p>The optional recipes module provides app shells, responsive navigation, KPI cards, activity lists, editorial heroes, marketing feature grids, call-to-action bands and browser-rendered terminals. Use <code>syntyr.core.css</code> alone when you do not need full-page patterns. <code>syntyr.all.css</code> includes all optional modules, but the modular files are generally preferable for small websites.</p>
+<ul>
+<li><a href="../examples/saas.html">Responsive SaaS application</a></li>
+<li><a href="../examples/business.html">Professional business website</a></li>
+<li><a href="../examples/terminal.html">Browser terminal/documentation</a></li>
+<li><a href="../examples/console.html">Original Grid dashboard</a></li>
+<li><a href="../examples/landing.html">Original Noir marketing page</a></li>
+</ul>
+<p>All examples contain fictional data and no backend. You must supply application actions, authentication and server state. Native <code>details</code>, <code>dialog</code> and <code>popover</code> can reduce JavaScript, but compatibility of newer HTML invoker commands requires testing on the browsers you support.</p>
+<h2 id="real-terminal-applications-go-rust-python-etc">Real terminal applications (Go, Rust, Python, etc.)</h2>
+<p>A native shell application cannot load CSS. Syntyr instead provides <a href="../terminal/palettes.json"><code>terminal/palettes.json</code></a> with three matching terminal palettes:</p>
+<ul>
+<li><code>background</code>, <code>foreground</code>, <code>accent</code>, and <code>cursor</code>: design guidance for terminal emulator themes.</li>
+<li><code>ansi</code>: 16 hex RGB colors, ordered by ANSI indices 0–15 (standard black/red/green/yellow/blue/magenta/cyan/white followed by bright variants).</li>
+<li>CLI output: use foreground ANSI SGR sequences if supported, but <strong>never assume your application can control the user's terminal background</strong>.</li>
+</ul>
+<pre tabindex="0"><code class="language-bash">python3 examples/ansi_cli.py --theme studio
+python3 examples/ansi_cli.py --theme grid --no-color
+python3 examples/ansi_cli.py --theme noir | cat  # plain text, not ANSI
+</code></pre>
+<p>The demonstration uses Python's standard library only. It checks <code>sys.stdout.isatty()</code>, <code>NO_COLOR</code>, <code>CLICOLOR=0</code>, and <code>TERM=dumb</code> before printing true-color SGR escape sequences. A production CLI should additionally detect terminal color depth, handle Windows environments and let users override the theme. Prefer standard 8/16-color output or plain text when true-color support is unknown. Do not put ANSI control sequences in logs, data files, JSON or machine-readable output.</p>
+<p><strong>Do not mistake CSS browser-terminal panels for actual executable shells.</strong> The <code>.syn-terminal</code> class is presentation only.</p>
+<h2 id="accessibility-and-performance">Accessibility and performance</h2>
+<p>Themes should preserve readable body text and visible keyboard focus. Distinguish status with explicit words, not color alone. Check contrast in every pair used in a customized theme, including disabled and error states. The default <code>studio</code> palette is designed around WCAG AA text contrast; a real site still requires manual contrast, screen-reader, forced-colors and zoom testing.</p>
+<ul>
+<li><code>src/recipes.css</code> ships only when requested and does not add runtime JavaScript.</li>
+<li>CSS decorative surfaces are static by default. Avoid continuous glowing, flashing, animated scanlines and heavy blur.</li>
+<li>Avoid forcing a full viewport-height widget inside an app: use <code>.syn-page</code> on page-level roots only.</li>
+<li>Use container queries for embedded cards, but provide a simple stacked layout without support.</li>
+<li>For native CLIs, prefer readable default terminal styles over trying to repaint a user's terminal emulator.</li>
+</ul>
+<h2 id="commercial-boundaries">Commercial boundaries</h2>
+<p>The core, all three themes, reusable recipes, terminal palettes, documentation and these example pages are MIT licensed. Future paid offerings should be <strong>separately authored end-to-end page templates</strong> (complete dashboards, vertical SaaS apps or professionally composed marketing pages), not gated primitive classes or paid accessibility fixes.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#start-with-a-modern-business-or-saas-ui">Start with a modern business or SaaS UI</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#real-terminal-applications-go-rust-python-etc">Real terminal applications (Go, Rust, Python, etc.)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-performance">Accessibility and performance</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#commercial-boundaries">Commercial boundaries</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="saas-cli-business.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

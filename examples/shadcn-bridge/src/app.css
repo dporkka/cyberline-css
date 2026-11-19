@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "@syntyr/css/core.css";
+@import "@syntyr/css/shadcn.css";
+
+/* The consuming shadcn app already declares these @theme inline mappings.
+ * This fixture includes the minimal set needed to test real emitted classes. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-muted-foreground: var(--muted-foreground);
+}

@@ -1,0 +1,32 @@
+/* Optional server-driven HTML state bridge.
+   The server framework still owns requests, DOM patching, disabled controls,
+   accessibility announcements and validation. This file only changes a cursor.
+   Load after syntyr.core.css, never instead of it. */
+@layer syn.components {
+  /* Apply only inside a Syntyr-owned subtree, including a styled root itself. */
+  :where(.syn-root, .syn-root *) {
+    &.syn-button:where(
+      [data-loading],             /* Livewire 4 */
+      .htmx-request,             /* HTMX */
+      .up-active,                /* Unpoly request origin */
+      .phx-click-loading,        /* Phoenix LiveView */
+      .phx-change-loading,
+      .phx-submit-loading,
+      [data-syn-state="loading"] /* universal SSR state */
+    ):not(:disabled):not([aria-disabled="true"]) {
+      cursor: progress;
+    }
+  }
+
+  /* HTMX, Unpoly and LiveView often mark the enclosing form during submission. */
+  .syn-root :where(form.htmx-request, form.up-active, form.phx-submit-loading)
+    :where(.syn-button[type="submit"]:not(:disabled):not([aria-disabled="true"])) {
+    cursor: progress;
+  }
+
+  /* Turbo marks the frame while its replacement is in flight. */
+  .syn-root :where(turbo-frame[busy])
+    :where(.syn-button:not(:disabled):not([aria-disabled="true"])) {
+    cursor: progress;
+  }
+}

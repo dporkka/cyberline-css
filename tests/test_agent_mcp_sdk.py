@@ -1,0 +1,54 @@
+"""Real MCP SDK discovery and tool calls, not a mocked JSON-RPC interface."""
+import asyncio
+import unittest
+
+try:
+    from mcp import Client
+    from agent_mcp import server as adapter
+except ImportError:
+    Client = None
+    adapter = None
+
+
+@unittest.skipUnless(Client is not None, "Install optional MCP SDK to run integration")
+class AgentMcpSdkTests(unittest.TestCase):
+    def test_mcp_tools_are_discoverable_and_use_published_api(self):
+        self.assertTrue(hasattr(adapter, "server"))
+        async def run():
+            async with Client(adapter.server) as client:
+                listing = await client.list_tools()
+                names = {tool.name for tool in listing.tools}
+                self.assertGreaterEqual(names, {
+                    "search_components", "get_component", "lookup_api",
+                    "get_theme_tokens", "validate_markup",
+                })
+                result = await client.call_tool("lookup_api", {
+                    "name": "syn-button--primary", "release": "0.3.0-alpha.4",
+                })
+                self.assertFalse(result.is_error)
+                structured = result.structured_content
+                self.assertEqual(structured["release_status"], "published")
+                self.assertEqual(structured["entry"]["stylesheet"], "syntyr.core.css")
+                invalid = await client.call_tool("get_component", {
+                    "name": "Form compositions", "release": "0.3.0-alpha.4",
+                })
+                self.assertTrue(invalid.is_error)
+                self.assertIn("unavailable", str(invalid.content).lower())
+                check = await client.call_tool("validate_markup", {
+                    "html": '<button class="syn-buttn" data-syn-theme="industrial">Go</button>',
+                    "release": "0.3.0-alpha.4", "stylesheets": ["syntyr.core.css"],
+                })
+                self.assertFalse(check.is_error)
+                result = check.structured_content
+                self.assertEqual(result["unknown_classes"], ["syn-buttn"])
+                self.assertEqual({d["code"] for d in result["diagnostics"]},
+                                 {"unknown-class", "invalid-attribute-value"})
+                typo = next(d for d in result["diagnostics"] if d["code"] == "unknown-class")
+                self.assertIn("syn-button", [s["name"] for s in typo["suggestions"]])
+                for tool in listing.tools:
+                    self.assertIs(tool.annotations.read_only_hint, True)
+        asyncio.run(run())
+
+
+if __name__ == "__main__":
+    unittest.main()

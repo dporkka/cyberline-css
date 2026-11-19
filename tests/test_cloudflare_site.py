@@ -4,6 +4,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.parse import unquote, urlsplit
 import json
+import re
 import subprocess
 import sys
 import unittest
@@ -38,12 +39,24 @@ class CloudflareSiteTests(unittest.TestCase):
             self.assertTrue((out / "404.html").is_file())
             self.assertTrue((out / "docs/index.html").is_file())
             self.assertTrue((out / "docs/framework-integrations.md").is_file())
+            self.assertTrue((out / "docs/mobile-frameworks.md").is_file())
+            self.assertTrue((out / "metadata/mobile/syntyr.tokens.json").is_file())
+            self.assertTrue((out / "integrations/react-native/styles.ts").is_file())
+            self.assertTrue((out / "examples/react-native/App.tsx").is_file())
             self.assertTrue((out / "docs/performance-validation.md").is_file())
             self.assertTrue((out / "docs/performance-and-polish.md").is_file())
             self.assertTrue((out / "dist/syntyr.core.css").is_file())
             self.assertTrue((out / "examples/operations-console.html").is_file())
             self.assertTrue((out / "examples/themes.html").is_file())
+            self.assertTrue((out / "docs/native-browser-apis.md").is_file())
+            self.assertTrue((out / "examples/native-apis.html").is_file())
+            self.assertTrue((out / "examples/dropdowns.html").is_file())
+            self.assertTrue((out / "docs/dropdowns.md").is_file())
+            self.assertTrue((out / "docs/dropdowns.html").is_file())
             self.assertTrue((out / "dist/syntyr.utilities.css").is_file())
+            contract = json.loads((out / "metadata/syntyr-contract.json").read_text())
+            self.assertEqual(contract["schema_version"], 1)
+            self.assertTrue(any(c["name"] == "syn-button" for c in contract["classes"]))
             self.assertTrue((out / "terminal/palettes.json").is_file())
             self.assertFalse((out / "business").exists())
             self.assertFalse((out / "tests").exists())
@@ -66,9 +79,25 @@ class CloudflareSiteTests(unittest.TestCase):
                     resolved = target / 'index.html' if target.is_dir() else target
                     self.assertTrue(resolved.is_file(), (page, url))
             self.assertTrue((out / "docs/theme-editor.js").is_file())
-            self.assertFalse(any("<script" in page.read_text().lower()
-                                 for page in out.rglob("*.html")
-                                 if page.relative_to(out).as_posix() != "docs/theme-editor.html"))
+            for name in ("page-builder.html", "page-builder.css", "page-builder.js", "page-builder-model.mjs", "page-builder-guide.md", "page-builder-guide.html"):
+                self.assertTrue((out / "docs" / name).is_file(), name)
+            # JSON-LD is inert data, not browser-executed JavaScript.
+            self.assertFalse(any(
+                "<script" in re.sub(
+                    r'<script type="application/ld\+json">.*?</script>', "",
+                    page.read_text(encoding="utf-8"), flags=re.I | re.S
+                ).lower()
+                for page in out.rglob("*.html")
+                if page.relative_to(out).as_posix() not in {
+                    "docs/theme-editor.html", "docs/catalog.html",
+                    "docs/playground.html", "docs/page-builder.html", "docs/blocks.html",
+                    "docs/how-to.html",  # Docs-only search, same CSP as the catalog.
+                    "examples/animation.html", "examples/copy.html",
+                    "examples/resizable-workspace.html",
+                    "examples/command-launcher.html",
+                    # Explicitly opted-in first-party ESM examples only.
+                }
+            ))
 
     def test_cache_contract_and_version_snapshot(self):
         with TemporaryDirectory() as temp:

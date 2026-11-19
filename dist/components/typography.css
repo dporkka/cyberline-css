@@ -1,0 +1,31 @@
+@layer syn.components {
+  /* All component rules match the root itself or a descendant, never a host sibling. */
+  :where(.syn-root, .syn-root *) {
+    &.syn-logo { display: inline-block; max-inline-size: 100%; overflow-wrap: anywhere; font: 700 .95rem/1 var(--syn-mono); letter-spacing: .22em; text-decoration: none; color: var(--syn-text); }
+    &.syn-eyebrow { font: 700 var(--syn-type-xs)/1.4 var(--syn-font-ui); letter-spacing: .15em; text-transform: uppercase; color: var(--syn-accent); }
+    &.syn-title, &.syn-display { font-family: var(--syn-font-display); font-size: var(--syn-type-display); line-height: 1.08; letter-spacing: var(--syn-tracking-display); margin-block: 1rem; max-width: 14ch; text-wrap: balance; }
+    &.syn-heading { font-family: var(--syn-font-display); font-size: var(--syn-type-heading); line-height: 1.2; margin-block: .5rem 1rem; }
+    &.syn-section-heading { font: 650 var(--syn-type-section)/1.16 var(--syn-font-display); letter-spacing: -.03em; margin-block: .5rem 1rem; max-inline-size: 32ch; text-wrap: balance; }
+    &.syn-body { font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+    &.syn-text-support { font: 400 var(--syn-type-sm)/1.5 var(--syn-font-ui); color: var(--syn-text-subtle); }
+    /* Opt-in vertical rhythm; does not alter unwrapped host document styles. */
+    &.syn-prose { max-width: 65ch; font: 400 var(--syn-type-body)/var(--syn-leading-body) var(--syn-font-ui); }
+    &.syn-prose > :where(* + *) { margin-block-start: var(--syn-space-2); }
+    &.syn-prose > :where(h2, h3, h4) { margin-block-start: var(--syn-space-4); }
+    &.syn-lede { max-width: 56ch; color: var(--syn-muted); }
+    &.syn-muted { color: var(--syn-text-subtle); }
+    &.syn-mono { font-family: var(--syn-mono); font-variant-numeric: tabular-nums; }
+    &.syn-caption { overflow-wrap: anywhere; color: var(--syn-text-subtle); font: 500 var(--syn-type-xs)/1.5 var(--syn-font-ui); letter-spacing: .04em; }
+    &.syn-metric { margin: .5rem 0 0; font: 650 clamp(2.2rem, 5vw, 3.3rem)/1.1 var(--syn-font-display); font-variant-numeric: tabular-nums; letter-spacing: -.06em; }
+    &.syn-rule { border: 0; border-top: 1px solid var(--syn-frame); margin-block: 1.25rem; }
+    &.syn-badge { display: inline-flex; width: fit-content; max-width: 100%; overflow-wrap: anywhere; align-items: center; gap: .45rem; padding: .34rem .6rem; border: 1px solid var(--syn-border-subtle); background: var(--syn-surface-raised); color: var(--syn-text); font: 650 var(--syn-type-xs)/1.25 var(--syn-font-ui); letter-spacing: .04em; }
+    /* Accented badge is explicit; status indicators belong to .syn-status. */
+    &.syn-badge--accent { border-color: var(--syn-frame); background: var(--syn-accent-soft); color: var(--syn-accent); }
+    &.syn-alert { padding: .8rem 1rem; border-inline-start: 3px solid var(--syn-accent); background: var(--syn-surface); color: var(--syn-text); }
+    &.syn-alert--danger { border-inline-start-color: var(--syn-danger); }
+    &.syn-alert--success { border-inline-start-color: var(--syn-success); }
+    &.syn-alert--warning { border-inline-start-color: var(--syn-warning); }
+    &.syn-code { font: .85em/1.5 var(--syn-mono); overflow-wrap: anywhere; background: var(--syn-surface-hi); padding: .12em .35em; }
+    @media (forced-colors: active) { &.syn-badge, &.syn-alert { border-color: CanvasText; } }
+  }
+}

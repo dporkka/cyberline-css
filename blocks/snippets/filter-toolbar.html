@@ -1,0 +1,12 @@
+<section class="syn-root syn-region" data-syn-theme="studio" aria-labelledby="syn-filter-heading">
+  <h2 id="syn-filter-heading" class="syn-heading">Find a request</h2>
+  <form class="syn-panel syn-form" method="get" action="/requests">
+    <label class="syn-label" for="syn-block-query">Search by name</label>
+    <input class="syn-input" id="syn-block-query" name="query" type="search" placeholder="Search requests">
+    <label class="syn-label" for="syn-block-status">Status</label>
+    <select class="syn-select" id="syn-block-status" name="status">
+      <option value="">All statuses</option><option value="open">Open</option><option value="closed">Closed</option>
+    </select>
+    <button class="syn-button syn-button--primary" type="submit">Apply filters</button>
+  </form>
+</section>

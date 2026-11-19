@@ -1,0 +1,299 @@
+@layer syn.tokens, syn.base, syn.components, syn.semantic, syn.recipes, syn.geometry, syn.symbols, syn.effects, syn.viz, syn.utilities;
+
+@layer syn.tokens {
+  :where(.syn-root) {
+    color-scheme: light;
+    --syn-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --syn-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+    --syn-type-xs: .75rem;
+    --syn-type-sm: .875rem;
+    --syn-type-base: 1rem;
+    /* Type roles are independent from theme palettes and optional font loading. */
+    --syn-type-body: var(--syn-type-base);
+    --syn-type-heading: clamp(1.15rem, 2.4vw, 1.55rem);
+    --syn-type-section: clamp(1.5rem, 1.25rem + 1.25vw, 2.125rem);
+    --syn-type-display: clamp(2rem, 5.5vw, 4rem);
+    --syn-leading-body: 1.55;
+    --syn-tracking-display: -.045em;
+    --syn-space-1: .375rem;
+    --syn-space-2: .75rem;
+    --syn-space-3: 1.125rem;
+    --syn-space-4: 1.75rem;
+    --syn-space-5: 2.5rem;
+    --syn-cut: .9rem;
+    --syn-radius: .25rem;
+    --syn-line: 1.55;
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+    --syn-shadow-sm: 0 1px 3px rgb(0 0 0 / 8%);
+    --syn-shadow-raised: 0 8px 24px rgb(0 0 0 / 12%);
+    --syn-shadow-overlay: 0 20px 70px rgb(0 0 0 / 45%);
+    --syn-ease: cubic-bezier(.2, .8, .2, 1);
+    --syn-ease-enter: cubic-bezier(.16, 1, .3, 1);
+    --syn-duration-fast: 150ms;
+    --syn-duration-standard: 240ms;
+  }
+  /* Derived surfaces recompute inside nested themes, not just on the parent. */
+  :where(.syn-root, .syn-root [data-syn-theme]) {
+    --syn-surface-recessed: color-mix(in srgb, var(--syn-bg) 88%, var(--syn-surface));
+    --syn-surface-raised: color-mix(in srgb, var(--syn-surface) 72%, var(--syn-surface-hi));
+    /* Nested-theme-aware overlay roles; no hardcoded light/dark surface colors. */
+    --syn-surface-floating: color-mix(in srgb, var(--syn-surface) 45%, var(--syn-surface-hi));
+    --syn-border-floating: var(--syn-frame-strong);
+    --syn-border-subtle: color-mix(in srgb, var(--syn-frame) 60%, transparent);
+    /* These aliases recompute in nested themed regions. */
+    --syn-text-subtle: var(--syn-muted);
+    --syn-border-default: var(--syn-frame);
+    --syn-border-hover: var(--syn-frame-strong);
+    --syn-border-focus: var(--syn-accent);
+    --syn-focus-ring: var(--syn-accent);
+    --syn-surface-interactive: var(--syn-surface-hi);
+    --syn-surface-hover: color-mix(in srgb, var(--syn-surface-hi) 83%, var(--syn-accent));
+    --syn-surface-pressed: var(--syn-accent-soft);
+    /* Keep hover contrast identical to the approved accent/foreground pair by default. */
+    --syn-primary-hover-bg: var(--syn-accent);
+    --syn-font-ui: var(--syn-font);
+    --syn-font-display: var(--syn-font);
+  }
+  /* Compact presentation is an opt-in layout control, never a font-size override. */
+  :where(.syn-root[data-syn-density="compact"], .syn-root [data-syn-density="compact"]) {
+    --syn-control-height: 2.25rem;
+    --syn-control-padding-block: .3rem;
+    --syn-row-padding-block: .4rem;
+    --syn-card-padding: var(--syn-space-2);
+  }
+  /* Explicit default restores regular spacing inside a compact ancestor. */
+  :where(.syn-root[data-syn-density="comfortable"], .syn-root [data-syn-density="comfortable"]) {
+    --syn-control-height: 2.75rem;
+    --syn-control-padding-block: .7rem;
+    --syn-row-padding-block: .7rem;
+    --syn-card-padding: var(--syn-space-3);
+  }
+  /* Spacious is for form-heavy or review contexts, without scaling typography. */
+  :where(.syn-root[data-syn-density="spacious"], .syn-root [data-syn-density="spacious"]) {
+    --syn-control-height: 3.25rem;
+    --syn-control-padding-block: .95rem;
+    --syn-row-padding-block: 1rem;
+    --syn-card-padding: var(--syn-space-4);
+  }
+  /* Visual richness is independent of palette, geometry and density.
+     Explicit values on descendants reset the inherited presentation profile. */
+  :where(.syn-root, .syn-root [data-syn-intensity="standard"]) {
+    --syn-grid-alpha: 5%;
+    --syn-glow-alpha: 12%;
+    --syn-wash-alpha: 15%;
+    --syn-wash-secondary-alpha: 10%;
+    --syn-horizon-alpha: 10%;
+    --syn-scanline-alpha: 10%;
+  }
+  :where(.syn-root[data-syn-intensity="quiet"], .syn-root [data-syn-intensity="quiet"]) {
+    --syn-grid-alpha: 1%;
+    --syn-glow-alpha: 0%;
+    --syn-wash-alpha: 4%;
+    --syn-wash-secondary-alpha: 3%;
+    --syn-horizon-alpha: 2%;
+    --syn-scanline-alpha: 0%;
+  }
+  :where(.syn-root[data-syn-intensity="cinematic"], .syn-root [data-syn-intensity="cinematic"]) {
+    --syn-grid-alpha: 10%;
+    --syn-glow-alpha: 25%;
+    --syn-wash-alpha: 26%;
+    --syn-wash-secondary-alpha: 18%;
+    --syn-horizon-alpha: 17%;
+    --syn-scanline-alpha: 12%;
+  }
+  /* Neutral default; named palettes override it independently. */
+  :where(.syn-root, .syn-root[data-syn-theme="studio"], .syn-root [data-syn-theme="studio"]) {
+    color-scheme: light;
+    --syn-bg: #f5f7fb;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #eaf0f8;
+    --syn-text: #15233a;
+    --syn-muted: #4b5d76;
+    --syn-accent: #2458c6;
+    --syn-accent-2: #176b80;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #b8c6d8;
+    --syn-frame-strong: #6685b2;
+    --syn-danger: #ad2637;
+    --syn-success: #17694b;
+    --syn-warning: #92500a;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="grid"], .syn-root [data-syn-theme="grid"]) {
+    color-scheme: dark;
+    --syn-bg: #080f19;
+    --syn-surface: #111f2c;
+    --syn-surface-hi: #172a3b;
+    --syn-text: #edf9ff;
+    --syn-muted: #adbfca;
+    --syn-accent: #76e7f7;
+    --syn-accent-2: #f7b06c;
+    --syn-on-accent: #07121a;
+    --syn-frame: #345569;
+    --syn-frame-strong: #5086a0;
+    --syn-danger: #ffaaa4;
+    --syn-success: #8ce6bb;
+    --syn-warning: #ffd08b;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="noir"], .syn-root [data-syn-theme="noir"]) {
+    color-scheme: dark;
+    --syn-bg: #0e0e12;
+    --syn-surface: #1c1b20;
+    --syn-surface-hi: #2a2628;
+    --syn-text: #f8eee5;
+    --syn-muted: #c3b5aa;
+    --syn-accent: #f1b574;
+    --syn-accent-2: #9acfd5;
+    --syn-on-accent: #1c100b;
+    --syn-frame: #625048;
+    --syn-frame-strong: #9a7557;
+    --syn-danger: #ffc1ac;
+    --syn-success: #a5e4bc;
+    --syn-warning: #fbd18c;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 10%, transparent);
+    --syn-radius: .25rem;
+    --syn-cut: .9rem;
+  }
+  :where(.syn-root[data-syn-theme="industrial"], .syn-root [data-syn-theme="industrial"]) {
+    color-scheme: dark;
+    --syn-bg: #121417;
+    --syn-surface: #1c2023;
+    --syn-surface-hi: #2a3033;
+    --syn-text: #f3f2ee;
+    --syn-muted: #c0c5c8;
+    --syn-accent: #ffb36b;
+    --syn-accent-2: #d6c9a9;
+    --syn-on-accent: #241409;
+    --syn-frame: #69747b;
+    --syn-frame-strong: #a0b0b7;
+    --syn-danger: #ffb2a7;
+    --syn-success: #8dedb0;
+    --syn-warning: #ffd08f;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: .15rem;
+    --syn-cut: .45rem;
+  }
+  :where(.syn-root[data-syn-theme="terminal"], .syn-root [data-syn-theme="terminal"]) {
+    color-scheme: dark;
+    --syn-bg: #07130d;
+    --syn-surface: #0d1f17;
+    --syn-surface-hi: #153325;
+    --syn-text: #d9fce7;
+    --syn-muted: #a2d2b5;
+    --syn-accent: #65e8a0;
+    --syn-accent-2: #a6f0ce;
+    --syn-on-accent: #062011;
+    --syn-frame: #3e8761;
+    --syn-frame-strong: #69bd8a;
+    --syn-danger: #f6a8a8;
+    --syn-success: #74e7a7;
+    --syn-warning: #eccd86;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 11%, transparent);
+    --syn-radius: 0;
+    --syn-cut: 0;
+  }
+  :where(.syn-root[data-syn-theme="corporate"], .syn-root [data-syn-theme="corporate"]) {
+    color-scheme: light;
+    --syn-bg: #f5f8fc;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #e8eef6;
+    --syn-text: #18273c;
+    --syn-muted: #4b5d72;
+    --syn-accent: #155ac8;
+    --syn-accent-2: #087a8a;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #73859b;
+    --syn-frame-strong: #526c8c;
+    --syn-danger: #b42331;
+    --syn-success: #147446;
+    --syn-warning: #9a5600;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 9%, transparent);
+    --syn-radius: .5rem;
+    --syn-cut: 0;
+  }
+  :where(.syn-root[data-syn-theme="minimal"], .syn-root [data-syn-theme="minimal"]) {
+    color-scheme: light;
+    --syn-bg: #f7f7f5;
+    --syn-surface: #ffffff;
+    --syn-surface-hi: #ebedee;
+    --syn-text: #202328;
+    --syn-muted: #5c6168;
+    --syn-accent: #313a45;
+    --syn-accent-2: #56606b;
+    --syn-on-accent: #ffffff;
+    --syn-frame: #7b8189;
+    --syn-frame-strong: #555b62;
+    --syn-danger: #aa2f3c;
+    --syn-success: #1f6c45;
+    --syn-warning: #8d5200;
+    --syn-accent-soft: color-mix(in srgb, var(--syn-accent) 7%, transparent);
+    --syn-radius: .375rem;
+    --syn-cut: 0;
+  }
+
+
+  /* Opt-in system palette: Studio in light mode, Grid in dark mode.
+     Engines without light-dark() fall back to the neutral Studio palette. */
+  @supports (color: light-dark(white, black)) {
+    :where(.syn-root[data-syn-theme="auto"], .syn-root [data-syn-theme="auto"]) {
+      color-scheme: light dark;
+      --syn-bg: light-dark(#f5f7fb, #080f19);
+      --syn-surface: light-dark(#ffffff, #111f2c);
+      --syn-surface-hi: light-dark(#eaf0f8, #172a3b);
+      --syn-text: light-dark(#15233a, #edf9ff);
+      --syn-muted: light-dark(#4b5d76, #adbfca);
+      --syn-accent: light-dark(#2458c6, #76e7f7);
+      --syn-accent-2: light-dark(#176b80, #f7b06c);
+      --syn-on-accent: light-dark(#ffffff, #07121a);
+      --syn-frame: light-dark(#b8c6d8, #345569);
+      --syn-frame-strong: light-dark(#6685b2, #5086a0);
+      --syn-danger: light-dark(#ad2637, #ffaaa4);
+      --syn-success: light-dark(#17694b, #8ce6bb);
+      --syn-warning: light-dark(#92500a, #ffd08b);
+      --syn-accent-soft: light-dark(color-mix(in srgb, var(--syn-accent) 9%, transparent), color-mix(in srgb, var(--syn-accent) 11%, transparent));
+      --syn-radius: .25rem;
+      --syn-cut: .9rem;
+    }
+  }
+  /* Experimental perceptual mixing: explicitly enable per root or themed region.
+     The default sRGB role remains intact on unsupported engines and elsewhere.
+     Do not recolor semantic text/accent pairings without a contrast audit. */
+  @supports (color: color-mix(in oklch, red, blue)) {
+    :where(.syn-root[data-syn-color-space="oklch"],
+           .syn-root [data-syn-color-space="oklch"]) {
+      --syn-surface-hover: color-mix(in oklch, var(--syn-surface-hi) 83%, var(--syn-accent));
+    }
+  }
+
+  /* Technical typography is an explicit choice, not the neutral root default. */
+  :where(.syn-root[data-syn-theme="grid"],
+         .syn-root [data-syn-theme="grid"], .syn-root[data-syn-theme="terminal"],
+         .syn-root [data-syn-theme="terminal"]) {
+    --syn-font-ui: var(--syn-mono);
+    --syn-font-display: var(--syn-mono);
+  }
+
+  /* Higher contrast preserves nested theme and intensity overrides.
+     Custom application CSS can still override these layered defaults. */
+  @media (prefers-contrast: more) {
+    :where(.syn-root, .syn-root [data-syn-theme], .syn-root [data-syn-intensity]) {
+      --syn-border-subtle: var(--syn-frame-strong);
+      --syn-border-default: var(--syn-frame-strong);
+      --syn-shadow-raised: 0 0 0 transparent;
+      --syn-grid-alpha: 0%;
+      --syn-glow-alpha: 0%;
+      --syn-wash-alpha: 0%;
+      --syn-wash-secondary-alpha: 0%;
+      --syn-horizon-alpha: 0%;
+      --syn-scanline-alpha: 0%;
+    }
+  }
+}

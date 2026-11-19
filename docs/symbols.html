@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Syntyr styles user-supplied icons and text; it does not ship icon glyphs, an icon font, emoji assets, a JavaScript icon runtime, or an ASCII-art…">
+  <meta name="syntyr-source-sha256" content="d6b88b0deac2e582f5e90f8860ee8d95d8002d371838bc417f3a80133b29eaca">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Icons, Unicode, and ASCII art (optional) — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/symbols">
+  <link rel="alternate" type="text/markdown" href="symbols.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Icons, Unicode, and ASCII art (optional)</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="symbols.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Icons, Unicode, and ASCII art (optional)">
+<h1 id="icons-unicode-and-ascii-art-optional">Icons, Unicode, and ASCII art (optional)</h1>
+<p>Syntyr styles user-supplied icons and text; it <strong>does not</strong> ship icon glyphs, an
+icon font, emoji assets, a JavaScript icon runtime, or an ASCII-art generator.
+The free MIT module is <code>dist/syntyr.symbols.css</code>. It is optional and works
+with any of the seven source themes, server-rendered HTML and framework views.</p>
+<pre tabindex="0"><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.core.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/css/syntyr.symbols.css&quot;&gt;
+</code></pre>
+<p>Use these two files, <strong>or</strong> <code>syntyr.all.css</code>, not both. If you don't use
+icons or text art, load core alone. The module is also included in the
+unreleased alpha.5 <code>syntyr.all.css</code> source bundle.</p>
+<h2 id="1-svg-icons-no-mandatory-icon-pack">1. SVG icons (no mandatory icon pack)</h2>
+<p>Syntyr's <code>.syn-icon</code> is only a sizing, alignment and inheritance contract.
+Put it directly on an inline SVG, or on a wrapper around an SVG. Default size
+is <code>1.25em</code>; override <code>--syn-icon-size</code> for a specific icon or container.
+SVG <code>stroke</code> and <code>fill</code> remain under your control; this supports both
+outline packs and filled icons. The following path is an original example.</p>
+<pre tabindex="0"><code class="language-html">&lt;button type=&quot;button&quot; class=&quot;syn-button&quot;&gt;
+  &lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot;
+       stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; aria-hidden=&quot;true&quot;
+       focusable=&quot;false&quot;&gt;
+    &lt;path d=&quot;M20 7v5h-5M4 17v-5h5M5.8 9a7 7 0 0 1 12.8-1.8L20 12M4 12l1.4 4.8A7 7 0 0 0 18.2 15&quot;/&gt;
+  &lt;/svg&gt;
+  Refresh report
+&lt;/button&gt;
+&lt;button type=&quot;button&quot; class=&quot;syn-button&quot; aria-label=&quot;Search reports&quot;&gt;
+  &lt;svg class=&quot;syn-icon&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot;
+       stroke=&quot;currentColor&quot; stroke-width=&quot;1.8&quot; aria-hidden=&quot;true&quot;
+       focusable=&quot;false&quot;&gt;
+    &lt;circle cx=&quot;10.5&quot; cy=&quot;10.5&quot; r=&quot;6.5&quot;/&gt;
+    &lt;path d=&quot;m15.5 15.5 5 5&quot;/&gt;
+  &lt;/svg&gt;
+&lt;/button&gt;
+</code></pre>
+<p><strong>Supported icon sources:</strong> your own SVGs, or individually imported or copied
+assets from Lucide, Heroicons, Tabler, and similar libraries under their
+respective licenses. None is vendored or required. Avoid loading an entire
+icon font or a massive SVG sprite for a handful of icons. An SVG that uses
+<code>currentColor</code> inherits Syntyr's theme colors automatically.</p>
+<h2 id="2-unicode-as-actual-text">2. Unicode as actual text</h2>
+<pre tabindex="0"><code class="language-html">&lt;span class=&quot;syn-symbol syn-symbol--accent&quot; aria-hidden=&quot;true&quot;&gt;◆&lt;/span&gt;
+&lt;span&gt;Operational&lt;/span&gt;
+&lt;span class=&quot;syn-symbol syn-symbol--muted&quot; aria-hidden=&quot;true&quot;&gt;→&lt;/span&gt;
+&lt;span&gt;Details&lt;/span&gt;
+</code></pre>
+<p>Useful small marks include <code>→</code>, <code>›</code>, <code>◆</code>, <code>◇</code>, <code>●</code>, <code>▸</code>, <code>⌘</code>,
+and <code>⌁</code>. They are examples, not a mandatory character vocabulary. Unicode
+symbols need font coverage; system font fallbacks, emoji variation selectors,
+platform-specific glyphs, high-contrast mode and text direction can all change
+their presentation. Check the exact characters in your target browsers and fonts.
+Do not rely on a symbol's color or shape alone to communicate state.</p>
+<h2 id="3-ascii-and-unicode-box-drawing-art">3. ASCII and Unicode box-drawing art</h2>
+<p>Use real <code>&lt;pre&gt;</code> text. <code>.syn-ascii</code> preserves spaces, line breaks and
+monospace alignment and scrolls horizontally rather than splitting a border.
+It pairs with existing <code>.syn-terminal</code> recipes, but does not require them.</p>
+<pre tabindex="0"><code class="language-html">&lt;p id=&quot;sys-health&quot;&gt;API online and jobs online.&lt;/p&gt;
+&lt;pre class=&quot;syn-ascii syn-ascii--accent&quot; aria-hidden=&quot;true&quot;&gt;+-------------------+
+|  SYSTEM: ONLINE   |
++-------------------+
+|  API  [OK]        |
+|  JOBS [OK]        |
++-------------------+&lt;/pre&gt;
+</code></pre>
+<p>The example above is <strong>ASCII</strong>. Unicode box-drawing characters such as
+<code>┌─┐│└─┘</code> are an optional visual alternative, not ASCII. Unicode can contain
+wide or ambiguous-width characters, so text grids may not align consistently
+across fonts and platforms; don't embed emoji in precision-aligned columns.
+Use spaces, not tabs, for exact alignment. The CSS never inserts semantic
+content with <code>::before</code> or <code>::after</code>.</p>
+<h2 id="accessibility-and-fallback-rules">Accessibility and fallback rules</h2>
+<ul>
+<li>Decorative SVGs and symbols next to visible labels use
+<code>aria-hidden=&quot;true&quot;</code>; inline SVGs may also use <code>focusable=&quot;false&quot;</code>.
+Icon-only interactive controls need a meaningful accessible name
+(<code>aria-label</code> or visible visually-hidden text) and keyboard focus.</li>
+<li>Decorative text art may use <code>aria-hidden=&quot;true&quot;</code>, <strong>but the information
+must also exist as ordinary visible text, table or markup</strong>. If the art
+conveys important information, do not hide it without an equivalent.
+Test with a screen reader, zoom/reflow and forced-colors settings.</li>
+<li>Don't depend on Unicode or pseudoelement <code>content</code> for meaningful labels.
+A missing glyph must never remove an action or its status semantics.</li>
+<li>Native CLI programs do <strong>not</strong> load CSS. Use Syntyr's separate
+<code>terminal/palettes.json</code> ANSI colors, honor <code>NO_COLOR</code>, detect TTY
+support, and offer a plain-text fallback. Don't impose Unicode art on
+terminals that cannot render it.</li>
+</ul>
+<p>See the <a href="../examples/symbols.html">standalone gallery</a>, the existing
+<a href="geometry-terminal.html">terminal and geometry guide</a>, and the
+<a href="distribution.html">CSS distribution notes</a>.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#1-svg-icons-no-mandatory-icon-pack">1. SVG icons (no mandatory icon pack)</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#2-unicode-as-actual-text">2. Unicode as actual text</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#3-ascii-and-unicode-box-drawing-art">3. ASCII and Unicode box-drawing art</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#accessibility-and-fallback-rules">Accessibility and fallback rules</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="symbols.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>

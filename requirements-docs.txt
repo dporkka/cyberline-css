@@ -1,0 +1,2 @@
+# Maintainer-only Markdown-to-HTML generation; never shipped with CSS or the static site.
+markdown-it-py==3.0.0

@@ -56,6 +56,58 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(noir.evaluate("e => getComputedStyle(e).getPropertyValue('--syn-accent').trim()"), '#f1b574')
         self.assertEqual(grid.locator('.syn-panel').count(), 0) # this panel *is* the theme root
 
+    def test_explicit_and_optional_css_never_escape_root(self):
+        """CSS class names on a host page must not trigger Syntyr styling."""
+        all_css = (ROOT / 'dist/syntyr.all.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{all_css}</style>
+          <button id="host-button" class="syn-button">Host action</button>
+          <article id="host-panel" class="syn-panel">Host article</article>
+          <div id="host-shell" class="syn-app-shell">Unrelated grid</div>
+          <section id="host-glow" class="syn-glow">Host glow</section>
+          <div id="host-frame" class="syn-frame syn-frame--precision">Host frame</div>
+          <section class="syn-root" data-syn-theme="studio">
+            <button id="inside-button" class="syn-button syn-button--primary">Inside action</button>
+            <article id="inside-panel" class="syn-panel">Inside article</article>
+            <div id="inside-shell" class="syn-app-shell">Inside grid</div>
+            <section id="inside-glow" class="syn-glow">Inside glow</section>
+            <div id="inside-frame" class="syn-frame syn-frame--precision">Inside frame</div>
+          </section>
+          <article id="self-panel" class="syn-root syn-panel" data-syn-theme="studio">Root is panel</article>
+          <section id="self-region" class="syn-root syn-region" data-syn-theme="studio">
+            <div id="region-child" class="syn-stats"><article class="syn-stat">Stat</article></div>
+          </section>""")
+        get = lambda selector, prop: self.page.locator(selector).evaluate(
+            "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
+        self.assertNotEqual(get('#host-button', 'display'), 'inline-flex')
+        self.assertNotEqual(get('#host-panel', 'position'), 'relative')
+        self.assertNotEqual(get('#host-shell', 'display'), 'grid')
+        self.assertEqual(get('#host-glow', 'box-shadow'), 'none')
+        self.assertEqual(get('#host-frame', 'border-top-style'), 'none')
+        self.assertEqual(get('#inside-button', 'display'), 'inline-flex')
+        self.assertEqual(get('#inside-panel', 'position'), 'relative')
+        self.assertEqual(get('#inside-shell', 'display'), 'grid')
+        self.assertNotEqual(get('#inside-glow', 'box-shadow'), 'none')
+        self.assertNotEqual(self.page.locator('#inside-frame').evaluate(
+            "e => getComputedStyle(e, '::before').content"), 'none')
+        self.assertEqual(get('#self-panel', 'position'), 'relative')
+        self.assertEqual(get('#self-region', 'container-name'), 'syn-region')
+
+    def test_explicit_checkbox_and_radio_are_at_least_24_css_pixels(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" data-syn-theme="studio">
+            <label class="syn-check"><input id="box" class="syn-input" type="checkbox"> Checkbox</label>
+            <label class="syn-check"><input id="radio" class="syn-input" type="radio"> Radio</label>
+            <section data-syn-density="compact">
+              <label class="syn-check"><input id="compact-box" class="syn-input" type="checkbox"> Compact</label>
+            </section>
+          </main>""")
+        for control in ('box', 'radio', 'compact-box'):
+            with self.subTest(control=control):
+                size = self.page.locator('#' + control).bounding_box()
+                self.assertGreaterEqual(size['width'], 24)
+                self.assertGreaterEqual(size['height'], 24)
+
     def test_semantic_mode_is_scoped_and_styled(self):
         semantic_button = self.page.locator('#semantic .syn-semantic button')
         self.assertEqual(semantic_button.count(), 1)
@@ -196,7 +248,7 @@ class BrowserTests(unittest.TestCase):
         self.page.set_content(f"""<style>{css}</style>
         <section class="syn-root" data-syn-theme="studio">
           <table class="syn-table"><tbody>
-            <tr aria-selected="true" id="selected"><td>Selected</td></tr>
+            <tr data-syn-state="selected" id="selected"><td>Selected</td></tr>
             <tr id="other"><td>Other</td></tr>
           </tbody></table>
         </section>""")
@@ -209,6 +261,27 @@ class BrowserTests(unittest.TestCase):
         non_selected = self.page.locator("#other").evaluate(
             "e => getComputedStyle(e).backgroundColor")
         self.assertNotEqual(non_selected, base)
+
+    def test_aria_selected_does_not_invent_selection_on_static_table(self):
+        css = (ROOT / "dist/syntyr.core.css").read_text()
+        self.page.set_content(f"""<style>{css}</style>
+          <main class="syn-root" data-syn-theme="studio">
+            <table class="syn-table"><tbody>
+              <tr id="ordinary-aria" aria-selected="true"><td>Ordinary</td></tr>
+              <tr id="ordinary-data" data-syn-state="selected"><td>Highlighted</td></tr>
+            </tbody></table>
+            <table role="grid" class="syn-table"><tbody>
+              <tr id="grid-aria" aria-selected="true"><td>Grid row</td></tr>
+            </tbody></table>
+          </main>""")
+        color = lambda selector: self.page.locator(selector).evaluate(
+            "e => getComputedStyle(e).backgroundColor")
+        self.assertNotEqual(color("#ordinary-aria"), color("#ordinary-data"))
+        self.assertEqual(color("#grid-aria"), color("#ordinary-data"))
+        ordinary = self.page.locator("#ordinary-aria")
+        base = color("#ordinary-aria")
+        ordinary.hover()
+        self.assertNotEqual(color("#ordinary-aria"), base)
 
     def test_compact_density_shortens_actual_text_controls(self):
         css = (ROOT / "dist/syntyr.core.css").read_text()
@@ -406,6 +479,134 @@ class BrowserTests(unittest.TestCase):
                     self.assertEqual(studio_chip.evaluate(
                         'e => getComputedStyle(e).backgroundColor'), 'rgb(255, 255, 255)')
 
+
+
+    def test_progressive_semantic_styles_do_not_escape_syn_root(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        semantic = (ROOT / 'dist/syntyr.semantic.css').read_text()
+        self.page.set_content(f"""<style>{core}</style><style>{semantic}</style>
+          <section class="syn-semantic" style="--syn-control-height:2.75rem">
+            <button id="outside" data-syn-semantic>Outside</button>
+          </section>
+          <section class="syn-root syn-semantic" data-syn-theme="grid">
+            <button id="inside" data-syn-semantic>Inside</button>
+          </section>""")
+        get_height = lambda selector: self.page.locator(selector).evaluate(
+            "e => getComputedStyle(e).minHeight")
+        self.assertEqual(get_height('#inside'), '44px')
+        self.assertNotEqual(get_height('#outside'), '44px')
+
+    def test_progressive_auto_theme_honors_system_and_nested_explicit_palettes(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" id="auto-root" data-syn-theme="auto">
+            <section id="explicit-noir" data-syn-theme="noir">
+              <article id="nested-auto" data-syn-theme="auto">Nested</article>
+            </section>
+          </main>""")
+        accent = lambda ident: self.page.locator(ident).evaluate("""e => {
+            const probe = document.createElement('span');
+            probe.style.color = 'var(--syn-accent)';
+            e.append(probe);
+            const resolved = getComputedStyle(probe).color;
+            probe.remove();
+            return resolved;
+        }""")
+        self.page.emulate_media(color_scheme='light')
+        self.assertEqual(accent('#auto-root'), 'rgb(36, 88, 198)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(36, 88, 198)')
+        self.page.emulate_media(color_scheme='dark')
+        self.assertEqual(accent('#auto-root'), 'rgb(118, 231, 247)')
+        self.assertEqual(accent('#explicit-noir'), 'rgb(241, 181, 116)')
+        self.assertEqual(accent('#nested-auto'), 'rgb(118, 231, 247)')
+
+    def test_progressive_intrinsic_layout_follows_embedding_width(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        self.page.set_content(f"""<style>{core}</style>
+          <main class="syn-root" data-syn-theme="studio">
+            <section id="host" style="width: 310px; max-width: 100%">
+              <div class="syn-layout">
+                <article id="first">First region</article>
+                <article id="second">Second region</article>
+              </div>
+            </section>
+          </main>""")
+        coord = lambda selector: self.page.locator(selector).bounding_box()
+        self.assertGreater(coord('#second')['y'], coord('#first')['y'])
+        self.page.locator('#host').evaluate("e => e.style.width = '900px'")
+        self.assertAlmostEqual(coord('#second')['y'], coord('#first')['y'], delta=1)
+        self.assertGreater(coord('#second')['x'], coord('#first')['x'])
+
+    def test_progressive_print_styles_keep_data_readable(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text()
+        print_css = (ROOT / 'dist/syntyr.print.css').read_text()
+        self.page.set_content(f"""<style>{core}</style><style>{print_css}</style>
+          <main class="syn-root" id="page" data-syn-theme="noir">
+            <nav class="syn-app-nav" id="nav"><a href="#">Navigation</a></nav>
+            <section class="syn-table-wrap" id="table">
+              <table><tr><td id="data">Invoice row</td></tr></table>
+            </section>
+            <button id="action" class="syn-button syn-button--primary">Export</button>
+          </main>""")
+        self.page.emulate_media(media='print')
+        css = lambda selector, prop: self.page.locator(selector).evaluate(
+            "(e, p) => getComputedStyle(e).getPropertyValue(p).trim()", prop)
+        self.assertEqual(css('#page', 'background-color'), 'rgb(255, 255, 255)')
+        self.assertEqual(css('#page', 'color'), 'rgb(17, 17, 17)')
+        self.assertEqual(css('#nav', 'display'), 'none')
+        self.assertEqual(css('#table', 'overflow-x'), 'visible')
+        self.assertEqual(css('#data', 'visibility'), 'visible')
+        self.assertEqual(css('#action', 'color'), 'rgb(17, 17, 17)')
+
+
+    def test_neutral_first_palette_tables_and_opt_in_cinematic_styling(self):
+        core = (ROOT / 'dist/syntyr.core.css').read_text(encoding='utf-8')
+        recipes = (ROOT / 'dist/syntyr.recipes.css').read_text(encoding='utf-8')
+        self.page.set_content(f"""<style>{core}</style><style>{recipes}</style>
+          <main class="syn-root" id="default">
+            <h2 class="syn-section-heading" id="section-title">Customer records</h2>
+            <h3 class="syn-heading" id="card-title">Overview</h3>
+            <section class="syn-stage" id="stage">Neutral stage</section>
+            <article class="syn-panel" id="panel">
+              <span class="syn-badge" id="badge">Draft</span>
+            </article>
+            <table class="syn-table"><tbody>
+              <tr id="row" data-syn-state="selected"><th scope="row">Selected</th>
+                <td class="syn-cell--wrap" id="wrap">This description should wrap across multiple lines when needed.</td>
+                <td class="syn-cell--numeric" id="numeric">1,250</td>
+              </tr>
+            </tbody></table>
+            <section id="technical" data-syn-theme="grid">
+              <article id="accent-card" class="syn-app-card syn-surface--accent">
+                <span id="accent-badge" class="syn-badge syn-badge--accent">Active</span>
+              </article>
+            </section>
+          </main>""")
+        style = lambda sel, prop: self.page.locator(sel).evaluate(
+            "(e, property) => getComputedStyle(e).getPropertyValue(property).trim()", prop)
+        self.assertEqual(style('#default', 'background-color'), 'rgb(245, 247, 251)')
+        self.assertEqual(style('#technical', 'background-color'), 'rgb(8, 15, 25)')
+        self.assertNotIn('mono', style('#default', 'font-family').lower())
+        self.assertGreater(float(style('#section-title', 'font-size').removesuffix('px')),
+                           float(style('#card-title', 'font-size').removesuffix('px')))
+        self.assertEqual(style('#panel', 'background-image'), 'none')
+        self.assertEqual(style('#stage', 'background-image'), 'none')
+        self.assertEqual(self.page.locator('#badge').evaluate(
+            "e => getComputedStyle(e, '::before').content"), 'none')
+        self.assertEqual(style('#wrap', 'white-space'), 'normal')
+        self.assertEqual(style('#numeric', 'white-space'), 'nowrap')
+        self.assertEqual(style('#numeric', 'text-align'), 'right')
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-width'), '3px')
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-color'),
+                         'rgb(36, 88, 198)')
+        self.assertNotEqual(style('#accent-card', 'background-image'), 'none')
+        self.assertEqual(style('#accent-badge', 'color'), 'rgb(118, 231, 247)')
+        self.page.locator('#row').hover()
+        self.assertEqual(style('#row > :first-child', 'border-inline-start-width'), '3px')
+        self.page.emulate_media(forced_colors='active')
+        self.assertNotEqual(style('#row > :first-child', 'border-inline-start-color'),
+                            'rgb(36, 88, 198)')
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="For the optional reproducible five-framework comparison harness, see framework performance benchmark . It does not establish a named-framework ranking…">
+  <meta name="syntyr-source-sha256" content="7766a4a9e6be58d7f9e378ccc620e73d474e90c4c4de0fa495ed78d6a67af87d">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Performance validation protocol — Syntyr CSS docs</title>
+  <link rel="canonical" href="https://syntyr-css.pages.dev/docs/performance-validation">
+  <link rel="alternate" type="text/markdown" href="performance-validation.md" title="Markdown source">
+  <link rel="icon" href="../assets/syntyr-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../dist/syntyr.core.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body class="syn-root syn-page" data-syn-theme="studio">
+  <a class="syn-button docs-skip" href="#doc-main">Skip to guide</a>
+  <div class="syn-shell">
+    <header class="syn-header docs-header">
+      <a class="syn-logo" href="../index.html">SYNTYR / CSS</a>
+      <nav class="syn-nav" aria-label="Documentation navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav>
+      <details class="site-mobile-menu"><summary>Menu</summary><nav aria-label="Mobile navigation">
+        <a href="index.html">Overview</a><a href="catalog.html">Components</a><a href="guides.html">Guides</a><a href="reference.html">All docs</a>
+      </nav></details>
+    </header>
+    <main id="doc-main" class="docs-article-page">
+      <nav class="syn-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="../index.html">Home</a></li><li><a href="reference.html">Documentation</a></li><li aria-current="page">Performance validation protocol</li></ol></nav>
+      <header class="docs-article-heading">
+        <p class="syn-eyebrow">SYNTYR / DOCUMENTATION</p>
+        <p class="syn-muted">Current source documentation may describe unreleased alpha.5 features. <a href="distribution.html">Check released version compatibility.</a></p>
+        <p class="syn-caption">Prefer a machine-readable version? <a href="performance-validation.md">Markdown source</a> · <a href="../llms.txt">LLM index</a></p>
+      </header>
+      <div class="docs-article-layout">
+        <article class="docs-prose" aria-label="Performance validation protocol">
+<h1 id="performance-validation-protocol">Performance validation protocol</h1>
+<p>For the optional reproducible five-framework comparison harness, see
+<a href="https://github.com/dporkka/syntyr-css/blob/main/docs/framework-performance.md">framework performance benchmark</a>. It does not
+establish a named-framework ranking until visual parity is independently
+validated.</p>
+<p>SYNTYR CSS is small and has no required runtime JavaScript, but neither
+property proves that its pages render faster than Tailwind, UnoCSS, Pico, or
+hand-written CSS. Do not publish cross-framework speed rankings without
+running the same test workload and reporting the environment.</p>
+<h2 id="reproducible-css-payload-baseline">Reproducible CSS payload baseline</h2>
+<p>At the November 14, 2026 unreleased validation candidate, run:</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/build.py --check
+</code></pre>
+<p>The November 14 snapshot reported <strong>4,590 bytes gzip</strong> for
+<code>dist/syntyr.core.css</code> (20,767 raw bytes) and <strong>7,649 bytes gzip</strong> for
+<code>dist/syntyr.all.css</code> (38,637 raw bytes). Values can change as the
+source evolves. These are Python gzip measurements, <strong>not</strong> HTTP transfer
+sizes, Brotli sizes, browser stylesheet parse times, or comparisons to
+other frameworks. There are <strong>no arbitrary CSS size release gates</strong>;
+inspect deltas and actual page rendering instead.</p>
+<h2 id="fair-comparative-benchmark">Fair comparative benchmark</h2>
+<p>For Syntyr, Tailwind v4, and plain CSS, create separate pages with identical:</p>
+<ol>
+<li>Semantic HTML, content, assets, typeface, colors, spacing and visual layout.</li>
+<li>A representative dashboard (tables, forms, navigation, cards), plus a
+marketing page, at 320 px, 390 px and 1280 px.</li>
+<li>Interaction semantics and JavaScript budget: no runtime JS unless identical
+application interactions require it in every variant.</li>
+<li>Network environment, server caching policy, browser version, hardware,
+cold/warm cache settings and performance throttling.</li>
+</ol>
+<p>Record the framework and compiler versions, source and build commands, and
+exact CSS files transferred. Tailwind's generator is build-time tooling and
+must not be counted as browser runtime JavaScript.</p>
+<p>Collect at least 10 cold-cache runs per variant; report median and p75,
+run-to-run variance, and device/connection details. Measure:</p>
+<ul>
+<li>Compressed CSS transferred (Brotli/gzip), CSS request count and response time.</li>
+<li>Style calculation, layout, paint, and total scripting time from browser traces.</li>
+<li>LCP, CLS and INP where real interactions can be exercised; avoid inferring
+field INP from a purely static synthetic page.</li>
+<li>Interaction responsiveness, zoom/reflow and forced-colors correctness.</li>
+<li>Page screenshots at matching viewport widths to catch visual tradeoffs.</li>
+</ul>
+<p>Use Lighthouse/WebPageTest and browser performance traces; obtain independent
+field data where sufficient real-user traffic exists. A faster build or a
+smaller CSS file alone does not establish faster end-user rendering.</p>
+<h2 id="publishing-gate">Publishing gate</h2>
+<p>Only make a named-framework performance claim with corresponding raw
+measurements, reproducible fixtures, dates, versions, and hardware/network
+details. If differences are within measurement noise, report <strong>no meaningful
+difference</strong>. Evaluate effects (glow, gradients and clip paths) on low-end
+devices separately from core UI styling.</p>
+<p>The current release candidate has a <strong>verified size baseline only</strong>; no
+cross-framework LCP, INP, paint, or style-recalculation ranking has been
+established.</p>
+        </article>
+        <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
+<a class="docs-article-toc-link docs-article-toc-2" href="#reproducible-css-payload-baseline">Reproducible CSS payload baseline</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#fair-comparative-benchmark">Fair comparative benchmark</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#publishing-gate">Publishing gate</a>
+        </nav></aside>
+      </div>
+      <nav class="docs-guide-links" aria-label="More documentation"><a href="reference.html">All documentation</a><a href="guides.html">Practical guides</a><a href="performance-validation.md">Markdown source</a></nav>
+    </main>
+    <footer class="syn-header"><span class="syn-caption">SYNTYR CSS · MIT CORE · EXPERIMENTAL</span><a href="../index.html">Home</a></footer>
+  </div>
+</body>
+</html>
