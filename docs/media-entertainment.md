@@ -36,6 +36,8 @@ titles and original SVG art with no network requests.
   the anchor link: nested links/buttons are not valid interaction semantics.
 - syn-media-rail: horizontally scrollable, touch-friendly row of cards,
   with scroll-snap proximity and card sizing via --syn-media-rail-item-size.
+  Rails and cards can be composed directly under syn-root without a media shell;
+  they provide local fallbacks for gap, item size and poster aspect ratio.
 - syn-media-section, syn-media-section__heading, syn-media-search:
   supporting title, section and search-form styling.
 

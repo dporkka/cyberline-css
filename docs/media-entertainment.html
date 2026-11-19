@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s optional Media &amp; Entertainment CSS is an original, framework-neutral, zero-runtime module for editorial catalogs, film/TV-inspired landing pages…">
-  <meta name="syntyr-source-sha256" content="92afa155082a4fce07ba3d89f2ffeeeb6edc233e8d908a02b8923929b76ddabf">
+  <meta name="syntyr-source-sha256" content="c7baca303bdd76b2520a13d022a0becc46fc9559fc57548ed9ad247cffb39948">
   <meta name="theme-color" content="#f5f7fb">
   <title>Media &amp; Entertainment recipes — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/media-entertainment">
@@ -66,7 +66,9 @@ syn-media-card__action: media cards with image aspect ratios. Set
 --syn-media-card-ratio to 16 / 9, 1 / 1 or 2 / 3. Place buttons outside
 the anchor link: nested links/buttons are not valid interaction semantics.</li>
 <li>syn-media-rail: horizontally scrollable, touch-friendly row of cards,
-with scroll-snap proximity and card sizing via --syn-media-rail-item-size.</li>
+with scroll-snap proximity and card sizing via --syn-media-rail-item-size.
+Rails and cards can be composed directly under syn-root without a media shell;
+they provide local fallbacks for gap, item size and poster aspect ratio.</li>
 <li>syn-media-section, syn-media-section__heading, syn-media-search:
 supporting title, section and search-form styling.</li>
 </ul>
