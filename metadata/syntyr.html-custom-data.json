@@ -810,6 +810,98 @@
           "description": "Syntyr CSS class (components/typography.css)."
         },
         {
+          "name": "syn-media-card",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__action",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__badge",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__link",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__meta",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__title",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-card__visual",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero__actions",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero__content",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero__description",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero__eyebrow",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-hero__title",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-navigation",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-navigation__brand",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-navigation__desktop",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-navigation__link",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-navigation__mobile",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-rail",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-search",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-section",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-section__heading",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
+          "name": "syn-media-shell",
+          "description": "Syntyr CSS class (media.css)."
+        },
+        {
           "name": "syn-meter",
           "description": "Syntyr CSS class (components/data.css)."
         },

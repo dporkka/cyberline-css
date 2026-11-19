@@ -124,6 +124,7 @@ def distributions():
         'syntyr.server.css': ('server.css',),
         'syntyr.semantic-bundle.css': core + ('semantic.css',),
         'syntyr.recipes.css': ('recipes.css',),
+        'syntyr.media.css': ('media.css',),
         'syntyr.native-recipes.css': ('native-recipes.css',),
         'syntyr.email.css': ('email.css',),
         'syntyr.effects.css': ('effects.css',),

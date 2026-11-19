@@ -1007,6 +1007,121 @@
       "description": "Syntyr CSS class (components/typography.css)."
     },
     {
+      "name": "syn-media-card",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__action",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__badge",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__link",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__meta",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__title",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-card__visual",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero__actions",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero__content",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero__description",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero__eyebrow",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-hero__title",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-navigation",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-navigation__brand",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-navigation__desktop",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-navigation__link",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-navigation__mobile",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-rail",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-search",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-section",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-section__heading",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
+      "name": "syn-media-shell",
+      "module": "media.css",
+      "description": "Syntyr CSS class (media.css)."
+    },
+    {
       "name": "syn-meter",
       "module": "components/data.css",
       "description": "Syntyr CSS class (components/data.css)."
@@ -2202,6 +2317,31 @@
       "name": "--syn-line",
       "module": "tokens.css",
       "description": "Syntyr CSS property (tokens.css)."
+    },
+    {
+      "name": "--syn-media-card-ratio",
+      "module": "media.css",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-gap",
+      "module": "media.css",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-hero-image",
+      "module": "media.css",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-hero-position",
+      "module": "media.css",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-rail-item-size",
+      "module": "media.css",
+      "description": "Syntyr CSS property (media.css)."
     },
     {
       "name": "--syn-mono",

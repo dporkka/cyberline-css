@@ -346,6 +346,26 @@
       "description": "Syntyr CSS property (tokens.css)."
     },
     {
+      "name": "--syn-media-card-ratio",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-gap",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-hero-image",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-hero-position",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
+      "name": "--syn-media-rail-item-size",
+      "description": "Syntyr CSS property (media.css)."
+    },
+    {
       "name": "--syn-mono",
       "description": "Syntyr CSS property (tokens.css)."
     },
