@@ -14,7 +14,12 @@
     "syntyr.symbols.css",
     "syntyr.geo.css",
     "syntyr.data-grid.css",
-    "syntyr.print.css"
+    "syntyr.print.css",
+    "syntyr.email.css",
+    "syntyr.embed.css",
+    "syntyr.native-recipes.css",
+    "syntyr.semantic-bundle.css",
+    "syntyr.server.css"
   ]);
   const THEMES = new Set([
     "studio", "grid", "noir", "industrial", "terminal",

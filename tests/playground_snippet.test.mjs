@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 import vm from "node:vm";
 
@@ -78,4 +78,20 @@ test("theme names and override tokens are validated before attribute injection",
   assert.doesNotThrow(() => api.configuredSnippet({
     theme: "auto", tokens: "", module: "syntyr.core.css", markup: "<p>OK</p>"
   }));
+});
+
+test("accepts every nonaggregate shipped Syntyr stylesheet", () => {
+  const shipped = readdirSync(new URL("../dist/", import.meta.url)).filter(
+    name => name.startsWith("syntyr.") && name.endsWith(".css") &&
+      !["syntyr.all.css", "syntyr.css"].includes(name)
+  );
+  assert.ok(shipped.length >= 17, "The individual modules must be present in dist");
+  for (const stylesheet of shipped) {
+    const expected = stylesheet === "syntyr.core.css"
+      ? ["syntyr.core.css"] : ["syntyr.core.css", stylesheet];
+    assert.deepEqual(Array.from(api.requiredStylesheets(stylesheet)), expected);
+    assert.ok(readFileSync(new URL(`../dist/${stylesheet}`, import.meta.url)).length > 0);
+  }
+  assert.throws(() => api.requiredStylesheets("syntyr.all.css"));
+  assert.throws(() => api.requiredStylesheets("syntyr.css"));
 });

@@ -158,7 +158,14 @@ def generate() -> str:
     components = manifest["components"]
     distributions = all_distributions()
     class_sources = {entry["name"]: entry["module"] for entry in collect()["classes"]}
-    allowed_modules = set(distributions)
+    # Only individual browser-supported modules: aggregate bundles are
+    # intentionally not valid catalog dependencies. Keep in sync with
+    # KNOWN_MODULES in docs/playground-snippet.js.
+    allowed_modules = {
+        name for name in distributions
+        if name.startswith("syntyr.") and name.endswith(".css")
+        and name not in {"syntyr.css", "syntyr.all.css"}
+    }
     entries = parser.entries + blocks.entries
     if len(parser.entries) < 8 or len(blocks.entries) < 20:
         raise ValueError("Expected the full canonical component and free-block galleries")
