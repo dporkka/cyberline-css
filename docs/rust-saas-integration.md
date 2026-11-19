@@ -13,8 +13,11 @@ Syntyr core stylesheet first, then the adapter. The optional page sets
 `class="syn-root syn-rust-foundation"` and `data-syn-theme="studio"`.
 
 The Rust integration vendors the **published alpha.4 core CSS** and serves
-versioned assets from the application binary. It exposes `APP_UI_SKIN=syntyr`
-at startup; unknown values are rejected. The backend's identity, tenants,
+versioned assets from the application binary. The optional Syntyr page includes
+a keyboard-revealed skip link to its focusable main landmark; the adapter
+styles that link in normal and forced-colors modes. The updated bridge is
+versioned as `/assets/syntyr/bridge2/catalog.css` to avoid stale immutable CSS.
+It exposes `APP_UI_SKIN=syntyr` at startup; unknown values are rejected. The backend's identity, tenants,
 permissions, PostgreSQL queries and HTMX fragments are not touched.
 
 This demonstrates a public catalog. It does not prove an authenticated admin

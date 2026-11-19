@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="An opt-in Syntyr profile is implemented on the feat/optional-syntyr-skin integration branch of dporkka/rust-saas-foundation . It uses a separate Askama…">
-  <meta name="syntyr-source-sha256" content="963dc4d92c01047524730787935b646d3c107cb17129ab26729129618d2cf4d1">
+  <meta name="syntyr-source-sha256" content="bec5718c2c2ed6518e07413318e9c43cd829a64ddf6087a0abbaaf790286328b">
   <meta name="theme-color" content="#f5f7fb">
   <title>Optional Rust SaaS Foundation / Askama / HTMX integration — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/rust-saas-integration">
@@ -46,8 +46,11 @@ It scopes the existing <code>.wrap</code>, <code>.items</code> and <code>.item</
 Syntyr core stylesheet first, then the adapter. The optional page sets
 <code>class=&quot;syn-root syn-rust-foundation&quot;</code> and <code>data-syn-theme=&quot;studio&quot;</code>.</p>
 <p>The Rust integration vendors the <strong>published alpha.4 core CSS</strong> and serves
-versioned assets from the application binary. It exposes <code>APP_UI_SKIN=syntyr</code>
-at startup; unknown values are rejected. The backend's identity, tenants,
+versioned assets from the application binary. The optional Syntyr page includes
+a keyboard-revealed skip link to its focusable main landmark; the adapter
+styles that link in normal and forced-colors modes. The updated bridge is
+versioned as <code>/assets/syntyr/bridge2/catalog.css</code> to avoid stale immutable CSS.
+It exposes <code>APP_UI_SKIN=syntyr</code> at startup; unknown values are rejected. The backend's identity, tenants,
 permissions, PostgreSQL queries and HTMX fragments are not touched.</p>
 <p>This demonstrates a public catalog. It does not prove an authenticated admin
 flow or certify accessibility. Browser, keyboard, contrast and zoom tests on
