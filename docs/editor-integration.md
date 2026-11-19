@@ -35,6 +35,41 @@ property autocomplete also depends on the editor's CSS language support.
 The JSON files are standard, inspectable data; other editors and integrations
 can consume `syntyr-api.json` directly.
 
+## Audit CSS class and token collisions
+
+The optional standard-library namespace audit compares actual class selectors
+and `--syn-*` **declarations** in another stylesheet with the
+source-derived public Syntyr inventory. It does not require npm or install
+anything in the consuming application.
+
+```sh
+python3 scripts/audit_class_collisions.py --css /path/to/host.css
+python3 scripts/audit_class_collisions.py --css /path/to/bootstrap.css \
+  --css /path/to/other.css --json
+# Optional CI check (nonzero exit on any exact public-name collision):
+python3 scripts/audit_class_collisions.py --css /path/to/host.css --fail-on-overlap
+```
+
+The JSON report includes the number of external class selectors, exact class
+overlaps, externally defined `syn-*` selectors, exact CSS custom-property
+overlaps, and externally declared `--syn-*` properties. A collision is not
+automatically a defect, but investigate which stylesheet owns the name and
+whether the two regions are intended to coexist.
+
+**Scope:** explicit CSS selectors and custom-property declarations only.
+The auditor does not execute a utility compiler, expand dynamic class
+generation or concatenated nesting suffixes, or analyze global element
+selectors, CSS resets, layer priority, specificity, Shadow DOM, or actual
+browser rendering. For Tailwind and other generated systems, audit the
+**compiled output for the particular app**, then test the combined page in
+a browser. The `.syn-root` scope and zero-specificity wrappers reduce
+interference but do not provide complete isolation from host styles.
+
+A point-in-time audit of pinned public distributions (Bootstrap 5.3.3,
+Bulma 1.0.2, daisyUI 5.8.0) found **zero exact public `syn-*` class or
+`--syn-*` declaration collisions**. This is a limited three-package
+sample, not an ecosystem-wide collision-rate estimate.
+
 ## Regenerate after CSS changes
 
 From the Syntyr source repository:
@@ -47,8 +82,11 @@ python3 scripts/export_api_metadata.py --check
 The Python standard-library exporter scans `src/**/*.css`, strips comments,
 deduplicates discovered classes and declared custom properties, adds
 documented component override variables, and writes stable JSON and snippets.
-`--check` fails if the checked-in outputs differ from source. Descriptions
-are curated for core APIs and source-file-derived for others.
+`--check` fails if the checked-in outputs differ from source.
+Descriptions are human-reviewed for common components and design tokens;
+remaining entries use conservative class/token-name and source-module labels.
+Automatically derived descriptions are discovery hints, not guarantees of
+behavior, accessibility or applicable HTML elements.
 
 This is an editor convenience layer, **not** a Tailwind-style CSS compiler.
 A class being present in the metadata does not mean its optional stylesheet

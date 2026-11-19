@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Syntyr&#x27;s editor integration is optional . Applications still consume ordinary prebuilt CSS, HTML, and custom properties without Node, JavaScript, or a…">
-  <meta name="syntyr-source-sha256" content="6294e7f1c47c9cb2d1f9e84a60f0829ba0446efe7822c1528c8194fc16dcc843">
+  <meta name="syntyr-source-sha256" content="134eda0d35e845c5dcbce6bc39cefe66cbccb5114e0dd3b13164354e46390cb4">
   <meta name="theme-color" content="#f5f7fb">
   <title>Syntyr editor autocomplete and metadata — Syntyr CSS docs</title>
   <link rel="canonical" href="https://syntyr-css.pages.dev/docs/editor-integration">
@@ -62,6 +62,34 @@ do not assume it works identically in every language mode. CSS custom
 property autocomplete also depends on the editor's CSS language support.</p>
 <p>The JSON files are standard, inspectable data; other editors and integrations
 can consume <code>syntyr-api.json</code> directly.</p>
+<h2 id="audit-css-class-and-token-collisions">Audit CSS class and token collisions</h2>
+<p>The optional standard-library namespace audit compares actual class selectors
+and <code>--syn-*</code> <strong>declarations</strong> in another stylesheet with the
+source-derived public Syntyr inventory. It does not require npm or install
+anything in the consuming application.</p>
+<pre tabindex="0"><code class="language-sh">python3 scripts/audit_class_collisions.py --css /path/to/host.css
+python3 scripts/audit_class_collisions.py --css /path/to/bootstrap.css \
+  --css /path/to/other.css --json
+# Optional CI check (nonzero exit on any exact public-name collision):
+python3 scripts/audit_class_collisions.py --css /path/to/host.css --fail-on-overlap
+</code></pre>
+<p>The JSON report includes the number of external class selectors, exact class
+overlaps, externally defined <code>syn-*</code> selectors, exact CSS custom-property
+overlaps, and externally declared <code>--syn-*</code> properties. A collision is not
+automatically a defect, but investigate which stylesheet owns the name and
+whether the two regions are intended to coexist.</p>
+<p><strong>Scope:</strong> explicit CSS selectors and custom-property declarations only.
+The auditor does not execute a utility compiler, expand dynamic class
+generation or concatenated nesting suffixes, or analyze global element
+selectors, CSS resets, layer priority, specificity, Shadow DOM, or actual
+browser rendering. For Tailwind and other generated systems, audit the
+<strong>compiled output for the particular app</strong>, then test the combined page in
+a browser. The <code>.syn-root</code> scope and zero-specificity wrappers reduce
+interference but do not provide complete isolation from host styles.</p>
+<p>A point-in-time audit of pinned public distributions (Bootstrap 5.3.3,
+Bulma 1.0.2, daisyUI 5.8.0) found <strong>zero exact public <code>syn-*</code> class or
+<code>--syn-*</code> declaration collisions</strong>. This is a limited three-package
+sample, not an ecosystem-wide collision-rate estimate.</p>
 <h2 id="regenerate-after-css-changes">Regenerate after CSS changes</h2>
 <p>From the Syntyr source repository:</p>
 <pre tabindex="0"><code class="language-sh">python3 scripts/export_api_metadata.py
@@ -70,8 +98,11 @@ python3 scripts/export_api_metadata.py --check
 <p>The Python standard-library exporter scans <code>src/**/*.css</code>, strips comments,
 deduplicates discovered classes and declared custom properties, adds
 documented component override variables, and writes stable JSON and snippets.
-<code>--check</code> fails if the checked-in outputs differ from source. Descriptions
-are curated for core APIs and source-file-derived for others.</p>
+<code>--check</code> fails if the checked-in outputs differ from source.
+Descriptions are human-reviewed for common components and design tokens;
+remaining entries use conservative class/token-name and source-module labels.
+Automatically derived descriptions are discovery hints, not guarantees of
+behavior, accessibility or applicable HTML elements.</p>
 <p>This is an editor convenience layer, <strong>not</strong> a Tailwind-style CSS compiler.
 A class being present in the metadata does not mean its optional stylesheet
 is already loaded. Check each item's <code>module</code> in the generated catalog and
@@ -202,6 +233,7 @@ to the browser by this integration.</p>
         </article>
         <aside class="docs-article-sidebar"><nav aria-label="On this page"><p class="syn-eyebrow">ON THIS PAGE</p>
 <a class="docs-article-toc-link docs-article-toc-2" href="#vs-code-and-compatible-editors">VS Code and compatible editors</a>
+<a class="docs-article-toc-link docs-article-toc-2" href="#audit-css-class-and-token-collisions">Audit CSS class and token collisions</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#regenerate-after-css-changes">Regenerate after CSS changes</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#generated-portable-component-gallery-for-builders">Generated portable component gallery for builders</a>
 <a class="docs-article-toc-link docs-article-toc-2" href="#optional-static-html-diagnostics">Optional static HTML diagnostics</a>
