@@ -49,6 +49,42 @@ class GalleryManifestTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
+    def test_semantic_catalog_badge_preserves_primary_module_and_declares_dependencies(self):
+        from scripts.build_component_gallery import build_manifest
+        manifest = build_manifest()
+        meter = next(item for item in manifest["examples"]
+                     if item["title"] == "Meter and output")
+        self.assertEqual(meter["module"], "syntyr.core.css")
+        self.assertEqual(meter["required_stylesheets"],
+                         ["syntyr.core.css", "syntyr.semantic.css"])
+
+    def test_declared_geometry_module_validates_geometry_only_classes(self):
+        from scripts.build_component_gallery import build_manifest
+        from unittest.mock import patch
+        original_read = Path.read_text
+
+        def read_with_geometry_badge(path, *args, **kwargs):
+            source = original_read(path, *args, **kwargs)
+            if path == ROOT / "docs/catalog.html":
+                source = source.replace(
+                    "syntyr.core.css + syntyr.semantic.css</span>",
+                    "syntyr.core.css + syntyr.semantic.css + syntyr.geometry.css</span>", 1,
+                ).replace(
+                    '<div class="syn-semantic syn-stack">',
+                    '<div class="syn-semantic syn-stack syn-frame--bracket">', 1,
+                ).replace(
+                    '&lt;div class=&quot;syn-semantic syn-stack&quot;&gt;',
+                    '&lt;div class=&quot;syn-semantic syn-stack syn-frame--bracket&quot;&gt;', 1,
+                )
+            return source
+
+        with patch.object(Path, "read_text", new=read_with_geometry_badge):
+            manifest = build_manifest()
+        meter = next(item for item in manifest["examples"]
+                     if item["title"] == "Meter and output")
+        self.assertIn("syntyr.geometry.css", meter["required_stylesheets"])
+        self.assertIn("syn-frame--bracket", meter["classes"])
+
     def test_gallery_is_discoverable_in_both_distributions_and_npm(self):
         from scripts.build_cloudflare_site import source_files
         from scripts.package_release import FILES

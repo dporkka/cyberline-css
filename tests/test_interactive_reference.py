@@ -31,6 +31,23 @@ class InteractiveReferenceTests(unittest.TestCase):
             self.assertTrue(entry["module"].startswith("syntyr."))
             self.assertTrue(entry["description"])
 
+    def test_generated_catalog_includes_real_semantic_and_utility_dependencies(self):
+        from scripts.build_playground_catalog import generate
+        source = generate()
+        entries = json.loads(source.removeprefix(
+            "window.SYNTYR_PLAYGROUND_CATALOG = "
+        ).removesuffix(";\n"))
+        meter = next(item for item in entries if item["title"] == "Meter and output")
+        self.assertIn("syntyr.semantic.css", meter["module"])
+        self.assertIn("syntyr.core.css", meter["module"])
+        controller = (ROOT / "docs/playground.js").read_text(encoding="utf-8")
+        for starter in ("actions", "form"):
+            self.assertIn(
+                f'{starter}: "syntyr.core.css + syntyr.utilities.css"',
+                controller,
+                "Built-in utility styles must not rely on syntyr.all.css",
+            )
+
     def test_playground_exposes_search_preview_and_safe_editing(self):
         html = (ROOT / "docs/playground.html").read_text()
         script = (ROOT / "docs/playground.js").read_text()
@@ -44,6 +61,19 @@ class InteractiveReferenceTests(unittest.TestCase):
         self.assertIn("default-src 'none'", script)
         self.assertIn("URLSearchParams", script)
         self.assertIn("window.SYNTYR_PLAYGROUND_CATALOG", script)
+
+    def test_copy_export_loads_standalone_module_planner_before_playground(self):
+        html = (ROOT / "docs/playground.html").read_text()
+        script = (ROOT / "docs/playground.js").read_text()
+        planner = (ROOT / "docs/playground-snippet.js").read_text()
+        self.assertIn('src="playground-snippet.js" defer', html)
+        self.assertLess(html.index('src="playground-snippet.js"'),
+                        html.index('src="playground.js"'))
+        self.assertIn("snippet.configuredSnippet", script)
+        self.assertIn("playground-required-stylesheets", html)
+        self.assertIn("requiredStylesheets", planner)
+        site = (ROOT / "scripts/build_cloudflare_site.py").read_text()
+        self.assertIn('"playground-snippet.js"', site)
 
     def test_catalog_can_open_any_example_in_playground(self):
         js = (ROOT / "docs/catalog.js").read_text()

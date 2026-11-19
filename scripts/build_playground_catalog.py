@@ -12,6 +12,57 @@ from pathlib import Path
 import re
 import sys
 
+if __package__:
+    from .build import all_distributions
+    from .export_api_metadata import collect
+else:
+    from build import all_distributions
+    from export_api_metadata import collect
+
+
+class LiteralClassParser(HTMLParser):
+    """Only inspect real class attributes, not data attributes or CSS tokens."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.classes: set[str] = set()
+
+    def handle_starttag(self, tag, attrs):
+        for name, value in attrs:
+            if name == "class" and value:
+                self.classes.update(value.split())
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+
+
+def stylesheet_requirements(html: str, declared: list[str],
+                            class_sources: dict[str, str],
+                            distributions: dict) -> list[str]:
+    """Add modules for every Syntyr class actually used by the snippet."""
+    parser = LiteralClassParser()
+    parser.feed(html)
+    core_sources = set(distributions["syntyr.core.css"])
+    optional_by_source = {
+        sources[0]: name for name, sources in distributions.items()
+        if name.startswith("syntyr.") and len(sources) == 1 and
+        name != "syntyr.core.css"
+    }
+    required = set(declared) | {"syntyr.core.css"}
+    for name in sorted(parser.classes):
+        if not name.startswith("syn-"):
+            continue
+        source = class_sources.get(name)
+        if source is None:
+            raise ValueError(f"Unknown Syntyr class in catalog source: {name}")
+        if source not in core_sources:
+            module = optional_by_source.get(source)
+            if not module:
+                raise ValueError(f"No optional CSS distribution for {name}: {source}")
+            required.add(module)
+    return ["syntyr.core.css"] + sorted(required - {"syntyr.core.css"})
+
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "docs/playground-catalog.js"
 
@@ -105,7 +156,16 @@ def generate() -> str:
     blocks.feed((ROOT / "docs/blocks.html").read_text(encoding="utf-8"))
     manifest = json.loads((ROOT / "metadata/components.json").read_text(encoding="utf-8"))
     components = manifest["components"]
-    allowed_modules = {item["module"] for item in components}
+    distributions = all_distributions()
+    class_sources = {entry["name"]: entry["module"] for entry in collect()["classes"]}
+    # Only individual browser-supported modules: aggregate bundles are
+    # intentionally not valid catalog dependencies. Keep in sync with
+    # KNOWN_MODULES in docs/playground-snippet.js.
+    allowed_modules = {
+        name for name in distributions
+        if name.startswith("syntyr.") and name.endswith(".css")
+        and name not in {"syntyr.css", "syntyr.all.css"}
+    }
     entries = parser.entries + blocks.entries
     if len(parser.entries) < 8 or len(blocks.entries) < 20:
         raise ValueError("Expected the full canonical component and free-block galleries")
@@ -121,7 +181,19 @@ def generate() -> str:
             raise ValueError(f"Unrecognized CSS module: {entry['module']}")
         if len(entry["html"]) > 20000 or "<script" in entry["html"].lower():
             raise ValueError(f"Example must be inert, short HTML: {entry['id']}")
-        used_classes = set(re.findall(r"\bsyn-[a-z][a-z0-9-]*", entry["html"]))
+        computed_modules = stylesheet_requirements(
+            entry["html"], modules, class_sources, distributions,
+        )
+        omitted = set(computed_modules) - set(modules) - {"syntyr.core.css"}
+        if omitted:
+            raise ValueError(
+                f"{entry['id']}: catalog badge omitted stylesheet(s) {sorted(omitted)}"
+            )
+        modules = computed_modules
+        entry["module"] = " + ".join(modules)
+        class_parser = LiteralClassParser()
+        class_parser.feed(entry["html"])
+        used_classes = {name for name in class_parser.classes if name.startswith("syn-")}
         matches = [component for component in components
                    if component["module"] in modules
                    and used_classes.intersection(component["classes"])]

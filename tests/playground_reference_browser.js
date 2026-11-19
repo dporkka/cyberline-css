@@ -27,6 +27,14 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       await frame.locator('.syn-button--primary').first().waitFor();
       assert.equal(await page.locator('#playground-example').inputValue(), 'catalog-buttons-title');
       assert.equal(await page.locator('#playground-reference-module').innerText(), 'syntyr.core.css');
+      assert.equal(await frame.locator('link[rel="stylesheet"]').count(), 1);
+      assert.equal(await frame.locator('link[rel="stylesheet"]').first().getAttribute('href'),
+        '../dist/syntyr.core.css');
+      await page.locator('#playground-example').selectOption('catalog-interaction-card-4');
+      await frame.locator('meter').first().waitFor();
+      assert.ok((await page.locator('#playground-required-stylesheets').innerText()).includes('syntyr.semantic.css'));
+      assert.equal(await frame.locator('link[rel="stylesheet"]').count(), 2);
+      await page.locator('#playground-example').selectOption('catalog-buttons-title');
       assert.ok((await page.locator('#playground-markup').inputValue()).includes('syn-button--primary'));
       const editor = page.locator('#playground-editor-mount .cm-content[contenteditable="true"]');
       await editor.waitFor();
@@ -34,13 +42,17 @@ const gallery = pathToFileURL(path.join(root, 'docs/catalog.html')).href;
       assert.equal(await page.locator('#playground-editor-mount').getAttribute('data-editor'), 'codemirror6');
 
       await page.locator('#playground-search').fill('breadcrumb');
-      assert.ok((await page.locator('#playground-search-status').innerText()).includes('1 of'));
+      const searchText = await page.locator('#playground-search-status').innerText();
+      const counts = /^(\d+) of (\d+) examples match\./.exec(searchText);
+      assert.ok(counts && Number(counts[1]) >= 1, 'Breadcrumb search must find a result: ' + searchText);
       await page.locator('#playground-example').selectOption('catalog-breadcrumbs-title');
       await frame.locator('.syn-breadcrumbs').first().waitFor();
       assert.ok((await page.locator('#playground-reference-description').innerText()).length > 5);
 
       await page.locator('#playground-example').selectOption('actions');
       await frame.locator('.syn-panel').first().waitFor();
+      assert.ok((await page.locator('#playground-required-stylesheets').innerText()).includes('syntyr.utilities.css'));
+      assert.equal(await frame.locator('link[rel="stylesheet"]').count(), 2);
       await page.locator('#playground-panel-radius').evaluate(el => {
         el.value = '22';
         el.dispatchEvent(new Event('input', {bubbles: true}));

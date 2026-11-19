@@ -81,9 +81,18 @@ def build_manifest() -> dict:
         if identifier != heading_id or not IDENTIFIER.fullmatch(identifier) or identifier in seen:
             raise ValueError(f"Invalid or duplicate catalog example id: {identifier}")
         seen.add(identifier)
-        css_module = module[1]
-        if css_module not in {"syntyr.core.css", "syntyr.recipes.css", "syntyr.geometry.css", "syntyr.viz.css"}:
-            raise ValueError(f"Unexpected CSS module: {css_module}")
+        badge_modules = module[1].split(" + ")
+        valid_modules = {"syntyr.core.css", "syntyr.recipes.css",
+                         "syntyr.geometry.css", "syntyr.viz.css",
+                         "syntyr.semantic.css", "syntyr.utilities.css"}
+        if not badge_modules or any(name not in valid_modules for name in badge_modules):
+            raise ValueError(f"Unexpected CSS module: {module[1]}")
+        # Keep the stable primary-module field for existing gallery consumers.
+        # The badge can also declare additional required stylesheets.
+        css_module = badge_modules[0]
+        if css_module not in {"syntyr.core.css", "syntyr.recipes.css",
+                              "syntyr.geometry.css", "syntyr.viz.css"}:
+            raise ValueError(f"Unexpected primary CSS module: {css_module}")
         raw_html = unescape(snippet["source"]).strip()
         if raw_html != snippet["preview"].strip():
             raise ValueError(f"Catalog preview and copyable HTML differ: {identifier}")
@@ -91,19 +100,27 @@ def build_manifest() -> dict:
         parser.feed(raw_html)
         if not parser.elements:
             raise ValueError(f"Empty catalog example: {identifier}")
-        css = (ROOT / "dist" / css_module).read_text(encoding="utf-8")
         core_css = (ROOT / "dist/syntyr.core.css").read_text(encoding="utf-8")
-        semantic_css = (ROOT / "dist/syntyr.semantic.css").read_text(encoding="utf-8")
-        # Optional modules supplement core tokens and controls, not replace them.
-        # Preserve the loading order in agent-facing metadata.
-        required_modules = (["syntyr.core.css", css_module]
-                            if css_module != "syntyr.core.css" else [css_module])
-        for cls in parser.classes:
+        optional_css = {
+            name: (ROOT / "dist" / name).read_text(encoding="utf-8")
+            for name in ("syntyr.semantic.css", "syntyr.utilities.css")
+        }
+        # Preserve the stable primary module field and complete stylesheet
+        # requirements separately. Non-core badges may require multiple CSS files.
+        required_modules = ["syntyr.core.css"] + [
+            name for name in badge_modules if name != "syntyr.core.css"
+        ]
+        for cls in sorted(parser.classes):
             selector = r'\.' + re.escape(cls) + r'(?![\w-])'
-            if not (re.search(selector, css) or re.search(selector, core_css)):
-                if re.search(selector, semantic_css):
-                    if "syntyr.semantic.css" not in required_modules:
-                        required_modules.append("syntyr.semantic.css")
+            loaded = [core_css] + [
+                (ROOT / "dist" / name).read_text(encoding="utf-8")
+                for name in required_modules if name != "syntyr.core.css"
+            ]
+            if not any(re.search(selector, stylesheet) for stylesheet in loaded):
+                for optional, stylesheet in optional_css.items():
+                    if re.search(selector, stylesheet):
+                        required_modules.append(optional)
+                        break
                 else:
                     raise ValueError(f"Unknown class {cls} in {css_module}: {identifier}")
             if not re.search(r'\.' + re.escape(cls) + r'(?![\w-])', sheet):

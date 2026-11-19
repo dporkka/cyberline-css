@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="docs.css">
   <link rel="stylesheet" href="playground.css">
   <script src="playground-catalog.js" defer></script>
+  <script src="playground-snippet.js" defer></script>
   <script src="playground.js" defer></script>
   <script src="playground-editor.js" defer></script>
 </head>
@@ -63,7 +64,8 @@
             <p class="syn-caption" id="playground-search-status" role="status" aria-live="polite">Choose a starter or catalog example above.</p>
             <aside class="playground-reference" id="playground-reference" aria-labelledby="playground-reference-title">
               <h3 class="syn-heading" id="playground-reference-title">Example guidance</h3>
-              <p class="syn-caption">Required module: <code id="playground-reference-module">syntyr.core.css</code></p>
+              <p class="syn-caption">Catalog module: <code id="playground-reference-module">syntyr.core.css</code></p>
+              <p class="syn-caption">Copy/export stylesheets: <code id="playground-required-stylesheets">syntyr.core.css</code></p>
               <p class="syn-muted" id="playground-reference-description">Choose an example for implementation guidance.</p>
               <p class="syn-caption" id="playground-reference-guidance">Accessibility and application behavior remain your responsibility.</p>
               <p class="syn-caption"><a href="components.html">Component API</a> · <a href="component-recipes.html">HTML recipes</a> · <a id="playground-source-link" href="catalog.html">View original component</a> · <a href="blocks.html">Free UI blocks</a> · <a href="how-to.html">How-To guides</a></p>
@@ -80,7 +82,7 @@
               <input id="playground-panel-padding" class="syn-input" type="range" min="8" max="48" step="2" value="24">
             </label>
           </div>
-          <p class="syn-muted" id="playground-help">Edit HTML with CodeMirror 6 syntax highlighting, indentation and undo; a native textarea remains available if the editor cannot load. The preview blocks scripts and form submission. Copy configured HTML includes the selected theme and panel tokens.</p>
+          <p class="syn-muted" id="playground-help">Edit HTML with CodeMirror 6 syntax highlighting, indentation and undo; a native textarea remains available if the editor cannot load. The preview blocks scripts and form submission. Copy configured HTML includes the selected theme, panel tokens and self-hosted stylesheet links for the selected example. Added classes from other modules need their own links.</p>
           <div class="syn-inline">
             <button class="syn-button syn-button--primary" id="playground-render" type="button">RENDER PREVIEW</button>
             <button class="syn-button" id="playground-copy" type="button">COPY CONFIGURED HTML</button>
@@ -170,7 +172,7 @@
       </section>
       <section class="syn-panel playground-footer" aria-labelledby="playground-next-title">
         <h2 id="playground-next-title" class="syn-heading">Build with the same API</h2>
-        <p>Load <code>syntyr.core.css</code> in your application and optionally add <code>syntyr.utilities.css</code> or <code>syntyr.recipes.css</code>. The preview uses the combined CSS file for convenient exploration.</p>
+        <p>Load <code>syntyr.core.css</code> in your application and optionally add <code>syntyr.utilities.css</code> or <code>syntyr.recipes.css</code>. The preview and copied snippets both use the specific stylesheets declared by the selected example. Self-host those files from the same pinned release and move the generated <code>&lt;link&gt;</code> tags into your page's <code>&lt;head&gt;</code>. If you add classes from other optional modules, add their stylesheets manually.</p>
         <p><a href="catalog.html">Searchable gallery</a> · <a href="components.md">Component reference</a> · <a href="theme-customization.md">Theme and token customization</a> · <a href="editor-integration.md">Editor autocomplete setup</a></p>
       </section>
     </main>
