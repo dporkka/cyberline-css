@@ -74,6 +74,30 @@ class NamespaceCollisionAuditTests(unittest.TestCase):
         self.assertEqual(result["exact_token_overlap"], ["--syn-accent"])
         self.assertEqual(result["other_syn_tokens"], ["--syn-accent", "--syn-other"])
 
+    def test_css_whitespace_only_pads_custom_property_names(self):
+        # U+00A0 is not CSS whitespace; it belongs to the property name, so
+        # `--syn-accent<NBSP>:` is a different (non-matching) declaration.
+        css = ":root { --syn-accent\u00a0: red; --syn-bg : white; }"
+        result = audit_stylesheet(css, set(),
+                                  public_tokens={"--syn-accent", "--syn-bg"})
+        self.assertEqual(result["exact_token_overlap"], ["--syn-bg"])
+
+    def test_escaped_quote_outside_string_keeps_later_selectors(self):
+        # `\"` is an escaped identifier character, not a string opener, so the
+        # following `.syn-panel` selector must still be discovered.
+        css = r'.host\"name .syn-panel{}'
+        self.assertEqual(extract_css_classes(css), {'host"name', "syn-panel"})
+
+    def test_quoted_strings_are_still_masked(self):
+        css = '.syn-panel{ content: ".syn-hidden{}"; }'
+        self.assertEqual(extract_css_classes(css), {"syn-panel"})
+
+    def test_escaped_dot_is_not_a_class_selector_boundary(self):
+        self.assertEqual(extract_css_classes(r".host\.syn-panel{}"),
+                         {"host.syn-panel"})
+        self.assertEqual(extract_css_classes(".host.syn-panel{}"),
+                         {"host", "syn-panel"})
+
     def test_cli_json_fails_only_when_requested(self):
         with tempfile.TemporaryDirectory() as tmp:
             vendor = Path(tmp) / "host.css"

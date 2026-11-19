@@ -15,9 +15,12 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-TOKEN_DECLARATION = re.compile(r"\s*(--syn-[\w-]+)\s*:", re.UNICODE)
-HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
 CSS_WHITESPACE = " \t\r\n\f"
+# CSS whitespace only: `\s` would also consume U+00A0, which belongs to a
+# property name and would fabricate a declaration that is not present.
+TOKEN_DECLARATION = re.compile(
+    rf"[{CSS_WHITESPACE}]*(--syn-[\w-]+)[{CSS_WHITESPACE}]*:", re.UNICODE)
+HEX_DIGITS = frozenset("0123456789abcdefABCDEF")
 
 
 def _mask_comments_and_strings(source: str) -> str:
@@ -29,6 +32,15 @@ def _mask_comments_and_strings(source: str) -> str:
             end = source.find("*/", i + 2)
             i = len(source) if end == -1 else end + 2
             out.append(" ")
+        elif source[i] == "\\":
+            # An escape outside a string keeps the next character literal: a
+            # quote here belongs to an identifier, so it must not open a string.
+            out.append(source[i])
+            if i + 1 < len(source):
+                out.append(source[i + 1])
+                i += 2
+            else:
+                i += 1
         elif source[i] in ("'", '"'):
             quote = source[i]
             i += 1
@@ -115,12 +127,21 @@ def extract_css_classes(css: str) -> set[str]:
         if char == "{":
             selector = "".join(prelude).strip()
             if selector and not selector.startswith("@"):
-                for position, char in enumerate(selector):
-                    if char != ".":
+                position = 0
+                while position < len(selector):
+                    char = selector[position]
+                    if char == "\\":
+                        # Skip an escaped character so an escaped dot is never
+                        # mistaken for a class-selector boundary.
+                        position += 2
                         continue
-                    parsed = _read_css_identifier(selector, position + 1)
-                    if parsed:
-                        classes.add(parsed[0])
+                    if char == ".":
+                        parsed = _read_css_identifier(selector, position + 1)
+                        if parsed:
+                            classes.add(parsed[0])
+                            position = parsed[1]
+                            continue
+                    position += 1
             prelude.clear()
         elif char in ("}", ";"):
             prelude.clear()
