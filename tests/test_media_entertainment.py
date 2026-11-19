@@ -108,12 +108,13 @@ class MediaEntertainmentTests(unittest.TestCase):
             self.assertIn(phrase, guide)
 
 
-if __name__ == '__main__':
-    unittest.main()
-
 class MediaStandaloneDefaultsTests(unittest.TestCase):
     def test_rail_and_card_defaults_work_without_shell(self):
         css = (ROOT / 'src/media.css').read_text()
         self.assertIn('gap: var(--syn-media-gap, clamp(.75rem, 1.8vw, 1.25rem))', css)
         self.assertIn('var(--syn-media-rail-item-size, clamp(10rem, 18vw, 14.5rem))', css)
         self.assertIn('aspect-ratio: var(--syn-media-card-ratio, 2 / 3)', css)
+
+
+if __name__ == '__main__':
+    unittest.main()
