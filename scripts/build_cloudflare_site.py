@@ -274,6 +274,7 @@ def immutable_site_css(files: dict[str, bytes]) -> None:
 
 PUBLIC_DOCS = (
     "ai-quickstart.md", "agent-integration.md", "design-principles.md",
+    "media-entertainment.md",
     "accessibility.md", "accessibility-alpha5-review.md", "api-stability.md", "cloudflare-hosting.md", "nulang-cloud-hosting.md",
     "release-freeze.md", "component-authoring.md", "components.md", "data-tables.md", "data-grid.md",
     "console-kit.html", "component-recipes.md", "email-components.md", "design-research-linear-resend.md", "design-reference-matrix.md", "premium-compositions.md", "visual-composition.md",
@@ -342,7 +343,8 @@ def source_files(site_url: str = SITE_URL, *, include_cloudflare_headers: bool =
     # Explicit per-file allowlist: new repo files are private until reviewed.
 
     public_examples = (
-        "business.html", "form-state-contracts.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
+        "business.html", "form-state-contracts.html",
+        "media-entertainment.html", "email.html", "common-ui.html", "platform-embed.html", "console.html", "form-composition.html", "geometry-terminal.html", "intensity-geometry.html", "landing.html", "semantic-starter.html",
         "minimalist-patterns.html", "design-states.html", "native-elements.html", "semantic-compositions.html", "native-interactions.html", "native-recipes.html", "resource-outline.html", "query-review.html", "command-launcher.html", "command-launcher.mjs", "native-choice-filter-list.html", "composition-adoption.html", "native-apis.html", "dropdowns.html", "performance-first.html",
         "operations-console.css", "operations-console.html", "pricing.html", "workflow-steps.html",
         "flagship.css", "flagship-studio.html", "flagship-noir.html", "flagship-grid.html",

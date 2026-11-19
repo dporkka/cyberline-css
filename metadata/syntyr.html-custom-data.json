@@ -810,6 +810,98 @@
           "description": "Logo presentation in the components/typography.css module; use semantic HTML and consult its component example."
         },
         {
+          "name": "syn-media-card",
+          "description": "Media card presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-card__action",
+          "description": "Action part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-card__badge",
+          "description": "Badge part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-card__link",
+          "description": "Link part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-card__meta",
+          "description": "Meta part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-card__title",
+          "description": "Title part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-card__visual",
+          "description": "Visual part of the media card component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-hero",
+          "description": "Media hero presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-hero__actions",
+          "description": "Actions part of the media hero component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-hero__content",
+          "description": "Content part of the media hero component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-hero__description",
+          "description": "Description part of the media hero component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-hero__eyebrow",
+          "description": "Eyebrow part of the media hero component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-hero__title",
+          "description": "Title part of the media hero component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-navigation",
+          "description": "Media navigation presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-navigation__brand",
+          "description": "Brand part of the media navigation component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-navigation__desktop",
+          "description": "Desktop part of the media navigation component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-navigation__link",
+          "description": "Link part of the media navigation component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-navigation__mobile",
+          "description": "Mobile part of the media navigation component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-rail",
+          "description": "Media rail presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-search",
+          "description": "Media search presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-section",
+          "description": "Media section presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
+          "name": "syn-media-section__heading",
+          "description": "Heading part of the media section component; see media.css for markup."
+        },
+        {
+          "name": "syn-media-shell",
+          "description": "Media shell presentation in the media.css module; use semantic HTML and consult its component example."
+        },
+        {
           "name": "syn-meter",
           "description": "Meter presentation in the components/data.css module; use semantic HTML and consult its component example."
         },

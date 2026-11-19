@@ -26,6 +26,7 @@
     "syntyr.embed.css",
     "syntyr.geo.css",
     "syntyr.geometry.css",
+    "syntyr.media.css",
     "syntyr.motion.css",
     "syntyr.native-recipes.css",
     "syntyr.print.css",
@@ -2431,6 +2432,190 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "syn-media-card",
+      "module": "media.css",
+      "description": "Media card presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__action",
+      "module": "media.css",
+      "description": "Action part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__badge",
+      "module": "media.css",
+      "description": "Badge part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__link",
+      "module": "media.css",
+      "description": "Link part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__meta",
+      "module": "media.css",
+      "description": "Meta part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__title",
+      "module": "media.css",
+      "description": "Title part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-card__visual",
+      "module": "media.css",
+      "description": "Visual part of the media card component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero",
+      "module": "media.css",
+      "description": "Media hero presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero__actions",
+      "module": "media.css",
+      "description": "Actions part of the media hero component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero__content",
+      "module": "media.css",
+      "description": "Content part of the media hero component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero__description",
+      "module": "media.css",
+      "description": "Description part of the media hero component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero__eyebrow",
+      "module": "media.css",
+      "description": "Eyebrow part of the media hero component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-hero__title",
+      "module": "media.css",
+      "description": "Title part of the media hero component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-navigation",
+      "module": "media.css",
+      "description": "Media navigation presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-navigation__brand",
+      "module": "media.css",
+      "description": "Brand part of the media navigation component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-navigation__desktop",
+      "module": "media.css",
+      "description": "Desktop part of the media navigation component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-navigation__link",
+      "module": "media.css",
+      "description": "Link part of the media navigation component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-navigation__mobile",
+      "module": "media.css",
+      "description": "Mobile part of the media navigation component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-rail",
+      "module": "media.css",
+      "description": "Media rail presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-search",
+      "module": "media.css",
+      "description": "Media search presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-section",
+      "module": "media.css",
+      "description": "Media section presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-section__heading",
+      "module": "media.css",
+      "description": "Heading part of the media section component; see media.css for markup.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "syn-media-shell",
+      "module": "media.css",
+      "description": "Media shell presentation in the media.css module; use semantic HTML and consult its component example.",
+      "stylesheets": [
+        "syntyr.media.css"
       ]
     },
     {
@@ -5417,6 +5602,46 @@
         "syntyr.css",
         "syntyr.embed.css",
         "syntyr.semantic-bundle.css"
+      ]
+    },
+    {
+      "name": "--syn-media-card-ratio",
+      "module": "media.css",
+      "description": "Media card ratio design token from media.css; override in the appropriate Syntyr scope when needed.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "--syn-media-gap",
+      "module": "media.css",
+      "description": "Media gap design token from media.css; override in the appropriate Syntyr scope when needed.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "--syn-media-hero-image",
+      "module": "media.css",
+      "description": "Media hero image design token from media.css; override in the appropriate Syntyr scope when needed.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "--syn-media-hero-position",
+      "module": "media.css",
+      "description": "Media hero position design token from media.css; override in the appropriate Syntyr scope when needed.",
+      "stylesheets": [
+        "syntyr.media.css"
+      ]
+    },
+    {
+      "name": "--syn-media-rail-item-size",
+      "module": "media.css",
+      "description": "Media rail item size design token from media.css; override in the appropriate Syntyr scope when needed.",
+      "stylesheets": [
+        "syntyr.media.css"
       ]
     },
     {

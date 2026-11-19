@@ -346,6 +346,26 @@
       "description": "Line design token from tokens.css; override in the appropriate Syntyr scope when needed."
     },
     {
+      "name": "--syn-media-card-ratio",
+      "description": "Media card ratio design token from media.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-media-gap",
+      "description": "Media gap design token from media.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-media-hero-image",
+      "description": "Media hero image design token from media.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-media-hero-position",
+      "description": "Media hero position design token from media.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
+      "name": "--syn-media-rail-item-size",
+      "description": "Media rail item size design token from media.css; override in the appropriate Syntyr scope when needed."
+    },
+    {
       "name": "--syn-mono",
       "description": "Mono design token from tokens.css; override in the appropriate Syntyr scope when needed."
     },
