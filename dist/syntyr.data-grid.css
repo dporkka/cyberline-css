@@ -51,7 +51,8 @@
      clip it, and drop the inner one so the two never stack. Browsers
      without :has() keep the previous behaviour instead of losing the ring. */
   @supports selector(:has(*)) {
-    :where(.syn-root .syn-data-grid:has(> .syn-data-grid__viewport:focus-visible)) {
+    :where(.syn-root .syn-data-grid:has(> .syn-data-grid__viewport:focus-visible),
+           .syn-root.syn-data-grid:has(> .syn-data-grid__viewport:focus-visible)) {
       outline: 3px solid var(--syn-focus-ring);
       outline-offset: 2px;
     }

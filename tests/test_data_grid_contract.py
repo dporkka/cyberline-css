@@ -98,6 +98,21 @@ class DataGridContract(unittest.TestCase):
             "The inner outset ring must be removed so the two rings do not stack.",
         )
 
+    def test_root_self_grid_keeps_visible_keyboard_focus(self):
+        """A grid can itself be .syn-root, not only a descendant of one."""
+        css = (ROOT / "src/data-grid.css").read_text()
+        enhancement = css.split("@supports selector(:has(*))", 1)[1].split("\n  }", 1)[0]
+        self.assertIn(
+            ".syn-root.syn-data-grid:has(> .syn-data-grid__viewport:focus-visible)",
+            enhancement,
+            "Root-self grids must receive the wrapper outline before the inner one is removed.",
+        )
+        self.assertIn(
+            ".syn-root .syn-data-grid:has(> .syn-data-grid__viewport:focus-visible)",
+            enhancement,
+            "Descendant grids must retain their existing wrapper focus treatment.",
+        )
+
     def test_static_html_example_is_self_contained(self):
         example = (ROOT / "examples/data-grid.html").read_text()
         self.assertIn("syntyr.data-grid.css", example)
