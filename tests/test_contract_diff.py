@@ -104,6 +104,26 @@ class ContractDiffTests(unittest.TestCase):
             new_path.write_text("{invalid")
             self.assertEqual(subprocess.run(args, text=True, capture_output=True).returncode, 2)
 
+    def test_cli_rejects_duplicate_json_object_keys(self):
+        with tempfile.TemporaryDirectory() as folder:
+            old_path, new_path = Path(folder) / "old.json", Path(folder) / "new.json"
+            original = json.dumps(contract())
+            new_path.write_text(original)
+            cases = [
+                original.replace('"schema_version": 1', '"schema_version": 2, "schema_version": 1', 1),
+                original.replace('"data-syn-theme":', '"data-syn-theme": ["injected"], "data-syn-theme":', 1),
+                original.replace('"name": "syn-button"', '"name": "bad", "name": "syn-button"', 1),
+            ]
+            for bad_json in cases:
+                old_path.write_text(bad_json)
+                result = subprocess.run(
+                    [sys.executable, str(ROOT / "scripts" / "contract_diff.py"),
+                     str(old_path), str(new_path), "--json"],
+                    text=True, capture_output=True,
+                )
+                self.assertEqual(result.returncode, 2, result.stdout)
+                self.assertIn("duplicate", result.stderr.lower())
+
     def test_live_manifest_is_well_formed_and_comparable(self):
         live = json.loads((ROOT / "metadata" / "syntyr-contract.json").read_text())
         diff = compare_contracts(live, live)
