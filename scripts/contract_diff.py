@@ -113,6 +113,15 @@ def _human(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def _reject_duplicate_json_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    values: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in values:
+            raise ValueError(f"duplicate JSON object key: {key}")
+        values[key] = value
+    return values
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("before", type=Path, help="Old metadata/syntyr-contract.json")
@@ -121,8 +130,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--fail-on-breaking", action="store_true", help="Exit 1 on potential public API removals")
     args = parser.parse_args(argv)
     try:
-        before = json.loads(args.before.read_text(encoding="utf-8"))
-        after = json.loads(args.after.read_text(encoding="utf-8"))
+        before = json.loads(args.before.read_text(encoding="utf-8"), object_pairs_hook=_reject_duplicate_json_keys)
+        after = json.loads(args.after.read_text(encoding="utf-8"), object_pairs_hook=_reject_duplicate_json_keys)
         report = compare_contracts(before, after)
     except (OSError, ValueError, TypeError, json.JSONDecodeError) as exc:
         print(f"Cannot compare Syntyr CSS contracts: {exc}", file=sys.stderr)
