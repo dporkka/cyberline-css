@@ -16,6 +16,9 @@ const { chromium } = require('playwright');
     const url = process.env.SYNTYR_WIZARD_URL || 'http://127.0.0.1:48177/docs/starter-wizard.html';
     const response = await page.goto(url, { waitUntil: 'networkidle' });
     assert.equal(response.status(), 200);
+    await page.locator('.site-mobile-menu summary').click();
+    assert.equal(await page.locator('.site-mobile-menu nav a[href="playground.html"]').isVisible(), true);
+    await page.keyboard.press('Escape');
     await page.getByLabel('What are you building?').selectOption('admin');
     await page.getByLabel('Select a published theme').selectOption('grid');
     await page.getByLabel('Where will it run?').selectOption('go');
@@ -29,7 +32,14 @@ const { chromium } = require('playwright');
     assert.match(await page.locator('#starter-instructions').innerText(), /html\/template/);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
     assert.equal(overflow, false, 'mobile viewport must not overflow horizontally');
-    assert.deepEqual(errors, [], 'no browser JavaScript errors');
+    // The handoff should carry the user's chosen starter into the live playground.
+    await page.locator('#starter-edit').click();
+    await page.waitForURL(/playground\.html#starter=admin&theme=grid&stack=go/);
+    await page.waitForFunction(() => document.querySelector('#playground-markup')?.value.includes('Operations console'));
+    assert.equal(await page.locator('#playground-theme').inputValue(), 'grid');
+    assert.match(await page.locator('#playground-markup').inputValue(), /href="#tasks"/);
+    assert.match(await page.locator('#playground-status').innerText(), /Preview updated/);
+        assert.deepEqual(errors, [], 'no browser JavaScript errors');
     console.log('Starter wizard Chromium mobile smoke passed');
   } finally {
     await browser.close();

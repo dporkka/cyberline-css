@@ -18,6 +18,14 @@ class StarterWizardTests(unittest.TestCase):
         self.assertIn("Published alpha.4", page)
         self.assertNotIn("https://cdn.", page)
 
+    def test_mobile_navigation_keeps_all_starter_destinations_available(self):
+        page = (ROOT / "docs/starter-wizard.html").read_text()
+        self.assertIn('class="site-mobile-menu"', page)
+        self.assertIn('aria-label="Mobile navigation"', page)
+        self.assertIn('<summary', page)
+        for link in ('index.html', 'blocks.html', 'playground.html', 'guides.html'):
+            self.assertGreaterEqual(page.count(f'href="{link}"'), 2, link)
+
     def test_starter_is_in_explicit_site_allowlist(self):
         from scripts.build_cloudflare_site import PUBLIC_DOCS, source_files
         self.assertIn("starter-wizard.html", PUBLIC_DOCS)

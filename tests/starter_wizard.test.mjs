@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createStarter } from '../docs/starter-wizard.mjs';
+import { createStarter, createPlaygroundHandoff } from '../docs/starter-wizard.mjs';
 
 test('creates an offline-first published-alpha.4 HTML starter', () => {
   const result = createStarter({ kind: 'saas', theme: 'studio', stack: 'html' });
@@ -28,4 +28,14 @@ test('does not interpolate untrusted arbitrary values into generated HTML', () =
   assert.throws(() => createStarter({ kind: '<img src=x>', theme: 'studio', stack: 'html' }), /Unsupported/);
   assert.throws(() => createStarter({ kind: 'saas', theme: 'themed" onload="alert(1)', stack: 'html' }), /Unsupported/);
   assert.throws(() => createStarter({ kind: 'saas', theme: 'studio', stack: 'unexpected' }), /Unsupported/);
+});
+
+test('starter handoff carries only validated choices and preserves editable fragment', () => {
+  const starter = createStarter({kind:'business', theme:'noir', stack:'react'});
+  assert.match(starter.fragment, /Contact us/);
+  assert.doesNotMatch(starter.fragment, /<html|<script/i);
+  const href = createPlaygroundHandoff({kind:'business', theme:'noir', stack:'react'});
+  assert.equal(href, 'playground.html#starter=business&theme=noir&stack=react');
+  assert.ok(!href.includes('<'));
+  assert.throws(() => createPlaygroundHandoff({kind:'saas', theme:'grid', stack:'http://unsafe'}), /Unsupported/);
 });

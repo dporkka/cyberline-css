@@ -28,6 +28,13 @@
         <a href="index.html">Documentation</a><a href="blocks.html">Free blocks</a>
         <a href="playground.html">Playground</a><a href="guides.html">Guides</a>
       </nav>
+      <details class="site-mobile-menu">
+        <summary aria-label="Mobile navigation">Menu</summary>
+        <nav aria-label="Starter mobile navigation">
+          <a href="index.html">Documentation</a><a href="blocks.html">Free blocks</a>
+          <a href="playground.html">Playground</a><a href="guides.html">Guides</a>
+        </nav>
+      </details>
     </header>
     <main id="main" class="sw-main">
       <p class="syn-eyebrow">FIRST PROJECT / NO BUILD REQUIRED</p>
@@ -66,8 +73,8 @@
         <label for="starter-code">Generated HTML</label>
         <textarea id="starter-code" class="sw-code" readonly spellcheck="false" aria-label="Generated HTML"></textarea>
         <div class="sw-actions"><button id="starter-copy" class="syn-button" type="button" disabled>Copy HTML</button>
-          <a class="syn-button" href="playground.html">Open Syntyr playground</a></div>
-        <p class="syn-caption">Preview or edit in the playground; this wizard does not automatically import its output. Host applications own real data, authentication, billing and mutations.</p>
+          <a id="starter-edit" class="syn-button" href="playground.html">Edit starter in playground</a></div>
+        <p class="syn-caption">The playground imports the selected starter using a shareable, selection-only URL fragment; it does not transmit or persist generated HTML. After editing, export from the playground. The playground uses the current CSS candidate, so compare against the published alpha.4 package before shipping. Host applications own real data, authentication, billing and mutations.</p>
       </section>
       <noscript><p class="syn-alert">JavaScript is only needed to generate this optional documentation preview. <a href="index.html#install">Install Syntyr manually</a> or <a href="blocks.html">copy a native block</a> without JavaScript.</p></noscript>
     </main>

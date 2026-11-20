@@ -11,6 +11,15 @@ const themes = ['studio', 'grid', 'noir'];
 const stacks = ['html', 'go', 'react'];
 const cssRelease = 'https://syntyr-css.pages.dev/v/0.3.0-alpha.4/syntyr.core.css';
 
+export function createPlaygroundHandoff({ kind, theme, stack }) {
+  // Only a bounded allowlist of identifiers crosses the URL. Never put HTML,
+  // private source or arbitrary user content in history/query parameters.
+  if (!Object.hasOwn(labels, kind) || !themes.includes(theme) || !stacks.includes(stack)) {
+    throw new RangeError('Unsupported starter selection');
+  }
+  return 'playground.html#' + new URLSearchParams({ starter: kind, theme, stack }).toString();
+}
+
 export function createStarter({ kind, theme, stack }) {
   if (!Object.hasOwn(labels, kind) || !themes.includes(theme) || !stacks.includes(stack)) {
     throw new RangeError('Unsupported starter selection');
@@ -61,6 +70,7 @@ export function createStarter({ kind, theme, stack }) {
       : 'Plain HTML: save this output as index.html and serve it alongside the pinned local stylesheet.';
   return {
     html,
+    fragment: body,
     instructions: `Published alpha.4 (v0.3.0-alpha.4). Download ${cssRelease} and self-host it as syntyr.core.css next to index.html. ${integration} This starter is static: add authentication, backend actions, validation and access control in your host application.`,
   };
 }
@@ -72,6 +82,7 @@ if (typeof document !== 'undefined') {
   const help = document.getElementById('starter-instructions');
   const copy = document.getElementById('starter-copy');
   const status = document.getElementById('starter-status');
+  const edit = document.getElementById('starter-edit');
   if (form && result && output && help && copy && status) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -85,6 +96,11 @@ if (typeof document !== 'undefined') {
         help.textContent = starter.instructions;
         result.hidden = false;
         copy.disabled = false;
+        if (edit) edit.href = createPlaygroundHandoff({
+          kind: form.elements.namedItem('kind').value,
+          theme: form.elements.namedItem('theme').value,
+          stack: form.elements.namedItem('stack').value,
+        });
         status.textContent = 'Starter generated locally. Review the HTML and integration notes.';
       } catch {
         status.textContent = 'Select a supported project, theme and integration.';
