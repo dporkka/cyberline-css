@@ -73,6 +73,7 @@ class NativeConsolePatternsTest(unittest.TestCase):
 
     def test_workspace_selector_is_native_and_does_not_claim_to_switch_identity(self):
         self.assertIn('popovertarget="ops-workspaces"', self.html)
+        self.assertIn('aria-label="Choose example workspace: Northstar infrastructure"', self.html)
         self.assertIn('id="ops-workspaces"', self.html)
         self.assertIn('aria-label="Example workspaces"', self.html)
         self.assertIn('aria-current="true"', self.html)
