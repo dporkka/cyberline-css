@@ -63,7 +63,8 @@
     metrics: "syntyr.core.css",
     actions: "syntyr.core.css + syntyr.utilities.css",
     form: "syntyr.core.css + syntyr.utilities.css",
-    cards: "syntyr.core.css"
+    cards: "syntyr.core.css",
+    "starter-custom": "syntyr.core.css"
   };
   function selectedModule() {
     return catalogMap.get(example.value)?.module ||
@@ -75,7 +76,8 @@
     form: "Native labeled fields; validation and submission belong to your application.",
     cards: "Semantic marketing cards using a responsive CSS grid."
   };
-  let framePending = false;
+  let importedStarter = null;
+    let framePending = false;
   if (!example || !theme || !markup || !preview || !viewport || !radius || !padding || !snippet) return;
 
   function numericValue(control, minimum, maximum) {
@@ -182,14 +184,19 @@ ${snippet.previewStylesheets(selectedModule())}
 
   function loadExample() {
     const item = catalogMap.get(example.value);
-    markup.value = item ? item.html : (examples[example.value] || examples.metrics);
+    markup.value = item ? item.html : (
+      example.value === "starter-custom" && importedStarter
+        ? importedStarter.fragment : (examples[example.value] || examples.metrics));
     markup.dispatchEvent(new Event("syntyr:load-example"));
     byId("playground-reference-title").textContent = item ? item.title : "Starter example";
     byId("playground-reference-module").textContent = selectedModule();
     byId("playground-required-stylesheets").textContent = snippet.requiredStylesheets(
       selectedModule()
     ).join(" + ");
-    byId("playground-reference-description").textContent = item ? item.description : starterGuide[example.value];
+    byId("playground-reference-description").textContent = item ? item.description :
+      (example.value === "starter-custom" && importedStarter
+        ? "Imported from Syntyr's starter wizard. This preview uses the current CSS candidate; export against pinned alpha.4 before shipping."
+        : starterGuide[example.value]);
     byId("playground-reference-guidance").textContent = item ? item.guidance :
       "The documentation examples are illustrative. Implement real application actions yourself.";
     const source = byId("playground-source-link");
@@ -227,6 +234,29 @@ ${snippet.previewStylesheets(selectedModule())}
   if (requested && catalogMap.has(requested)) example.value = requested;
   updateViewport();
   loadExample();
+  // The starter wizard passes only public allowlisted selections, not an HTML
+  // payload. Recreate its fragment using the one canonical generator module.
+  const handoff = new URLSearchParams(location.hash.slice(1));
+  if (handoff.has("starter")) {
+    import("./starter-wizard.mjs").then(({ createStarter }) => {
+      const starter = createStarter({
+        kind: handoff.get("starter"),
+        theme: handoff.get("theme"),
+        stack: handoff.get("stack")
+      });
+      importedStarter = starter;
+      const option = document.createElement("option");
+      option.value = "starter-custom";
+      option.textContent = "Starter wizard / generated project";
+      example.append(option);
+      example.value = option.value;
+      theme.value = handoff.get("theme");
+      loadExample();
+      status.textContent = "Starter imported from the wizard. Edit it here, then export your HTML.";
+    }).catch(() => {
+      status.textContent = "Starter handoff was invalid. Choose a catalog example instead.";
+    });
+  }
 })();
 
 /* Geometry mixer is docs-only; application styles remain zero-JavaScript. */

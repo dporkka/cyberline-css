@@ -16,6 +16,7 @@
     "syntyr.data-grid.css",
     "syntyr.print.css",
     "syntyr.email.css",
+    "syntyr.media.css",
     "syntyr.embed.css",
     "syntyr.native-recipes.css",
     "syntyr.semantic-bundle.css",

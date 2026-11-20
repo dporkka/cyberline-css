@@ -92,6 +92,7 @@ class CloudflareSiteTests(unittest.TestCase):
                     "docs/theme-editor.html", "docs/catalog.html",
                     "docs/playground.html", "docs/page-builder.html", "docs/blocks.html",
                     "docs/how-to.html",  # Docs-only search, same CSP as the catalog.
+                    "docs/starter-wizard.html",  # Docs-only generator, no runtime dependency.
                     "examples/animation.html", "examples/copy.html",
                     "examples/resizable-workspace.html",
                     "examples/command-launcher.html",
