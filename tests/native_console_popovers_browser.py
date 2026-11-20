@@ -14,7 +14,7 @@ def validate(browser, browser_name):
         page = context.new_page()
         page.goto(PAGE)
         assert page.evaluate("document.documentElement.scrollWidth <= innerWidth"), f"{browser_name}: width {width} overflow"
-        page.get_by_role("button", name="Choose example workspace").click()
+        page.get_by_role("button", name="Choose example workspace: Northstar infrastructure").click()
         workspaces = page.locator("#ops-workspaces")
         assert workspaces.evaluate("(element) => element.matches(\":popover-open\")"), f"{browser_name}: workspace selector failed to open"
         assert workspaces.get_by_role("link", name="Northstar infrastructure").get_attribute("aria-current") == "true"
